@@ -20,6 +20,33 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\Sources\Dice.cpp" />
+    <ClCompile Include="..\Sources\Enemy.cpp" />
+    <ClCompile Include="..\Sources\Entity.cpp" />
+    <ClCompile Include="..\Sources\Equipment.cpp" />
+    <ClCompile Include="..\Sources\Field.cpp" />
+    <ClCompile Include="..\Sources\Interactive.cpp" />
+    <ClCompile Include="..\Sources\Process.cpp" />
+    <ClCompile Include="..\Sources\Role.cpp" />
+    <ClCompile Include="..\Sources\Skill.cpp" />
+    <ClCompile Include="..\Sources\UI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Includes\Data.h" />
+    <ClInclude Include="..\Includes\Dice.h" />
+    <ClInclude Include="..\Includes\Enemy.h" />
+    <ClInclude Include="..\Includes\Entity.h" />
+    <ClInclude Include="..\Includes\Equipment.h" />
+    <ClInclude Include="..\Includes\Field.h" />
+    <ClInclude Include="..\Includes\headers.h" />
+    <ClInclude Include="..\Includes\Interactive.h" />
+    <ClInclude Include="..\Includes\Process.h" />
+    <ClInclude Include="..\Includes\Role.h" />
+    <ClInclude Include="..\Includes\Skill.h" />
+    <ClInclude Include="..\Includes\UI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

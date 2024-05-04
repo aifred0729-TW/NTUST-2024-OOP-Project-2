@@ -5,18 +5,91 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="標頭檔">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="資源檔">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="標頭檔">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\Dice.cpp">
+      <Filter>資源檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Enemy.cpp">
+      <Filter>資源檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Entity.cpp">
+      <Filter>資源檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Equipment.cpp">
+      <Filter>資源檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Field.cpp">
+      <Filter>資源檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Interactive.cpp">
+      <Filter>資源檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Process.cpp">
+      <Filter>資源檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Role.cpp">
+      <Filter>資源檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Skill.cpp">
+      <Filter>資源檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\UI.cpp">
+      <Filter>資源檔</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Includes\Data.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\UI.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Dice.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Skill.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Process.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Equipment.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Entity.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Role.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Field.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Interactive.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Enemy.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\headers.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Filter>來源檔案</Filter>
+    </None>
   </ItemGroup>
 </Project>

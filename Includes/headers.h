@@ -1,0 +1,19 @@
+#pragma once
+#include <iostream>
+#include <cstdint>
+#include <vector>
+#include <map>
+#include <string>
+#include <windows.h>
+
+#include "Data.h"
+#include "Dice.h"
+#include "Enemy.h"
+#include "Entity.h"
+#include "Equipment.h"
+#include "Field.h"
+#include "Interactive.h"
+#include "Process.h"
+#include "Role.h"
+#include "Skill.h"
+#include "UI.h"
