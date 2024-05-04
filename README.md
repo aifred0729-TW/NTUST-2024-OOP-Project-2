@@ -26,7 +26,7 @@ Commit 必須按照以下的格式進行
 
 Header 作為摘記不要過長；Body 可以描述這次提交的詳細內容；Footer 可以做為額外註記使用
 
-- - Headers
+- Headers
     - FEAT : 新的功能
     - FIX : 修復錯誤
     - DOCS : Document 相關的修改 (CHANGELOG、README、...)
@@ -71,3 +71,11 @@ git checkout branchName
 git status
 git checkout
 ```
+
+## Members
+
+- B11215013 徐牧遠
+- B11230040 劉祐呈
+- B11215024 劉柏毅
+- B11230017 吳秉彥
+- B11230015 蕭天浩
