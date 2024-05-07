@@ -1,7 +1,6 @@
 #include "../HeaderPack.h"
 
-class Equipment
-{
+class Equipment {
 private:
     Attribute attribate;
     Skill     skill;

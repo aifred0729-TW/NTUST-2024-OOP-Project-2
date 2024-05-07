@@ -4,8 +4,7 @@
 // Used COIN¡Acorresponding to ApplyCoin function
 // #include <vector>
 
-class Item
-{
+class Item {
 private:
     static const int ITEM_TOTAL_SIZE;
     static std::vector<std::pair<int, int>> items;          // ItemID / Counts (need initialize)

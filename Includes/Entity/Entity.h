@@ -1,7 +1,6 @@
 #include "../HeaderPack.h"
 
-class Entity
-{
+class Entity {
 private:
     Attribute attribute;      // Attribute
     Skill     skill;          // Skill

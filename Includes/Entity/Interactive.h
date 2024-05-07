@@ -1,7 +1,6 @@
 #include "../HeaderPack.h"
 
-class Interactive
-{
+class Interactive {
 private:
     Role* role;
 

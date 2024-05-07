@@ -1,7 +1,6 @@
 #include "../HeaderPack.h"
 
-class Dice
-{
+class Dice {
 private:
     uint8_t              count;        // Count of Dice
     uint8_t              focusCount;   // Focus Skill Effect

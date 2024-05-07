@@ -1,7 +1,6 @@
 #include "../HeaderPack.h"
 
-class File
-{
+class File {
 private:
     std::fstream FileStream;
 

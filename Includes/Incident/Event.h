@@ -1,7 +1,6 @@
 #include "../HeaderPack.h"
 
-class Event
-{
+class Event {
 private:
     // ...
 

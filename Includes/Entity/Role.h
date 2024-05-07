@@ -1,7 +1,6 @@
 #include "../HeaderPack.h"
 
-class Role : public Entity
-{
+class Role : public Entity {
 private:
     Item      pack;
     Equipment equipment;

@@ -1,7 +1,6 @@
 #include "../HeaderPack.h"
 
-class Process
-{
+class Process {
 private:
 
 public:

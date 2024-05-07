@@ -1,7 +1,6 @@
 #include "../HeaderPack.h"
 
-class Field
-{
+class Field {
 private:
     Dice                dice;               // Dice
     uint8_t             enemyPlayerNumbers; // Count of Enemy

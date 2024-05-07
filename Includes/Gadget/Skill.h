@@ -3,8 +3,8 @@
 // skillTable[ATTACK]();
 // Used ATTACK¡Acorresponding to ApplyAttack function
 // #include <cstdint>
-class Skill
-{
+
+class Skill {
 private:
     uint8_t   idEntity;          // Skill ID
     uint8_t   coolDownTime;      // Skill CD
