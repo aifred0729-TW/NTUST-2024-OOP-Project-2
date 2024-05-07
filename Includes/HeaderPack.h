@@ -8,6 +8,8 @@
 #include <vector>
 #include <windows.h>
 
+#include "Affair.h"
+#include "Chest.h"
 #include "ConstData.h"
 #include "Dice.h"
 #include "Enemy.h"
@@ -15,8 +17,11 @@
 #include "Equipment.h"
 #include "File.h"
 #include "Field.h"
+#include "Game.h"
 #include "Interactive.h"
+#include "Item.h"
 #include "Process.h"
 #include "Role.h"
 #include "Skill.h"
+#include "Store.h"
 #include "UI.h"
