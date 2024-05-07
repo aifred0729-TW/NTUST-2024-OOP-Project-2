@@ -1,95 +1,167 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="來源檔案">
+    <Filter Include="Includes">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Core">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="資源檔">
+    <Filter Include="Sources">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="標頭檔">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Sources\Control">
+      <UniqueIdentifier>{4af4e79c-6f12-4611-9717-a72a4069fc14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Display">
+      <UniqueIdentifier>{94b9d307-0578-45ea-b6d3-21dc65638b14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Entity">
+      <UniqueIdentifier>{726241b2-903b-48a5-9cd5-6257f3675380}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Gadget">
+      <UniqueIdentifier>{b11dd3e0-0106-4acb-83df-af0fdc1f410e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Incident">
+      <UniqueIdentifier>{cb0b3ab8-f570-42f8-9f1b-652c69a8dd5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Includes\Control">
+      <UniqueIdentifier>{00730da4-2fbc-4a9d-ae76-6df3c452735f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Includes\Display">
+      <UniqueIdentifier>{9e738f92-4db4-4ce7-963d-900178250b2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Includes\Entity">
+      <UniqueIdentifier>{f8f5321b-9d66-48b6-87a7-abf990bb4c06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Includes\Gadget">
+      <UniqueIdentifier>{397a5e89-e832-4b7c-bf65-c7772abed6ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Includes\Incident">
+      <UniqueIdentifier>{24112a0d-5adb-42e0-8c63-0f794009cabd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp">
-      <Filter>來源檔案</Filter>
+      <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Dice.cpp">
-      <Filter>資源檔</Filter>
+    <ClCompile Include="..\Sources\Control\File.cpp">
+      <Filter>Sources\Control</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Enemy.cpp">
-      <Filter>資源檔</Filter>
+    <ClCompile Include="..\Sources\Control\Game.cpp">
+      <Filter>Sources\Control</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Entity.cpp">
-      <Filter>資源檔</Filter>
+    <ClCompile Include="..\Sources\Control\WorldMap.cpp">
+      <Filter>Sources\Control</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Equipment.cpp">
-      <Filter>資源檔</Filter>
+    <ClCompile Include="..\Sources\Display\Process.cpp">
+      <Filter>Sources\Display</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Field.cpp">
-      <Filter>資源檔</Filter>
+    <ClCompile Include="..\Sources\Display\UI.cpp">
+      <Filter>Sources\Display</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Interactive.cpp">
-      <Filter>資源檔</Filter>
+    <ClCompile Include="..\Sources\Entity\Chest.cpp">
+      <Filter>Sources\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Process.cpp">
-      <Filter>資源檔</Filter>
+    <ClCompile Include="..\Sources\Entity\Enemy.cpp">
+      <Filter>Sources\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Role.cpp">
-      <Filter>資源檔</Filter>
+    <ClCompile Include="..\Sources\Entity\Entity.cpp">
+      <Filter>Sources\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Skill.cpp">
-      <Filter>資源檔</Filter>
+    <ClCompile Include="..\Sources\Entity\Interactive.cpp">
+      <Filter>Sources\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\UI.cpp">
-      <Filter>資源檔</Filter>
+    <ClCompile Include="..\Sources\Entity\Role.cpp">
+      <Filter>Sources\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Entity\Store.cpp">
+      <Filter>Sources\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Equipment.cpp">
+      <Filter>Sources\Gadget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Item.cpp">
+      <Filter>Sources\Gadget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Skill.cpp">
+      <Filter>Sources\Gadget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Dice.cpp">
+      <Filter>Sources\Gadget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Incident\Affair.cpp">
+      <Filter>Sources\Incident</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Incident\Field.cpp">
+      <Filter>Sources\Incident</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Includes\Data.h">
-      <Filter>標頭檔</Filter>
+    <ClInclude Include="..\Includes\ConstData.h">
+      <Filter>Includes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\UI.h">
-      <Filter>標頭檔</Filter>
+    <ClInclude Include="..\Includes\HeaderPack.h">
+      <Filter>Includes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\Dice.h">
-      <Filter>標頭檔</Filter>
+    <ClInclude Include="..\Includes\Control\File.h">
+      <Filter>Includes\Control</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\Skill.h">
-      <Filter>標頭檔</Filter>
+    <ClInclude Include="..\Includes\Control\Game.h">
+      <Filter>Includes\Control</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\Process.h">
-      <Filter>標頭檔</Filter>
+    <ClInclude Include="..\Includes\Control\WorldMap.h">
+      <Filter>Includes\Control</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\Equipment.h">
-      <Filter>標頭檔</Filter>
+    <ClInclude Include="..\Includes\Display\Process.h">
+      <Filter>Includes\Display</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\Entity.h">
-      <Filter>標頭檔</Filter>
+    <ClInclude Include="..\Includes\Display\UI.h">
+      <Filter>Includes\Display</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\Role.h">
-      <Filter>標頭檔</Filter>
+    <ClInclude Include="..\Includes\Entity\Chest.h">
+      <Filter>Includes\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\Field.h">
-      <Filter>標頭檔</Filter>
+    <ClInclude Include="..\Includes\Entity\Enemy.h">
+      <Filter>Includes\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\Interactive.h">
-      <Filter>標頭檔</Filter>
+    <ClInclude Include="..\Includes\Entity\Entity.h">
+      <Filter>Includes\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\Enemy.h">
-      <Filter>標頭檔</Filter>
+    <ClInclude Include="..\Includes\Entity\Interactive.h">
+      <Filter>Includes\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\headers.h">
-      <Filter>標頭檔</Filter>
+    <ClInclude Include="..\Includes\Entity\Role.h">
+      <Filter>Includes\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Entity\Store.h">
+      <Filter>Includes\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Dice.h">
+      <Filter>Includes\Gadget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Equipment.h">
+      <Filter>Includes\Gadget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Item.h">
+      <Filter>Includes\Gadget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Skill.h">
+      <Filter>Includes\Gadget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Incident\Affair.h">
+      <Filter>Includes\Incident</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Incident\Field.h">
+      <Filter>Includes\Incident</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">
-      <Filter>來源檔案</Filter>
+      <Filter>Core</Filter>
     </None>
   </ItemGroup>
 </Project>

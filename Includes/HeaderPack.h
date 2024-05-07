@@ -8,20 +8,31 @@
 #include <vector>
 #include <windows.h>
 
-#include "Affair.h"
-#include "Chest.h"
 #include "ConstData.h"
-#include "Dice.h"
-#include "Enemy.h"
-#include "Entity.h"
-#include "Equipment.h"
-#include "File.h"
-#include "Field.h"
-#include "Game.h"
-#include "Interactive.h"
-#include "Item.h"
-#include "Process.h"
-#include "Role.h"
-#include "Skill.h"
-#include "Store.h"
-#include "UI.h"
+
+// Control - Red
+#include "Control/Game.h"
+#include "Control/WorldMap.h"
+#include "Control/File.h"
+
+// Display - LcX_Akita
+#include "Display/UI.h"
+#include "Display/Process.h"
+
+// Gadget - abb00717
+#include "Gadget/Dice.h"
+#include "Gadget/Skill.h"
+#include "Gadget/Equipment.h"
+#include "Gadget/Item.h"
+
+// Entity - tianjiumiao
+#include "Entity/Interactive.h"
+#include "Entity/Chest.h"
+#include "Entity/Store.h"
+#include "Entity/Entity.h"
+#include "Entity/Role.h"
+#include "Entity/Enemy.h"
+
+// Incident - battlecat
+#include "Incident/Affair.h"
+#include "Incident/Field.h"

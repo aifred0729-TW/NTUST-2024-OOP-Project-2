@@ -20,30 +20,44 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
-    <ClCompile Include="..\Sources\Dice.cpp" />
-    <ClCompile Include="..\Sources\Enemy.cpp" />
-    <ClCompile Include="..\Sources\Entity.cpp" />
-    <ClCompile Include="..\Sources\Equipment.cpp" />
-    <ClCompile Include="..\Sources\Field.cpp" />
-    <ClCompile Include="..\Sources\Interactive.cpp" />
-    <ClCompile Include="..\Sources\Process.cpp" />
-    <ClCompile Include="..\Sources\Role.cpp" />
-    <ClCompile Include="..\Sources\Skill.cpp" />
-    <ClCompile Include="..\Sources\UI.cpp" />
+    <ClCompile Include="..\Sources\Control\File.cpp" />
+    <ClCompile Include="..\Sources\Control\Game.cpp" />
+    <ClCompile Include="..\Sources\Control\WorldMap.cpp" />
+    <ClCompile Include="..\Sources\Display\Process.cpp" />
+    <ClCompile Include="..\Sources\Display\UI.cpp" />
+    <ClCompile Include="..\Sources\Entity\Chest.cpp" />
+    <ClCompile Include="..\Sources\Entity\Enemy.cpp" />
+    <ClCompile Include="..\Sources\Entity\Entity.cpp" />
+    <ClCompile Include="..\Sources\Entity\Interactive.cpp" />
+    <ClCompile Include="..\Sources\Entity\Role.cpp" />
+    <ClCompile Include="..\Sources\Entity\Store.cpp" />
+    <ClCompile Include="..\Sources\Gadget\Dice.cpp" />
+    <ClCompile Include="..\Sources\Gadget\Equipment.cpp" />
+    <ClCompile Include="..\Sources\Gadget\Item.cpp" />
+    <ClCompile Include="..\Sources\Gadget\Skill.cpp" />
+    <ClCompile Include="..\Sources\Incident\Affair.cpp" />
+    <ClCompile Include="..\Sources\Incident\Field.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Includes\Data.h" />
-    <ClInclude Include="..\Includes\Dice.h" />
-    <ClInclude Include="..\Includes\Enemy.h" />
-    <ClInclude Include="..\Includes\Entity.h" />
-    <ClInclude Include="..\Includes\Equipment.h" />
-    <ClInclude Include="..\Includes\Field.h" />
-    <ClInclude Include="..\Includes\headers.h" />
-    <ClInclude Include="..\Includes\Interactive.h" />
-    <ClInclude Include="..\Includes\Process.h" />
-    <ClInclude Include="..\Includes\Role.h" />
-    <ClInclude Include="..\Includes\Skill.h" />
-    <ClInclude Include="..\Includes\UI.h" />
+    <ClInclude Include="..\Includes\ConstData.h" />
+    <ClInclude Include="..\Includes\Control\File.h" />
+    <ClInclude Include="..\Includes\Control\Game.h" />
+    <ClInclude Include="..\Includes\Control\WorldMap.h" />
+    <ClInclude Include="..\Includes\Display\Process.h" />
+    <ClInclude Include="..\Includes\Display\UI.h" />
+    <ClInclude Include="..\Includes\Entity\Chest.h" />
+    <ClInclude Include="..\Includes\Entity\Enemy.h" />
+    <ClInclude Include="..\Includes\Entity\Entity.h" />
+    <ClInclude Include="..\Includes\Entity\Interactive.h" />
+    <ClInclude Include="..\Includes\Entity\Role.h" />
+    <ClInclude Include="..\Includes\Entity\Store.h" />
+    <ClInclude Include="..\Includes\Gadget\Dice.h" />
+    <ClInclude Include="..\Includes\Gadget\Equipment.h" />
+    <ClInclude Include="..\Includes\Gadget\Item.h" />
+    <ClInclude Include="..\Includes\Gadget\Skill.h" />
+    <ClInclude Include="..\Includes\HeaderPack.h" />
+    <ClInclude Include="..\Includes\Incident\Affair.h" />
+    <ClInclude Include="..\Includes\Incident\Field.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
@@ -106,6 +120,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>J:\OneDrive - gapps.ntust.edu.tw\NTUST\大一下\物件導向程式設計\Project\For the King\Includes\Incident;J:\OneDrive - gapps.ntust.edu.tw\NTUST\大一下\物件導向程式設計\Project\For the King\Includes\Gadget;J:\OneDrive - gapps.ntust.edu.tw\NTUST\大一下\物件導向程式設計\Project\For the King\Includes\Entity;J:\OneDrive - gapps.ntust.edu.tw\NTUST\大一下\物件導向程式設計\Project\For the King\Includes\Display;J:\OneDrive - gapps.ntust.edu.tw\NTUST\大一下\物件導向程式設計\Project\For the King\Includes\Control;J:\OneDrive - gapps.ntust.edu.tw\NTUST\大一下\物件導向程式設計\Project\For the King\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
