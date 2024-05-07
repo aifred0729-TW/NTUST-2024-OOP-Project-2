@@ -34,5 +34,5 @@
 #include "Entity/Enemy.h"
 
 // Incident - battlecat
-#include "Incident/Affair.h"
+#include "Incident/Event.h"
 #include "Incident/Field.h"

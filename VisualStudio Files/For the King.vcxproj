@@ -35,7 +35,7 @@
     <ClCompile Include="..\Sources\Gadget\Equipment.cpp" />
     <ClCompile Include="..\Sources\Gadget\Item.cpp" />
     <ClCompile Include="..\Sources\Gadget\Skill.cpp" />
-    <ClCompile Include="..\Sources\Incident\Affair.cpp" />
+    <ClCompile Include="..\Sources\Incident\Event.cpp" />
     <ClCompile Include="..\Sources\Incident\Field.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -56,7 +56,7 @@
     <ClInclude Include="..\Includes\Gadget\Item.h" />
     <ClInclude Include="..\Includes\Gadget\Skill.h" />
     <ClInclude Include="..\Includes\HeaderPack.h" />
-    <ClInclude Include="..\Includes\Incident\Affair.h" />
+    <ClInclude Include="..\Includes\Incident\Event.h" />
     <ClInclude Include="..\Includes\Incident\Field.h" />
   </ItemGroup>
   <ItemGroup>

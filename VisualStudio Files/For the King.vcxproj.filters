@@ -93,7 +93,7 @@
     <ClCompile Include="..\Sources\Gadget\Dice.cpp">
       <Filter>Sources\Gadget</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Incident\Affair.cpp">
+    <ClCompile Include="..\Sources\Incident\Event.cpp">
       <Filter>Sources\Incident</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Incident\Field.cpp">
@@ -152,7 +152,7 @@
     <ClInclude Include="..\Includes\Gadget\Skill.h">
       <Filter>Includes\Gadget</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\Incident\Affair.h">
+    <ClInclude Include="..\Includes\Incident\Event.h">
       <Filter>Includes\Incident</Filter>
     </ClInclude>
     <ClInclude Include="..\Includes\Incident\Field.h">
