@@ -26,31 +26,20 @@ R"(
      \/__/                       \/__/         \/__/                                              \/__/         \|__|         \/__/                     \/__/         \/__/    
 )"
 
-struct Attribute {
-	uint8_t focus;     // Focus
-	uint8_t maxHP;     // Max HP
-	uint8_t SPD;       // Speed
-	uint8_t ACC;       // Hit Rate
-	uint8_t PA;        // Physical Attack
-	uint8_t MA;        // Magic Attack
-	uint8_t PD;        // Physical Defense
-	uint8_t MD;        // Magic Defense
-};
-
 enum SKILL_TYPE {
-	ATTACK,         // Attack
-	FLEE,           // Flee
-	PROVOKE,        // Provoke
-	SHOCKBLAST,     // Shock Blast
-	HEAL,           // Healing
-	SPEEDUP,   	    // Speed Up
-	RUN,    	    // Use Physical Power to Roll Dice
-	HAMMERSPLASH,   // Hammer Splash
-	DESTORY,        // Destory
-	FORTIFY,        // Foritfy
-	SKILL111,       // Custom Skill 1
-	SKILL222,       // Custom Skill 2
-	SKILL333,       // Custom Skill 3
+	ATTACK,       // Attack
+	FLEE,         // Flee
+	PROVOKE,      // Provoke
+	SHOCKBLAST,   // Shock Blast
+	HEAL,         // Healing
+	SPEEDUP,   	  // Speed Up
+	RUN,	      // Use Physical Power to Roll Dice
+	HAMMERSPLASH, // Hammer Splash
+	DESTORY,      // Destory
+	FORTIFY,      // Foritfy
+	SKILL111,     // Custom Skill 1
+	SKILL222,     // Custom Skill 2
+	SKILL333,     // Custom Skill 3
 	SKILL_TOTAL_SIZE
 };
 

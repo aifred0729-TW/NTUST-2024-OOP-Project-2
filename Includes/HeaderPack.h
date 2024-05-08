@@ -20,6 +20,7 @@
 #include "Display/Process.h"
 
 // Gadget - abb00717
+#include "Gadget/Attribute.h"
 #include "Gadget/Dice.h"
 #include "Gadget/Skill.h"
 #include "Gadget/Equipment.h"
