@@ -2,6 +2,6 @@
 
 // Public
 
-bool Entity::isInRangeOf(std::vector<Entity*>) {
+bool Entity::isInRange(std::vector<Entity*>) {
     ;
 }

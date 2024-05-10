@@ -24,7 +24,7 @@ private:
 
 private:
     // Log who will use backpack
-    std::vector<Role*> packUser;
+    std::vector<Role*> packUsers;
 
 public:
     // Use Item to XXX Role

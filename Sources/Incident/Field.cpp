@@ -2,6 +2,6 @@
 
 // Public
 
-void Field::ProbeStatus(uint8_t) {
+void Field::DetectStatus(uint8_t) {
 	;
 }

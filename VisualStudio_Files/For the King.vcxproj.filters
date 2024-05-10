@@ -99,6 +99,9 @@
     <ClCompile Include="..\Sources\Incident\Field.cpp">
       <Filter>Sources\Incident</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Attribute.cpp">
+      <Filter>Sources\Gadget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Includes\ConstData.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="..\Includes\Incident\Field.h">
       <Filter>Includes\Incident</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Attribute.h">
+      <Filter>Includes\Gadget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
