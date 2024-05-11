@@ -1,4 +1,9 @@
-#include "../HeaderPack.h"
+#pragma once
+#include <cstdint>
+
+#include "../Entity/Entity.h"
+#include "../Gadget/Dice.h"
+#include "../ConstData.h"
 
 // skillTable[ATTACK]();
 // Used ATTACK¡Acorresponding to ApplyAttack function
@@ -6,7 +11,7 @@
 
 class Skill {
 private:
-	uint8_t   skillID;          // Skill ID
+	uint8_t   skillID;           // Skill ID
 	uint8_t   coolDownTime;      // Skill CD
 	Dice      dice;              // Dice
 	Entity* skillUser;           // Role of use skill

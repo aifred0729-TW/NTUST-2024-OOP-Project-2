@@ -1,4 +1,11 @@
+#pragma once
 #include "../HeaderPack.h"
+
+#include "../Entity/Entity.h"
+#include "../Entity/Store.h"
+#include "../Entity/Interactive.h"
+#include "../Gadget/Dice.h"
+#include "../Incident/Field.h"
 
 class Process {
 private:

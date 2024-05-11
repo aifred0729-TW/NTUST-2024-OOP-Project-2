@@ -1,4 +1,15 @@
-#include "../HeaderPack.h"
+#pragma once
+#include <cstdint>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <stack>
+#include <string>
+#include <vector>
+#include <windows.h>
+
+#include "WorldMap.h"
+#include "../Entity/Role.h"
 
 class Game {
 private:

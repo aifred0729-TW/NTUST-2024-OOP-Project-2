@@ -1,4 +1,15 @@
-#include "../HeaderPack.h"
+#pragma once
+#include <cstdint>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <stack>
+#include <string>
+#include <vector>
+#include <windows.h>
+
+#include "../Entity/Enemy.h"
+#include "../Entity/Role.h"
 
 class Field {
 private:

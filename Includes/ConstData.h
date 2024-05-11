@@ -1,3 +1,4 @@
+#pragma once
 #include "HeaderPack.h"
 
 #define BANNER = \
@@ -77,6 +78,7 @@ enum ITEM_TYPE
 	XXX111, // Custom Item 1
 	XXX222, // Custom Item 2
 	XXX333, // Custom Item 3
+	ITEM_TOTAL_SIZE
 };  // Item Type
 
 enum STATUS_TYPE

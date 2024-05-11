@@ -1,4 +1,7 @@
-#include "../HeaderPack.h"
+#pragma once
+
+#include "../Entity/Role.h"
+#include "../ConstData.h"
 
 // itemTable[COIN]();
 // Used COIN¡Acorresponding to ApplyCoin function
@@ -6,7 +9,6 @@
 
 class Item {
 private:
-    static const int ITEM_TOTAL_SIZE;
     static std::vector<std::pair<int, int>> items;          // ItemID / Counts (need initialize)
     static void (* const itemTable[ITEM_TOTAL_SIZE])(void); // ItemTable (need initialize¡Ffunction of ApplyXXX)
 

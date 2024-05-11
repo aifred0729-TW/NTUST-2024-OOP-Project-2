@@ -1,4 +1,15 @@
-#include "../HeaderPack.h"
+#pragma once
+#include <cstdint>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <stack>
+#include <string>
+#include <vector>
+#include <windows.h>
+
+#include "Interactive.h"
+#include "Role.h"
 
 class Chest : public Interactive {
 public:

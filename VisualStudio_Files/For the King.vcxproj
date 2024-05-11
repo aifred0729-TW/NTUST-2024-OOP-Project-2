@@ -122,7 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>J:\OneDrive - gapps.ntust.edu.tw\NTUST\大一下\物件導向程式設計\Project\For the King\Includes\Incident;J:\OneDrive - gapps.ntust.edu.tw\NTUST\大一下\物件導向程式設計\Project\For the King\Includes\Gadget;J:\OneDrive - gapps.ntust.edu.tw\NTUST\大一下\物件導向程式設計\Project\For the King\Includes\Entity;J:\OneDrive - gapps.ntust.edu.tw\NTUST\大一下\物件導向程式設計\Project\For the King\Includes\Display;J:\OneDrive - gapps.ntust.edu.tw\NTUST\大一下\物件導向程式設計\Project\For the King\Includes\Control;J:\OneDrive - gapps.ntust.edu.tw\NTUST\大一下\物件導向程式設計\Project\For the King\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Includes;..\Includes\Control;..\Includes\Display;..\Includes\Entity;..\Includes\Gadget;..\Includes\Incident;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

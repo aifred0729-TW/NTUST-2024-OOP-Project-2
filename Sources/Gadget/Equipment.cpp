@@ -1,4 +1,4 @@
-#include "../../Includes/HeaderPack.h"
+#include "../../Includes/Gadget/Equipment.h"
 
 // Public
 

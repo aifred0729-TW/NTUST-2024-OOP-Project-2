@@ -1,4 +1,9 @@
-#include "../HeaderPack.h"
+#pragma once
+
+#include <cstdint>
+#include <vector>
+#include "../Gadget/Attribute.h"
+#include "../Gadget/Skill.h"
 
 class Entity {
 private:

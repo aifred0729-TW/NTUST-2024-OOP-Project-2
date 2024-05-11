@@ -1,4 +1,16 @@
-#include "../HeaderPack.h"
+#pragma once
+#include <cstdint>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <stack>
+#include <string>
+#include <vector>
+#include <windows.h>
+
+#include "../Control/WorldMap.h"
+#include "../Incident/Field.h"
+#include "../Entity/Store.h"
 
 class UI {
 private:
