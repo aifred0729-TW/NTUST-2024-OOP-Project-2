@@ -34,6 +34,6 @@ int UI::Display(Interactive*) {
     return 0;
 }
 
-int UI::ReLocation(Entity*) {
+int UI::ReLocation(Role*) {
     return 0;
 }

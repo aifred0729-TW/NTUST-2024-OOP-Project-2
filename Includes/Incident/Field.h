@@ -24,11 +24,32 @@ private:
     uint8_t             round;              // Current Round
 
 private:
+    void StartRound(void);
+    void StartTurn(void);
+
+private:
+    void MainPhase(void);
+    void BattlePhase(void);
+    void DamagePhase(void);
+    void ExitPhase(void);
+
+private:
+    void SetEntityIDForUI(void);
+
+    void RefreshPriority(void);
+    void ChooseSkill(void);
+    void ChooseTarget(void);
+    void UsingFocus(void);
+
     // Detect Status and Compute
-    void DetectStatus(uint8_t);
+    void ProbeStatus(uint8_t);
 
 public:
-    // ...
+    // Set Combat Configuation
+    Field(std::vector<Role*>, std::vector<Enemy*>);
+    // Start Combat
+    void StartBattle(void);
+
 };
 
 #endif

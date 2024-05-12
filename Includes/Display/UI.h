@@ -10,6 +10,7 @@
 #include <vector>
 #include <windows.h>
 
+#include <Role.h>
 #include <WorldMap.h>
 #include <Field.h>
 #include <Store.h>
@@ -36,8 +37,8 @@ public:
     // Display Dice
     int Display(std::vector<Dice*>);
 
-    // Display Information of Roles
-    int Display(std::vector<Entity*>);
+    // Display Information of Entities for Field through its ID
+    int Display(Entity*);
 
     // Display Battle Status
     int Display(Field*);
@@ -45,11 +46,14 @@ public:
     // Display Shops
     int Display(Store*);
 
+    // Display Shops
+    int Display(const std::string);
+
     // Display Interactive Objects
     int Display(Interactive*);
 
     // Relocation Map to Roles¡Aand Make it the Center Point Shows Part of Map
-    int ReLocation(Entity*);
+    int ReLocation(Role*);
 
     // ...
 };

@@ -19,6 +19,7 @@ private:
     uint8_t   weaponID;       // Current Weapon
     uint8_t   armorID;        // Current Armor
     uint8_t   accessoryID;    // Current Accessory
+    int8_t    entityID;       // label for class UI and Field
     // For each current attribute, you can use vector<uint8_t> to replace uint8_t to extend the current attribute to a plurality of
 
 public:
@@ -33,6 +34,7 @@ public:
     void SetWeaponID(const uint8_t);
     void SetArmorID(const uint8_t);
     void SetAccessoryID(const uint8_t);
+    void SetEntityID(const int8_t);
 
     Attribute GetAttribute(void);
     Skill     GetSkill(void);
@@ -44,6 +46,7 @@ public:
     uint8_t   GetWeaponID(void);
     uint8_t   GetArmorID(void);
     uint8_t   GetAccessoryID(void);
+    int8_t    GetEntityID(void);
 
 public:
     // Find the Enemy in Range
