@@ -6,6 +6,7 @@
 #include <iostream>
 #include <map>
 #include <stack>
+#include <queue>
 #include <string>
 #include <vector>
 #include <windows.h>
@@ -16,33 +17,27 @@
 class Field {
 private:
     Dice                dice;               // Dice
-    uint8_t             enemyPlayerCount;   // Count of Enemy
     std::vector<Enemy*> enemyEngage;        // Engage Enemys
-    uint8_t             rolePlayerCount;    // Count of Role
     std::vector<Role*>  roleEngage;         // Engage Roles
-    uint8_t             turn;               // Current Turn
-    uint8_t             round;              // Current Round
 
-private:
-    void StartRound(void);
-    void StartTurn(void);
-
-private:
-    void MainPhase(void);
-    void BattlePhase(void);
-    void DamagePhase(void);
+public:
+    void MainPhase(Enemy*);
+    void BattlePhase(Enemy*);
+    void DamagePhase(Enemy*);
+    void MainPhase(Role*);
+    void BattlePhase(Role*);
+    void DamagePhase(Role*);
     void ExitPhase(void);
 
-private:
-    void SetEntityIDForUI(void);
-
-    void RefreshPriority(void);
-    void ChooseSkill(void);
-    void ChooseTarget(void);
-    void UsingFocus(void);
-
+    void Init(void);
+    void ChooseSkill(Role*);
+    void ChooseTarget(Role*);
+    void UsingFocus(Role*);
     // Detect Status and Compute
-    void ProbeStatus(uint8_t);
+
+    Entity* RefreshPriority(void);
+    bool AllRoleDead(void);
+    bool AllEnemyDead(void);
 
 public:
     // Set Combat Configuation
