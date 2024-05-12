@@ -1,4 +1,6 @@
-#pragma once
+#ifndef EVENT_H
+#define EVENT_H
+
 #include <cstdint>
 #include <fstream>
 #include <iostream>
@@ -8,7 +10,7 @@
 #include <vector>
 #include <windows.h>
 
-#include "../Entity/Entity.h"
+#include <Entity.h>
 
 class Event {
 private:
@@ -24,3 +26,5 @@ public:
     // Random Event
     int Random(std::vector<Entity*>, std::vector<Entity*>);
 };
+
+#endif

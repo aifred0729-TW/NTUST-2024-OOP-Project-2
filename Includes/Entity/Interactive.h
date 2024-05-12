@@ -1,4 +1,6 @@
-#pragma once
+#ifndef INTERACTIVE_H
+#define INTERACTIVE_H
+
 #include <cstdint>
 #include <fstream>
 #include <iostream>
@@ -8,13 +10,19 @@
 #include <vector>
 #include <windows.h>
 
-#include "Role.h"
+#include <Role.h>
 
 class Interactive {
 private:
-    Role* role;
+    Role *role;
+
+public:
+    void SetRole(const Role*);
+    Role* GetRole(void);
 
 public:
     // Role Trigger Event
     void TriggeredBy(Role*);
 };
+
+#endif

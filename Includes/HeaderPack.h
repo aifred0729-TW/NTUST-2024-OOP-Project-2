@@ -1,4 +1,6 @@
-#pragma once
+#ifndef HEADER_PACK_H
+#define HEADER_PACK_H
+
 #include <cstdint>
 #include <fstream>
 #include <iostream>
@@ -8,4 +10,6 @@
 #include <vector>
 #include <windows.h>
 
-#include "ConstData.h"
+#include <ConstData.h>
+
+#endif

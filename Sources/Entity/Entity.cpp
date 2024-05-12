@@ -3,5 +3,5 @@
 // Public
 
 bool Entity::isInRange(std::vector<Entity*>) {
-    ;
+    return 0;
 }

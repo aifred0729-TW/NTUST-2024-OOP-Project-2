@@ -1,14 +1,19 @@
-#pragma once
+#ifndef PROCESS_H
+#define PROCESS_H
+
 #include "../HeaderPack.h"
 
-#include "../Entity/Entity.h"
-#include "../Entity/Store.h"
-#include "../Entity/Interactive.h"
-#include "../Gadget/Dice.h"
-#include "../Incident/Field.h"
+#include <Entity.h>
+#include <Store.h>
+#include <Interactive.h>
+#include <Dice.h>
+#include <Field.h>
 
 class Process {
 private:
+
+public:
+    Process(/**/);
 
 public:
     // Handle Prepare Battle
@@ -37,3 +42,5 @@ public:
 
     // ...
 };
+
+#endif

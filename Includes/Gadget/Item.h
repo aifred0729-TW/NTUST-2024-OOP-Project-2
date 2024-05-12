@@ -1,11 +1,13 @@
-#pragma once
+#ifndef ITEM_H
+#define ITEM_H
 
-#include "../Entity/Role.h"
-#include "../ConstData.h"
+#include <ConstData.h>
 
 // itemTable[COIN]();
 // Used COIN¡Acorresponding to ApplyCoin function
 // #include <vector>
+
+class Role;
 
 class Item {
 private:
@@ -32,3 +34,5 @@ public:
     // Use Item to XXX Role
     void ApplyItemTo(uint8_t, std::vector<Role*>);
 };
+
+#endif

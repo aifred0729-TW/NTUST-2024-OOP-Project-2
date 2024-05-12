@@ -1,4 +1,6 @@
-#pragma once
+#ifndef FIELD_H
+#define FIELD_H
+
 #include <cstdint>
 #include <fstream>
 #include <iostream>
@@ -8,15 +10,15 @@
 #include <vector>
 #include <windows.h>
 
-#include "../Entity/Enemy.h"
-#include "../Entity/Role.h"
+#include <Enemy.h>
+#include <Role.h>
 
 class Field {
 private:
     Dice                dice;               // Dice
-    uint8_t             enemyPlayerCount; // Count of Enemy
+    uint8_t             enemyPlayerCount;   // Count of Enemy
     std::vector<Enemy*> enemyEngage;        // Engage Enemys
-    uint8_t             rolePlayerCount;  // Count of Role
+    uint8_t             rolePlayerCount;    // Count of Role
     std::vector<Role*>  roleEngage;         // Engage Roles
     uint8_t             turn;               // Current Turn
     uint8_t             round;              // Current Round
@@ -28,3 +30,5 @@ private:
 public:
     // ...
 };
+
+#endif

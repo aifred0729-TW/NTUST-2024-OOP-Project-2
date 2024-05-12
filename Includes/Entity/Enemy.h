@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ENEMY_H
+#define ENEMY_H
+
 #include <cstdint>
 #include <fstream>
 #include <iostream>
@@ -8,8 +10,11 @@
 #include <vector>
 #include <windows.h>
 
-#include "Interactive.h"
+#include <Interactive.h>
 
 class Enemy : public Entity, public Interactive {
-
+public:
+	Enemy(/**/);
 };
+
+#endif

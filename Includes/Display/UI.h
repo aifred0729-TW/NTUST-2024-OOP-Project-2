@@ -1,4 +1,6 @@
-#pragma once
+#ifndef UI_H
+#define UI_H
+
 #include <cstdint>
 #include <fstream>
 #include <iostream>
@@ -8,15 +10,18 @@
 #include <vector>
 #include <windows.h>
 
-#include "../Control/WorldMap.h"
-#include "../Incident/Field.h"
-#include "../Entity/Store.h"
+#include <WorldMap.h>
+#include <Field.h>
+#include <Store.h>
 
 class UI {
 private:
     std::stack<std::vector<std::vector<char>>> prevPicture;
     WorldMap* worldMapPoac;
     Field* fieldPointer;
+
+public:
+    UI(/**/);
 
 public:
     // Prepare Battle
@@ -48,3 +53,5 @@ public:
 
     // ...
 };
+
+#endif

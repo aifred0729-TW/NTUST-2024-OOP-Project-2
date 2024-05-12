@@ -1,9 +1,12 @@
-#pragma once
+#ifndef SKILL_H
+#define SKILL_H
+
 #include <cstdint>
 
-#include "../Entity/Entity.h"
-#include "../Gadget/Dice.h"
-#include "../ConstData.h"
+#include <Dice.h>
+#include <ConstData.h>
+
+class Entity;
 
 // skillTable[ATTACK]();
 // Used ATTACK¡Acorresponding to ApplyAttack function
@@ -39,3 +42,5 @@ public:
 	// Use Skill (SkillType, Skilluser, Skilltarget)
 	void ApplySkill(uint8_t, Entity*, std::vector<Entity*>);
 };
+
+#endif
