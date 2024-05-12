@@ -1,12 +1,16 @@
-#include "../HeaderPack.h"
+#ifndef ITEM_H
+#define ITEM_H
+
+#include <ConstData.h>
 
 // itemTable[COIN]();
 // Used COIN¡Acorresponding to ApplyCoin function
 // #include <vector>
 
+class Role;
+
 class Item {
 private:
-    static const int ITEM_TOTAL_SIZE;
     static std::vector<std::pair<int, int>> items;          // ItemID / Counts (need initialize)
     static void (* const itemTable[ITEM_TOTAL_SIZE])(void); // ItemTable (need initialize¡Ffunction of ApplyXXX)
 
@@ -30,3 +34,5 @@ public:
     // Use Item to XXX Role
     void ApplyItemTo(uint8_t, std::vector<Role*>);
 };
+
+#endif

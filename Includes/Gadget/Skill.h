@@ -1,4 +1,12 @@
-#include "../HeaderPack.h"
+#ifndef SKILL_H
+#define SKILL_H
+
+#include <cstdint>
+
+#include <Dice.h>
+#include <ConstData.h>
+
+class Entity;
 
 // skillTable[ATTACK]();
 // Used ATTACK¡Acorresponding to ApplyAttack function
@@ -6,7 +14,7 @@
 
 class Skill {
 private:
-	uint8_t   skillID;          // Skill ID
+	uint8_t   skillID;           // Skill ID
 	uint8_t   coolDownTime;      // Skill CD
 	Dice      dice;              // Dice
 	Entity* skillUser;           // Role of use skill
@@ -34,3 +42,5 @@ public:
 	// Use Skill (SkillType, Skilluser, Skilltarget)
 	void ApplySkill(uint8_t, Entity*, std::vector<Entity*>);
 };
+
+#endif

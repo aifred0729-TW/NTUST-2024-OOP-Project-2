@@ -1,7 +1,7 @@
-#include "../../Includes/HeaderPack.h"
+#include "../../Includes/Entity/Entity.h"
 
 // Public
 
 bool Entity::isInRange(std::vector<Entity*>) {
-    ;
+    return 0;
 }
