@@ -14,10 +14,10 @@ Dice::Dice(uint8_t amount, uint8_t successRate) {
 Dice::Dice(uint8_t speed) {
 	this->focusCount = 0;
 	this->movementPoint = 0;
-	this->amount = static_cast<uint8_t>(speed / 10);
+	this->amount = static_cast<uint8_t>(speed / 10); // MaxMovementPoint := Stat::Speed / 10
 	this->result.resize(this->amount, false);
 	this->rateAddition.resize(this->amount, 0);
-	this->successRate.resize(this->amount, std::min<uint8_t>(90, speed));
+	this->successRate.resize(this->amount, std::min<uint8_t>(90, speed)); // successRate := Stat::Speed / 100, but not exceed 90.
 }
 
 void Dice::RollDice(void) {
@@ -25,8 +25,6 @@ void Dice::RollDice(void) {
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> dis(0, 99);
-
-	// Reset Movement Point
 	this->movementPoint = 0;
 
 	// Roll Dice
@@ -37,10 +35,8 @@ void Dice::RollDice(void) {
 		}
 	}
 
-	// Reset Focus Count
+	// Reset FocusCount and RateAddition
 	this->focusCount = 0;
-
-	// Reset Rate Addition
 	this->rateAddition.clear();
 	this->rateAddition.resize(this->amount, 0);
 }

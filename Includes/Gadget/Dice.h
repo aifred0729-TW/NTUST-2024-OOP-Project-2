@@ -21,7 +21,9 @@ private:
     std::vector<bool>    result;            // Dice Result
 
 public:
+    // Construct dice to calculate movementPoint for map navigation (movement on map).
     Dice(uint8_t speed); 
+    // Construct dice with a uniform successRate.
     Dice(uint8_t amount, uint8_t successRate);
 
     void setMovementPoint(const uint8_t);
@@ -39,7 +41,7 @@ public:
     std::vector<bool>    GetResult(void);
 
 public:
-    // Roll Dice
+    // Caution: FocusCount and RateAddition would be reset after rolling dice.
     void RollDice(void);
 };
 
