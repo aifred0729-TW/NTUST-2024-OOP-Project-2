@@ -29,6 +29,11 @@ R"(
      \/__/                       \/__/         \/__/                                              \/__/         \|__|         \/__/                     \/__/         \/__/    
 )"
 
+enum MODE {
+	ROLE,
+	ENEMY,
+};
+
 enum SKILL_TYPE {
 	ATTACK,       // Attack
 	FLEE,         // Flee
@@ -90,6 +95,7 @@ enum STATUS_TYPE
 	BLEED = 0x4,
 	DIZZINESS = 0x8,
 	ANGRY = 0x10,
+	FLEE = 0x20,
 };  // Status Type
 
 #endif
