@@ -28,6 +28,7 @@ public:
 
     void setMovementPoint(const uint8_t);
     void SetAmount(const uint8_t);
+    // Ensure that the focusCount is less than or equal to the amount of dice or it will not be set.
     void SetFocusCount(const uint8_t);
     void SetSuccessRate(const std::vector<uint8_t>&);
     void SetRateAddition(const std::vector<double>&);

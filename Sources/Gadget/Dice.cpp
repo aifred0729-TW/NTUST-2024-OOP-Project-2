@@ -50,6 +50,9 @@ void Dice::SetAmount(const uint8_t amount) {
 }
 
 void Dice::SetFocusCount(const uint8_t focusCount) {
+	if (focusCount > this->amount)
+		return;
+
 	this->focusCount = focusCount;
 }
 
