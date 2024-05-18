@@ -25,6 +25,8 @@ public:
     Dice(uint8_t speed); 
     // Construct dice with a uniform successRate.
     Dice(uint8_t amount, uint8_t successRate);
+    // Construct dice with a vector of inconsistent successRate.
+    Dice(std::vector<uint8_t> successRate);
 
     void setMovementPoint(const uint8_t);
     void SetAmount(const uint8_t);
