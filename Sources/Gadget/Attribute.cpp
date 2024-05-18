@@ -1,1 +1,106 @@
 #include "../../Includes/Gadget/Attribute.h"
+
+Attribute::Attribute(void) {
+	// Random Engine
+	std::random_device rd;
+	std::mt19937 gen(rd());
+
+	this->maxFocus = 3; // The initial value of focus is set to 3. 
+	this->focus = this->maxFocus;
+
+	// Random Attribute
+	std::uniform_int_distribution<> hpDis(30, 44);
+	std::uniform_int_distribution<> spdDis(30, 54);
+	std::uniform_int_distribution<> accDis(40, 59);
+	std::uniform_int_distribution<> attackDis(5, 15);
+	std::uniform_int_distribution<> defenseDis(0, 20);
+
+	this->maxHP = hpDis(gen);
+	this->HP = this->maxHP;
+	this->SPD = spdDis(gen);
+	this->ACC = accDis(gen);
+	this->PA = attackDis(gen);
+	this->MA = attackDis(gen);
+	this->PD = defenseDis(gen);
+	this->MD = defenseDis(gen);
+}
+
+void Attribute::SetMaxHP(const uint8_t maxHP) {
+	this->maxHP = maxHP;
+}
+
+void Attribute::SetMaxFocus(const uint8_t maxFocus) {
+	this->maxFocus = maxFocus;
+}
+
+void Attribute::SetHP(const uint8_t HP) {
+	this->HP = HP;
+}
+
+void Attribute::SetFocus(const uint8_t focus) {
+	this->focus = focus;
+}
+
+void Attribute::SetSPD(const uint8_t SPD) {
+	this->SPD = SPD;
+}
+
+void Attribute::SetACC(const uint8_t ACC) {
+	this->ACC = ACC;
+}
+
+void Attribute::SetPA(const uint8_t PA) {
+	this->PA = PA;
+}
+
+void Attribute::SetMA(const uint8_t MA) {
+	this->MA = MA;
+}
+
+void Attribute::SetPD(const uint8_t PD) {
+	this->PD = PD;
+}
+
+void Attribute::SetMD(const uint8_t MD) {
+	this->MD = MD;
+}
+
+uint8_t Attribute::GetMaxHP(void) {
+	return this->maxHP;
+}
+
+uint8_t Attribute::GetMaxFocus(void) {
+	return this->maxFocus;
+}
+
+uint8_t Attribute::GetHP(void) {
+	return this->HP;
+}
+
+uint8_t Attribute::GetFocus(void) {
+	return this->focus;
+}
+
+uint8_t Attribute::GetSPD(void) {
+	return this->SPD;
+}
+
+uint8_t Attribute::GetACC(void) {
+	return this->ACC;
+}
+
+uint8_t Attribute::GetPA(void) {
+	return this->PA;
+}
+
+uint8_t Attribute::GetMA(void) {
+	return this->MA;
+}
+
+uint8_t Attribute::GetPD(void) {
+	return this->PD;
+}
+
+uint8_t Attribute::GetMD(void) {
+	return this->MD;
+}
