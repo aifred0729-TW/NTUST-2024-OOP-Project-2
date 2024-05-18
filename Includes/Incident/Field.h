@@ -42,7 +42,7 @@ private:
     void UsingFocus(void);
 
     // Detect Status and Compute
-    void ProbeStatus(uint8_t);
+    void DetectStatus(uint8_t);
 
 public:
     // Set Combat Configuation

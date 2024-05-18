@@ -18,7 +18,7 @@ int UI::Display(std::vector<Dice*>) {
     return 0;
 }
 
-int UI::Display(std::vector<Entity*>) {
+int UI::Display(Entity*) {
     return 0;
 }
 
