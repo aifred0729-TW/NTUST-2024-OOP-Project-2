@@ -11,6 +11,18 @@ Dice::Dice(uint8_t amount, uint8_t successRate) {
 	this->rateAddition.resize(this->amount, 0);
 }
 
+Dice::Dice(std::vector<uint8_t> successRate) {
+	this->focusCount = 0;
+	this->movementPoint = 0;
+	this->amount = successRate.size();
+	this->result.resize(this->amount, false);
+	this->successRate.resize(this->amount, 0);
+	for (int i = 0; i < this->amount; i++)
+		this->successRate[i] = std::min<uint8_t>(90, successRate[i]); // successRate := Stat::Speed / 100, but not exceed 90.
+	this->rateAddition.resize(this->amount, 0);
+}
+
+
 Dice::Dice(uint8_t speed) {
 	this->focusCount = 0;
 	this->movementPoint = 0;
