@@ -1,6 +1,19 @@
 #include "../../Includes/Gadget/Attribute.h"
 
 Attribute::Attribute(void) {
+	this->maxHP = 0;
+	this->maxFocus = 0;
+	this->HP = 0;
+	this->focus = 0;
+	this->SPD = 0;
+	this->ACC = 0;
+	this->PA = 0;
+	this->MA = 0;
+	this->PD = 0;
+	this->MD = 0;
+}
+
+void Attribute::randomAttribute(void) {
 	// Random Engine
 	std::random_device rd;
 	std::mt19937 gen(rd());

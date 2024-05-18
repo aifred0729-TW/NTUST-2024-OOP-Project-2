@@ -25,9 +25,9 @@ private:
 	uint8_t MD;        // Magic Defense
 
 public:
-	// The Initializer will automatically set the random value to the attribute based on the Docs requirement.
+	// Construct all Attributes to 0
 	Attribute(void);
-
+	
 	void SetMaxHP(const uint8_t);
 	void SetMaxFocus(const uint8_t);
 	void SetHP(const uint8_t);
@@ -51,6 +51,8 @@ public:
 	uint8_t GetMD(void);
 
 public:
+	// Random Attribute based on the Docs requirement.
+	void randomAttribute(void);
 };
 
 #endif
