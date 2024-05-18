@@ -17,7 +17,6 @@ private:
     uint8_t   weaponID;       // Current Weapon
     uint8_t   armorID;        // Current Armor
     uint8_t   accessoryID;    // Current Accessory
-    uint8_t   mode;           // Entity mode which means that Role or Enemy mode
     // For each current attribute, you can use vector<uint8_t> to replace uint8_t to extend the current attribute to a plurality of
 
 public:
@@ -30,7 +29,6 @@ public:
     void SetWeaponID(const uint8_t);
     void SetArmorID(const uint8_t);
     void SetAccessoryID(const uint8_t);
-    void SetMode(const uint8_t);
 
     Attribute GetAttribute(void);
     Skill     GetSkill(void);
@@ -40,7 +38,6 @@ public:
     uint8_t   GetWeaponID(void);
     uint8_t   GetArmorID(void);
     uint8_t   GetAccessoryID(void);
-    uint8_t   GetMode(void);
 
 public:
     // Find the Enemy in Range

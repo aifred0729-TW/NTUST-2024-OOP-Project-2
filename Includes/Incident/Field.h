@@ -11,8 +11,10 @@
 #include <vector>
 #include <windows.h>
 
+#include <ConstData.h>
 #include <Enemy.h>
 #include <Role.h>
+#include <Dice.h>
 
 class Action {
 private:
@@ -25,8 +27,7 @@ private:
 
 public:
 	Action(Entity* val, uint8_t mode, uint8_t ID)
-		:obj(val), dice(obj->GetAttribute().GetSPD()),
-		priority(0), turn(0), entityID(ID), statusTurn(0) {
+		:obj(val), priority(0), turn(0), entityID(ID), statusTurn(0) {
 		;
 	}
 
