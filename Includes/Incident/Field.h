@@ -26,10 +26,7 @@ private:
 	uint8_t statusTurn;
 
 public:
-	Action(Entity* val, uint8_t mode, uint8_t ID)
-		:obj(val), priority(0), turn(0), entityID(ID), statusTurn(0) {
-		;
-	}
+	Action(Entity* val, uint8_t mode, uint8_t ID);
 
 	void SetObj(Entity* val) { obj = val; }
 	void SetPriority(uint8_t val) { priority = val; }
@@ -69,7 +66,7 @@ public:
 
 public:
 	// Set Combat Configuation
-	Field(std::vector<Role*>, std::vector<Enemy*>);
+	Field(std::vector<Entity*>, std::vector<Entity*>);
 	// Set Combat Configuation
 	~Field(void);
 	// Start Combat
