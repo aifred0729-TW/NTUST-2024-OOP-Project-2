@@ -21,7 +21,12 @@ void Entity::SetAttribute(const Attribute& attribute) {
 void Entity::SetSkill(const Skill& skill) {
     this->skill.skillID = skill.skillID;
     this->skill.coolDownTime = skill.coolDownTime;
-    this->skill.dice = skill.dice;
+    this->skill.dice.amount = skill.dice.amount;
+    this->skill.dice.movementPoint = skill.dice.movementPoint;
+    this->skill.dice.focusCount = skill.dice.focusCount;
+    this->skill.dice.successRate = skill.dice.successRate;
+    this->skill.dice.rateAddition = skill.dice.rateAddition;
+    this->skill.dice.result = skill.dice.result;
     this->skill.skillUser = skill.skillUser;
     this->skill.skillTargets = skill.skillTargets;
 }
