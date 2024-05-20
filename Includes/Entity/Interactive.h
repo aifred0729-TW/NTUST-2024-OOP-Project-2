@@ -17,7 +17,7 @@ private:
     Role *role;
 
 public:
-    void SetRole(const Role*);
+    void SetRole(Role*);
     Role* GetRole(void);
 
 public:

@@ -6,7 +6,7 @@ void Interactive::TriggeredBy(Role*) {
     ;
 }
 
-void Interactive::SetRole(const Role* role) {
+void Interactive::SetRole(Role* role) {
     this->role = role;
 }
 Role* Interactive::GetRole(void) {
