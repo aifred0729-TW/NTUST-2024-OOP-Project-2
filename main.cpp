@@ -1,7 +1,7 @@
 ﻿#include <iostream>
+#include "Includes/Gadget/Dice.h"
 
-int main()
-{
-    std::cout << "Hello World!\n";
-    return 0;
+int main() {
+
+	return 0;
 }

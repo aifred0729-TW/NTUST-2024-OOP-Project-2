@@ -1,6 +1,7 @@
 #include "../../Includes/Entity/Role.h"
 
 void Role::SetPack(const Item& pack) {
+
 	this->pack = pack;
 }
 void Role::SetEquipment(const Equipment& equipment) {
