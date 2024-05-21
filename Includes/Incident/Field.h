@@ -63,7 +63,7 @@ public:
 	void ChooseTarget(Role*);
 	void UsingFocus(Role*);
 	// Detect Status and Compute
-
+  
 	Action* RefreshEvent(void);
 
 public:
