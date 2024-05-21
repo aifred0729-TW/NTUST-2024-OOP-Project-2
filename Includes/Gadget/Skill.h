@@ -1,46 +1,48 @@
-#ifndef SKILL_H
+ï»¿#ifndef SKILL_H
 #define SKILL_H
 
 #include <cstdint>
-
-#include <Dice.h>
-#include <ConstData.h>
+#include <vector>
+#include "Dice.h"
+#include "ConstData.h"
 
 class Entity;
 
-// skillTable[ATTACK]();
-// Used ATTACK¡Acorresponding to ApplyAttack function
-// #include <cstdint>
-
 class Skill {
 private:
-	uint8_t   skillID;           // Skill ID
-	uint8_t   coolDownTime;      // Skill CD
-	Dice      dice;              // Dice
-	Entity* skillUser;           // Role of use skill
-	std::vector<Entity*> skillTargets; // Target of skill
+    uint8_t skillID;
+    uint8_t coolDownTime;
+    Dice dice;
+    Entity* skillUser;
+    std::vector<Entity*> skillTargets;
 
-	// Skill Table (need initialize)
-	static void (* const skillTable[SKILL_TOTAL_SIZE])(void);
+    static void (* const skillTable[SKILL_TOTAL_SIZE])(void);
 
 private:
-	static void ApplyAttack(void);       // Skill - Attack
-	static void ApplyFlee(void);         // Skill - Flee
-	static void ApplyProvoke(void);      // Skill - Provoke
-	static void ApplyShockBlast(void);   // Skill - Shock Blast
-	static void ApplyHeal(void);         // Skill - Heal
-	static void ApplySpeedUp(void);      // Skill - Speed Up
-	static void ApplyRun(void);          // Skill - Run
-	static void ApplyHammerSplash(void); // Skill - Hammer Splash
-	static void ApplyDestory(void);      // Skill - Destory
-	static void ApplyFortify(void);      // Skill - Fortify
-	static void ApplySKILL111(void);     // Skill - Custom 1
-	static void ApplySKILL222(void);     // Skill - Custom 2
-	static void ApplySKILL333(void);     // Skill - Custom 3
+    static void ApplyAttack(void);
+    static void ApplyFlee(void);
+    static void ApplyProvoke(void);
+    static void ApplyShockBlast(void);
+    static void ApplyHeal(void);
+    static void ApplySpeedUp(void);
+    static void ApplyRun(void);
+    static void ApplyHammerSplash(void);
+    static void ApplyDestroy(void);
+    static void ApplyFortify(void);
+    static void ApplySKILL111(void);
+    static void ApplySKILL222(void);
+    static void ApplySKILL333(void);
 
 public:
-	// Use Skill (SkillType, Skilluser, Skilltarget)
-	void ApplySkill(uint8_t, Entity*, std::vector<Entity*>);
+    Skill();
+
+    void ApplySkill(uint8_t, Entity*, std::vector<Entity*>);
+
+    // Setter and Getter for skillID
+    void SetID(uint8_t id);
+    uint8_t GetID() const;
+
+    // Other setters and getters can be added similarly
 };
 
 #endif
