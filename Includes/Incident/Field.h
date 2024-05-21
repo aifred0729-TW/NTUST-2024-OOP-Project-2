@@ -6,50 +6,73 @@
 #include <iostream>
 #include <map>
 #include <stack>
+#include <queue>
 #include <string>
 #include <vector>
 #include <windows.h>
 
+#include <ConstData.h>
 #include <Enemy.h>
 #include <Role.h>
+#include <Dice.h>
+
+struct StatusCount {
+	uint8_t poisoned;
+	uint8_t bleed;
+	uint8_t dizziness;
+	uint8_t angry;
+};
+
+class Action {
+private:
+	Dice* dice;
+	Entity* obj;
+	StatusCount* count;
+	uint32_t priority;
+	uint8_t turn;
+	uint8_t entityID;
+
+public:
+	Action(Entity* val, uint8_t mode, uint8_t ID);
+
+	void SetObj(Entity* val) { obj = val; }
+	void SetPriority(uint32_t val) { priority = val; }
+	void SetTurn(uint8_t val) { turn = val; }
+	void SetEntityID(uint8_t val) { entityID = val; }
+
+	Dice* GetDice(void) { return dice; }
+	Entity* GetObj(void) { return obj; }
+	StatusCount* GetCount(void) { return count; }
+	uint32_t GetPriority(void) { return priority; }
+	uint8_t	GetTurn(void) { return turn; }
+	uint8_t	GetEntityID(void) { return entityID; }
+};
 
 class Field {
 private:
-    Dice                dice;               // Dice
-    uint8_t             enemyPlayerCount;   // Count of Enemy
-    std::vector<Enemy*> enemyEngage;        // Engage Enemys
-    uint8_t             rolePlayerCount;    // Count of Role
-    std::vector<Role*>  roleEngage;         // Engage Roles
-    uint8_t             turn;               // Current Turn
-    uint8_t             round;              // Current Round
-
-private:
-    void StartRound(void);
-    void StartTurn(void);
-
-private:
-    void MainPhase(void);
-    void BattlePhase(void);
-    void DamagePhase(void);
-    void ExitPhase(void);
-
-private:
-    void SetEntityIDForUI(void);
-
-    void RefreshPriority(void);
-    void ChooseSkill(void);
-    void ChooseTarget(void);
-    void UsingFocus(void);
-
-    // Detect Status and Compute
-    void DetectStatus(uint8_t);
+	Action* currEvent;                      // Current Event
+	std::vector<Action*> eventQueue;        // Engage Entity
 
 public:
-    // Set Combat Configuation
-    Field(std::vector<Role*>, std::vector<Enemy*>);
-    // Start Combat
-    void StartBattle(void);
+	void MainPhase(Action*);
+	void BattlePhase(Action*);
+	void DamagePhase(Action*);
+	void ExitPhase(void);
 
+	void ChooseSkill(Role*);
+	void ChooseTarget(Role*);
+	void UsingFocus(Role*);
+	// Detect Status and Compute
+  
+	Action* RefreshEvent(void);
+
+public:
+	// Set Combat Configuation; Put the players into first parameter and the enemies into second parameter.
+	Field(std::vector<Entity*>, std::vector<Entity*>);
+	~Field(void);
+
+	// Start Combat
+	void StartBattle(void);
 };
 
 #endif
