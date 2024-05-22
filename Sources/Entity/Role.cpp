@@ -1,34 +1,36 @@
-#include "../../Includes/Entity/Role.h"
+#include "Role.h"
+
+Role::Role()
+    : pack(), movementPoint(0), step(0), position({ 0, 0 }) {}
 
 void Role::SetPack(const Item& pack) {
+    this->pack = pack;
+}
 
-	this->pack = pack;
-}
-void Role::SetEquipment(const Equipment& equipment) {
-	this->equipment = equipment;
-}
 void Role::SetMovementPoint(const uint8_t movementPoint) {
-	this->movementPoint = movementPoint;
-}
-void Role::SetStep(const uint32_t step) {
-	this->step = step;
-}
-void Role::SetPosition(const std::pair<uint32_t, uint32_t>& position) {
-	this->position = position;
+    this->movementPoint = movementPoint;
 }
 
-Item      Role::GetPack(void) {
-	return pack;
+void Role::SetStep(const uint32_t step) {
+    this->step = step;
 }
-Equipment Role::GetEquipment(void) {
-	return equipment;
+
+void Role::SetPosition(const std::pair<uint32_t, uint32_t>& position) {
+    this->position = position;
 }
-uint8_t   Role::GetMovementPoint(void) {
-	return movementPoint;
+
+Item Role::GetPack(void) {
+    return pack;
 }
-uint32_t  Role::GetStep(void) {
-	return step;
+
+uint8_t Role::GetMovementPoint(void) {
+    return movementPoint;
 }
+
+uint32_t Role::GetStep(void) {
+    return step;
+}
+
 std::pair<uint32_t, uint32_t> Role::GetPosition(void) {
-	return position;
+    return position;
 }

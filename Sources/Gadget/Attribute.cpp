@@ -38,82 +38,97 @@ void Attribute::randomAttribute(void) {
 	this->MD = defenseDis(gen);
 }
 
-void Attribute::SetMaxHP(const uint8_t maxHP) {
+Attribute Attribute::operator+=(const Attribute& attribute) {
+	this->maxHP += attribute.maxHP;
+	this->maxFocus += attribute.maxFocus;
+	this->HP += attribute.HP;
+	this->focus += attribute.focus;
+	this->SPD += attribute.SPD;
+	this->ACC += attribute.ACC;
+	this->PA += attribute.PA;
+	this->MA += attribute.MA;
+	this->PD += attribute.PD;
+	this->MD += attribute.MD;
+
+	return *this;
+}
+
+void Attribute::SetMaxHP(const int16_t maxHP) {
 	this->maxHP = maxHP;
 }
 
-void Attribute::SetMaxFocus(const uint8_t maxFocus) {
+void Attribute::SetMaxFocus(const int16_t maxFocus) {
 	this->maxFocus = maxFocus;
 }
 
-void Attribute::SetHP(const uint8_t HP) {
+void Attribute::SetHP(const int16_t HP) {
 	this->HP = HP;
 }
 
-void Attribute::SetFocus(const uint8_t focus) {
+void Attribute::SetFocus(const int16_t focus) {
 	this->focus = focus;
 }
 
-void Attribute::SetSPD(const uint8_t SPD) {
+void Attribute::SetSPD(const int16_t SPD) {
 	this->SPD = SPD;
 }
 
-void Attribute::SetACC(const uint8_t ACC) {
+void Attribute::SetACC(const int16_t ACC) {
 	this->ACC = ACC;
 }
 
-void Attribute::SetPA(const uint8_t PA) {
+void Attribute::SetPA(const int16_t PA) {
 	this->PA = PA;
 }
 
-void Attribute::SetMA(const uint8_t MA) {
+void Attribute::SetMA(const int16_t MA) {
 	this->MA = MA;
 }
 
-void Attribute::SetPD(const uint8_t PD) {
+void Attribute::SetPD(const int16_t PD) {
 	this->PD = PD;
 }
 
-void Attribute::SetMD(const uint8_t MD) {
+void Attribute::SetMD(const int16_t MD) {
 	this->MD = MD;
 }
 
-uint8_t Attribute::GetMaxHP(void) {
+int16_t Attribute::GetMaxHP(void) {
 	return this->maxHP;
 }
 
-uint8_t Attribute::GetMaxFocus(void) {
+int16_t Attribute::GetMaxFocus(void) {
 	return this->maxFocus;
 }
 
-uint8_t Attribute::GetHP(void) {
+int16_t Attribute::GetHP(void) {
 	return this->HP;
 }
 
-uint8_t Attribute::GetFocus(void) {
+int16_t Attribute::GetFocus(void) {
 	return this->focus;
 }
 
-uint8_t Attribute::GetSPD(void) {
+int16_t Attribute::GetSPD(void) {
 	return this->SPD;
 }
 
-uint8_t Attribute::GetACC(void) {
+int16_t Attribute::GetACC(void) {
 	return this->ACC;
 }
 
-uint8_t Attribute::GetPA(void) {
+int16_t Attribute::GetPA(void) {
 	return this->PA;
 }
 
-uint8_t Attribute::GetMA(void) {
+int16_t Attribute::GetMA(void) {
 	return this->MA;
 }
 
-uint8_t Attribute::GetPD(void) {
+int16_t Attribute::GetPD(void) {
 	return this->PD;
 }
 
-uint8_t Attribute::GetMD(void) {
+int16_t Attribute::GetMD(void) {
 	return this->MD;
 }

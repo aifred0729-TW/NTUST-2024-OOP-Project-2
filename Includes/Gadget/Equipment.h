@@ -2,40 +2,41 @@
 #define EQUIPMENT_H
 
 #include <cstdint>
-#include <fstream>
-#include <iostream>
-#include <map>
-#include <stack>
-#include <string>
 #include <vector>
-#include <windows.h>
-
-#include <Attribute.h>
-#include <Skill.h>
-
-class Role;
+#include <set>
+#include "Attribute.h"
+#include "Skill.h"
 
 class Equipment {
 private:
-	uint8_t   ID;
-	Attribute attribate;
-	Skill     skill;
-	uint8_t   quality;
+    Attribute weaponAttribute;
+    Attribute armorAttribute;
+    Attribute accessoryAttribute;
+    std::vector<Skill> weaponSkills;
+    std::vector<Skill> armorSkills;
+    std::vector<Skill> accessorySkills;
 
 public:
-	void SetID(const uint8_t);
-	void SetAttribute(const Attribute&);
-	void SetSkill(const Skill&);
-	void SetQuality(const uint8_t);
+    Equipment();  // Default constructor
+    Equipment(Attribute, std::vector<Skill>);
 
-	uint8_t   GetID(void);
-	Attribute GetAttribute(void);
-	Skill     GetSkill(void);
-	uint8_t   GetQuality(void);
+    void SetWeaponAttribute(const Attribute&);
+    void SetArmorAttribute(const Attribute&);
+    void SetWeaponSkills(const std::vector<Skill>&);
+    void SetArmorSkills(const std::vector<Skill>&);
+    void SetAccessoryAttribute(const Attribute&);
+    void SetAccessorySkills(const std::vector<Skill>&);
+
+    Attribute GetWeaponAttribute() const;
+    Attribute GetArmorAttribute() const;
+    Attribute GetAccessoryAttribute() const;
+    std::vector<Skill> GetWeaponSkills() const;
+    std::vector<Skill> GetArmorSkills() const;
+    std::vector<Skill> GetAccessorySkills() const;
 
 public:
-	// Equip with Role
-	void EquipWith(Role*);
+    Attribute GetAdditionalAttribute() const;
+    std::vector<Skill> GetAdditionalSkills() const;
 };
 
 #endif

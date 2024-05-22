@@ -1,61 +1,26 @@
-#include "../../Includes/Gadget/Skill.h"
+#include "Skill.h"
+#include <iostream>  // For demonstration purposes
 
-// Private
+Skill::Skill() : name("DefaultSkill"), type(SkillType::ACTIVE) {}
+Skill::Skill(const std::string& name, SkillType type): name(name), type(type) {}
 
-void Skill::ApplyAttack(void) {
-	;
+void Skill::SetName(const std::string& name) {
+    this->name = name;
 }
 
-void Skill::ApplyFlee(void) {
-	;
+std::string Skill::GetName() const {
+    return name;
 }
 
-void Skill::ApplyProvoke(void) {
-	;
+void Skill::SetType(SkillType type) {
+    this->type = type;
 }
 
-void Skill::ApplyShockBlast(void) {
-	;
+SkillType Skill::GetType() const {
+    return type;
 }
 
-void Skill::ApplyHeal(void) {
-	;
-}
-
-void Skill::ApplySpeedUp(void) {
-	;
-}
-
-void Skill::ApplyRun(void) {
-	;
-}
-
-void Skill::ApplyHammerSplash(void) {
-	;
-}
-
-void Skill::ApplyDestory(void) {
-	;
-}
-
-void Skill::ApplyFortify(void) {
-	;
-}
-
-void Skill::ApplySKILL111(void) {
-	;
-}
-
-void Skill::ApplySKILL222(void) {
-	;
-}
-
-void Skill::ApplySKILL333(void) {
-	;
-}
-
-// Public
-
-void Skill::ApplySkill(uint8_t, Entity*, std::vector<Entity*>) {
-	;
+void Skill::Apply(Entity* user, std::vector<Entity*> targets) {
+    std::cout << "Applying skill: " << name << " by user" << std::endl;
+    // Add the logic to apply the skill effects
 }
