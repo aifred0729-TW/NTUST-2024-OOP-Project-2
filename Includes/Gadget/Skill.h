@@ -8,41 +8,29 @@
 
 class Entity;
 
+enum SkillType {
+    ACTIVE,
+    PASSIVE
+};
+
 class Skill {
 private:
-    uint8_t skillID;
-    uint8_t coolDownTime;
-    Dice dice;
-    Entity* skillUser;
-    std::vector<Entity*> skillTargets;
-
-    static void (* const skillTable[SKILL_TOTAL_SIZE])(void);
-
-private:
-    static void ApplyAttack(void);
-    static void ApplyFlee(void);
-    static void ApplyProvoke(void);
-    static void ApplyShockBlast(void);
-    static void ApplyHeal(void);
-    static void ApplySpeedUp(void);
-    static void ApplyRun(void);
-    static void ApplyHammerSplash(void);
-    static void ApplyDestroy(void);
-    static void ApplyFortify(void);
-    static void ApplySKILL111(void);
-    static void ApplySKILL222(void);
-    static void ApplySKILL333(void);
+    std::string name;
+    SkillType type;
 
 public:
     Skill();
+    Skill(const std::string& name, SkillType type);
 
-    void ApplySkill(uint8_t, Entity*, std::vector<Entity*>);
+    // Setter and Getter for skill
+    void SetName(const std::string& name);
+    void SetType(SkillType type);
 
-    // Setter and Getter for skillID
-    void SetID(uint8_t id);
-    uint8_t GetID() const;
+    std::string GetName() const;
+    SkillType GetType() const;
 
-    // Other setters and getters can be added similarly
+    // Apply the skill
+    void Apply(Entity* user, std::vector<Entity*> targets);
 };
 
 #endif

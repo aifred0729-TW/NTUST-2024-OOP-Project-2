@@ -1,23 +1,10 @@
 #include "Role.h"
 
 Role::Role()
-    : pack(), equipment(), movementPoint(0), step(0), position({ 0, 0 }) {}
-
-void Role::Equip(const std::string& equipmentName) {
-    auto it = EquipmentTable::equipmentMap.find(equipmentName);
-    if (it != EquipmentTable::equipmentMap.end()) {
-        this->SetEquipment(it->second);
-    } else {
-        std::cerr << "Equipment " << equipmentName << " not found!" << std::endl;
-    }
-}
+    : pack(), movementPoint(0), step(0), position({ 0, 0 }) {}
 
 void Role::SetPack(const Item& pack) {
     this->pack = pack;
-}
-
-void Role::SetEquipment(const Equipment& equipment) {
-    this->equipment = equipment;
 }
 
 void Role::SetMovementPoint(const uint8_t movementPoint) {
@@ -34,10 +21,6 @@ void Role::SetPosition(const std::pair<uint32_t, uint32_t>& position) {
 
 Item Role::GetPack(void) {
     return pack;
-}
-
-Equipment Role::GetEquipment(void) {
-    return equipment;
 }
 
 uint8_t Role::GetMovementPoint(void) {

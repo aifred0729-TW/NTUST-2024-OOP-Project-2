@@ -1,6 +1,6 @@
 #include "../../Includes/Gadget/Attribute.h"
 
-Attribute::Attribute(void) {
+Attribute::Attribute() {
 	this->maxHP = 0;
 	this->maxFocus = 0;
 	this->HP = 0;
@@ -36,6 +36,21 @@ void Attribute::randomAttribute(void) {
 	this->MA = attackDis(gen);
 	this->PD = defenseDis(gen);
 	this->MD = defenseDis(gen);
+}
+
+Attribute Attribute::operator+=(const Attribute& attribute) {
+	this->maxHP += attribute.maxHP;
+	this->maxFocus += attribute.maxFocus;
+	this->HP += attribute.HP;
+	this->focus += attribute.focus;
+	this->SPD += attribute.SPD;
+	this->ACC += attribute.ACC;
+	this->PA += attribute.PA;
+	this->MA += attribute.MA;
+	this->PD += attribute.PD;
+	this->MD += attribute.MD;
+
+	return *this;
 }
 
 void Attribute::SetMaxHP(const int16_t maxHP) {
