@@ -1,4 +1,4 @@
-﻿#include "Includes/Entity/Role.h"
+#include "Includes/Entity/Role.h"
 #include "Includes/Gadget/Equipment.h"
 
 int main() {

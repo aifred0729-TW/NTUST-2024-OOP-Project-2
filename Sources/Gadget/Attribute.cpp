@@ -1,6 +1,6 @@
 #include "../../Includes/Gadget/Attribute.h"
 
-Attribute::Attribute() {
+Attribute::Attribute(void) {
 	this->maxHP = 0;
 	this->maxFocus = 0;
 	this->HP = 0;
