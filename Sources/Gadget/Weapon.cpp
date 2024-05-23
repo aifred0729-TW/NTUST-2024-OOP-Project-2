@@ -1,11 +1,11 @@
 #include "Weapon.h"
 
 // Default constructor
-Weapon::Weapon() : attribute(), skills() {}
+Weapon::Weapon() : attribute(), skill() {}
 
 // Parameterized constructor
-Weapon::Weapon(std::string name, Attribute attribute, std::vector<Skill> skills)
-    : name(name), attribute(attribute), skills(skills) {}
+Weapon::Weapon(std::string name, Attribute attribute, Skill skill)
+    : name(name), attribute(attribute), skill(skill) {}
 
 // Setters
 void Weapon::SetName(const std::string& name) {
@@ -16,8 +16,8 @@ void Weapon::SetAttribute(const Attribute& attribute) {
     this->attribute = attribute;
 }
 
-void Weapon::SetSkills(const std::vector<Skill>& skills) {
-    this->skills = skills;
+void Weapon::SetSkill(const Skill& skill) {
+    this->skill = skill;
 }
 
 // Getters
@@ -29,6 +29,6 @@ Attribute Weapon::GetAttribute() const {
     return attribute;
 }
 
-std::vector<Skill> Weapon::GetSkills() const {
-    return skills;
+Skill Weapon::GetSkill() const {
+    return skill;
 }

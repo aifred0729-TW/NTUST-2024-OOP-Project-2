@@ -1,15 +1,17 @@
 #include "../../Includes/Entity/Entity.h"
 #include "../../Includes/Gadget/EquipmentTable.h"
+#include "../../Includes/Gadget/SkillTable.h"
 
 // Public
 Entity::Entity() {
 	attribute = Attribute();
 	attribute.randomAttribute();
-	Skill attackSkill("Attack", SkillType::ACTIVE);
-	Skill fleeSkill("Flee", SkillType::ACTIVE);
-	skills.push_back(attackSkill);
-	skills.push_back(fleeSkill);
 	equipment = Equipment();
+	skill = Skill();
+	Active Attack = SkillTable::activeMap.find("Attack")->second;
+	Active Flee = SkillTable::activeMap.find("Flee")->second;
+	skill.pushActive(Attack);
+	skill.pushActive(Flee);
 	status = 0;
 	eventID = 0;
 }
@@ -27,7 +29,7 @@ void Entity::EquipWeapon(const std::string& equipmentName) {
 void Entity::EquipArmor(const std::string& equipmentName) {
 	auto it = EquipmentTable::armorMap.find(equipmentName);
 	if (it != EquipmentTable::armorMap.end()) {
-		UnEquipArmor();
+		// UnEquipArmor();
 		this->equipment.SetArmor(it->second);
 	} else {
 		std::cerr << "Equipment " << equipmentName << " not found!" << std::endl;
@@ -66,16 +68,11 @@ Attribute Entity::GetTotalAttribute(void) {
 	return totalAttribute;
 }
 
-std::vector<Skill> Entity::GetTotalSkills(void) {
-	std::vector<Skill> skills;
-
-	for (auto skill : this->skills)
-		skills.push_back(skill);
-
-	for (auto skill : equipment.GetTotalSkills())
-		skills.push_back(skill);
-
-	return skills;
+Skill Entity::GetTotalSkill(void) {
+	Skill fuck;
+	fuck += this->skill;
+	fuck += equipment.GetTotalSkills();
+	return fuck;
 }
 
 bool Entity::isInRange(std::vector<Entity*>) {
@@ -86,8 +83,8 @@ void Entity::SetAttribute(const Attribute& attribute) {
 	this->attribute = attribute;
 }
 
-void Entity::SetSkills(const std::vector<Skill>& skills) {
-	this->skills = skills;
+void Entity::SetSkill(const Skill& skill) {
+	this->skill = skill;
 }
 
 void Entity::SetEquipment(const Equipment& equipment) {
@@ -106,8 +103,8 @@ Attribute& Entity::GetAttribute(void) {
 	return attribute;
 }
 
-std::vector<Skill>& Entity::GetSkills(void) {
-	return skills;
+Skill& Entity::GetSkill(void) {
+	return skill;
 }
 
 Equipment Entity::GetEquipment(void) {

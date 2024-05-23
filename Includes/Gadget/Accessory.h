@@ -8,19 +8,19 @@ class Accessory {
 private:
     std::string name;
     Attribute attribute;
-    std::vector<Skill> skills;
+    Skill skill;
 
 public:
     Accessory();
-    Accessory(std::string name, Attribute, std::vector<Skill>);
+    Accessory(std::string name, Attribute, Skill);
 
     void SetName(const std::string&);
     void SetAttribute(const Attribute&);
-    void SetSkills(const std::vector<Skill>&);
+    void SetSkill(const Skill&);
 
     std::string GetName() const;
     Attribute GetAttribute() const;
-    std::vector<Skill> GetSkills() const;
+    Skill GetSkill() const;
 };
 
 #endif

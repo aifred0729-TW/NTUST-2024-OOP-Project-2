@@ -29,7 +29,7 @@ public:
 
 public:
     Attribute GetTotalAttribute() const;
-    std::vector<Skill> GetTotalSkills() const;
+    Skill GetTotalSkills() const;
 };
 
 #endif

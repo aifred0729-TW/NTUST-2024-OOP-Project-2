@@ -43,6 +43,18 @@
     <Filter Include="Includes\Incident">
       <UniqueIdentifier>{24112a0d-5adb-42e0-8c63-0f794009cabd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Includes\Gadget\Equipment">
+      <UniqueIdentifier>{f85e8748-a45a-47cd-abed-b65b7c24a404}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Includes\Gadget\Skill">
+      <UniqueIdentifier>{fc191bc4-850f-4a42-992f-34fe41bdcf22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Gadget\Equipment">
+      <UniqueIdentifier>{73f32a0c-3c7d-465e-8eb6-756eadb1df74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Gadget\Skill">
+      <UniqueIdentifier>{6d4957f9-41eb-49b0-b480-98d595588d26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp">
@@ -81,13 +93,7 @@
     <ClCompile Include="..\Sources\Entity\Store.cpp">
       <Filter>Sources\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Gadget\Equipment.cpp">
-      <Filter>Sources\Gadget</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Gadget\Item.cpp">
-      <Filter>Sources\Gadget</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Gadget\Skill.cpp">
       <Filter>Sources\Gadget</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Gadget\Dice.cpp">
@@ -102,8 +108,35 @@
     <ClCompile Include="..\Sources\Gadget\Attribute.cpp">
       <Filter>Sources\Gadget</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Equipment.cpp">
+      <Filter>Sources\Gadget\Equipment</Filter>
+    </ClCompile>
     <ClCompile Include="..\Sources\Gadget\EquipmentTable.cpp">
-      <Filter>Sources\Gadget</Filter>
+      <Filter>Sources\Gadget\Equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Skill.cpp">
+      <Filter>Sources\Gadget\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Weapon.cpp">
+      <Filter>Sources\Gadget\Equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Armor.cpp">
+      <Filter>Sources\Gadget\Equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Accessory.cpp">
+      <Filter>Sources\Gadget\Equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Buff.cpp">
+      <Filter>Sources\Gadget\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Passive.cpp">
+      <Filter>Sources\Gadget\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\SkillTable.cpp">
+      <Filter>Sources\Gadget\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Active.cpp">
+      <Filter>Sources\Gadget\Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,13 +182,7 @@
     <ClInclude Include="..\Includes\Gadget\Dice.h">
       <Filter>Includes\Gadget</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\Gadget\Equipment.h">
-      <Filter>Includes\Gadget</Filter>
-    </ClInclude>
     <ClInclude Include="..\Includes\Gadget\Item.h">
-      <Filter>Includes\Gadget</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Includes\Gadget\Skill.h">
       <Filter>Includes\Gadget</Filter>
     </ClInclude>
     <ClInclude Include="..\Includes\Incident\Event.h">
@@ -167,8 +194,35 @@
     <ClInclude Include="..\Includes\Gadget\Attribute.h">
       <Filter>Includes\Gadget</Filter>
     </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Accessory.h">
+      <Filter>Includes\Gadget\Equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Active.h">
+      <Filter>Includes\Gadget\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Armor.h">
+      <Filter>Includes\Gadget\Equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Buff.h">
+      <Filter>Includes\Gadget\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Passive.h">
+      <Filter>Includes\Gadget\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Weapon.h">
+      <Filter>Includes\Gadget\Equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\SkillTable.h">
+      <Filter>Includes\Gadget\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Equipment.h">
+      <Filter>Includes\Gadget\Equipment</Filter>
+    </ClInclude>
     <ClInclude Include="..\Includes\Gadget\EquipmentTable.h">
-      <Filter>Includes\Gadget</Filter>
+      <Filter>Includes\Gadget\Equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Skill.h">
+      <Filter>Includes\Gadget\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

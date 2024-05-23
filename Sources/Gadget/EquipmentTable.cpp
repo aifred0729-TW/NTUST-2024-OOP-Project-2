@@ -1,147 +1,138 @@
 #include "EquipmentTable.h"
+#include "SkillTable.h"
 
 std::map<std::string, Weapon> EquipmentTable::weaponMap;
 std::map<std::string, Armor> EquipmentTable::armorMap;
 std::map<std::string, Accessory> EquipmentTable::accessoryMap;
 
 void EquipmentTable::Initialize() {
-    EquipmentTable::WeaponTableInitialize();
-    EquipmentTable::ArmorTableInitialize();
-    EquipmentTable::AccessoryTableInitialize();
+	EquipmentTable::WeaponTableInitialize();
+	EquipmentTable::ArmorTableInitialize();
+	EquipmentTable::AccessoryTableInitialize();
 }
 
 void EquipmentTable::WeaponTableInitialize() {
-    Skill speedUpSkill("SpeedUp", SkillType::ACTIVE);
-    Skill HammerSplashSkill("HammerSplash", SkillType::ACTIVE);
-    Skill ProvokeSkill("Provoke", SkillType::ACTIVE);
-    Skill ShokeBlastSkill("ShokeBlast", SkillType::ACTIVE);
-    Skill HealSkill("Heal", SkillType::ACTIVE);
+	Active WoodenSwordAttack = SkillTable::activeMap.find("WoodenSwordAttack")->second;
+	Active HammerAttack = SkillTable::activeMap.find("HammerAttack")->second;
+	Active GiantHammerAttack = SkillTable::activeMap.find("GiantHammerAttack")->second;
+	Active MagicWandAttack = SkillTable::activeMap.find("MagicWandAttack")->second;
+	Active RitualSwordAttack = SkillTable::activeMap.find("RitualSwordAttack")->second;
+	Active SpeedUp = SkillTable::activeMap.find("SpeedUp")->second;
+	Passive HammerSplash = SkillTable::passiveMap.find("HammerSplash")->second;
+	Active Provoke = SkillTable::activeMap.find("Provoke")->second;
+	Active ShockBlast = SkillTable::activeMap.find("ShockBlast")->second;
+	Active Heal = SkillTable::activeMap.find("Heal")->second;
+	Attribute bareHandAttribute;
+	Skill bareHandSkill;
 
-    Attribute bareHandAttribute;
-    std::vector<Skill> bareHandSkills;
+	Attribute woodenSwordAttribute;
+	woodenSwordAttribute.SetPA(5);
+	woodenSwordAttribute.SetACC(10);
+	Skill woodenSwordSkill;
+	woodenSwordSkill.pushActive(WoodenSwordAttack);
+	woodenSwordSkill.pushActive(SpeedUp);
 
-    Attribute woodenSwordAttribute;
-    woodenSwordAttribute.SetPA(5);
-    woodenSwordAttribute.SetACC(10);
-    std::vector<Skill> woodenSwordSkills;
-    woodenSwordSkills.push_back(speedUpSkill);
+	Attribute hammerAttribute;
+	hammerAttribute.SetPA(15);
+	hammerAttribute.SetACC(-15);
+	Skill hammerSkill;
+	hammerSkill.pushActive(HammerAttack);
+	hammerSkill.pushPassive(HammerSplash);
+	hammerSkill.pushActive(Provoke);
 
-    Attribute hammerAttribute;
-    hammerAttribute.SetPA(15);
-    hammerAttribute.SetACC(-15);
-    std::vector<Skill> hammerSkills;    
-    hammerSkills.push_back(HammerSplashSkill);
-    hammerSkills.push_back(ProvokeSkill);
-
-    Attribute giantHammerAttribute;
-    giantHammerAttribute.SetPA(20);
-    giantHammerAttribute.SetACC(-15);
-    std::vector<Skill> giantHammerSkills;
-    giantHammerSkills.push_back(HammerSplashSkill);
-
-
-    Attribute magicWandAttribute;
-    magicWandAttribute.SetMA(10);
-    std::vector<Skill> magicWandSkills;
-    magicWandSkills.push_back(ShokeBlastSkill);
-    magicWandSkills.push_back(HealSkill);
-
-    Attribute ritualSwordAttribute;
-    ritualSwordAttribute.SetMA(15);
-    std::vector<Skill> ritualSwordSkills;
-    ritualSwordSkills.push_back(ShokeBlastSkill);
+	Attribute giantHammerAttribute;
+	giantHammerAttribute.SetPA(20);
+	giantHammerAttribute.SetACC(-15);
+	Skill giantHammerSkill;
+	giantHammerSkill.pushActive(GiantHammerAttack);
+	giantHammerSkill.pushPassive(HammerSplash);
 
 
-    Weapon bareHand("WoodenSword", bareHandAttribute, bareHandSkills);
-    Weapon woodenSword("BareHand", woodenSwordAttribute, woodenSwordSkills);
-    Weapon hammer("Hammer", hammerAttribute, hammerSkills);
-    Weapon giantHammer("GiantHammer", giantHammerAttribute, giantHammerSkills);
-    Weapon magicWand("MagicWand", magicWandAttribute, magicWandSkills);
-    Weapon ritualSword("RitualSword", ritualSwordAttribute, ritualSwordSkills);
+	Attribute magicWandAttribute;
+	magicWandAttribute.SetMA(10);
+	Skill magicWandSkill;
+	magicWandSkill.pushActive(MagicWandAttack);
+	magicWandSkill.pushActive(ShockBlast);
+	magicWandSkill.pushActive(Heal);
 
-    weaponMap["WoodenSword"] = woodenSword;
-    weaponMap["BareHand"] = bareHand;
-    weaponMap["Hammer"] = hammer;
-    weaponMap["GiantHammer"] = giantHammer;
-    weaponMap["MagicWand"] = magicWand;
-    weaponMap["RitualSword"] = ritualSword;
+	Attribute ritualSwordAttribute;
+	ritualSwordAttribute.SetMA(15);
+	Skill ritualSwordSkill;
+	ritualSwordSkill.pushActive(RitualSwordAttack);
+	ritualSwordSkill.pushActive(ShockBlast);
+
+	weaponMap["BareHand"] = Weapon("BareHand", bareHandAttribute, bareHandSkill);
+	weaponMap["WoodenSword"] = Weapon("WoodenSword", woodenSwordAttribute, woodenSwordSkill);
+	weaponMap["Hammer"] = Weapon("Hammer", hammerAttribute, hammerSkill);
+	weaponMap["GiantHammer"] = Weapon("GiantHammer", giantHammerAttribute, giantHammerSkill);
+	weaponMap["GiantHammer"] = Weapon("GiantHammer", giantHammerAttribute, giantHammerSkill);
+	weaponMap["MagicWand"] = Weapon("MagicWand", magicWandAttribute, magicWandSkill);
+	weaponMap["RitualSword"] = Weapon("RitualSword", ritualSwordAttribute, ritualSwordSkill);
 }
 
 void EquipmentTable::ArmorTableInitialize() {
-    Skill ProvokeSkill("Provoke", SkillType::ACTIVE);
-    Skill FortitySkill("Fortity", SkillType::ACTIVE);
-    Skill LaurelPassiveSkill("LaurelPassive", SkillType::PASSIVE);
+	Active Provoke = SkillTable::activeMap.find("Provoke")->second;
+	Passive Fortify = SkillTable::passiveMap.find("Fortify")->second;
+	Buff LaurelBuff = SkillTable::buffMap.find("LaurelBuff")->second;
 
 	Attribute bareBodyAttribute;
-	std::vector<Skill> bareBodySkills;
+	Skill bareBodySkill;
 
-    Attribute woodenShieldAttribute;
-    woodenShieldAttribute.SetPD(10);
-    std::vector<Skill> woodenShieldSkills;
-    woodenShieldSkills.push_back(ProvokeSkill);
+	Attribute woodenShieldAttribute;
+	woodenShieldAttribute.SetPD(10);
+	Skill woodenShieldSkill;
+	woodenShieldSkill.pushActive(Provoke);
 
-    Attribute plateArmorAttribute;
-    plateArmorAttribute.SetPD(20);
-    plateArmorAttribute.SetSPD(-10);
-    std::vector<Skill> plateArmorSkills;
-    plateArmorSkills.push_back(FortitySkill);
+	Attribute plateArmorAttribute;
+	plateArmorAttribute.SetPD(20);
+	plateArmorAttribute.SetSPD(-10);
+	Skill plateArmorSkill;
+	plateArmorSkill.pushPassive(Fortify);
 
-    Attribute leatherArmorAttribute;
-    leatherArmorAttribute.SetPD(5);
-    std::vector<Skill> leatherArmorSkills;
-    leatherArmorSkills.push_back(FortitySkill);
+	Attribute leatherArmorAttribute;
+	leatherArmorAttribute.SetPD(5);
+	Skill leatherArmorSkill;
+	leatherArmorSkill.pushPassive(Fortify);
 
-    Attribute robeAttribute;
-    robeAttribute.SetMD(10);
-    std::vector<Skill> robeSkills;
+	Attribute robeAttribute;
+	robeAttribute.SetMD(10);
+	Skill robeSkill;
 
-    Attribute laurelWreathAttribute;
-    std::vector<Skill> laurelWreathSkills;
-    laurelWreathSkills.push_back(LaurelPassiveSkill);
+	Attribute laurelWreathAttribute;
+	Skill laurelWreathSkill;
+	laurelWreathSkill.pushBuff(LaurelBuff);
 
-    Armor bareBody("BareBody", bareBodyAttribute, bareBodySkills);
-    Armor woodenShield("WoodenShield", woodenShieldAttribute, woodenShieldSkills);
-    Armor plateArmor("PlateArmor", plateArmorAttribute, plateArmorSkills);
-    Armor leatherArmor("LeatherArmor", leatherArmorAttribute, leatherArmorSkills);
-    Armor robe("Robe", robeAttribute, robeSkills);
-    Armor laurelWreath("LaurelWreath", laurelWreathAttribute, laurelWreathSkills);
-
-    armorMap["BareBody"] = bareBody;
-    armorMap["WoodenShield"] = woodenShield;
-    armorMap["PlateArmor"] = plateArmor;
-    armorMap["LeatherArmor"] = leatherArmor;
-    armorMap["Robe"] = robe;
-    armorMap["LaurelWreath"] = laurelWreath;
+	armorMap["BareBody"] = Armor("BareBody", bareBodyAttribute, bareBodySkill);
+	armorMap["WoodenShield"] = Armor("WoodenShield", woodenShieldAttribute, woodenShieldSkill);
+	armorMap["PlateArmor"] = Armor("PlateArmor", plateArmorAttribute, plateArmorSkill);
+	armorMap["LeatherArmor"] = Armor("LeatherArmor", leatherArmorAttribute, leatherArmorSkill);
+	armorMap["Robe"] = Armor("Robe", robeAttribute, robeSkill);
+	armorMap["LaurelWreath"] = Armor("LaurelWreath", laurelWreathAttribute, laurelWreathSkill);
 }
 
 void EquipmentTable::AccessoryTableInitialize() {
-    Skill HealSkill("Heal", SkillType::ACTIVE);
-    Skill RunSkill("Run", SkillType::ACTIVE);
+	Active Heal = SkillTable::activeMap.find("Heal")->second;
+	Passive Run = SkillTable::passiveMap.find("Run")->second;
 
-    Attribute bareAccessoryAttribute;
-    std::vector<Skill> bareAccessorySkills;
+	Attribute bareAccessoryAttribute;
+	Skill bareAccessorySkill;
 
-    Attribute holyGrailAttribute;
-    holyGrailAttribute.SetMD(30);
-    std::vector<Skill> holyGrailSkills;
-    holyGrailSkills.push_back(HealSkill);
+	Attribute holyGrailAttribute;
+	holyGrailAttribute.SetMD(30);
+	Skill holyGrailSkill;
+	holyGrailSkill.pushActive(Heal);
 
-    Attribute shoesAttribute;
-    shoesAttribute.SetSPD(5);
-    std::vector<Skill> shoesSkills;
-    shoesSkills.push_back(RunSkill);
+	Attribute shoesAttribute;
+	shoesAttribute.SetSPD(5);
+	Skill shoesSkill;
+	shoesSkill.pushPassive(Run);
 
-    Attribute braceletAttribute;
-    braceletAttribute.SetMaxFocus(1);
-    std::vector<Skill> braceletSkills;
+	Attribute braceletAttribute;
+	braceletAttribute.SetMaxFocus(1);
+	Skill braceletSkill;
 
-    Accessory bareAccessory("BareAccessory", bareAccessoryAttribute, bareAccessorySkills);
-    Accessory holyGrail("HolyGrail", holyGrailAttribute, holyGrailSkills);
-    Accessory shoes("Shoes", shoesAttribute, shoesSkills);
-    Accessory bracelet("Bracelet", braceletAttribute, braceletSkills);
-
-    accessoryMap["BareAccessory"] = bareAccessory;
-    accessoryMap["HolyGrail"] = holyGrail;
-    accessoryMap["Shoes"] = shoes;
-    accessoryMap["Bracelet"] = bracelet;
+	accessoryMap["BareAccessory"] = Accessory("BareAccessory", bareAccessoryAttribute, bareAccessorySkill);
+	accessoryMap["HolyGrail"] = Accessory("HolyGrail", holyGrailAttribute, holyGrailSkill);
+	accessoryMap["Shoes"] = Accessory("Shoes", shoesAttribute, shoesSkill);
+	accessoryMap["Bracelet"] = Accessory("Bracelet", braceletAttribute, braceletSkill);
 }
