@@ -38,6 +38,17 @@ void Attribute::randomAttribute(void) {
 	this->MD = defenseDis(gen);
 }
 
+void Attribute::display(void) {
+	std::cout << "HP / Max HP: " << this->HP << " / " << this->maxHP << std::endl;
+	std::cout << "Focus / Max Focus: " << this->focus << " / " << this->maxFocus << std::endl;
+	std::cout << "SPD: " << this->SPD << std::endl;
+	std::cout << "ACC: " << this->ACC << std::endl;
+	std::cout << "PA: " << this->PA << std::endl;
+	std::cout << "MA: " << this->MA << std::endl;
+	std::cout << "PD: " << this->PD << std::endl;
+	std::cout << "MD: " << this->MD << std::endl;
+}
+
 Attribute Attribute::operator+=(const Attribute& attribute) {
 	this->maxHP += attribute.maxHP;
 	this->maxFocus += attribute.maxFocus;

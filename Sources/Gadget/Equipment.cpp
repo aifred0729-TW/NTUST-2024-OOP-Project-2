@@ -5,102 +5,53 @@
 #include <algorithm>
 
 Equipment::Equipment() {
-    Attribute attribute;
-    this->weaponAttribute = attribute;
-    this->armorAttribute = attribute;
-	this->accessoryAttribute = attribute;
-    std::vector<Skill> skills;
-    this->weaponSkills = skills;
-    this->armorSkills = skills;
-	this->accessorySkills = skills;
+    weapon = Weapon();
+	armor = Armor();
+	accessory = Accessory();
 }
 
-Equipment::Equipment(Attribute attribute, std::vector<Skill> skills)
-    : weaponAttribute(attribute), armorAttribute(attribute), accessoryAttribute(attribute),
-	  weaponSkills(skills), armorSkills(skills), accessorySkills(skills) {}
-
-Attribute Equipment::GetAdditionalAttribute() const {
-    Attribute attribute;
-    attribute += weaponAttribute;
-    attribute += armorAttribute;
-	attribute += accessoryAttribute;
-    return attribute;
+Attribute Equipment::GetTotalAttribute() const {
+	Attribute attribute;
+	attribute += weapon.GetAttribute();
+	attribute += armor.GetAttribute();
+	attribute += accessory.GetAttribute();
+	return attribute;
 }
 
-std::vector<Skill> Equipment::GetAdditionalSkills() const {
-	struct SkillEqual {
-		bool operator()(const Skill& lhs, const Skill& rhs) const {
-			return lhs.GetName() == rhs.GetName();
-		}
-	};
+std::vector<Skill> Equipment::GetTotalSkills() const {
+	std::unordered_set<Skill, Skill::HashFunction> uniqueSkills;
 
-	struct SkillHash {
-		std::size_t operator()(const Skill& skill) const {
-			return std::hash<std::string>()(skill.GetName());
-		}
-	};
-
-	std::unordered_set<Skill, SkillHash, SkillEqual> uniqueSkills;
-	std::vector<Skill> skills;
-	auto addSkills = [&uniqueSkills, &skills](const std::vector<Skill>& newSkills) {
-		for (const auto& skill : newSkills) {
-			if (uniqueSkills.insert(skill).second) {
-				skills.push_back(skill);
-			}
-		}
+	auto addSkills = [&uniqueSkills](const std::vector<Skill>& skills) {
+		uniqueSkills.insert(skills.begin(), skills.end());
 		};
 
-	addSkills(weaponSkills);
-	addSkills(armorSkills);
-	addSkills(accessorySkills);
+	addSkills(weapon.GetSkills());
+	addSkills(armor.GetSkills());
+	addSkills(accessory.GetSkills());
 
-	return skills;
+	return std::vector<Skill>(uniqueSkills.begin(), uniqueSkills.end());
 }
 
-void Equipment::SetWeaponAttribute(const Attribute& weaponAttribute) {
-	this->weaponAttribute = weaponAttribute;
+void Equipment::SetWeapon(const Weapon& weapon) {
+	this->weapon = weapon;
 }
 
-void Equipment::SetArmorAttribute(const Attribute& armorAttribute) {
-	this->armorAttribute = armorAttribute;
+void Equipment::SetArmor(const Armor& armor) {
+	this->armor = armor;
 }
 
-void Equipment::SetAccessoryAttribute(const Attribute& accessoryAttribute) {
-	this->accessoryAttribute = accessoryAttribute;
+void Equipment::SetAccessory(const Accessory& accessory) {
+	this->accessory = accessory;
 }
 
-void Equipment::SetWeaponSkills(const std::vector<Skill>& weaponSkills) {
-	this->weaponSkills = weaponSkills;
+Weapon Equipment::GetWeapon() const {
+	return weapon;
 }
 
-void Equipment::SetArmorSkills(const std::vector<Skill>& armorSkills) {
-	this->armorSkills = armorSkills;
+Armor Equipment::GetArmor() const {
+	return armor;
 }
 
-void Equipment::SetAccessorySkills(const std::vector<Skill>& accessorySkills) {
-	this->accessorySkills = accessorySkills;
-}
-
-Attribute Equipment::GetWeaponAttribute() const {
-	return weaponAttribute;
-}
-
-Attribute Equipment::GetArmorAttribute() const {
-	return armorAttribute;
-}
-
-Attribute Equipment::GetAccessoryAttribute() const {
-	return accessoryAttribute;
-}
-
-std::vector<Skill> Equipment::GetWeaponSkills() const {
-	return weaponSkills;
-}
-
-std::vector<Skill> Equipment::GetArmorSkills() const {
-	return armorSkills;
-}
-
-std::vector<Skill> Equipment::GetAccessorySkills() const {
-	return accessorySkills;
+Accessory Equipment::GetAccessory() const {
+	return accessory;
 }

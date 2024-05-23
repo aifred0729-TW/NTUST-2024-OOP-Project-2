@@ -31,6 +31,16 @@ public:
 
     // Apply the skill
     void Apply(Entity* user, std::vector<Entity*> targets);
+
+    bool operator==(const Skill& other) const {
+        return name == other.name && type == other.type;
+    }
+
+    struct HashFunction {
+        std::size_t operator()(const Skill& skill) const {
+            return std::hash<std::string>()(skill.name) ^ std::hash<int>()(static_cast<int>(skill.type));
+        }
+    };
 };
 
 #endif

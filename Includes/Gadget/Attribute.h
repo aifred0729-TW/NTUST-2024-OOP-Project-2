@@ -53,6 +53,7 @@ public:
 public:
 	// Random Attribute based on the Docs requirement.
 	void randomAttribute(void);
+	void display(void);
 	Attribute operator+=(const Attribute&);
 };
 

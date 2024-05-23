@@ -12,9 +12,9 @@ private:
     static void AccessoryTableInitialize();
 
 public:
-    static std::map<std::string, Equipment> weaponMap;
-    static std::map<std::string, Equipment> armorMap;
-    static std::map<std::string, Equipment> accessoryMap;
+    static std::map<std::string, Weapon> weaponMap;
+    static std::map<std::string, Armor> armorMap;
+    static std::map<std::string, Accessory> accessoryMap;
 
     static void Initialize();
 };

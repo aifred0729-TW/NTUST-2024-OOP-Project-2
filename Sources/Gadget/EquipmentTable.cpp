@@ -1,8 +1,8 @@
 #include "EquipmentTable.h"
 
-std::map<std::string, Equipment> EquipmentTable::weaponMap;
-std::map<std::string, Equipment> EquipmentTable::armorMap;
-std::map<std::string, Equipment> EquipmentTable::accessoryMap;
+std::map<std::string, Weapon> EquipmentTable::weaponMap;
+std::map<std::string, Armor> EquipmentTable::armorMap;
+std::map<std::string, Accessory> EquipmentTable::accessoryMap;
 
 void EquipmentTable::Initialize() {
     EquipmentTable::WeaponTableInitialize();
@@ -52,12 +52,12 @@ void EquipmentTable::WeaponTableInitialize() {
     ritualSwordSkills.push_back(ShokeBlastSkill);
 
 
-    Equipment bareHand(bareHandAttribute, bareHandSkills);
-    Equipment woodenSword(woodenSwordAttribute, woodenSwordSkills);
-    Equipment hammer(hammerAttribute, hammerSkills);
-    Equipment giantHammer(giantHammerAttribute, giantHammerSkills);
-    Equipment magicWand(magicWandAttribute, magicWandSkills);
-    Equipment ritualSword(ritualSwordAttribute, ritualSwordSkills);
+    Weapon bareHand("WoodenSword", bareHandAttribute, bareHandSkills);
+    Weapon woodenSword("BareHand", woodenSwordAttribute, woodenSwordSkills);
+    Weapon hammer("Hammer", hammerAttribute, hammerSkills);
+    Weapon giantHammer("GiantHammer", giantHammerAttribute, giantHammerSkills);
+    Weapon magicWand("MagicWand", magicWandAttribute, magicWandSkills);
+    Weapon ritualSword("RitualSword", ritualSwordAttribute, ritualSwordSkills);
 
     weaponMap["WoodenSword"] = woodenSword;
     weaponMap["BareHand"] = bareHand;
@@ -99,12 +99,12 @@ void EquipmentTable::ArmorTableInitialize() {
     std::vector<Skill> laurelWreathSkills;
     laurelWreathSkills.push_back(LaurelPassiveSkill);
 
-    Equipment bareBody(bareBodyAttribute, bareBodySkills);
-    Equipment woodenShield(woodenShieldAttribute, woodenShieldSkills);
-    Equipment plateArmor(plateArmorAttribute, plateArmorSkills);
-    Equipment leatherArmor(leatherArmorAttribute, leatherArmorSkills);
-    Equipment robe(robeAttribute, robeSkills);
-    Equipment laurelWreath(laurelWreathAttribute, laurelWreathSkills);
+    Armor bareBody("BareBody", bareBodyAttribute, bareBodySkills);
+    Armor woodenShield("WoodenShield", woodenShieldAttribute, woodenShieldSkills);
+    Armor plateArmor("PlateArmor", plateArmorAttribute, plateArmorSkills);
+    Armor leatherArmor("LeatherArmor", leatherArmorAttribute, leatherArmorSkills);
+    Armor robe("Robe", robeAttribute, robeSkills);
+    Armor laurelWreath("LaurelWreath", laurelWreathAttribute, laurelWreathSkills);
 
     armorMap["BareBody"] = bareBody;
     armorMap["WoodenShield"] = woodenShield;
@@ -135,10 +135,10 @@ void EquipmentTable::AccessoryTableInitialize() {
     braceletAttribute.SetMaxFocus(1);
     std::vector<Skill> braceletSkills;
 
-    Equipment bareAccessory(bareAccessoryAttribute, bareAccessorySkills);
-    Equipment holyGrail(holyGrailAttribute, holyGrailSkills);
-    Equipment shoes(shoesAttribute, shoesSkills);
-    Equipment bracelet(braceletAttribute, braceletSkills);
+    Accessory bareAccessory("BareAccessory", bareAccessoryAttribute, bareAccessorySkills);
+    Accessory holyGrail("HolyGrail", holyGrailAttribute, holyGrailSkills);
+    Accessory shoes("Shoes", shoesAttribute, shoesSkills);
+    Accessory bracelet("Bracelet", braceletAttribute, braceletSkills);
 
     accessoryMap["BareAccessory"] = bareAccessory;
     accessoryMap["HolyGrail"] = holyGrail;

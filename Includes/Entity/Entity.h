@@ -34,7 +34,6 @@ public:
 
 	Attribute           GetTotalAttribute(void);
 	std::vector<Skill>  GetTotalSkills(void);
-
 public:
 	// Find the Enemy in Range
 	bool isInRange(std::vector<Entity*>);
