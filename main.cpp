@@ -1,4 +1,5 @@
 #include "Includes/Entity/Role.h"
+#include "Includes/Entity/Enemy.h"
 #include "Includes/Gadget/Equipment.h"
 #include "Includes/Gadget/EquipmentTable.h"
 #include "Includes/Gadget/SkillTable.h"
@@ -7,8 +8,8 @@ int main() {
 	SkillTable::Initialize();
 	EquipmentTable::Initialize();
 
-	Entity hero;
-	Entity dragon;
+	Role hero;
+	Enemy dragon;
 	std::cout << "---------------Hero---------------" << std::endl;
 	hero.GetTotalAttribute().display();
 	std::cout << "---------------Dragon---------------" << std::endl;
@@ -30,13 +31,16 @@ int main() {
 	hero.useSkill("Flee", targets);
 	hero.useSkill("Heal", targets);
 	hero.useSkill("SpeedUp", targets);
-	hero.useSkill("GiantHammerAttack", targets);
 	std::cout << std::endl;
 
 	std::cout << "---------------UnEquip Equipment---------------" << std::endl;
 	hero.unEquip(hero.GetEquipment().GetWeapon().GetName());
 	hero.unEquip(hero.GetEquipment().GetArmor().GetName());
 	hero.unEquip(hero.GetEquipment().GetAccessory().GetName());
+	hero.useSkill("Attack", targets);
+	hero.useSkill("Flee", targets);
+	hero.useSkill("Heal", targets);
+	hero.useSkill("SpeedUp", targets);
 	std::cout << "---------------Hero---------------" << std::endl;
 	hero.GetTotalAttribute().display();
 	std::cout << "---------------Dragon---------------" << std::endl;

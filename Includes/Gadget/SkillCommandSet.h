@@ -10,31 +10,6 @@ public:
     void execute(Entity& caster, std::vector<Entity*> target) override;
 };
 
-class WoodenSwordAttackCommand : public SkillCommand {
-public:
-	void execute(Entity& caster, std::vector<Entity*> target) override;
-};
-
-class HammerAttackCommand : public SkillCommand {
-public:
-	void execute(Entity& caster, std::vector<Entity*> target) override;
-};
-
-class GiantHammerAttackCommand : public SkillCommand {
-public:
-	void execute(Entity& caster, std::vector<Entity*> target) override;
-};
-
-class MagicWandAttackCommand : public SkillCommand {
-public:
-	void execute(Entity& caster, std::vector<Entity*> target) override;
-};
-
-class RitualSwordAttackCommand : public SkillCommand {
-public:
-	void execute(Entity& caster, std::vector<Entity*> target) override;
-};
-
 class FleeCommand : public SkillCommand {
 public:
 	void execute(Entity& caster, std::vector<Entity*> target) override;

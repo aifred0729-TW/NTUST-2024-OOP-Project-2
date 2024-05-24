@@ -24,6 +24,7 @@ void Entity::useSkill(std::string skillName, std::vector<Entity*> target) {
 			return;
 		}
 	}
+
 	std::cerr << "Skill " << skillName << " not found in active skills!" << std::endl;
 }
 

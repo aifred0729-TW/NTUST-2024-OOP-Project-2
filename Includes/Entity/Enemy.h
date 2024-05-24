@@ -14,7 +14,7 @@
 
 class Enemy : public Entity, public Interactive {
 public:
-	Enemy(/**/);
+	Enemy(){};
 };
 
 #endif
