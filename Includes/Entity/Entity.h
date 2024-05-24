@@ -6,11 +6,12 @@
 #include <set>
 #include <unordered_set>
 #include <algorithm>
-
-#include <Attribute.h>
-#include <Skill.h>
-#include <Equipment.h>
+#include "Attribute.h"
+#include "Skill.h"
+#include "Equipment.h"
 #include "EquipmentTable.h"
+
+class Active;
 
 class Entity {
 private:
@@ -40,13 +41,11 @@ public:
 	// Find the Enemy in Range
 	bool isInRange(std::vector<Entity*>);
 	// Equip and UnEquip Weapon and Armor
-	void EquipWeapon(const std::string& equipmentName);
-	void EquipArmor(const std::string& equipmentName);
-	void EquipAccessory(const std::string& equipmentName);
-	void UnEquipWeapon();
-	void UnEquipArmor();
-	void UnEquipAccessory();
-	// ...
+	// 需要和物品欄結合才算完成
+	void equip(std::string equipmentName);
+	void unEquip(std::string equipmentName);
+	// 技能實做
+	void useSkill(std::string skillName, std::vector<Entity*> targets);
 };
 
 #endif

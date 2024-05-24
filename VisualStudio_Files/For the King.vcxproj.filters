@@ -138,6 +138,9 @@
     <ClCompile Include="..\Sources\Gadget\Active.cpp">
       <Filter>Sources\Gadget\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\SkillCommandSet.cpp">
+      <Filter>Sources\Gadget\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Includes\ConstData.h">
@@ -222,6 +225,12 @@
       <Filter>Includes\Gadget\Equipment</Filter>
     </ClInclude>
     <ClInclude Include="..\Includes\Gadget\Skill.h">
+      <Filter>Includes\Gadget\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\SkillCommand.h">
+      <Filter>Includes\Gadget\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\SkillCommandSet.h">
       <Filter>Includes\Gadget\Skill</Filter>
     </ClInclude>
   </ItemGroup>

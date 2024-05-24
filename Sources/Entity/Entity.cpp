@@ -16,49 +16,45 @@ Entity::Entity() {
 	eventID = 0;
 }
 
-void Entity::EquipWeapon(const std::string& equipmentName) {
-	auto it = EquipmentTable::weaponMap.find(equipmentName);
-	if (it != EquipmentTable::weaponMap.end()) {
-		UnEquipWeapon();
-		this->equipment.SetWeapon(it->second);
+void Entity::useSkill(std::string skillName, std::vector<Entity*> target) {
+	Skill combinedSkill = GetTotalSkill();
+	for (auto active : combinedSkill.GetActive()) {
+		if (active.GetName() == skillName) {
+			active.apply(*this, target);
+			return;
+		}
+	}
+	std::cerr << "Skill " << skillName << " not found in active skills!" << std::endl;
+}
+
+void Entity::equip(std::string equipmentName) {
+	if (EquipmentTable::weaponMap.find(equipmentName) != EquipmentTable::weaponMap.end()) {
+		this->equipment.SetWeapon(EquipmentTable::weaponMap[equipmentName]);
+		return;
+	} else if (EquipmentTable::armorMap.find(equipmentName) != EquipmentTable::armorMap.end()) {
+		this->equipment.SetArmor(EquipmentTable::armorMap[equipmentName]);
+		return;
+	} else if (EquipmentTable::accessoryMap.find(equipmentName) != EquipmentTable::accessoryMap.end()) {
+		this->equipment.SetAccessory(EquipmentTable::accessoryMap[equipmentName]);
+		return;
 	} else {
 		std::cerr << "Equipment " << equipmentName << " not found!" << std::endl;
 	}
 }
 
-void Entity::EquipArmor(const std::string& equipmentName) {
-	auto it = EquipmentTable::armorMap.find(equipmentName);
-	if (it != EquipmentTable::armorMap.end()) {
-		// UnEquipArmor();
-		this->equipment.SetArmor(it->second);
+void Entity::unEquip(std::string equipmentName) {
+	if (this->GetEquipment().GetArmor().GetName() == equipmentName) {
+		this->equipment.SetArmor(EquipmentTable::armorMap.find("BareBody")->second);
+		return;
+	} else if (this->GetEquipment().GetWeapon().GetName() == equipmentName) {
+		this->equipment.SetWeapon(EquipmentTable::weaponMap.find("BareHand")->second);
+		return;
+	} else if (this->GetEquipment().GetAccessory().GetName() == equipmentName) {
+		this->equipment.SetAccessory(EquipmentTable::accessoryMap.find("BareAccessory")->second);
+		return;
 	} else {
 		std::cerr << "Equipment " << equipmentName << " not found!" << std::endl;
 	}
-}
-
-void Entity::EquipAccessory(const std::string& equipmentName) {
-	auto it = EquipmentTable::accessoryMap.find(equipmentName);
-	if (it != EquipmentTable::accessoryMap.end()) {
-		UnEquipAccessory();
-		this->equipment.SetAccessory(it->second);
-	} else {
-		std::cerr << "Equipment " << equipmentName << " not found!" << std::endl;
-	}
-}
-
-void Entity::UnEquipWeapon() {
-	auto it = EquipmentTable::weaponMap.find("BareHand");
-	this->equipment.SetWeapon(it->second);
-}
-
-void Entity::UnEquipArmor() {
-	auto it = EquipmentTable::armorMap.find("BareBody");
-	this->equipment.SetArmor(it->second);
-}
-
-void Entity::UnEquipAccessory() {
-	auto it = EquipmentTable::accessoryMap.find("BareAccessory");
-	this->equipment.SetAccessory(it->second);
 }
 
 Attribute Entity::GetTotalAttribute(void) {

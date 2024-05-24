@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include "Skill.h"
+#include "SkillCommandSet.h"
 
 class SkillTable {
 private:

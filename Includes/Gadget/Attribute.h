@@ -10,6 +10,7 @@
 #include <vector>
 #include <windows.h>
 #include <random>
+#include <algorithm>
 
 class Attribute {
 private:

@@ -7,38 +7,40 @@ int main() {
 	SkillTable::Initialize();
 	EquipmentTable::Initialize();
 
-	Role hero;
-	Role dragon;
+	Entity hero;
+	Entity dragon;
 	std::cout << "---------------Hero---------------" << std::endl;
 	hero.GetTotalAttribute().display();
 	std::cout << "---------------Dragon---------------" << std::endl;
 	dragon.GetTotalAttribute().display();
 	std::cout << std::endl;
-	std::cout << std::endl;
 
 	std::cout << "---------------Equip Equipment---------------" << std::endl;
-	hero.EquipWeapon("GiantHammer");
-	hero.EquipArmor("LaurelWreath");
-	hero.EquipAccessory("HolyGrail");
+	hero.equip("GiantHammer");
+	hero.equip("LaurelWreath");
+	hero.equip("HolyGrail");
 	hero.GetTotalAttribute().display();
-	std::cout << std::endl;
 	std::cout << std::endl;
 
 	std::cout << "---------------Apply Skill---------------" << std::endl;
-	// hero.GetTotalSkill().display();
-	/*
-	for (auto active : hero.GetTotalSkill().GetActive()) {
-		std::cout << "  " << active.GetName() << std::endl;
-	}
-	*/
-	// hero.ApplyActive("WoodenSwordAttack", dragon);
+	hero.GetTotalSkill().display();
+	std::vector<Entity*> targets;
+	targets.push_back(&dragon);
+	hero.useSkill("Attack", targets);
+	hero.useSkill("Flee", targets);
+	hero.useSkill("Heal", targets);
+	hero.useSkill("SpeedUp", targets);
+	hero.useSkill("GiantHammerAttack", targets);
 	std::cout << std::endl;
 
 	std::cout << "---------------UnEquip Equipment---------------" << std::endl;
-	hero.UnEquipWeapon();
-	hero.UnEquipArmor();
-	hero.UnEquipAccessory();
+	hero.unEquip(hero.GetEquipment().GetWeapon().GetName());
+	hero.unEquip(hero.GetEquipment().GetArmor().GetName());
+	hero.unEquip(hero.GetEquipment().GetAccessory().GetName());
+	std::cout << "---------------Hero---------------" << std::endl;
 	hero.GetTotalAttribute().display();
+	std::cout << "---------------Dragon---------------" << std::endl;
+	dragon.GetTotalAttribute().display();
 	std::cout << std::endl;
 
 	return 0;

@@ -1,8 +1,17 @@
 #include "../../Includes/Gadget/Active.h"
+#include "Entity.h"
 
-Active::Active() : name(""), cooldown(0), diceAmount() {}
-Active::Active(std::string name, uint8_t cooldown, uint8_t diceAmount) 
-	: name(name), cooldown(cooldown), diceAmount(diceAmount) {}
+Active::Active() : name(""), cooldown(0), diceAmount(0), command(nullptr) {}
+Active::Active(std::string name, uint8_t cooldown, uint8_t diceAmount, SkillCommand* command)
+	: name(name), cooldown(cooldown), diceAmount(diceAmount), command(command) {}
+
+void Active::apply(Entity& caster, std::vector<Entity*> targets) {
+	if (command) {
+		command->execute(caster, targets);
+	} else {
+		std::cerr << "No command assigned to this skill!" << std::endl;
+	}
+}
 
 std::string Active::GetName() const {
 	return name;
