@@ -49,6 +49,9 @@ void Dice::RollDice(void) {
 	this->movementPoint = 0;
 
 	// Roll Dice
+	this->result.resize(this->amount, false);
+	this->rateAddition.resize(this->amount, 0);
+	this->successRate.resize(this->amount, 0);
 	for (int i = 0; i < this->amount; i++) {
 		this->result[i] = (dis(gen) < this->successRate[i] + this->rateAddition[i]) || (i < focusCount);
 		if (this->result[i]) {
@@ -58,8 +61,17 @@ void Dice::RollDice(void) {
 
 	// Reset FocusCount and RateAddition
 	this->focusCount = 0;
-	this->rateAddition.clear();
-	this->rateAddition.resize(this->amount, 0);
+}
+
+void Dice::resize(uint8_t amount) {
+	this->amount = amount;
+	this->result.resize(amount, false);
+	this->successRate.size() == 0 ? this->successRate.resize(amount, 0) : this->successRate.resize(amount, this->successRate[0]);
+	this->rateAddition.size() == 0 ? this->rateAddition.resize(amount, 0) : this->rateAddition.resize(amount, this->rateAddition[0]);
+}
+
+void Dice::displayResult(void) {
+	std::cout << "ÂY»ëµ²ªG: " << (unsigned)movementPoint << " / " << (unsigned)amount << std::endl;
 }
 
 void Dice::setMovementPoint(const uint8_t movementPoint) {

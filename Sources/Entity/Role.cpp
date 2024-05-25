@@ -3,6 +3,14 @@
 Role::Role()
     : pack(), movementPoint(0), step(0), position({ 0, 0 }) {}
 
+Role::Role(std::string name) {
+    SetName(name);
+    SetPack(Item());
+    SetMovementPoint(0);
+    SetStep(0);
+    SetPosition({ 0, 0 });
+}
+
 void Role::SetPack(const Item& pack) {
     this->pack = pack;
 }

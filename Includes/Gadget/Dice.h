@@ -47,6 +47,8 @@ public:
 public:
     // Caution: FocusCount and RateAddition would be reset after rolling dice.
     void RollDice(void);
+    void resize(uint8_t amount);
+    void displayResult(void);
 };
 
 #endif

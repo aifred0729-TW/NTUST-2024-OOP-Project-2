@@ -1,11 +1,11 @@
 #include "Weapon.h"
 
 // Default constructor
-Weapon::Weapon() : name(""), attribute(), skill(), diceAmount(0) {}
+Weapon::Weapon() : name(""), attribute(), skill(), diceAmount(0), attackType('P') {}
 
 // Parameterized constructor
-Weapon::Weapon(std::string name, Attribute attribute, Skill skill, uint8_t diceAmount)
-    : name(name), attribute(attribute), skill(skill), diceAmount(diceAmount) {}
+Weapon::Weapon(std::string name, Attribute attribute, Skill skill, uint8_t diceAmount, char attackType)
+    : name(name), attribute(attribute), skill(skill), diceAmount(diceAmount), attackType(attackType) {}
 
 // Setters
 void Weapon::SetName(const std::string& name) {
@@ -24,6 +24,10 @@ void Weapon::SetDiceAmount(const uint16_t& diceAmount) {
 	this->diceAmount = diceAmount;
 }
 
+void Weapon::SetAttackType(const char& attackType) {
+	this->attackType = attackType;
+}
+
 // Getters
 std::string Weapon::GetName() const {
 	return name;
@@ -39,4 +43,8 @@ Skill Weapon::GetSkill() const {
 
 uint16_t Weapon::GetDiceAmount() const {
 	return diceAmount;
+}
+
+char Weapon::GetAttackType() const {
+	return attackType;
 }

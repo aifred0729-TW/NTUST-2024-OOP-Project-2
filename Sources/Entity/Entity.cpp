@@ -12,8 +12,14 @@ Entity::Entity() {
 	Active Flee = SkillTable::activeMap.find("Flee")->second;
 	skill.pushActive(Attack);
 	skill.pushActive(Flee);
+	this->dice = Dice();
 	status = 0;
 	eventID = 0;
+}
+
+Entity::Entity(std::string name) {
+	Entity();
+	this->name = name;
 }
 
 void Entity::useSkill(std::string skillName, std::vector<Entity*> target) {
@@ -26,6 +32,25 @@ void Entity::useSkill(std::string skillName, std::vector<Entity*> target) {
 	}
 
 	std::cerr << "Skill " << skillName << " not found in active skills!" << std::endl;
+}
+
+void Entity::takeDamage(int16_t damage, char attackType) {
+	int16_t armor = attackType == 'P' ? GetTotalAttribute().GetPD() : GetTotalAttribute().GetMD();
+	double absorption = armor / (double)(armor + 50);
+	damage = static_cast<int16_t>((double)damage * (1 - absorption));
+	int16_t damageTaken = GetTotalAttribute().GetHP() - damage;
+	attribute.SetHP(damageTaken > 0 ? damageTaken : 0);
+	std::cout << name << " 防禦後受到了 " << damage << " 點傷害！，當前HP為 " << attribute.GetHP() << " !" << std::endl;
+	if (attribute.GetHP() == 0) {
+		std::cout << name << " is dead! 喔不!!" << std::endl;
+		// status == 死了!!!!! 這裡要改成死亡狀態
+	}
+}
+
+void Entity::heal(int16_t heal) {
+	int16_t healTaken = GetTotalAttribute().GetHP() + heal;
+	attribute.SetHP(healTaken < GetTotalAttribute().GetMaxHP() ? healTaken : GetTotalAttribute().GetMaxHP());
+	std::cout << name << " 受到了 " << heal << " 點治療！，當前HP為 " << attribute.GetHP() << " !" << std::endl;
 }
 
 void Entity::equip(std::string equipmentName) {
@@ -76,6 +101,10 @@ bool Entity::isInRange(std::vector<Entity*>) {
 	return 0;
 }
 
+void Entity::SetName(const std::string& name) {
+	this->name = name;
+}
+
 void Entity::SetAttribute(const Attribute& attribute) {
 	this->attribute = attribute;
 }
@@ -88,6 +117,10 @@ void Entity::SetEquipment(const Equipment& equipment) {
 	this->equipment = equipment;
 }
 
+void Entity::SetDice(const Dice& dice) {
+	this->dice = dice;
+}
+
 void Entity::SetStatus(const uint8_t status) {
 	this->status = status;
 }
@@ -96,12 +129,20 @@ void Entity::SetEventID(const uint8_t eventID) {
 	this->eventID = eventID;
 }
 
+std::string Entity::GetName(void) {
+	return name;
+}
+
 Attribute& Entity::GetAttribute(void) {
 	return attribute;
 }
 
 Skill& Entity::GetSkill(void) {
 	return skill;
+}
+
+Dice& Entity::GetDice(void) {
+	return dice;
 }
 
 Equipment Entity::GetEquipment(void) {

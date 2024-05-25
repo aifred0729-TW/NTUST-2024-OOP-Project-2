@@ -52,12 +52,12 @@ void EquipmentTable::WeaponTableInitialize() {
 	Skill ritualSwordSkill;
 	ritualSwordSkill.pushActive(ShockBlast);
 
-	weaponMap["BareHand"] = Weapon("BareHand", bareHandAttribute, bareHandSkill, 1);
-	weaponMap["WoodenSword"] = Weapon("WoodenSword", woodenSwordAttribute, woodenSwordSkill, 3);
-	weaponMap["Hammer"] = Weapon("Hammer", hammerAttribute, hammerSkill, 4);
-	weaponMap["GiantHammer"] = Weapon("GiantHammer", giantHammerAttribute, giantHammerSkill, 5);
-	weaponMap["MagicWand"] = Weapon("MagicWand", magicWandAttribute, magicWandSkill, 3);
-	weaponMap["RitualSword"] = Weapon("RitualSword", ritualSwordAttribute, ritualSwordSkill, 1);
+	weaponMap["BareHand"] = Weapon("BareHand", bareHandAttribute, bareHandSkill, 1, 'P');
+	weaponMap["WoodenSword"] = Weapon("WoodenSword", woodenSwordAttribute, woodenSwordSkill, 3, 'P');
+	weaponMap["Hammer"] = Weapon("Hammer", hammerAttribute, hammerSkill, 4, 'P');
+	weaponMap["GiantHammer"] = Weapon("GiantHammer", giantHammerAttribute, giantHammerSkill, 5, 'P');
+	weaponMap["MagicWand"] = Weapon("MagicWand", magicWandAttribute, magicWandSkill, 3, 'M');
+	weaponMap["RitualSword"] = Weapon("RitualSword", ritualSwordAttribute, ritualSwordSkill, 1, 'M');
 }
 
 void EquipmentTable::ArmorTableInitialize() {

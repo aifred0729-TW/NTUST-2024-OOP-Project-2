@@ -14,7 +14,8 @@
 
 class Enemy : public Entity, public Interactive {
 public:
-	Enemy(){};
+	Enemy();
+	Enemy(std::string name);
 };
 
 #endif
