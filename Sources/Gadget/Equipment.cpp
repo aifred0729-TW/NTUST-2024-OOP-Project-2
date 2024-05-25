@@ -1,14 +1,11 @@
-#include "Equipment.h"
-
 #include <vector>
 #include <unordered_set>
 #include <algorithm>
 
-Equipment::Equipment() {
-    weapon = Weapon();
-	armor = Armor();
-	accessory = Accessory();
-}
+#include <Equipment.h>
+#include <EquipmentBase.h>
+
+Equipment::Equipment() {}
 
 Attribute Equipment::GetTotalAttribute() const {
 	Attribute attribute;
