@@ -1,11 +1,11 @@
 #include "Accessory.h"
 
 // Default constructor
-Accessory::Accessory() : name(), attribute(), skills() {}
+Accessory::Accessory() : name(), attribute(), skill() {}
 
 // Parameterized constructor
-Accessory::Accessory(std::string name, Attribute attribute, std::vector<Skill> skills)
-	:name(name), attribute(attribute), skills(skills) {}
+Accessory::Accessory(std::string name, Attribute attribute, Skill skill)
+	:name(name), attribute(attribute), skill(skill) {}
 
 // Setters
 void Accessory::SetName(const std::string& name) {
@@ -16,8 +16,8 @@ void Accessory::SetAttribute(const Attribute& attribute) {
 	this->attribute = attribute;
 }
 
-void Accessory::SetSkills(const std::vector<Skill>& skills) {
-	this->skills = skills;
+void Accessory::SetSkill(const Skill& skill) {
+	this->skill = skill;
 }
 
 // Getters
@@ -29,6 +29,6 @@ Attribute Accessory::GetAttribute() const {
 	return attribute;
 }
 
-std::vector<Skill> Accessory::GetSkills() const {
-	return skills;
+Skill Accessory::GetSkill() const {
+	return skill;
 }

@@ -1,11 +1,11 @@
 #include "Armor.h"
 
 // Default constructor
-Armor::Armor() : name(), attribute(), skills() {}
+Armor::Armor() : name(), attribute(), skill() {}
 
 // Parameterized constructor
-Armor::Armor(std::string name, Attribute attribute, std::vector<Skill> skills)
-    : name(name), attribute(attribute), skills(skills) {}
+Armor::Armor(std::string name, Attribute attribute, Skill skill)
+    : name(name), attribute(attribute), skill(skill) {}
 
 // Setters
 void Armor::SetName(const std::string& name) {
@@ -16,8 +16,8 @@ void Armor::SetAttribute(const Attribute& attribute) {
     this->attribute = attribute;
 }
 
-void Armor::SetSkills(const std::vector<Skill>& skills) {
-    this->skills = skills;
+void Armor::SetSkill(const Skill& skill) {
+    this->skill = skill;
 }
 
 // Getters
@@ -29,6 +29,6 @@ Attribute Armor::GetAttribute() const {
     return attribute;
 }
 
-std::vector<Skill> Armor::GetSkills() const {
-    return skills;
+Skill Armor::GetSkill() const {
+    return skill;
 }

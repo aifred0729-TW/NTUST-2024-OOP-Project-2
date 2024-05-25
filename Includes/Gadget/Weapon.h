@@ -8,19 +8,25 @@ class Weapon {
 private:
     std::string name;
     Attribute attribute;
-    std::vector<Skill> skills;
+    Skill skill;
+    uint8_t diceAmount;
+    char attackType;
 
 public:
     Weapon();
-    Weapon(std::string name, Attribute, std::vector<Skill>);
+    Weapon(std::string name, Attribute attribute, Skill skill, uint8_t diceAmount, char attackType);
 
     void SetName(const std::string&);
     void SetAttribute(const Attribute&);
-    void SetSkills(const std::vector<Skill>&);
+    void SetSkill(const Skill&);
+    void SetDiceAmount(const uint16_t&);
+    void SetAttackType(const char&);
 
     std::string GetName() const;
     Attribute GetAttribute() const;
-    std::vector<Skill> GetSkills() const;
+    Skill GetSkill() const;
+    uint16_t GetDiceAmount() const;
+    char GetAttackType() const;
 };
 
 #endif

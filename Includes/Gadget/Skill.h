@@ -3,44 +3,39 @@
 
 #include <cstdint>
 #include <vector>
+#include <functional>
 #include "Dice.h"
+#include "Active.h"
+#include "Buff.h"
+#include "Passive.h"
 #include "ConstData.h"
 
 class Entity;
 
-enum SkillType {
-    ACTIVE,
-    PASSIVE
-};
-
 class Skill {
 private:
-    std::string name;
-    SkillType type;
+    std::vector<Active> active;
+    std::vector<Passive> passive;
+    std::vector<Buff> buff;
 
 public:
     Skill();
-    Skill(const std::string& name, SkillType type);
 
-    // Setter and Getter for skill
-    void SetName(const std::string& name);
-    void SetType(SkillType type);
+	void SetActive(const std::vector<Active>&);
+	void SetPassive(const std::vector<Passive>&);
+	void SetBuff(const std::vector<Buff>&);
 
-    std::string GetName() const;
-    SkillType GetType() const;
+	std::vector<Active> GetActive() const;
+	std::vector<Passive> GetPassive() const;
+	std::vector<Buff> GetBuff() const;
 
-    // Apply the skill
-    void Apply(Entity* user, std::vector<Entity*> targets);
-
-    bool operator==(const Skill& other) const {
-        return name == other.name && type == other.type;
-    }
-
-    struct HashFunction {
-        std::size_t operator()(const Skill& skill) const {
-            return std::hash<std::string>()(skill.name) ^ std::hash<int>()(static_cast<int>(skill.type));
-        }
-    };
+public:
+	void display();
+	void pushActive(const Active&);
+	void pushPassive(const Passive&);
+	void pushBuff(const Buff&);
+	Skill operator+=(const Skill&);
+	std::function<void()> ApplySkill;
 };
 
 #endif

@@ -10,12 +10,13 @@
 #include <vector>
 #include <windows.h>
 #include <random>
+#include <algorithm>
 
 class Attribute {
 private:
 	int16_t maxHP;     // Max HP
-	int16_t maxFocus;  // Max Focus
 	int16_t HP;        // HP
+	int16_t maxFocus;  // Max Focus
 	int16_t focus;     // Focus
 	int16_t SPD;       // Speed
 	int16_t ACC;       // Hit Rate
@@ -29,8 +30,8 @@ public:
 	Attribute();
 	
 	void SetMaxHP(const int16_t);
-	void SetMaxFocus(const int16_t);
 	void SetHP(const int16_t);
+	void SetMaxFocus(const int16_t);
 	void SetFocus(const int16_t);
 	void SetSPD(const int16_t);
 	void SetACC(const int16_t);
@@ -40,8 +41,8 @@ public:
 	void SetMD(const int16_t);
 
 	int16_t GetMaxHP(void);
-	int16_t GetMaxFocus(void);
 	int16_t GetHP(void);
+	int16_t GetMaxFocus(void);
 	int16_t GetFocus(void);
 	int16_t GetSPD(void);
 	int16_t GetACC(void);

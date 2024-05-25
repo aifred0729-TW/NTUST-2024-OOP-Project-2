@@ -1,62 +1,86 @@
 #include "../../Includes/Entity/Entity.h"
 #include "../../Includes/Gadget/EquipmentTable.h"
+#include "../../Includes/Gadget/SkillTable.h"
 
 // Public
 Entity::Entity() {
 	attribute = Attribute();
 	attribute.randomAttribute();
-	Skill attackSkill("Attack", SkillType::ACTIVE);
-	Skill fleeSkill("Flee", SkillType::ACTIVE);
-	skills.push_back(attackSkill);
-	skills.push_back(fleeSkill);
 	equipment = Equipment();
+	skill = Skill();
+	Active Attack = SkillTable::activeMap.find("Attack")->second;
+	Active Flee = SkillTable::activeMap.find("Flee")->second;
+	skill.pushActive(Attack);
+	skill.pushActive(Flee);
+	this->dice = Dice();
 	status = 0;
 	eventID = 0;
 }
 
-void Entity::EquipWeapon(const std::string& equipmentName) {
-	auto it = EquipmentTable::weaponMap.find(equipmentName);
-	if (it != EquipmentTable::weaponMap.end()) {
-		UnEquipWeapon();
-		this->equipment.SetWeapon(it->second);
+Entity::Entity(std::string name) {
+	Entity();
+	this->name = name;
+}
+
+void Entity::useSkill(std::string skillName, std::vector<Entity*> target) {
+	Skill combinedSkill = GetTotalSkill();
+	for (auto active : combinedSkill.GetActive()) {
+		if (active.GetName() == skillName) {
+			active.apply(*this, target);
+			return;
+		}
+	}
+
+	std::cerr << "Skill " << skillName << " not found in active skills!" << std::endl;
+}
+
+void Entity::takeDamage(int16_t damage, char attackType) {
+	int16_t armor = attackType == 'P' ? GetTotalAttribute().GetPD() : GetTotalAttribute().GetMD();
+	double absorption = armor / (double)(armor + 50);
+	damage = static_cast<int16_t>((double)damage * (1 - absorption));
+	int16_t damageTaken = GetTotalAttribute().GetHP() - damage;
+	attribute.SetHP(damageTaken > 0 ? damageTaken : 0);
+	std::cout << name << " 防禦後受到了 " << damage << " 點傷害！，當前HP為 " << attribute.GetHP() << " !" << std::endl;
+	if (attribute.GetHP() == 0) {
+		std::cout << name << " is dead! 喔不!!" << std::endl;
+		// status == 死了!!!!! 這裡要改成死亡狀態
+	}
+}
+
+void Entity::heal(int16_t heal) {
+	int16_t healTaken = GetTotalAttribute().GetHP() + heal;
+	attribute.SetHP(healTaken < GetTotalAttribute().GetMaxHP() ? healTaken : GetTotalAttribute().GetMaxHP());
+	std::cout << name << " 受到了 " << heal << " 點治療！，當前HP為 " << attribute.GetHP() << " !" << std::endl;
+}
+
+void Entity::equip(std::string equipmentName) {
+	if (EquipmentTable::weaponMap.find(equipmentName) != EquipmentTable::weaponMap.end()) {
+		this->equipment.SetWeapon(EquipmentTable::weaponMap[equipmentName]);
+		return;
+	} else if (EquipmentTable::armorMap.find(equipmentName) != EquipmentTable::armorMap.end()) {
+		this->equipment.SetArmor(EquipmentTable::armorMap[equipmentName]);
+		return;
+	} else if (EquipmentTable::accessoryMap.find(equipmentName) != EquipmentTable::accessoryMap.end()) {
+		this->equipment.SetAccessory(EquipmentTable::accessoryMap[equipmentName]);
+		return;
 	} else {
 		std::cerr << "Equipment " << equipmentName << " not found!" << std::endl;
 	}
 }
 
-void Entity::EquipArmor(const std::string& equipmentName) {
-	auto it = EquipmentTable::armorMap.find(equipmentName);
-	if (it != EquipmentTable::armorMap.end()) {
-		UnEquipArmor();
-		this->equipment.SetArmor(it->second);
+void Entity::unEquip(std::string equipmentName) {
+	if (this->GetEquipment().GetArmor().GetName() == equipmentName) {
+		this->equipment.SetArmor(EquipmentTable::armorMap.find("BareBody")->second);
+		return;
+	} else if (this->GetEquipment().GetWeapon().GetName() == equipmentName) {
+		this->equipment.SetWeapon(EquipmentTable::weaponMap.find("BareHand")->second);
+		return;
+	} else if (this->GetEquipment().GetAccessory().GetName() == equipmentName) {
+		this->equipment.SetAccessory(EquipmentTable::accessoryMap.find("BareAccessory")->second);
+		return;
 	} else {
 		std::cerr << "Equipment " << equipmentName << " not found!" << std::endl;
 	}
-}
-
-void Entity::EquipAccessory(const std::string& equipmentName) {
-	auto it = EquipmentTable::accessoryMap.find(equipmentName);
-	if (it != EquipmentTable::accessoryMap.end()) {
-		UnEquipAccessory();
-		this->equipment.SetAccessory(it->second);
-	} else {
-		std::cerr << "Equipment " << equipmentName << " not found!" << std::endl;
-	}
-}
-
-void Entity::UnEquipWeapon() {
-	auto it = EquipmentTable::weaponMap.find("BareHand");
-	this->equipment.SetWeapon(it->second);
-}
-
-void Entity::UnEquipArmor() {
-	auto it = EquipmentTable::armorMap.find("BareBody");
-	this->equipment.SetArmor(it->second);
-}
-
-void Entity::UnEquipAccessory() {
-	auto it = EquipmentTable::accessoryMap.find("BareAccessory");
-	this->equipment.SetAccessory(it->second);
 }
 
 Attribute Entity::GetTotalAttribute(void) {
@@ -66,32 +90,35 @@ Attribute Entity::GetTotalAttribute(void) {
 	return totalAttribute;
 }
 
-std::vector<Skill> Entity::GetTotalSkills(void) {
-	std::vector<Skill> skills;
-
-	for (auto skill : this->skills)
-		skills.push_back(skill);
-
-	for (auto skill : equipment.GetTotalSkills())
-		skills.push_back(skill);
-
-	return skills;
+Skill Entity::GetTotalSkill(void) {
+	Skill fuck;
+	fuck += this->skill;
+	fuck += equipment.GetTotalSkills();
+	return fuck;
 }
 
 bool Entity::isInRange(std::vector<Entity*>) {
 	return 0;
 }
 
+void Entity::SetName(const std::string& name) {
+	this->name = name;
+}
+
 void Entity::SetAttribute(const Attribute& attribute) {
 	this->attribute = attribute;
 }
 
-void Entity::SetSkills(const std::vector<Skill>& skills) {
-	this->skills = skills;
+void Entity::SetSkill(const Skill& skill) {
+	this->skill = skill;
 }
 
 void Entity::SetEquipment(const Equipment& equipment) {
 	this->equipment = equipment;
+}
+
+void Entity::SetDice(const Dice& dice) {
+	this->dice = dice;
 }
 
 void Entity::SetStatus(const uint8_t status) {
@@ -102,12 +129,20 @@ void Entity::SetEventID(const uint8_t eventID) {
 	this->eventID = eventID;
 }
 
+std::string Entity::GetName(void) {
+	return name;
+}
+
 Attribute& Entity::GetAttribute(void) {
 	return attribute;
 }
 
-std::vector<Skill>& Entity::GetSkills(void) {
-	return skills;
+Skill& Entity::GetSkill(void) {
+	return skill;
+}
+
+Dice& Entity::GetDice(void) {
+	return dice;
 }
 
 Equipment Entity::GetEquipment(void) {

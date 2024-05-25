@@ -18,18 +18,12 @@ Attribute Equipment::GetTotalAttribute() const {
 	return attribute;
 }
 
-std::vector<Skill> Equipment::GetTotalSkills() const {
-	std::unordered_set<Skill, Skill::HashFunction> uniqueSkills;
-
-	auto addSkills = [&uniqueSkills](const std::vector<Skill>& skills) {
-		uniqueSkills.insert(skills.begin(), skills.end());
-		};
-
-	addSkills(weapon.GetSkills());
-	addSkills(armor.GetSkills());
-	addSkills(accessory.GetSkills());
-
-	return std::vector<Skill>(uniqueSkills.begin(), uniqueSkills.end());
+Skill Equipment::GetTotalSkills() const {
+	Skill skill;
+	skill += weapon.GetSkill();
+	skill += armor.GetSkill();
+	skill += accessory.GetSkill();
+	return skill;
 }
 
 void Equipment::SetWeapon(const Weapon& weapon) {
