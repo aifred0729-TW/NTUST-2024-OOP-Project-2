@@ -1,4 +1,8 @@
 #include "../../Includes/Display/UI.h"
+#include <Role.h>
+#include <Enemy.h>
+#include <Entity.h>
+#include <Dice.h>
 
 // Public
 

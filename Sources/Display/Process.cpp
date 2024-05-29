@@ -1,6 +1,7 @@
 #include "../../Includes/Display/Process.h"
 
-// Public
+#include <skill.h>
+#include <Entity.h>
 
 int Process::HandlePreBattle(std::vector<Entity*>, std::vector<Entity*>) {
     return 0;
