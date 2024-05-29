@@ -97,7 +97,7 @@ std::vector<Entity*> Process::targetChoiceSimulator(std::vector<Enemy*>enemys, s
     std::vector<Entity*> rolesToEntity;
     switch (TargetType) {
     case 0:
-        targetName.push_back("自身");
+        targetName.push_back("《 Self 》");
         targetPtr.push_back({ caster });
         break;
     case 1:
@@ -107,7 +107,7 @@ std::vector<Entity*> Process::targetChoiceSimulator(std::vector<Enemy*>enemys, s
         }
         break;
     case 2:
-        targetName.push_back("敵方全體");
+        targetName.push_back("《 All enemies 》");
         for (Enemy* E : enemys) {
             enemysToEntity.push_back(E);
         }
@@ -120,7 +120,7 @@ std::vector<Entity*> Process::targetChoiceSimulator(std::vector<Enemy*>enemys, s
         }
         break;
     case 4:
-        targetName.push_back("友方全體");
+        targetName.push_back("《 All teammates 》");
         for (Role* R : roles) {
             rolesToEntity.push_back(R);
         }
