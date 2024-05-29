@@ -21,6 +21,7 @@ private:
     std::vector<uint8_t> successRate;       // Dice Successful Rate ([0, 100]). If the value is 90, it means 90% successful rate.
     std::vector<double>  rateAddition;      // Dice Rate Additiond
     std::vector<bool>    result;            // Dice Result
+    std::vector<int>     diceLog;           // Dice Log (0 for miss 1 for success 2 for focus used)
 
 public:
     Dice();
@@ -51,6 +52,9 @@ public:
     void RollDice(void);
     void resize(uint8_t amount);
     void displayResult(void);
+
+public:
+    std::vector<int> GetDiceLog(void);
 };
 
 #endif
