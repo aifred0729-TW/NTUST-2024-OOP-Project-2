@@ -1,9 +1,7 @@
 #ifndef CONST_DATA_H
 #define CONST_DATA_H
 
-#include "HeaderPack.h"
-
-#define BANNER = \
+#define BANNER \
 R"(
       ___           ___           ___                    ___           ___           ___                    ___                       ___           ___                        
      /\  \         /\  \         /\  \                  /\  \         /\__\         /\  \                  /\__\          ___        /\__\         /\  \                       
