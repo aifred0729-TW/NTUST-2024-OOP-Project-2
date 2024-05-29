@@ -23,6 +23,7 @@
     <ClCompile Include="..\Sources\Control\File.cpp" />
     <ClCompile Include="..\Sources\Control\Game.cpp" />
     <ClCompile Include="..\Sources\Control\WorldMap.cpp" />
+    <ClCompile Include="..\Sources\Display\Displayer.cpp" />
     <ClCompile Include="..\Sources\Display\KeyBoard.cpp" />
     <ClCompile Include="..\Sources\Display\Process.cpp" />
     <ClCompile Include="..\Sources\Display\UI.cpp" />
@@ -55,6 +56,7 @@
     <ClInclude Include="..\Includes\Control\Game.h" />
     <ClInclude Include="..\Includes\Control\WorldMap.h" />
     <ClInclude Include="..\Includes\Display\Color.h" />
+    <ClInclude Include="..\Includes\Display\Displayer.h" />
     <ClInclude Include="..\Includes\Display\KeyBoard.h" />
     <ClInclude Include="..\Includes\Display\Process.h" />
     <ClInclude Include="..\Includes\Display\UI.h" />
