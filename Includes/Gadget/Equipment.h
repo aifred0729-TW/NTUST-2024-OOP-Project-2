@@ -4,14 +4,10 @@
 #include <cstdint>
 #include <vector>
 #include <set>
-#include <unordered_set>
-#include <algorithm>
 
-#include "Accessory.h"
-#include "Armor.h"
-#include "Weapon.h"
-#include "Attribute.h"
-#include "Skill.h"
+#include <EquipmentBase.h>
+#include <Attribute.h>
+#include <Skill.h>
 
 class Equipment {
 private:

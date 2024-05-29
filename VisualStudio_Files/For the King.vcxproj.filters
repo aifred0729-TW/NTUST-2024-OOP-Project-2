@@ -117,25 +117,13 @@
     <ClCompile Include="..\Sources\Gadget\Skill.cpp">
       <Filter>Sources\Gadget\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Gadget\Weapon.cpp">
+    <ClCompile Include="..\Sources\Gadget\EquipmentBase.cpp">
       <Filter>Sources\Gadget\Equipment</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Gadget\Armor.cpp">
-      <Filter>Sources\Gadget\Equipment</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Gadget\Accessory.cpp">
-      <Filter>Sources\Gadget\Equipment</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Gadget\Buff.cpp">
-      <Filter>Sources\Gadget\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Gadget\Passive.cpp">
+    <ClCompile Include="..\Sources\Gadget\SkillBase.cpp">
       <Filter>Sources\Gadget\Skill</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Gadget\SkillTable.cpp">
-      <Filter>Sources\Gadget\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Gadget\Active.cpp">
       <Filter>Sources\Gadget\Skill</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Gadget\SkillCommandSet.cpp">
@@ -203,23 +191,11 @@
     <ClInclude Include="..\Includes\Gadget\Attribute.h">
       <Filter>Includes\Gadget</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\Gadget\Accessory.h">
+    <ClInclude Include="..\Includes\Gadget\EquipmentBase.h">
       <Filter>Includes\Gadget\Equipment</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\Gadget\Active.h">
+    <ClInclude Include="..\Includes\Gadget\SkillBase.h">
       <Filter>Includes\Gadget\Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Includes\Gadget\Armor.h">
-      <Filter>Includes\Gadget\Equipment</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Includes\Gadget\Buff.h">
-      <Filter>Includes\Gadget\Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Includes\Gadget\Passive.h">
-      <Filter>Includes\Gadget\Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Includes\Gadget\Weapon.h">
-      <Filter>Includes\Gadget\Equipment</Filter>
     </ClInclude>
     <ClInclude Include="..\Includes\Gadget\SkillTable.h">
       <Filter>Includes\Gadget\Skill</Filter>

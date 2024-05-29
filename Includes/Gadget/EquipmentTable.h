@@ -3,12 +3,12 @@
 
 #include <map>
 #include <string>
-#include "Equipment.h"
-#include "SkillTable.h"
+#include <EquipmentBase.h>
+#include <Equipment.h>
 
 class EquipmentTable {
 private:
-	static void WeaponTableInitialize();
+    static void WeaponTableInitialize();
     static void ArmorTableInitialize();
     static void AccessoryTableInitialize();
 

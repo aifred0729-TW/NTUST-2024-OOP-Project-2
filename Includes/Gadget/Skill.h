@@ -4,24 +4,20 @@
 #include <cstdint>
 #include <vector>
 #include <functional>
-#include <iostream>  // For demonstration purposes
-
-#include "Dice.h"
-#include "Active.h"
-#include "Buff.h"
-#include "Passive.h"
-#include "ConstData.h"
+#include <Dice.h>
+#include <SkillBase.h>
+#include <ConstData.h>
 
 class Entity;
 
 class Skill {
 private:
-    std::vector<Active> active;
-    std::vector<Passive> passive;
-    std::vector<Buff> buff;
+	std::vector<Active> active;
+	std::vector<Passive> passive;
+	std::vector<Buff> buff;
 
 public:
-    Skill();
+	Skill();
 
 	void SetActive(const std::vector<Active>&);
 	void SetPassive(const std::vector<Passive>&);

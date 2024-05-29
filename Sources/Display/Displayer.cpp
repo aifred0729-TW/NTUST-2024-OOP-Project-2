@@ -3,7 +3,6 @@
 #include <Enemy.h>
 #include <Entity.h>
 #include <Dice.h> //待確認
-#include <Active.h>
 
 //移動光標
 void Displayer::moveCursor(int x, int y) {

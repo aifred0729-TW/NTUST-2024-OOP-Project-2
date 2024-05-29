@@ -1,7 +1,11 @@
-#include "Equipment.h"
+#include <vector>
+#include <unordered_set>
+#include <algorithm>
+
+#include <Equipment.h>
+#include <EquipmentBase.h>
 
 Equipment::Equipment() {
-    weapon = Weapon();
 	armor = Armor();
 	accessory = Accessory();
 }
