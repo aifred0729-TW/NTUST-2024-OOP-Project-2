@@ -5,7 +5,10 @@
 #include <Equipment.h>
 #include <EquipmentBase.h>
 
-Equipment::Equipment() {}
+Equipment::Equipment() {
+	armor = Armor();
+	accessory = Accessory();
+}
 
 Attribute Equipment::GetTotalAttribute() const {
 	Attribute attribute;

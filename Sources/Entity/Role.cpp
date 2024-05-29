@@ -1,4 +1,4 @@
-#include "Role.h"
+#include "../../Includes/Entity/Role.h"
 
 Role::Role()
     : pack(), movementPoint(0), step(0), position({ 0, 0 }) {}

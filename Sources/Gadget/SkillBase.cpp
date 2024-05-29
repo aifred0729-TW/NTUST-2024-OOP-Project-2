@@ -38,6 +38,9 @@ Active::Active() : diceAmount(0), command(nullptr) {}
 Active::Active(std::string name, uint8_t cooldown, uint8_t diceAmount, SkillCommand* command)
 	: SkillBase(name, cooldown), diceAmount(diceAmount), command(command) {}
 
+Active::Active(std::string name, uint8_t cooldown, uint8_t diceAmount, SkillCommand* command, uint8_t targetType)
+	: SkillBase(name , cooldown), diceAmount(diceAmount), command(command), targetType(targetType) {}
+
 void Active::apply(Entity& caster, std::vector<Entity*> targets) {
 	if (command) {
 		command->execute(caster, targets);
@@ -51,6 +54,9 @@ uint8_t Active::GetDiceAmount() const {
 	return diceAmount;
 }
 
+uint8_t Active::GetTargetType() const {
+	return targetType;
+}
 void Active::SetDiceAmount(const uint8_t& diceAmount) {
 	this->diceAmount = diceAmount;
 }

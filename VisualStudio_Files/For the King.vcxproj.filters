@@ -129,6 +129,12 @@
     <ClCompile Include="..\Sources\Gadget\SkillCommandSet.cpp">
       <Filter>Sources\Gadget\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\Display\Displayer.cpp">
+      <Filter>Sources\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Display\KeyBoard.cpp">
+      <Filter>Sources\Display</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Includes\ConstData.h">
@@ -205,6 +211,15 @@
     </ClInclude>
     <ClInclude Include="..\Includes\Gadget\SkillCommand.h">
       <Filter>Includes\Gadget\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Display\Displayer.h">
+      <Filter>Includes\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Display\Color.h">
+      <Filter>Includes\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Display\KeyBoard.h">
+      <Filter>Includes\Display</Filter>
     </ClInclude>
     <ClInclude Include="..\Includes\Gadget\SkillCommandSet.h">
       <Filter>Includes\Gadget\Skill</Filter>

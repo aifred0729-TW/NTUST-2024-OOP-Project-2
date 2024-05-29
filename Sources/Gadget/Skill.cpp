@@ -1,5 +1,4 @@
 #include "Skill.h"
-#include <iostream>  // For demonstration purposes
 
 Skill::Skill() : active(), passive(), buff() {}
 
