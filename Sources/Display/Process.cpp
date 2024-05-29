@@ -30,6 +30,16 @@ int Process::fightSimulator(std::vector<Enemy*>enemys, std::vector<Role*>roles) 
             int diceAmount = skillToUse.first == "Attack" ?
                 roles[i]->GetEquipment().GetWeapon().GetDiceAmount() : skills[skillToUse.second].GetDiceAmount();
             int focus = roles[i]->GetAttribute().GetFocus();
+
+            UI::displayDice(diceAmount, 0);
+
+            auto target = targetChoiceSimulator(enemys, roles, roles[i], skills[skillToUse.second].GetTargetType());
+            if (target.empty()) {
+                i--;
+                UI::logEvent("行動已取消");
+                UI::logEvent("");
+                continue;
+            }
             int focusUse = focusUseSimulator(focus, diceAmount);
             if (focusUse == -1) {
                 i--;
@@ -37,13 +47,12 @@ int Process::fightSimulator(std::vector<Enemy*>enemys, std::vector<Role*>roles) 
                 UI::logEvent("");
                 continue;
             }
-            else if (focusUse != 0) {
+            if (focusUse != 0) {
                 UI::logEvent("使用 " + std::to_string(focusUse) + " 專注點數");
+                roles[i]->GetAttribute().SetFocus(focus - focusUse);
+                roles[i]->GetDice().SetFocusCount(focusUse);
             }
-
-            roles[i]->GetAttribute().SetFocus(focus - focusUse);
-            roles[i]->GetDice().SetFocusCount(focusUse);
-            roles[i]->useSkill(skillToUse.first, { enemys[i] });
+            roles[i]->useSkill(skillToUse.first, target);
             UI::logEvent("");
         }
     }
@@ -79,6 +88,60 @@ int Process::focusUseSimulator(int focusPoint, int diceAmount) {
         UI::displayDice(diceAmount, focusUse);
         //UI::renewPlayerInfo();
     }
+}
+
+std::vector<Entity*> Process::targetChoiceSimulator(std::vector<Enemy*>enemys, std::vector<Role*>roles, Role* caster, int TargetType) {
+    std::vector<std::string> targetName;
+    std::vector<std::vector<Entity*>> targetPtr;
+    std::vector<Entity*> enemysToEntity;
+    std::vector<Entity*> rolesToEntity;
+    switch (TargetType) {
+    case 0:
+        targetName.push_back("自身");
+        targetPtr.push_back({ caster });
+        break;
+    case 1:
+        for (Enemy* E : enemys) {
+            targetName.push_back(E->GetName());
+            targetPtr.push_back({ E });
+        }
+        break;
+    case 2:
+        targetName.push_back("敵方全體");
+        for (Enemy* E : enemys) {
+            enemysToEntity.push_back(E);
+        }
+        targetPtr.push_back(enemysToEntity);
+        break;
+    case 3:
+        for (Role* R : roles) {
+            targetName.push_back(R->GetName());
+            targetPtr.push_back({ R });
+        }
+        break;
+    case 4:
+        targetName.push_back("友方全體");
+        for (Role* R : roles) {
+            rolesToEntity.push_back(R);
+        }
+        targetPtr.push_back(rolesToEntity);
+        break;
+    default:
+        for (Enemy* E : enemys) {
+            targetName.push_back(E->GetName());
+            targetPtr.push_back({ E });
+        }
+        for (Role* R : roles) {
+            targetName.push_back(R->GetName());
+            targetPtr.push_back({ R });
+        }
+        break;
+    }
+    int targetNumber = UI::makeChoice(targetName, 26, 9);
+    if (targetNumber == -1) {
+        return {};
+    }
+    return targetPtr[targetNumber];
 }
 
 int Process::HandleMemu(void) {

@@ -29,7 +29,10 @@ public:
     static int fightSimulator(std::vector<Enemy*>enemys, std::vector<Role*>roles);
 
     //隸屬於幹架模擬的專注模擬器
-    static int focusUseSimulator(int, int);
+    static int focusUseSimulator(int focusPoint, int diceAmount);
+
+    //隸屬於技能目標選取的專注模擬器
+    static std::vector<Entity*> targetChoiceSimulator(std::vector<Enemy*>enemys, std::vector<Role*>roles, Role* caster, int TargetType);
 
     // Handle Display Menu
     int HandleMemu(void);

@@ -25,6 +25,7 @@ public:
     std::string GetName() const;
     uint8_t GetCooldown() const;
     uint8_t GetDiceAmount() const;
+    uint8_t GetTargetType() const;
 
     void SetName(const std::string&);
     void SetCooldown(const uint8_t&);

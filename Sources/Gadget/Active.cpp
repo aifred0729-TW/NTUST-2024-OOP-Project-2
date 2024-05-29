@@ -28,6 +28,10 @@ uint8_t Active::GetDiceAmount() const {
 	return diceAmount;
 }
 
+uint8_t Active::GetTargetType() const {
+	return targetType;
+}
+
 void Active::SetName(const std::string& name) {
 	this->name = name;
 }

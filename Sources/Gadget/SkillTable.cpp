@@ -12,7 +12,7 @@ void SkillTable::Initialize() {
 
 void SkillTable::ActiveTableInitialize() {
     activeMap["Attack"] = Active("Attack", 0, 0, new AttackCommand(), 1);
-    activeMap["Flee"] = Active("Flee", 0, 1, new FleeCommand(), 5);
+    activeMap["Flee"] = Active("Flee", 0, 1, new FleeCommand(), 0);
     activeMap["Provoke"] = Active("Provoke", 1, 1, new ProvokeCommand(), 1);
     activeMap["ShockBlast"] = Active("ShockBlast", 1, 3, new ShockBlastCommand(), 2);
     activeMap["Heal"] = Active("Heal", 1, 3, new HealCommand(), 3);
