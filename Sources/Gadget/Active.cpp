@@ -5,6 +5,9 @@ Active::Active() : name(""), cooldown(0), diceAmount(0), command(nullptr) {}
 Active::Active(std::string name, uint8_t cooldown, uint8_t diceAmount, SkillCommand* command)
 	: name(name), cooldown(cooldown), diceAmount(diceAmount), command(command) {}
 
+Active::Active(std::string name, uint8_t cooldown, uint8_t diceAmount, SkillCommand* command , uint8_t targetType)
+	: name(name), cooldown(cooldown), diceAmount(diceAmount), command(command) ,targetType(targetType) {}
+
 void Active::apply(Entity& caster, std::vector<Entity*> targets) {
 	if (command) {
 		command->execute(caster, targets);
