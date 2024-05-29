@@ -1,7 +1,10 @@
 #ifndef SKILLCOMMANDSET_H
 #define SKILLCOMMANDSET_H
 
-#include <vector> 
+#include <vector>
+#include <iostream>
+
+#include "../../Includes/Gadget/SkillTable.h"
 #include "SkillCommand.h"
 #include "Entity.h"
 

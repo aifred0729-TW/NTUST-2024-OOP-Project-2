@@ -11,6 +11,8 @@
 #include <windows.h>
 #include <random>
 
+#include <UI.h>
+
 class Dice {
 private:
     uint8_t              amount;            // Amount of Dice

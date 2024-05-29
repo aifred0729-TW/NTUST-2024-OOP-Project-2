@@ -4,6 +4,9 @@
 #include <cstdint>
 #include <vector>
 #include <set>
+#include <unordered_set>
+#include <algorithm>
+
 #include "Accessory.h"
 #include "Armor.h"
 #include "Weapon.h"

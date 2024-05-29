@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include "Equipment.h"
+#include "SkillTable.h"
 
 class EquipmentTable {
 private:

@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <vector>
 #include <functional>
+#include <iostream>  // For demonstration purposes
+
 #include "Dice.h"
 #include "Active.h"
 #include "Buff.h"

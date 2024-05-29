@@ -10,6 +10,7 @@
 #include "Skill.h"
 #include "Equipment.h"
 #include "EquipmentTable.h"
+#include "SkillTable.h"
 
 class Active;
 
