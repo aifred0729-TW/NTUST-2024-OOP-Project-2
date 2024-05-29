@@ -1,7 +1,7 @@
 #include "../../Includes/Gadget/Active.h"
-#include "Entity.h"
 
 Active::Active() : name(""), cooldown(0), diceAmount(0), command(nullptr) {}
+
 Active::Active(std::string name, uint8_t cooldown, uint8_t diceAmount, SkillCommand* command)
 	: name(name), cooldown(cooldown), diceAmount(diceAmount), command(command) {}
 
