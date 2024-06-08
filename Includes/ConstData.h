@@ -96,4 +96,16 @@ enum STATUS_TYPE
 	RETREAT = 0x20,
 };  // Status Type
 
+enum MAP_ELEMENT
+{
+	M_PLAYER,
+	M_GROUND,
+	M_WALL,
+	M_TREE,
+	M_WATER,
+	M_SHOP,
+	M_ENEMY
+	// Map Element Type
+};
+
 #endif

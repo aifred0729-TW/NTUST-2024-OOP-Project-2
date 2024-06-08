@@ -1,11 +1,5 @@
-#include "Includes/Entity/Role.h"
-#include "Includes/Entity/Enemy.h"
-#include "Includes/Gadget/Equipment.h"
-#include "Includes/Gadget/EquipmentTable.h"
-#include "Includes/Gadget/SkillTable.h"
-#include "Includes/Display/UI.h"
+#include "Control/WorldMap.h"
 #include <Process.h>
-
 #include <string>
 
 int main() {
@@ -14,7 +8,7 @@ int main() {
 
     UI::checkConsoleSize(50, 180);
     UI::ShowMenu();
-    //ui.makeChoice({"FUCKOOP","FUCKÀ¹¤å³Í","FUCKªá³Í¶©"}, 50,20);
+    //ui.makeChoice({"FUCKOOP","FUCKæˆ´æ–‡å‡±","FUCKèŠ±å‡±éš†"}, 50,20);
 
     system("Pause");
     system("CLS");
@@ -22,9 +16,9 @@ int main() {
     Role hero("hero");
     Enemy dragon("dragon");
 
-    Role profPao("Àj¿³°ê");
-    Role myWife("¬â¯T¥Õ¤l§Ú±C");
-    Enemy porfDai("À¹¤å³Í");
+    Role profPao("é®‘èˆˆåœ‹");
+    Role myWife("ç ‚ç‹¼ç™½å­æˆ‘å©†");
+    Enemy porfDai("æˆ´æ–‡å‡±");
     Enemy tonya("Tonya");
 
     hero.equip("MagicWand");
@@ -86,7 +80,7 @@ int main() {
     UI::logDivider("Apply Skill");
     //hero.GetTotalSkill().display();
 
-    //­«½Æ©w¸q
+    //é‡è¤‡å®šç¾©
     //std::vector<Entity*> targets;
     //targets.push_back(&dragon);
 
@@ -124,7 +118,6 @@ int main() {
     UI::logDivider("Dragon");
     //dragon.GetTotalAttribute().display();
     //std::cout << std::endl;
-
 
     return 0;
 }
