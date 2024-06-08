@@ -24,23 +24,25 @@ private:
     // 5 = Shop   (Not Allow to Pass)
     // 6 = Enemy  (Not Allow to Pass)
 
-    std::vector<std::vector<int>> map; // Map Storge
-    std::vector<std::vector<bool>> fog;  // War Fog (Make some lamp?)
+    std::vector<std::vector<int>>  map; // Map Storge
+    std::vector<std::vector<bool>> fog; // War Fog (Make some lamp?)
 
     void loadMap(std::string mapFile);
+    void loadFog();
 
 public:
     WorldMap() { ; };
 
     WorldMap(std::string mapFile) {
         loadMap("../Resources/" + mapFile);
+        loadFog();
     }
 
     std::vector<std::vector<int>> GetMap(void);
     void SetMap(int row, int col, MAP_ELEMENT element);
 
-    //std::vector<std::vector<bool>>& GetFog(void);
-    //void GetFog(const std::vector<std::vector<bool>>&);
+    std::vector<std::vector<bool>> GetFog(void);
+    void SetFog(int row, int col);
 
 public:
     // ...
