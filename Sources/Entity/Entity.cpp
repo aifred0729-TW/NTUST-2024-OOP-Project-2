@@ -44,7 +44,7 @@ void Entity::takeDamage(int16_t damage, char attackType) {
 
     if (attribute.GetHP() == 0) {
         UI::logEvent( name + " is dead! 喔不!!" );
-        // status == 死了!!!!! 這裡要改成死亡狀態
+        status |= DEAD;
     }
 }
 

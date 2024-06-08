@@ -52,23 +52,27 @@ class Field {
 private:
 	Action* currEvent;                      // Current Event
 	std::vector<Action*> eventQueue;        // Engage Entity
+	std::vector<Role*> roles;
+	std::vector<Enemy*> enemys;
 
-public:
+private:
+	std::vector<Entity*> ChooseTarget(Action*, int);
+	std::vector<Entity*> RandomTarget(Action*, int);
+	int ChooseFocus(int, int);
+
+	void RemoveDeadEntity(void);
+	void PlayerMainPhase(Action*);
+	void EnemyMainPhase(Action*);
+
 	void MainPhase(Action*);
-	void BattlePhase(Action*);
-	void DamagePhase(Action*);
 	void ExitPhase(void);
-
-	void ChooseSkill(Role*);
-	void ChooseTarget(Role*);
-	void UsingFocus(Role*);
 	// Detect Status and Compute
   
 	Action* RefreshEvent(void);
 
 public:
 	// Set Combat Configuation; Put the players into first parameter and the enemies into second parameter.
-	Field(std::vector<Entity*>, std::vector<Entity*>);
+	Field(std::vector<Role*>, std::vector<Enemy*>);
 	~Field(void);
 
 	// Start Combat

@@ -35,7 +35,7 @@ void FleeCommand::execute(Entity& caster, std::vector<Entity*> targets) {
 
     if (casterDice.GetMovementPoint() == 1) {
         UI::logEvent(caster.GetName() + " °k¶]¦¨¥\¡I¡I");
-        // ctargets[0]->SetStatus(°k¶]ª¬ºA);
+        targets[0]->SetStatus(targets[0]->GetStatus() | RETREAT);
     }
     else {
         UI::logEvent(caster.GetName() + " °k¶]¥¢±Ñ¡AÄ~Äò§¤¨c¡C");

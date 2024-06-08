@@ -31,7 +31,7 @@ int Process::fightSimulator(std::vector<Enemy*>enemys, std::vector<Role*>roles) 
                 roles[i]->GetEquipment().GetWeapon().GetDiceAmount() : skills[skillToUse.second].GetDiceAmount();
             int focus = roles[i]->GetAttribute().GetFocus();
 
-            UI::displayDice(diceAmount, 0);
+            //UI::displayDice(diceAmount, 0);
 
             auto target = targetChoiceSimulator(enemys, roles, roles[i], skills[skillToUse.second].GetTargetType());
             if (target.empty()) {
