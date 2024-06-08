@@ -8,7 +8,7 @@
 #include <SkillCommand.h>
 
 class SkillBase {
-private:
+protected:
     std::string name;
     uint8_t tick;
     uint8_t coolDown;
@@ -49,7 +49,7 @@ private:
 public:
     Active();
     Active(std::string name, uint8_t tick, uint8_t diceAmount, SkillCommand* command);
-    //targetType: 1敵方單體 2敵方全體 3友方單體 4友方全體 5自身
+    //targetType: 0自身 1敵方單體 2敵方全體 3友方單體 4友方全體
     Active(std::string name, uint8_t cooldown, uint8_t diceAmount, SkillCommand* command, uint8_t targetType);
     uint8_t GetDiceAmount() const;
     uint8_t GetTargetType() const;

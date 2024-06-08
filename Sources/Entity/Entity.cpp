@@ -19,7 +19,7 @@ Entity::Entity(std::string name) : Entity() {
     this->name = name;
 }
 
-void Entity::useSkill(std::string skillName, std::vector<Entity*> target) {
+void Entity::useActive(std::string skillName, std::vector<Entity*> target) {
     Skill combinedSkill = GetTotalSkill();
     for (auto active : combinedSkill.GetActive()) {
         if (active.GetName() == skillName) {

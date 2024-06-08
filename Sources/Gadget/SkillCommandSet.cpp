@@ -1,6 +1,6 @@
 #include "../../Includes/Gadget/SkillCommandSet.h"
 
-void AttackCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+void AttackCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto casterWeapon = caster.GetEquipment().GetWeapon();
     auto cta = caster.GetTotalAttribute();
 
@@ -20,11 +20,11 @@ void AttackCommand::execute(Entity& caster, std::vector<Entity*> targets) {
     targets[0]->takeDamage(damage, casterWeapon.GetAttackType());
 }
 
-void FleeCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+void FleeCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto cta = caster.GetTotalAttribute();
 
     auto& casterDice = caster.GetDice();
-    casterDice.resize(1);
+    casterDice.resize(diceAmount);
     uint8_t successRate = static_cast<uint8_t>((double)cta.GetHP() * (cta.GetSPD()) * 100 / (cta.GetMaxHP() + cta.GetMD() + cta.GetPD()));
     successRate = successRate > 98 ? 98 : successRate;
     UI::logEvent(caster.GetName() + " 的成功逃跑機率為 " + std::to_string((unsigned)successRate) + "%");
@@ -36,17 +36,16 @@ void FleeCommand::execute(Entity& caster, std::vector<Entity*> targets) {
     if (casterDice.GetMovementPoint() == 1) {
         UI::logEvent(caster.GetName() + " 逃跑成功！！");
         // ctargets[0]->SetStatus(逃跑狀態);
-    }
-    else {
+    } else {
         UI::logEvent(caster.GetName() + " 逃跑失敗，繼續坐牢。");
     }
 }
 
-void ProvokeCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+void ProvokeCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto cta = caster.GetTotalAttribute();
 
     auto& casterDice = caster.GetDice();
-    casterDice.resize(1);
+    casterDice.resize(diceAmount);
     uint8_t successRate = static_cast<uint8_t>(1, (double)cta.GetHP() / ((cta.GetMaxHP() + cta.GetMD() + cta.GetPA())) * 100);
     casterDice.SetSuccessRate(std::vector<uint8_t>(1, successRate));
     UI::logEvent(caster.GetName() + " 的 Provoke 成功機率為 " + std::to_string((unsigned)successRate) + "%");
@@ -56,18 +55,17 @@ void ProvokeCommand::execute(Entity& caster, std::vector<Entity*> targets) {
     if (casterDice.GetMovementPoint() == 1) {
         UI::logEvent("挑釁成功，現在 " + targets[0]->GetName() + " 很想把 " + caster.GetName() + " 爆幹一頓。");
         // targets[0]->SetStatus(挑釁狀態);
-    }
-    else {
+    } else {
         UI::logEvent("挑釁失敗，" + targets[0]->GetName() + "只把" + caster.GetName() + " 當小丑。");
     }
 }
 
-void ShockBlastCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+void ShockBlastCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto casterWeapon = caster.GetEquipment().GetWeapon();
     auto cta = caster.GetTotalAttribute();
 
     auto& casterDice = caster.GetDice();
-    casterDice.resize(3);
+    casterDice.resize(diceAmount);
     casterDice.SetSuccessRate(std::vector<uint8_t>(3, cta.GetACC() - 5));
     casterDice.RollDice();
 
@@ -84,11 +82,11 @@ void ShockBlastCommand::execute(Entity& caster, std::vector<Entity*> targets) {
     }
 }
 
-void HealCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+void HealCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto cta = caster.GetTotalAttribute();
 
     auto& casterDice = caster.GetDice();
-    casterDice.resize(3);
+    casterDice.resize(diceAmount);
     casterDice.SetSuccessRate(std::vector<uint8_t>(3, cta.GetACC()));
     casterDice.RollDice();
 
@@ -100,11 +98,11 @@ void HealCommand::execute(Entity& caster, std::vector<Entity*> targets) {
     targets[0]->heal(heal);
 }
 
-void SpeedUpCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+void SpeedUpCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto cta = caster.GetTotalAttribute();
 
     auto& casterDice = caster.GetDice();
-    casterDice.resize(2);
+    casterDice.resize(diceAmount);
     casterDice.SetSuccessRate(std::vector<uint8_t>(2, cta.GetACC()));
     UI::logEvent(caster.GetName() + " 的 Speed Up 成功機率為 " + std::to_string((unsigned)cta.GetACC()) + "%");
     casterDice.RollDice();

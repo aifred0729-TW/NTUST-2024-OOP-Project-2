@@ -8,6 +8,7 @@
 Equipment::Equipment() {
 	armor = Armor();
 	accessory = Accessory();
+	weapon = Weapon();
 }
 
 Attribute Equipment::GetTotalAttribute() const {
