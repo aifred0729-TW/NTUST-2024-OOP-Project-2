@@ -1,11 +1,11 @@
 #include "../../Includes/Gadget/SkillCommandSet.h"
 
-void AttackCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+void AttackCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto casterWeapon = caster.GetEquipment().GetWeapon();
     auto cta = caster.GetTotalAttribute();
 
     int16_t damage = static_cast<int16_t>(cta.GetPA());
-    UI::logEvent(caster.GetName() + " ªº Attack ²z·Q§ğÀ»¤O¬° " + std::to_string(damage));
+    UI::logEvent(caster.GetName() + " çš„ Attack ç†æƒ³æ”»æ“ŠåŠ›ç‚º " + std::to_string(damage));
 
     auto& casterDice = caster.GetDice();
     casterDice.resize(casterWeapon.GetDiceAmount());
@@ -13,110 +13,108 @@ void AttackCommand::execute(Entity& caster, std::vector<Entity*> targets) {
     casterDice.RollDice();
     casterDice.displayResult();
     damage = static_cast<int16_t>(damage * ((double)casterDice.GetMovementPoint() / casterDice.GetAmount()));
-    std::string attackType = casterWeapon.GetAttackType() == 'P' ? "ª«²z" : "Å]ªk";
+    std::string attackType = casterWeapon.GetAttackType() == 'P' ? "ç‰©ç†" : "é­”æ³•";
 
-    UI::logEvent(caster.GetName() + " ¬I©ñ¤F§ğÀ»¤O " + std::to_string(damage) + " ªº" + attackType + "§ğÀ»¡I");
+    UI::logEvent(caster.GetName() + " æ–½æ”¾äº†æ”»æ“ŠåŠ› " + std::to_string(damage) + " çš„" + attackType + "æ”»æ“Šï¼");
 
     targets[0]->takeDamage(damage, casterWeapon.GetAttackType());
 }
 
-void FleeCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+void FleeCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto cta = caster.GetTotalAttribute();
 
     auto& casterDice = caster.GetDice();
-    casterDice.resize(1);
+    casterDice.resize(diceAmount);
     uint8_t successRate = static_cast<uint8_t>((double)cta.GetHP() * (cta.GetSPD()) * 100 / (cta.GetMaxHP() + cta.GetMD() + cta.GetPD()));
     successRate = successRate > 98 ? 98 : successRate;
-    UI::logEvent(caster.GetName() + " ªº¦¨¥\°k¶]¾÷²v¬° " + std::to_string((unsigned)successRate) + "%");
+    UI::logEvent(caster.GetName() + " çš„æˆåŠŸé€ƒè·‘æ©Ÿç‡ç‚º " + std::to_string((unsigned)successRate) + "%");
 
     casterDice.SetSuccessRate(std::vector<uint8_t>(1, successRate));
     casterDice.RollDice();
     casterDice.displayResult();
 
     if (casterDice.GetMovementPoint() == 1) {
-        UI::logEvent(caster.GetName() + " °k¶]¦¨¥\¡I¡I");
+        UI::logEvent(caster.GetName() + " é€ƒè·‘æˆåŠŸï¼ï¼");
         targets[0]->SetStatus(targets[0]->GetStatus() | RETREAT);
-    }
-    else {
-        UI::logEvent(caster.GetName() + " °k¶]¥¢±Ñ¡AÄ~Äò§¤¨c¡C");
+    } else {
+        UI::logEvent(caster.GetName() + " é€ƒè·‘å¤±æ•—ï¼Œç¹¼çºŒåç‰¢ã€‚");
     }
 }
 
-void ProvokeCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+void ProvokeCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto cta = caster.GetTotalAttribute();
 
     auto& casterDice = caster.GetDice();
-    casterDice.resize(1);
+    casterDice.resize(diceAmount);
     uint8_t successRate = static_cast<uint8_t>(1, (double)cta.GetHP() / ((cta.GetMaxHP() + cta.GetMD() + cta.GetPA())) * 100);
     casterDice.SetSuccessRate(std::vector<uint8_t>(1, successRate));
-    UI::logEvent(caster.GetName() + " ªº Provoke ¦¨¥\¾÷²v¬° " + std::to_string((unsigned)successRate) + "%");
+    UI::logEvent(caster.GetName() + " çš„ Provoke æˆåŠŸæ©Ÿç‡ç‚º " + std::to_string((unsigned)successRate) + "%");
     casterDice.RollDice();
     casterDice.displayResult();
 
     if (casterDice.GetMovementPoint() == 1) {
-        UI::logEvent("¬DÆ]¦¨¥\¡A²{¦b " + targets[0]->GetName() + " «Ü·Q§â " + caster.GetName() + " Ãz·F¤@¹y¡C");
-        // targets[0]->SetStatus(¬DÆ]ª¬ºA);
-    }
-    else {
-        UI::logEvent("¬DÆ]¥¢±Ñ¡A" + targets[0]->GetName() + "¥u§â" + caster.GetName() + " ·í¤p¤¡¡C");
+        UI::logEvent("æŒ‘é‡æˆåŠŸï¼Œç¾åœ¨ " + targets[0]->GetName() + " å¾ˆæƒ³æŠŠ " + caster.GetName() + " çˆ†å¹¹ä¸€é “ã€‚");
+        // targets[0]->SetStatus(æŒ‘é‡ç‹€æ…‹);
+    } else {
+        UI::logEvent("æŒ‘é‡å¤±æ•—ï¼Œ" + targets[0]->GetName() + "åªæŠŠ" + caster.GetName() + " ç•¶å°ä¸‘ã€‚");
     }
 }
 
-void ShockBlastCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+void ShockBlastCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto casterWeapon = caster.GetEquipment().GetWeapon();
     auto cta = caster.GetTotalAttribute();
 
     auto& casterDice = caster.GetDice();
-    casterDice.resize(3);
+    casterDice.resize(diceAmount);
     casterDice.SetSuccessRate(std::vector<uint8_t>(3, cta.GetACC() - 5));
     casterDice.RollDice();
 
     int16_t damage = static_cast<int16_t>((double)((double)cta.GetMA() / 2));
-    UI::logEvent(caster.GetName() + " ªº ShockBlast ²z·Q§ğÀ»¤O¬° " + std::to_string(damage));
+    UI::logEvent(caster.GetName() + " çš„ ShockBlast ç†æƒ³æ”»æ“ŠåŠ›ç‚º " + std::to_string(damage));
 
     casterDice.displayResult();
     damage = static_cast<int16_t>((double)((double)cta.GetMA() / 2) * ((double)casterDice.GetMovementPoint() / casterDice.GetAmount()));
-    std::string attackType = casterWeapon.GetAttackType() == 'P' ? "ª«²z" : "Å]ªk";
+    std::string attackType = casterWeapon.GetAttackType() == 'P' ? "ç‰©ç†" : "é­”æ³•";
 
-    UI::logEvent(caster.GetName() + " ¹ï¥şÅé¼Ä¤H¬I©ñ¤F " + std::to_string(damage) + " ªº" + attackType + "§ğÀ»¡I");
+    UI::logEvent(caster.GetName() + " å°å…¨é«”æ•µäººæ–½æ”¾äº† " + std::to_string(damage) + " çš„" + attackType + "æ”»æ“Šï¼");
     for (auto target : targets) {
         target->takeDamage(damage, casterWeapon.GetAttackType());
     }
 }
 
-void HealCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+void HealCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto cta = caster.GetTotalAttribute();
 
     auto& casterDice = caster.GetDice();
-    casterDice.resize(3);
+    casterDice.resize(diceAmount);
     casterDice.SetSuccessRate(std::vector<uint8_t>(3, cta.GetACC()));
     casterDice.RollDice();
 
     int16_t heal = static_cast<int16_t>((double)cta.GetMA() * 1.5);
-    UI::logEvent(caster.GetName() + " ªº Heal ²z·QªvÀø¶q¬° " + std::to_string(heal));
+    UI::logEvent(caster.GetName() + " çš„ Heal ç†æƒ³æ²»ç™‚é‡ç‚º " + std::to_string(heal));
     casterDice.displayResult();
     heal = static_cast<int16_t>(heal * ((double)casterDice.GetMovementPoint() / casterDice.GetAmount()));
-    UI::logEvent(caster.GetName() + " ¹ï " + targets[0]->GetName() + " ¬I©ñ¤F " + std::to_string(heal) + " ªºªvÀø¡I");
+    UI::logEvent(caster.GetName() + " å° " + targets[0]->GetName() + " æ–½æ”¾äº† " + std::to_string(heal) + " çš„æ²»ç™‚ï¼");
     targets[0]->heal(heal);
 }
 
-void SpeedUpCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+void SpeedUpCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto cta = caster.GetTotalAttribute();
 
     auto& casterDice = caster.GetDice();
-    casterDice.resize(2);
+    casterDice.resize(diceAmount);
     casterDice.SetSuccessRate(std::vector<uint8_t>(2, cta.GetACC()));
-    UI::logEvent(caster.GetName() + " ªº Speed Up ¦¨¥\¾÷²v¬° " + std::to_string((unsigned)cta.GetACC()) + "%");
+    UI::logEvent(caster.GetName() + " çš„ Speed Up æˆåŠŸæ©Ÿç‡ç‚º " + std::to_string((unsigned)cta.GetACC()) + "%");
     casterDice.RollDice();
 
     if (casterDice.GetMovementPoint() == 2) {
-        UI::logEvent(caster.GetName() + " ªº Speed Up ¦¨¥\¡I");
-        UI::logEvent("µ¹¤© " + targets[0]->GetName() + " 1¦^¦Xªº SpeedUp Buff¡C");
-        // µ¹¤©SpeedUp Buff¤@¦^¦X
+        UI::logEvent(caster.GetName() + " çš„ Speed Up æˆåŠŸï¼");
+        UI::logEvent("çµ¦äºˆ " + targets[0]->GetName() + " 1å›åˆçš„ SpeedUp Buffã€‚");
+        // çµ¦äºˆSpeedUp Buffä¸€å›åˆ
         Buff SpeedUp = SkillTable::buffMap.find("SpeedUp")->second;
         targets[0]->GetSkill().pushBuff(SpeedUp);
     }
     else {
-        UI::logEvent(caster.GetName() + " ªº Speed Up ¥¢±Ñ¡I");
+        UI::logEvent(caster.GetName() + " çš„ Speed Up å¤±æ•—ï¼");
     }
 }

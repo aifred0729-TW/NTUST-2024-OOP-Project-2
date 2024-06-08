@@ -43,7 +43,7 @@ Active::Active(std::string name, uint8_t cooldown, uint8_t diceAmount, SkillComm
 
 void Active::apply(Entity& caster, std::vector<Entity*> targets) {
 	if (command) {
-		command->execute(caster, targets);
+		command->execute(caster, targets, coolDown, tick, diceAmount);
 	}
 	else {
 		std::cerr << "No command assigned to this skill!" << std::endl;

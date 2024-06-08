@@ -1,11 +1,5 @@
-#include "Includes/Entity/Role.h"
-#include "Includes/Entity/Enemy.h"
-#include "Includes/Gadget/Equipment.h"
-#include "Includes/Gadget/EquipmentTable.h"
-#include "Includes/Gadget/SkillTable.h"
-#include "Includes/Display/UI.h"
+#include "Control/WorldMap.h"
 #include <Process.h>
-
 #include <string>
 
 int main() {
@@ -14,7 +8,7 @@ int main() {
 
     UI::checkConsoleSize(50, 180);
     UI::ShowMenu();
-    //ui.makeChoice({"FUCKOOP","FUCK¿π§Â≥Õ","FUCK™·≥Õ∂©"}, 50,20);
+    //ui.makeChoice({"FUCKOOP","FUCKÊà¥ÊñáÂá±","FUCKËä±Âá±ÈöÜ"}, 50,20);
 
     system("Pause");
     system("CLS");
@@ -22,9 +16,9 @@ int main() {
     Role hero("hero");
     Enemy dragon("dragon");
 
-    Role profPao("¿jø≥∞Í");
-    Role myWife("¨‚ØT•’§lß⁄±C");
-    Enemy porfDai("¿π§Â≥Õ");
+    Role profPao("ÈÆëËààÂúã");
+    Role myWife("Á†ÇÁãºÁôΩÂ≠êÊàëÂ©Ü");
+    Enemy porfDai("Êà¥ÊñáÂá±");
     Enemy tonya("Tonya");
 
     hero.equip("MagicWand");
@@ -52,25 +46,25 @@ int main() {
         auto skills = hero.GetTotalSkill().GetActive();
         std::string skillToUse = UI::makeChoice(skills, 6, 9).first;
         UI::logDivider(skillToUse);
-        hero.useSkill(skillToUse, { &dragon });
+        hero.useActive(skillToUse, { &dragon });
     }
 
     UI::logDivider("");
     hero.GetDice().SetFocusCount(3);
-    hero.useSkill("Attack", { &dragon });
+    hero.useActive("Attack", { &dragon });
     UI::logDivider("");
-    hero.useSkill("Flee", { &hero });
+    hero.useActive("Flee", { &hero });
     UI::logDivider("");
-    hero.useSkill("ShockBlast", { &dragon });
+    hero.useActive("ShockBlast", { &dragon });
     UI::logDivider("");
-    hero.useSkill("Heal", { &hero });
+    hero.useActive("Heal", { &hero });
     UI::logDivider("");
-    hero.useSkill("Heal", { &dragon });
+    hero.useActive("Heal", { &dragon });
     UI::logDivider("");
 
     UI::logDivider("Equip WoodenSword");
     hero.equip("WoodenSword");
-    hero.useSkill("SpeedUp", { &hero });
+    hero.useActive("SpeedUp", { &hero });
 
     UI::logDivider("Hero");
     hero.GetTotalAttribute();
@@ -89,39 +83,39 @@ int main() {
     UI::logDivider("Apply Skill");
     //hero.GetTotalSkill().display();
 
-    //≠´Ω∆©w∏q
+    //ÈáçË§áÂÆöÁæ©
     //std::vector<Entity*> targets;
     //targets.push_back(&dragon);
 
     UI::logDivider("1");
-    hero.useSkill("Attack", targets);
+    hero.useActive("Attack", targets);
     UI::logDivider("2");
-    hero.useSkill("Attack", targets);
+    hero.useActive("Attack", targets);
     UI::logDivider("3");
-    hero.useSkill("Attack", targets);
+    hero.useActive("Attack", targets);
     UI::logDivider("4");
-    hero.useSkill("Attack", targets);
+    hero.useActive("Attack", targets);
     UI::logDivider("5");
-    hero.useSkill("Attack", targets);
+    hero.useActive("Attack", targets);
     UI::logDivider("6");
-    hero.useSkill("Attack", targets);
+    hero.useActive("Attack", targets);
     UI::logDivider("7");
-    hero.useSkill("Attack", targets);
+    hero.useActive("Attack", targets);
     UI::logDivider("8");
-    hero.useSkill("Flee", targets);
+    hero.useActive("Flee", targets);
     UI::logDivider("9");
-    hero.useSkill("Heal", targets);
+    hero.useActive("Heal", targets);
     UI::logDivider("10");
-    //hero.useSkill("SpeedUp", targets);
+    //hero.useActive("SpeedUp", targets);
 
     UI::logDivider("UnEquip Equipment");
     hero.unEquip(hero.GetEquipment().GetWeapon().GetName());
     hero.unEquip(hero.GetEquipment().GetArmor().GetName());
     hero.unEquip(hero.GetEquipment().GetAccessory().GetName());
-    hero.useSkill("Attack", targets);
-    hero.useSkill("Flee", targets);
-    //hero.useSkill("Heal", targets);
-    //hero.useSkill("SpeedUp", targets);
+    hero.useActive("Attack", targets);
+    hero.useActive("Flee", targets);
+    //hero.useActive("Heal", targets);
+    //hero.useActive("SpeedUp", targets);
     UI::logDivider("Hero");
     //hero.GetTotalAttribute().display();
     UI::logDivider("Dragon");
