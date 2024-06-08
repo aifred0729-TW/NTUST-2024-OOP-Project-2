@@ -7,12 +7,6 @@ EquipmentBase::EquipmentBase() {}
 EquipmentBase::EquipmentBase(std::string name, Attribute attribute, Skill skill)
 	: name(name), attribute(attribute), skill(skill) {}
 
-Accessory::Accessory() {}
-Accessory::Accessory(std::string name, Attribute attribute, Skill skill) : EquipmentBase(name, attribute, skill) {}
-
-Armor::Armor() {}
-Armor::Armor(std::string name, Attribute attribute, Skill skill) : EquipmentBase(name, attribute, skill) {}
-
 // Setters
 void EquipmentBase::SetName(const std::string& name) {
 	this->name = name;
@@ -39,8 +33,13 @@ Skill EquipmentBase::GetSkill() const {
 	return skill;
 }
 
-Weapon::Weapon() :diceAmount(0), attackType(0) {}
+Accessory::Accessory(): EquipmentBase("BareAccessory", Attribute(), Skill()) {}
+Accessory::Accessory(std::string name, Attribute attribute, Skill skill) : EquipmentBase(name, attribute, skill) {}
 
+Armor::Armor(): EquipmentBase("BareBody", Attribute(), Skill()) {}
+Armor::Armor(std::string name, Attribute attribute, Skill skill) : EquipmentBase(name, attribute, skill) {}
+
+Weapon::Weapon(): EquipmentBase("BareHand", Attribute(), Skill()), diceAmount(0), attackType(0) {}
 Weapon::Weapon(std::string name, Attribute attribute, Skill skill, uint8_t diceAmount, char attackType)
 	: EquipmentBase(name, attribute, skill), diceAmount(diceAmount), attackType(attackType) {}
 

@@ -27,9 +27,9 @@ int main() {
     Enemy porfDai("戴文凱");
     Enemy tonya("Tonya");
 
-    hero.equip("MagicWand");
-    profPao.equip("Hammer");
-    myWife.equip("RitualSword");
+    //hero.equip("MagicWand");
+    //profPao.equip("Hammer");
+    //myWife.equip("RitualSword");
 
     profPao.GetAttribute().SetMaxFocus(20);
     profPao.GetAttribute().SetFocus(20);
