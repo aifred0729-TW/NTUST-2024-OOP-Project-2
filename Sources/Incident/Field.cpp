@@ -139,20 +139,20 @@ CHOICE:
 TARGET:
 	auto target = ChooseTarget(currEvent, skills[skillToUse.second].GetTargetType());
 	if (target.empty()) {
-		UI::logEvent("  ʤw    ");
+		UI::logEvent("行動已取消");
 		UI::logEvent("");
 		goto CHOICE;
 	}
 
 	int focusUse = ChooseFocus(focus, diceAmount);
 	if (focusUse == -1) {
-		UI::logEvent("  ʤw    ");
+		UI::logEvent("行動已取消");
 		UI::logEvent("");
 		goto TARGET;
 	}
 
 	if (focusUse != 0) {
-		UI::logEvent(" ϥ  " + std::to_string(focusUse) + "  M ` I  ");
+		UI::logEvent("使用 " + std::to_string(focusUse) + " 專注點數");
 		currEvent->GetObj()->GetAttribute().SetFocus(focus - focusUse);
 		currEvent->GetObj()->GetDice().SetFocusCount(focusUse);
 	}
@@ -189,30 +189,30 @@ std::vector<Entity*> Field::RandomTarget(Action* currEvent, int TargetType) {
 	std::vector<Entity*> rolesToEntity;
 	switch (TargetType) {
 	case 0:
-		targetName.push_back(" m Self  n");
+		targetName.push_back("Self");
 		targetPtr.push_back({ currEvent->GetObj() });
 		break;
-	case 1:
+	case 3:
 		for (Enemy* E : enemys) {
 			targetName.push_back(E->GetName());
 			targetPtr.push_back({ E });
 		}
 		break;
-	case 2:
-		targetName.push_back(" m All enemies  n");
+	case 4:
+		targetName.push_back("All enemies");
 		for (Enemy* E : enemys) {
 			enemysToEntity.push_back(E);
 		}
 		targetPtr.push_back(enemysToEntity);
 		break;
-	case 3:
+	case 1:
 		for (Role* R : roles) {
 			targetName.push_back(R->GetName());
 			targetPtr.push_back({ R });
 		}
 		break;
-	case 4:
-		targetName.push_back(" m All teammates  n");
+	case 2:
+		targetName.push_back("All teammates");
 		for (Role* R : roles) {
 			rolesToEntity.push_back(R);
 		}
@@ -240,7 +240,7 @@ std::vector<Entity*> Field::ChooseTarget(Action* currEvent, int TargetType) {
 	std::vector<Entity*> rolesToEntity;
 	switch (TargetType) {
 	case 0:
-		targetName.push_back(" m Self  n");
+		targetName.push_back("Self");
 		targetPtr.push_back({ currEvent->GetObj() });
 		break;
 	case 1:
@@ -250,7 +250,7 @@ std::vector<Entity*> Field::ChooseTarget(Action* currEvent, int TargetType) {
 		}
 		break;
 	case 2:
-		targetName.push_back(" m All enemies  n");
+		targetName.push_back("All enemies");
 		for (Enemy* E : enemys) {
 			enemysToEntity.push_back(E);
 		}
@@ -263,7 +263,7 @@ std::vector<Entity*> Field::ChooseTarget(Action* currEvent, int TargetType) {
 		}
 		break;
 	case 4:
-		targetName.push_back(" m All teammates  n");
+		targetName.push_back("All teammates");
 		for (Role* R : roles) {
 			rolesToEntity.push_back(R);
 		}
