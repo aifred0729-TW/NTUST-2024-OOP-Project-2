@@ -31,18 +31,15 @@ int main() {
     //system("Pause");
 
 
-    //Process::HandlePreBattle({ &dragon , &porfDai  , &tonya }, { &hero ,&profPao  , &myWife });
+    Process::HandlePreBattle({ &dragon , &porfDai  , &tonya }, { &hero ,&profPao  , &myWife });
 
     //UI::PreBattle({ &dragon , &porfDai  , &tonya }, { &hero ,&profPao  , &myWife });
     UI::moveCursor(2, 9);
 
-    Field battle({ &hero ,&profPao  , &myWife } , { &dragon , &porfDai  , &tonya });
-    battle.StartBattle();
-    
-/*
+
     std::vector<Entity*> targets;
     targets.push_back(&dragon);
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 5; i++) {
         auto skills = hero.GetTotalSkill().GetActive();
         std::string skillToUse = UI::makeChoice(skills, 6, 9).first;
         UI::logDivider(skillToUse);
@@ -121,7 +118,6 @@ int main() {
     UI::logDivider("Dragon");
     //dragon.GetTotalAttribute().display();
     //std::cout << std::endl;
-    */
 
     return 0;
 }
