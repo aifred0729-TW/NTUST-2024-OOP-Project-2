@@ -1,4 +1,4 @@
-#include "SkillTable.h"
+﻿#include "SkillTable.h"
 
 std::map<std::string, Active> SkillTable::activeMap;
 std::map<std::string, Passive> SkillTable::passiveMap;

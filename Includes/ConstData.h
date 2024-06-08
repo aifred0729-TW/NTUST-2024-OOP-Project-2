@@ -1,4 +1,4 @@
-#ifndef CONST_DATA_H
+﻿#ifndef CONST_DATA_H
 #define CONST_DATA_H
 
 #define BANNER \

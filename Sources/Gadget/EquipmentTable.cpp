@@ -1,4 +1,4 @@
-#include "EquipmentTable.h"
+﻿#include "EquipmentTable.h"
 #include "SkillTable.h"
 
 std::map<std::string, Weapon> EquipmentTable::weaponMap;

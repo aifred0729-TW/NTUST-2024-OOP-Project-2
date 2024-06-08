@@ -1,4 +1,4 @@
-#ifndef WORLD_MAP_H
+﻿#ifndef WORLD_MAP_H
 #define WORLD_MAP_H
 
 #include <cstdint>

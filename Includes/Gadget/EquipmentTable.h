@@ -1,4 +1,4 @@
-#ifndef EQUIPMENTTABLE_H
+﻿#ifndef EQUIPMENTTABLE_H
 #define EQUIPMENTTABLE_H
 
 #include <map>

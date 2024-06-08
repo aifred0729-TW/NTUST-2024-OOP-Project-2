@@ -1,4 +1,4 @@
-#include "Skill.h"
+﻿#include "Skill.h"
 
 Skill::Skill() : active(), passive(), buff() {}
 

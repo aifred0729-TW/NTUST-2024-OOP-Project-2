@@ -1,4 +1,4 @@
-#ifndef HEADER_PACK_H
+﻿#ifndef HEADER_PACK_H
 #define HEADER_PACK_H
 
 #include <cstdint>

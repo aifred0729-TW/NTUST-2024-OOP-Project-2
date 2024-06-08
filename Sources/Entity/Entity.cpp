@@ -1,4 +1,4 @@
-#include "../../Includes/Entity/Entity.h"
+ï»¿#include "../../Includes/Entity/Entity.h"
 
 // Public
 Entity::Entity() {
@@ -40,11 +40,11 @@ void Entity::takeDamage(int16_t damage, char attackType) {
 
     std::string outputStr;
     std::stringstream outputSs;
-    UI::logEvent(name + " ¨¾¿m«á¨ü¨ì¤F " + std::to_string(damage) + " ÂI¶Ë®`¡I¡A·í«eHP¬° " + std::to_string(attribute.GetHP()) + " !");
+    UI::logEvent(name + " é˜²ç¦¦å¾Œå—åˆ°äº† " + std::to_string(damage) + " é»å‚·å®³ï¼ï¼Œç•¶å‰HPç‚º " + std::to_string(attribute.GetHP()) + " !");
 
     if (attribute.GetHP() == 0) {
-        UI::logEvent( name + " is dead! ³á¤£!!" );
-        // status == ¦º¤F!!!!! ³o¸Ì­n§ï¦¨¦º¤`ª¬ºA
+        UI::logEvent( name + " is dead! å–”ä¸!!" );
+        // status == æ­»äº†!!!!! é€™è£¡è¦æ”¹æˆæ­»äº¡ç‹€æ…‹
     }
 }
 
@@ -53,7 +53,7 @@ void Entity::heal(int16_t heal) {
     attribute.SetHP(healTaken < GetTotalAttribute().GetMaxHP() ? healTaken : GetTotalAttribute().GetMaxHP());
     std::string outputStr;
     std::stringstream outputSs;
-    outputSs << name << " ¨ü¨ì¤F " << heal << " ÂIªvÀø¡I¡A·í«eHP¬° " << attribute.GetHP() << " !" << std::endl;
+    outputSs << name << " å—åˆ°äº† " << heal << " é»æ²»ç™‚ï¼ï¼Œç•¶å‰HPç‚º " << attribute.GetHP() << " !" << std::endl;
     std::getline(outputSs, outputStr);
     UI::logEvent(outputStr);
 }

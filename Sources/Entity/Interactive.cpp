@@ -1,4 +1,4 @@
-#include "../../Includes/Entity/Interactive.h"
+﻿#include "../../Includes/Entity/Interactive.h"
 
 // Public
 

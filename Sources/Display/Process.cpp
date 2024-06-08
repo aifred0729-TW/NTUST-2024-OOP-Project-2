@@ -1,4 +1,4 @@
-#include "../../Includes/Display/Process.h"
+ï»¿#include "../../Includes/Display/Process.h"
 
 #include <skill.h>
 #include <Entity.h>
@@ -6,10 +6,10 @@
 int Process::HandlePreBattle(std::vector<Enemy*> enemys, std::vector<Role*> roles) {
     UI::PreBattle(enemys, roles);
     for (int i = 0; i < enemys.size(); i++) {
-        //enemys[i]->SetEventID(i); // «İ­×§ï ¤§«á§ï¦¨Action
+        //enemys[i]->SetEventID(i); // å¾…ä¿®æ”¹ ä¹‹å¾Œæ”¹æˆAction
     }
     for (int i = 0; i < roles.size(); i++) {
-        //roles[i]->SetEventID(i + 3); // «İ­×§ï 
+        //roles[i]->SetEventID(i + 3); // å¾…ä¿®æ”¹ 
     }
     fightSimulator(enemys, roles);
     return 0;
@@ -36,19 +36,19 @@ int Process::fightSimulator(std::vector<Enemy*>enemys, std::vector<Role*>roles) 
             auto target = targetChoiceSimulator(enemys, roles, roles[i], skills[skillToUse.second].GetTargetType());
             if (target.empty()) {
                 i--;
-                UI::logEvent("¦æ°Ê¤w¨ú®ø");
+                UI::logEvent("è¡Œå‹•å·²å–æ¶ˆ");
                 UI::logEvent("");
                 continue;
             }
             int focusUse = focusUseSimulator(focus, diceAmount);
             if (focusUse == -1) {
                 i--;
-                UI::logEvent("¦æ°Ê¤w¨ú®ø");
+                UI::logEvent("è¡Œå‹•å·²å–æ¶ˆ");
                 UI::logEvent("");
                 continue;
             }
             if (focusUse != 0) {
-                UI::logEvent("¨Ï¥Î " + std::to_string(focusUse) + " ±Mª`ÂI¼Æ");
+                UI::logEvent("ä½¿ç”¨ " + std::to_string(focusUse) + " å°ˆæ³¨é»æ•¸");
                 roles[i]->GetAttribute().SetFocus(focus - focusUse);
                 roles[i]->GetDice().SetFocusCount(focusUse);
             }
@@ -97,7 +97,7 @@ std::vector<Entity*> Process::targetChoiceSimulator(std::vector<Enemy*>enemys, s
     std::vector<Entity*> rolesToEntity;
     switch (TargetType) {
     case 0:
-        targetName.push_back("¡m Self ¡n");
+        targetName.push_back("ã€Š Self ã€‹");
         targetPtr.push_back({ caster });
         break;
     case 1:
@@ -107,7 +107,7 @@ std::vector<Entity*> Process::targetChoiceSimulator(std::vector<Enemy*>enemys, s
         }
         break;
     case 2:
-        targetName.push_back("¡m All enemies ¡n");
+        targetName.push_back("ã€Š All enemies ã€‹");
         for (Enemy* E : enemys) {
             enemysToEntity.push_back(E);
         }
@@ -120,7 +120,7 @@ std::vector<Entity*> Process::targetChoiceSimulator(std::vector<Enemy*>enemys, s
         }
         break;
     case 4:
-        targetName.push_back("¡m All teammates ¡n");
+        targetName.push_back("ã€Š All teammates ã€‹");
         for (Role* R : roles) {
             rolesToEntity.push_back(R);
         }

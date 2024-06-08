@@ -1,10 +1,10 @@
-#include "../../Includes/Display/Displayer.h"
+ï»¿#include "../../Includes/Display/Displayer.h"
 #include <Role.h>
 #include <Enemy.h>
 #include <Entity.h>
-#include <Dice.h> //«İ½T»{
+#include <Dice.h> //å¾…ç¢ºèª
 
-//²¾°Ê¥ú¼Ğ
+//ç§»å‹•å…‰æ¨™
 void Displayer::moveCursor(int x, int y) {
     COORD coord;
     coord.X = x;

@@ -1,4 +1,4 @@
-#include <EquipmentBase.h>
+﻿#include <EquipmentBase.h>
 
 // Default constructor
 EquipmentBase::EquipmentBase() {}

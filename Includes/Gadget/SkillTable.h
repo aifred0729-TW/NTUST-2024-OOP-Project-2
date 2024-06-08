@@ -1,4 +1,4 @@
-#ifndef SKILLTABLE_H
+﻿#ifndef SKILLTABLE_H
 #define SKILLTABLE_H
 
 #include <map>

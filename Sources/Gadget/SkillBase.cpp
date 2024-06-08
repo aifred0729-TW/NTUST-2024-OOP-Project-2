@@ -1,4 +1,4 @@
-#include <SkillBase.h>
+﻿#include <SkillBase.h>
 #include <Entity.h>
 
 SkillBase::SkillBase() : tick(0) {}

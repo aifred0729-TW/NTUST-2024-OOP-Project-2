@@ -1,4 +1,4 @@
-#ifndef ATTRIBUTE_H
+﻿#ifndef ATTRIBUTE_H
 #define ATTRIBUTE_H
 
 #include <cstdint>

@@ -1,4 +1,4 @@
-#ifndef DISPLAYER_H
+ï»¿#ifndef DISPLAYER_H
 #define DISPLAYER_H
 
 #include <iostream>
@@ -27,7 +27,7 @@ class Active;
 namespace Displayer {
 
     /// =========================================
-    /// ¥H¤U¬OÅã¥Ü»²§U¤u¨ã
+    /// ä»¥ä¸‹æ˜¯é¡¯ç¤ºè¼”åŠ©å·¥å…·
     /// =========================================
 
     void moveCursor(int, int);
@@ -36,7 +36,7 @@ namespace Displayer {
     void BuildFrame(int, int, int, int);
     void BuildHollowFrame(int, int, int, int);
 
-    // ¤£«ØÄ³¨Ï¥Î¡A½Ğ¨Ï¥Î·sª©ªº¤T°Ñ¼ÆdisplayFile
+    // ä¸å»ºè­°ä½¿ç”¨ï¼Œè«‹ä½¿ç”¨æ–°ç‰ˆçš„ä¸‰åƒæ•¸displayFile
     void displayFile(std::ifstream&);
 
     void displayFile(const std::string, int, int);
@@ -54,7 +54,7 @@ namespace Displayer {
     std::string DiceDisplayer(std::vector<int>);
 
     /// =========================================
-    /// ¥H¤U¬O¼Æ­ÈÅã¥Ü¤u¨ã
+    /// ä»¥ä¸‹æ˜¯æ•¸å€¼é¡¯ç¤ºå·¥å…·
     /// =========================================
 
     void displayDice(std::vector<int> diceLog);

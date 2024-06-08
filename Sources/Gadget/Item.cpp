@@ -1,4 +1,4 @@
-#include "../../Includes/Gadget/Item.h"
+﻿#include "../../Includes/Gadget/Item.h"
 
 // Private
 

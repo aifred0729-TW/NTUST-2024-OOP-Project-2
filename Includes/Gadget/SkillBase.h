@@ -1,4 +1,4 @@
-#ifndef SKILL_BASE_H
+ï»¿#ifndef SKILL_BASE_H
 #define SKILL_BASE_H
 
 #include <vector> 
@@ -49,7 +49,7 @@ private:
 public:
     Active();
     Active(std::string name, uint8_t tick, uint8_t diceAmount, SkillCommand* command);
-    //targetType: 0¦Û¨­ 1¼Ä¤è³æÅé 2¼Ä¤è¥şÅé 3¤Í¤è³æÅé 4¤Í¤è¥şÅé
+    //targetType: 0è‡ªèº« 1æ•µæ–¹å–®é«” 2æ•µæ–¹å…¨é«” 3å‹æ–¹å–®é«” 4å‹æ–¹å…¨é«”
     Active(std::string name, uint8_t cooldown, uint8_t diceAmount, SkillCommand* command, uint8_t targetType);
     uint8_t GetDiceAmount() const;
     uint8_t GetTargetType() const;

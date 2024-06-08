@@ -1,72 +1,72 @@
-# For the King
+ï»¿# For the King
 
-## ¤º³¡³W½d
+## å…§éƒ¨è¦ç¯„
 
 ### Coding Style
 
-- ¤£¥i¨Ï¥Î¨ã¦³¥~³¡³sµ²ªº Global Variable¡F­Y­n¨Ï¥Î Global Variable¡A«h»İ­n½T«O¨ä¥L¤H¥u¯à¨Ì¾aÃB¥~ªº Function ¨Ó¦s¨ú Global Variable ªº Data
-- Class ¤¤ªº Data ¤£¥i³Q¥~³¡¾Ş§@ª½±µ¦s¨ú¡A»İ­n«Ø¥ß±Mªùªº Getter »P Setter
-- Function ¦æ¼Æ¤£©y¶W¹L 150 ¦æ
-- Function ¶Ç¤Jªº Variable ¤£¯à¶W¹L 7 ­Ó¡A¨Ã¥B Function ¤º³¡¤£¯à¨Ï¥Î**«D Const**ªº Global Variable
-- Function ªºÁY¶i¦¸¼Æ¤£À³¶W¹L 4¡A§_«h»İ­nÃB¥~¨Ï¥Î±ø¥ó¤ÏÂà©Î Helper
-- ¨C­Ó Source File ¥u¯à¤Ş¥Î¨ä¬Û¦P¦WºÙªº Header File
-- ­Y¨ç¦¡¨ã¦³ inline¡A«hÀ³¸Ó©ñ¦bÀÉ®×«áºó¬° .inl ªº¦P¦WÀÉ®×¤¤¡A§@¬°¤¶­±ªº¹ê²{
-- ¨C­Ó Header File ³£»İ­n¦³µù¸Ñ
-- ©R¦W­·®æ²Î¤@¬°¾m®p¦¡©R¦Wªk
+- ä¸å¯ä½¿ç”¨å…·æœ‰å¤–éƒ¨é€£çµçš„ Global Variableï¼›è‹¥è¦ä½¿ç”¨ Global Variableï¼Œå‰‡éœ€è¦ç¢ºä¿å…¶ä»–äººåªèƒ½ä¾é é¡å¤–çš„ Function ä¾†å­˜å– Global Variable çš„ Data
+- Class ä¸­çš„ Data ä¸å¯è¢«å¤–éƒ¨æ“ä½œç›´æ¥å­˜å–ï¼Œéœ€è¦å»ºç«‹å°ˆé–€çš„ Getter èˆ‡ Setter
+- Function è¡Œæ•¸ä¸å®œè¶…é 150 è¡Œ
+- Function å‚³å…¥çš„ Variable ä¸èƒ½è¶…é 7 å€‹ï¼Œä¸¦ä¸” Function å…§éƒ¨ä¸èƒ½ä½¿ç”¨**é Const**çš„ Global Variable
+- Function çš„ç¸®é€²æ¬¡æ•¸ä¸æ‡‰è¶…é 4ï¼Œå¦å‰‡éœ€è¦é¡å¤–ä½¿ç”¨æ¢ä»¶åè½‰æˆ– Helper
+- æ¯å€‹ Source File åªèƒ½å¼•ç”¨å…¶ç›¸åŒåç¨±çš„ Header File
+- è‹¥å‡½å¼å…·æœ‰ inlineï¼Œå‰‡æ‡‰è©²æ”¾åœ¨æª”æ¡ˆå¾Œç¶´ç‚º .inl çš„åŒåæª”æ¡ˆä¸­ï¼Œä½œç‚ºä»‹é¢çš„å¯¦ç¾
+- æ¯å€‹ Header File éƒ½éœ€è¦æœ‰è¨»è§£
+- å‘½åé¢¨æ ¼çµ±ä¸€ç‚ºé§å³°å¼å‘½åæ³•
 
 ### Commit Style
 
-Commit ¥²¶·«ö·Ó¥H¤Uªº®æ¦¡¶i¦æ
+Commit å¿…é ˆæŒ‰ç…§ä»¥ä¸‹çš„æ ¼å¼é€²è¡Œ
 
 ```
-{HEADER} - ºK­n¥»¦¸ Commit ªº¤º®e
-(OPTION) <Body> - ¸Ô²Ó»¡©ú³o¦¸ªº¤º®e
-(OPTION) <Footer> - ÃB¥~µù°O
+{HEADER} - æ‘˜è¦æœ¬æ¬¡ Commit çš„å…§å®¹
+(OPTION) <Body> - è©³ç´°èªªæ˜é€™æ¬¡çš„å…§å®¹
+(OPTION) <Footer> - é¡å¤–è¨»è¨˜
 ```
 
-Header §@¬°ºK°O¤£­n¹Lªø¡FBody ¥i¥H´y­z³o¦¸´£¥æªº¸Ô²Ó¤º®e¡FFooter ¥i¥H°µ¬°ÃB¥~µù°O¨Ï¥Î
+Header ä½œç‚ºæ‘˜è¨˜ä¸è¦éé•·ï¼›Body å¯ä»¥æè¿°é€™æ¬¡æäº¤çš„è©³ç´°å…§å®¹ï¼›Footer å¯ä»¥åšç‚ºé¡å¤–è¨»è¨˜ä½¿ç”¨
 
 - Headers
-    - FEAT : ·sªº¥\¯à
-    - FIX : ­×´_¿ù»~
-    - DOCS : Document ¬ÛÃöªº­×§ï (CHANGELOG¡BREADME¡B...)
-    - PERF : ®Ä¯à§ïµ½¡A©Î¬O¼W¥[°lÂÜ®Ä¯àªº Code
-    - TEST : ·s¼W´ú¸Õ¤å¥ó
-    - STYLE : ³æ¯Â­×§ïµ{¦¡½X¤¤ªº¬üÆ[±Æª©
-    - DEPRECATE : ²^¨O¬Y¨Ç¤£¥²­nªº Feature ©Î¬O¥\¯à
-    - REFACTOR : ¤£²K¥[·s¥\¯à©Î¬O­×´_ Bug ªº±¡ªp¤U­«ºcµ{¦¡¬[ºc (©î¦¨§ó¤pªº¼Ò²Õ¡B§ó¦nªº¼gªk¡B...)
-    - RELEASE : ©Mª©¥»¬ÛÃöªºµù°O
-    - CI : ¹ï©ó CI ¬ÛÃö³]©wªº½Õ¾ã
+    - FEAT : æ–°çš„åŠŸèƒ½
+    - FIX : ä¿®å¾©éŒ¯èª¤
+    - DOCS : Document ç›¸é—œçš„ä¿®æ”¹ (CHANGELOGã€READMEã€...)
+    - PERF : æ•ˆèƒ½æ”¹å–„ï¼Œæˆ–æ˜¯å¢åŠ è¿½è¹¤æ•ˆèƒ½çš„ Code
+    - TEST : æ–°å¢æ¸¬è©¦æ–‡ä»¶
+    - STYLE : å–®ç´”ä¿®æ”¹ç¨‹å¼ç¢¼ä¸­çš„ç¾è§€æ’ç‰ˆ
+    - DEPRECATE : æ·˜æ±°æŸäº›ä¸å¿…è¦çš„ Feature æˆ–æ˜¯åŠŸèƒ½
+    - REFACTOR : ä¸æ·»åŠ æ–°åŠŸèƒ½æˆ–æ˜¯ä¿®å¾© Bug çš„æƒ…æ³ä¸‹é‡æ§‹ç¨‹å¼æ¶æ§‹ (æ‹†æˆæ›´å°çš„æ¨¡çµ„ã€æ›´å¥½çš„å¯«æ³•ã€...)
+    - RELEASE : å’Œç‰ˆæœ¬ç›¸é—œçš„è¨»è¨˜
+    - CI : å°æ–¼ CI ç›¸é—œè¨­å®šçš„èª¿æ•´
 
 Ref : https://isoneet.org/web-learning/devTools/git.html#commit-message
 
 ### Development Criterion
 
-¦b¶}µo·s¥\¯à®É¥²¶··s¼W Branch¡A¨Ã¥B»İ¥ı©M Main Branch ¹Á¸Õ Merge¡A¨Ã¥B¦b Merge «á¨S¦³¥X²{ Bug ®É¤~¯àµo°e Pull Request ©M Main Branch °µ Merge
+åœ¨é–‹ç™¼æ–°åŠŸèƒ½æ™‚å¿…é ˆæ–°å¢ Branchï¼Œä¸¦ä¸”éœ€å…ˆå’Œ Main Branch å˜—è©¦ Mergeï¼Œä¸¦ä¸”åœ¨ Merge å¾Œæ²’æœ‰å‡ºç¾ Bug æ™‚æ‰èƒ½ç™¼é€ Pull Request å’Œ Main Branch åš Merge
 
-Branch ¥²¶·«ö·Ó¥H¤U©R¦W³W½d
+Branch å¿…é ˆæŒ‰ç…§ä»¥ä¸‹å‘½åè¦ç¯„
 
 ```
 {NAME}-{STATUS}
 ```
 
 - Name
-    - Name ¥i¥H©ñ¥¿¦b¶i¦æ¶}µoªº class ©Î¬O Feature ªº¦WºÙ
+    - Name å¯ä»¥æ”¾æ­£åœ¨é€²è¡Œé–‹ç™¼çš„ class æˆ–æ˜¯ Feature çš„åç¨±
 - Status
-    - DEV : ¶}µo·s¥\¯à
-    - FIX : ­×´_µ{¦¡ Bug
-    - REBUILD : ­«ºcµ{¦¡¬[ºc
+    - DEV : é–‹ç™¼æ–°åŠŸèƒ½
+    - FIX : ä¿®å¾©ç¨‹å¼ Bug
+    - REBUILD : é‡æ§‹ç¨‹å¼æ¶æ§‹
 
-¦pªG¤£·|¨Ï¥Î Branch ¥H¤U¦³´£¨Ñ©R¥O
+å¦‚æœä¸æœƒä½¿ç”¨ Branch ä»¥ä¸‹æœ‰æä¾›å‘½ä»¤
 
 ```
-// «Ø¥ß Branch
+// å»ºç«‹ Branch
 git checkout -b className-DEV
 
-// ¤Á´« Branch
+// åˆ‡æ› Branch
 git checkout branchName
 
-// ½T»{¥Ø«e©Ò¦b Branch
+// ç¢ºèªç›®å‰æ‰€åœ¨ Branch
 
 git status
 git checkout
@@ -74,22 +74,22 @@ git checkout
 
 ## Members
 
-- B11215013 ®}ªª»·
-- B11230040 ¼B¯§§e
-- B11215024 ¼B¬f¼İ
-- B11230017 §dªÃ«Û
-- B11230015 ¿½¤Ñ¯E
+- B11215013 å¾ç‰§é 
+- B11230040 åŠ‰ç¥å‘ˆ
+- B11215024 åŠ‰æŸæ¯…
+- B11230017 å³ç§‰å½¥
+- B11230015 è•­å¤©æµ©
 
 ## Quick Start
 
 ## Contribution
 
-### B11215013 ®}ªª»·
+### B11215013 å¾ç‰§é 
 
-### B11230040 ¼B¯§§e
+### B11230040 åŠ‰ç¥å‘ˆ
 
-### B11215024 ¼B¬f¼İ
+### B11215024 åŠ‰æŸæ¯…
 
-### B11230017 §dªÃ«Û
+### B11230017 å³ç§‰å½¥
 
-### B11230015 ¿½¤Ñ¯E
+### B11230015 è•­å¤©æµ©

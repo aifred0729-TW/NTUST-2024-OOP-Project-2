@@ -1,4 +1,4 @@
-#include "../../Includes/Incident/Field.h"
+﻿#include "../../Includes/Incident/Field.h"
 
 // Public
 

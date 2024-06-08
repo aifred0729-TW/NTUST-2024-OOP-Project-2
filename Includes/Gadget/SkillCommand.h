@@ -1,4 +1,4 @@
-#ifndef SKILLCOMMAND_H
+﻿#ifndef SKILLCOMMAND_H
 #define SKILLCOMMAND_H
 
 #include <vector>

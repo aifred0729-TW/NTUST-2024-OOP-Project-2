@@ -1,4 +1,4 @@
-#ifndef PROCESS_H
+ï»¿#ifndef PROCESS_H
 #define PROCESS_H
 
 #include <Entity.h>
@@ -25,13 +25,13 @@ public:
     // Handle Prepare Battle
     static int HandlePreBattle(std::vector<Enemy*>, std::vector<Role*>);
 
-    //·F¬[¼ÒÀÀ¾¹ ¥ı¼g¨Óª±ª± ¤§«á·|²¾´Ó
+    //å¹¹æ¶æ¨¡æ“¬å™¨ å…ˆå¯«ä¾†ç©ç© ä¹‹å¾Œæœƒç§»æ¤
     static int fightSimulator(std::vector<Enemy*>enemys, std::vector<Role*>roles);
 
-    //ÁõÄİ©ó·F¬[¼ÒÀÀªº±Mª`¼ÒÀÀ¾¹
+    //éš¸å±¬æ–¼å¹¹æ¶æ¨¡æ“¬çš„å°ˆæ³¨æ¨¡æ“¬å™¨
     static int focusUseSimulator(int focusPoint, int diceAmount);
 
-    //ÁõÄİ©ó§Ş¯à¥Ø¼Ğ¿ï¨úªº±Mª`¼ÒÀÀ¾¹
+    //éš¸å±¬æ–¼æŠ€èƒ½ç›®æ¨™é¸å–çš„å°ˆæ³¨æ¨¡æ“¬å™¨
     static std::vector<Entity*> targetChoiceSimulator(std::vector<Enemy*>enemys, std::vector<Role*>roles, Role* caster, int TargetType);
 
     // Handle Display Menu

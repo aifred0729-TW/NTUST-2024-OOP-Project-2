@@ -1,4 +1,4 @@
-#ifndef EQUIPMENT_COMPONENT_H
+﻿#ifndef EQUIPMENT_COMPONENT_H
 #define EQUIPMENT_COMPONENT_H
 
 #include <Attribute.h>

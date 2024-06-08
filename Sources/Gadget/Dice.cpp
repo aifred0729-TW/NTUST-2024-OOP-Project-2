@@ -1,4 +1,4 @@
-#include "../../Includes/Gadget/Dice.h"
+ï»¿#include "../../Includes/Gadget/Dice.h"
 
 // Public
 
@@ -57,7 +57,7 @@ void Dice::RollDice(void) {
     for (int i = 0; i < this->amount; i++) {
         this->result[i] = (dis(gen) < this->successRate[i] + this->rateAddition[i]) || (i < focusCount);
         this->diceLog[i] = (int)result[i];
-        this->diceLog[i] += (int)(i < focusCount);//¦]¬°¨Ï¥Î±Mª`ÂI¤@©w·|¦³1 ±µµÛ¦A¥[1´N¦³2¤F ¬Ù¨Æ
+        this->diceLog[i] += (int)(i < focusCount);//å› ç‚ºä½¿ç”¨å°ˆæ³¨é»ä¸€å®šæœƒæœ‰1 æ¥è‘—å†åŠ 1å°±æœ‰2äº† çœäº‹
         if (this->result[i]) {
             this->movementPoint++;
         }
@@ -79,7 +79,7 @@ void Dice::resize(uint8_t amount) {
 void Dice::displayResult(void) {
     std::string outputStr;
     std::stringstream outputSs;
-    UI::logEvent("ÂY»ëµ²ªG: " + std::to_string((unsigned)movementPoint) + " / " + std::to_string((unsigned)amount) + " " + UI::FocusDisplayer((unsigned)movementPoint, (unsigned)amount));
+    UI::logEvent("æ“²éª°çµæœ: " + std::to_string((unsigned)movementPoint) + " / " + std::to_string((unsigned)amount) + " " + UI::FocusDisplayer((unsigned)movementPoint, (unsigned)amount));
 }
 
 void Dice::setMovementPoint(const uint8_t movementPoint) {

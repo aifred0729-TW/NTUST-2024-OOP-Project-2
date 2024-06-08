@@ -1,4 +1,4 @@
-#ifndef UI_H
+ï»¿#ifndef UI_H
 #define UI_H
 
 #include <cstdint>
@@ -34,10 +34,10 @@ namespace UI {
     // Check whether the terminal size is big enough
     void checkConsoleSize(int, int);
 
-    // ¾Ô°«°O¿ıªì©l¤Æ
+    // æˆ°é¬¥è¨˜éŒ„åˆå§‹åŒ–
     void logInitialization();
 
-    // ¾Ô°«¬ö¿ı
+    // æˆ°é¬¥ç´€éŒ„
     void logEvent(const std::string&);
 
     void logDivider(const std::string&);
@@ -55,7 +55,7 @@ namespace UI {
     // Display Dice
     int Display(Dice*);
 
-    //§ó·s¾Ô°«¤¤ªºª±®a¸ê®Æ
+    //æ›´æ–°æˆ°é¬¥ä¸­çš„ç©å®¶è³‡æ–™
     void renewPlayerInfo();
 
     // Display Information of Entities for Field through its ID
@@ -70,14 +70,14 @@ namespace UI {
     // Display Interactive Objects
     int Display(Interactive*);
 
-    // Relocation Map to Roles¡Aand Make it the Center Point Shows Part of Map
+    // Relocation Map to Rolesï¼Œand Make it the Center Point Shows Part of Map
     int ReLocation(Role*);
 
-    //ª±®a¿ï¨ú®Øªºª±®a
+    //ç©å®¶é¸å–æ¡†çš„ç©å®¶
     void PlayerFrame(int);
     void PlayerFrame(std::vector<int>);
 
-    //¶i¦æ¦^¦X®Ø ªì©l¤Æ
+    //é€²è¡Œå›åˆæ¡† åˆå§‹åŒ–
 
     // ...
 };

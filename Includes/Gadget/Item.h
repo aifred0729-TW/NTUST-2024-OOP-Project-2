@@ -1,4 +1,4 @@
-#ifndef ITEM_H
+ï»¿#ifndef ITEM_H
 #define ITEM_H
 
 #include <vector>
@@ -6,7 +6,7 @@
 #include <ConstData.h>
 
 // itemTable[COIN]();
-// Used COIN¡Acorresponding to ApplyCoin function
+// Used COINï¼Œcorresponding to ApplyCoin function
 // #include <vector>
 
 class Role;
@@ -14,7 +14,7 @@ class Role;
 class Item {
 private:
     static std::vector<std::pair<int, int>> items;          // ItemID / Counts (need initialize)
-    static void (* const itemTable[ITEM_TOTAL_SIZE])(void); // ItemTable (need initialize¡Ffunction of ApplyXXX)
+    static void (* const itemTable[ITEM_TOTAL_SIZE])(void); // ItemTable (need initializeï¼›function of ApplyXXX)
 
 private:
     static void ApplyCoin(void);           // Use Coin

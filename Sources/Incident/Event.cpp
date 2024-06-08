@@ -1,4 +1,4 @@
-#include "../../Includes/Incident/Event.h"
+﻿#include "../../Includes/Incident/Event.h"
 
 // Public
 

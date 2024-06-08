@@ -1,4 +1,4 @@
-#ifndef INTERACTIVE_H
+﻿#ifndef INTERACTIVE_H
 #define INTERACTIVE_H
 
 #include <cstdint>

@@ -1,4 +1,4 @@
-#ifndef CHEST_H
+﻿#ifndef CHEST_H
 #define CHEST_H
 
 #include <cstdint>

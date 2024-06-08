@@ -1,4 +1,4 @@
-#include "../../Includes/Entity/Store.h"
+﻿#include "../../Includes/Entity/Store.h"
 
 // Public
 

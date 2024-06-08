@@ -1,4 +1,4 @@
-#include "../../Includes/Display/UI.h"
+ï»¿#include "../../Includes/Display/UI.h"
 #include <Role.h>
 #include <Enemy.h>
 #include <Entity.h>
@@ -81,8 +81,8 @@ int UI::PreBattle(std::vector<Enemy*> enemys, std::vector<Role*> roles) {
     using namespace std;
     logInitialization();
     cout << BLACK;
-    BuildFrame(0, 0, 179, 49); //¶ñ¶Â
-    BuildHollowFrame(0, 0, 174, 49); //¥~®Ø
+    BuildFrame(0, 0, 179, 49); //å¡«é»‘
+    BuildHollowFrame(0, 0, 174, 49); //å¤–æ¡†
 
     PlayerFrame({ 0,1,2,3,4,5 });
 

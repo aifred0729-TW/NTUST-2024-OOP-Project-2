@@ -1,4 +1,4 @@
-#include "../../Includes/Entity/Chest.h"
+﻿#include "../../Includes/Entity/Chest.h"
 
 // Public
 

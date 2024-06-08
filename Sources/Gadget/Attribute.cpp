@@ -1,4 +1,4 @@
-#include "../../Includes/Gadget/Attribute.h"
+﻿#include "../../Includes/Gadget/Attribute.h"
 
 Attribute::Attribute(void) {
 	this->maxHP = 0;

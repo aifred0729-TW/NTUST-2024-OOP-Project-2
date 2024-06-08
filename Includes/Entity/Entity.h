@@ -1,4 +1,4 @@
-#ifndef ENTITY_H
+ï»¿#ifndef ENTITY_H
 #define ENTITY_H
 
 #include <cstdint>
@@ -50,14 +50,14 @@ public:
 	// Find the Enemy in Range
 	bool isInRange(std::vector<Entity*>);
 	// Equip and UnEquip Weapon and Armor
-	// »İ­n©Mª««~Äæµ²¦X¤~ºâ§¹¦¨
+	// éœ€è¦å’Œç‰©å“æ¬„çµåˆæ‰ç®—å®Œæˆ
 	void equip(std::string equipmentName);
 	void unEquip(std::string equipmentName);
-	// ¥D°Ê§Ş¯à¹ê°µ
+	// ä¸»å‹•æŠ€èƒ½å¯¦åš
 	void useActive(std::string skillName, std::vector<Entity*> targets);
-	// ­pºâ¸g¹L¤@¤Á­pºâ«á¨ü¨ìªº¶Ë®`(ª½±µ¶Ç­ì©l¶Ë®`¶i¨Ó´N¦n)
+	// è¨ˆç®—ç¶“éä¸€åˆ‡è¨ˆç®—å¾Œå—åˆ°çš„å‚·å®³(ç›´æ¥å‚³åŸå§‹å‚·å®³é€²ä¾†å°±å¥½)
 	void takeDamage(int16_t damage, char attackType);
-	// ª½±µ¨ü¨ìªºªvÀø¼Æ­È
+	// ç›´æ¥å—åˆ°çš„æ²»ç™‚æ•¸å€¼
 	void heal(int16_t heal);
 };
 

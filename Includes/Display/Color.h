@@ -1,7 +1,7 @@
-#ifndef COLOR_H
+ï»¿#ifndef COLOR_H
 #define COLOR_H
 
-// ©w¸qANSIÂà¸q½X¤å¦rÃC¦â
+// å®šç¾©ANSIè½‰ç¾©ç¢¼æ–‡å­—é¡è‰²
 #define RESET "\033[0m"
 #define BLACK "\033[30m"
 #define RED "\033[31m"
@@ -12,11 +12,11 @@
 #define CYAN "\033[36m"
 #define WHITE "\033[37m"
 
-// ©w¸qANSIÂà¸q½X¤å¦r«G¦â©M·t¦â
+// å®šç¾©ANSIè½‰ç¾©ç¢¼æ–‡å­—äº®è‰²å’Œæš—è‰²
 #define BOLD "\033[1m"
 #define DARK "\033[2m"
 
-// ©w¸qANSIÂà¸q½X­I´ºÃC¦â
+// å®šç¾©ANSIè½‰ç¾©ç¢¼èƒŒæ™¯é¡è‰²
 #define BG_BLACK "\033[40m"
 #define BG_RED "\033[41m"
 #define BG_GREEN "\033[42m"

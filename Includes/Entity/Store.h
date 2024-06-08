@@ -1,4 +1,4 @@
-#ifndef STORE_H
+﻿#ifndef STORE_H
 #define STORE_H
 
 #include <cstdint>
