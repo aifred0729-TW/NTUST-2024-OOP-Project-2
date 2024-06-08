@@ -53,8 +53,8 @@ public:
 	// 需要和物品欄結合才算完成
 	void equip(std::string equipmentName);
 	void unEquip(std::string equipmentName);
-	// 技能實做
-	void useSkill(std::string skillName, std::vector<Entity*> targets);
+	// 主動技能實做
+	void useActive(std::string skillName, std::vector<Entity*> targets);
 	// 計算經過一切計算後受到的傷害(直接傳原始傷害進來就好)
 	void takeDamage(int16_t damage, char attackType);
 	// 直接受到的治療數值

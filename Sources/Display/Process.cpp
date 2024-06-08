@@ -52,7 +52,7 @@ int Process::fightSimulator(std::vector<Enemy*>enemys, std::vector<Role*>roles) 
                 roles[i]->GetAttribute().SetFocus(focus - focusUse);
                 roles[i]->GetDice().SetFocusCount(focusUse);
             }
-            roles[i]->useSkill(skillToUse.first, target);
+            roles[i]->useActive(skillToUse.first, target);
             UI::logEvent("");
         }
     }
