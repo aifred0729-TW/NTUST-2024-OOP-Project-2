@@ -35,7 +35,7 @@ void FleeCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t 
 
     if (casterDice.GetMovementPoint() == 1) {
         UI::logEvent(caster.GetName() + " 逃跑成功！！");
-        // ctargets[0]->SetStatus(逃跑狀態);
+        targets[0]->SetStatus(targets[0]->GetStatus() | RETREAT);
     } else {
         UI::logEvent(caster.GetName() + " 逃跑失敗，繼續坐牢。");
     }
