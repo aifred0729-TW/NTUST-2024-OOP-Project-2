@@ -11,6 +11,9 @@ Entity::Entity() {
     skill.pushActive(Attack);
     skill.pushActive(Flee);
     this->dice = Dice();
+    equip("BareHand");
+    equip("BareBody");
+    equip("BareAccessory");
     status = 0;
     eventID = 0;
 }

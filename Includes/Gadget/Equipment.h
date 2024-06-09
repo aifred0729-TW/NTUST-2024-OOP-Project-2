@@ -16,7 +16,7 @@ private:
     Accessory accessory;
 
 public:
-    Equipment();  // Default constructor
+    Equipment();
 
     void SetWeapon(const Weapon&);
     void SetArmor(const Armor&);

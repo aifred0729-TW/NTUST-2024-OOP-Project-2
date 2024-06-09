@@ -4,6 +4,7 @@
 
 #include <Equipment.h>
 #include <EquipmentBase.h>
+#include <EquipmentTable.h>
 
 Equipment::Equipment() {
 	armor = Armor();

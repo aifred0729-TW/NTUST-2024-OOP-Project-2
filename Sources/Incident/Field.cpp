@@ -1,8 +1,8 @@
-﻿#include <Field.h>
+#include <Field.h>
 #include <UI.h>
 // Public
 
-void Field::StartBattle(void) {
+void Field::StartBattle(void) 
 	using namespace std;
 
 	UI::PreBattle(enemys, roles);
@@ -78,61 +78,61 @@ Action* Field::RefreshEvent(void) {
 }
 
 void Field::MainPhase(Action* currEvent) {
-	using namespace std;
+    using namespace std;
 
-	if (currEvent->GetEntityID() < 3) { /* enemy entity */
-		EnemyMainPhase(currEvent);
-	}
-	else { /* player entity */
-		PlayerMainPhase(currEvent);
-	}
+    if (currEvent->GetEntityID() < 3) { /* enemy entity */
+        EnemyMainPhase(currEvent);
+    }
+    else { /* player entity */
+        PlayerMainPhase(currEvent);
+    }
 }
 
 void Field::RemoveDeadEntity(void) {
-	for (auto it = eventQueue.begin(); it != eventQueue.end();) {
-		if ((*it)->GetObj()->GetStatus() & DEAD || (*it)->GetObj()->GetStatus() & RETREAT) {
-			it = eventQueue.erase(it);
-		}
-		else {
-			++it;
-		}
-	}
+    for (auto it = eventQueue.begin(); it != eventQueue.end();) {
+        if ((*it)->GetObj()->GetStatus() & DEAD || (*it)->GetObj()->GetStatus() & RETREAT) {
+            it = eventQueue.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
 
-	for (auto it = roles.begin(); it != roles.end();) {
-		if ((*it)->GetStatus() & DEAD || (*it)->GetStatus() & RETREAT) {
-			it = roles.erase(it);
-		}
-		else {
-			++it;
-		}
-	}
+    for (auto it = roles.begin(); it != roles.end();) {
+        if ((*it)->GetStatus() & DEAD || (*it)->GetStatus() & RETREAT) {
+            it = roles.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
 
-	for (auto it = enemys.begin(); it != enemys.end();) {
-		if ((*it)->GetStatus() & DEAD || (*it)->GetStatus() & RETREAT) {
-			it = enemys.erase(it);
-		}
-		else {
-			++it;
-		}
-	}
+    for (auto it = enemys.begin(); it != enemys.end();) {
+        if ((*it)->GetStatus() & DEAD || (*it)->GetStatus() & RETREAT) {
+            it = enemys.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
 }
 
 void Field::PlayerMainPhase(Action* currEvent) {
 CHOICE:
-	UI::BuildVoid(121, 7, 0, 27);
-	UI::PlayerFrame({ 0,1,2,3,4,5 });
-	std::cout << YELLOW;
-	UI::PlayerFrame(currEvent->GetEntityID());
+    UI::BuildVoid(121, 7, 0, 27);
+    UI::PlayerFrame({ 0,1,2,3,4,5 });
+    std::cout << YELLOW;
+    UI::PlayerFrame(currEvent->GetEntityID());
 
-	auto skills = currEvent->GetObj()->GetTotalSkill().GetActive();
-	auto skillToUse = UI::makeChoice(skills, 6, 9);
-	UI::logDivider(currEvent->GetObj()->GetName(), skillToUse.first);
+    auto skills = currEvent->GetObj()->GetTotalSkill().GetActive();
+    auto skillToUse = UI::makeChoice(skills, 6, 9);
+    UI::logDivider(currEvent->GetObj()->GetName(), skillToUse.first);
 
-	int diceAmount = skillToUse.first == "Attack" ?
-		currEvent->GetObj()->GetEquipment().GetWeapon().GetDiceAmount() : skills[skillToUse.second].GetDiceAmount();
-	int focus = currEvent->GetObj()->GetAttribute().GetFocus();
+    int diceAmount = skillToUse.first == "Attack" ?
+        currEvent->GetObj()->GetEquipment().GetWeapon().GetDiceAmount() : skills[skillToUse.second].GetDiceAmount();
+    int focus = currEvent->GetObj()->GetAttribute().GetFocus();
 
-	UI::displayDice(diceAmount, 0);
+    UI::displayDice(diceAmount, 0);
 
 TARGET:
 	auto target = ChooseTarget(currEvent, skills[skillToUse.second].GetTargetType());
@@ -159,25 +159,25 @@ TARGET:
 }
 
 std::pair<std::string, int> makeChoice(std::vector<Active> choices) {
-	bool keyState[KeyBoard::INVALID];
-	int select = rand() % choices.size();
-	return { choices[select].GetName(), select };
+    bool keyState[KeyBoard::INVALID];
+    int select = rand() % choices.size();
+    return { choices[select].GetName(), select };
 }
 
 void Field::EnemyMainPhase(Action* currEvent) {
-	UI::BuildVoid(121, 7, 0, 27);
-	UI::PlayerFrame({ 0,1,2,3,4,5 });
-	std::cout << YELLOW;
-	UI::PlayerFrame(currEvent->GetEntityID());
+    UI::BuildVoid(121, 7, 0, 27);
+    UI::PlayerFrame({ 0,1,2,3,4,5 });
+    std::cout << YELLOW;
+    UI::PlayerFrame(currEvent->GetEntityID());
 
-	auto skills = currEvent->GetObj()->GetTotalSkill().GetActive();
-	int skillNumber;
-	while ((skillNumber = rand() % skills.size()) == 1);
+    auto skills = currEvent->GetObj()->GetTotalSkill().GetActive();
+    int skillNumber;
+    while ((skillNumber = rand() % skills.size()) == 1);
 
-	auto skillToUse = skills[skillNumber];
-	auto target = RandomTarget(currEvent, rand() % skills.size() /* + 3 */);
-	currEvent->GetObj()->useActive(skillToUse.GetName(), target);
-	UI::logEvent("");
+    auto skillToUse = skills[skillNumber];
+    auto target = RandomTarget(currEvent, rand() % skills.size() /* + 3 */);
+    currEvent->GetObj()->useActive(skillToUse.GetName(), target);
+    UI::logEvent("");
 }
 
 std::vector<Entity*> Field::RandomTarget(Action* currEvent, int TargetType) {
@@ -286,53 +286,53 @@ std::vector<Entity*> Field::ChooseTarget(Action* currEvent, int TargetType) {
 }
 
 int Field::ChooseFocus(int focusPoint, int diceAmount) {
-	int focusUse = 0;
-	bool keyState[KeyBoard::INVALID];
-	UI::displayDice(diceAmount, focusUse);
-	//UI::renewPlayerInfo();
-	while (1) {
-		KeyBoard::keyUpdate(keyState);
-		if (keyState[KeyBoard::EA]) {
-			if (focusUse > 0) {
-				focusUse--;
-			}
-		}
-		else if (keyState[KeyBoard::ED]) {
-			if (focusUse < focusPoint && focusUse < diceAmount) {
-				focusUse++;
-			}
-		}
-		else if (keyState[KeyBoard::ESPACE] || keyState[KeyBoard::EENTER]) {
-			return focusUse;
-		}
-		else if (keyState[KeyBoard::EESC]) {
-			return -1;
-		}
-		else {
-			continue;
-		}
-		UI::displayDice(diceAmount, focusUse);
-		//UI::renewPlayerInfo();
-	}
+    int focusUse = 0;
+    bool keyState[KeyBoard::INVALID];
+    UI::displayDice(diceAmount, focusUse);
+    //UI::renewPlayerInfo();
+    while (1) {
+        KeyBoard::keyUpdate(keyState);
+        if (keyState[KeyBoard::EA]) {
+            if (focusUse > 0) {
+                focusUse--;
+            }
+        }
+        else if (keyState[KeyBoard::ED]) {
+            if (focusUse < focusPoint && focusUse < diceAmount) {
+                focusUse++;
+            }
+        }
+        else if (keyState[KeyBoard::ESPACE] || keyState[KeyBoard::EENTER]) {
+            return focusUse;
+        }
+        else if (keyState[KeyBoard::EESC]) {
+            return -1;
+        }
+        else {
+            continue;
+        }
+        UI::displayDice(diceAmount, focusUse);
+        //UI::renewPlayerInfo();
+    }
 }
 
 void Field::ExitPhase(void) {
-	using namespace std;
+    using namespace std;
 
-	bool AllRoleDead = 1, AllEnemyDead = 1;
-	for (auto it : enemys) {
-		if (!(it->GetStatus() & DEAD)) AllEnemyDead = 0;
-	}
-	for (auto it : roles) {
-		if (!(it->GetStatus() & DEAD)) AllRoleDead = 0;
-	}
+    bool AllRoleDead = 1, AllEnemyDead = 1;
+    for (auto it : enemys) {
+        if (!(it->GetStatus() & DEAD)) AllEnemyDead = 0;
+    }
+    for (auto it : roles) {
+        if (!(it->GetStatus() & DEAD)) AllRoleDead = 0;
+    }
 
-	if (AllRoleDead) {
-		throw exception("Role Dead!\n");
-	}
-	if (AllEnemyDead) {
-		throw exception("Enemy Dead!\n");
-	};
+    if (AllRoleDead) {
+        throw exception("Role Dead!\n");
+    }
+    if (AllEnemyDead) {
+        throw exception("Enemy Dead!\n");
+    };
 }
 
 
@@ -344,21 +344,21 @@ Action::Action(Entity* val, uint8_t mode, uint8_t ID)
 }
 
 Field::Field(std::vector<Role*> players, std::vector<Enemy*> enemies) : currEvent(nullptr) {
-	roles = players;
-	enemys = enemies;
+    roles = players;
+    enemys = enemies;
 
-	for (int i = 0; i < players.size(); ++i) {
-		eventQueue.push_back(new Action(players[i], ROLE, i + 3));
-	}
-	for (int i = 0; i < enemies.size(); ++i) {
-		eventQueue.push_back(new Action(enemies[i], ENEMY, i));
-	}
+    for (int i = 0; i < players.size(); ++i) {
+        eventQueue.push_back(new Action(players[i], ROLE, i + 3));
+    }
+    for (int i = 0; i < enemies.size(); ++i) {
+        eventQueue.push_back(new Action(enemies[i], ENEMY, i));
+    }
 }
 
 Field::~Field(void) {
-	for (int i = 0; i < eventQueue.size(); ++i) {
-		delete eventQueue[i]->GetCount();
-		delete eventQueue[i];
-		eventQueue.pop_back();
-	}
+    for (int i = 0; i < eventQueue.size(); ++i) {
+        delete eventQueue[i]->GetCount();
+        delete eventQueue[i];
+        eventQueue.pop_back();
+    }
 }
