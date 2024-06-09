@@ -3,6 +3,7 @@
 
 // 定義ANSI轉義碼文字顏色
 #define RESET "\033[0m"
+
 #define BLACK "\033[30m"
 #define RED "\033[31m"
 #define GREEN "\033[32m"
@@ -25,5 +26,14 @@
 #define BG_MAGENTA "\033[45m"
 #define BG_CYAN "\033[46m"
 #define BG_WHITE "\033[47m"
+
+#define BG_BRIGHT_BLACK "\033[100m"
+#define BG_BRIGHT_RED "\033[101m"
+#define BG_BRIGHT_GREEN "\033[102m"
+#define BG_BRIGHT_YELLOW "\033[103m"
+#define BG_BRIGHT_BLUE "\033[104m"
+#define BG_BRIGHT_MAGENTA "\033[105m"
+#define BG_BRIGHT_CYAN "\033[106m"
+#define BG_BRIGHT_WHITE "\033[107m"
 
 #endif
