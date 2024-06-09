@@ -44,8 +44,7 @@ public:
     std::vector<std::vector<bool>> GetFog(void);
     void SetFog(int row, int col);
 
-public:
-    // ...
+    int manhattanDistance(std::pair<int, int> player, std::pair<int, int> enemy);
 };
 
 #endif

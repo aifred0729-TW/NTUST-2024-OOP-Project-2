@@ -73,3 +73,7 @@ void WorldMap::SetFog(int row, int col) {
 
 	return;
 }
+
+int WorldMap::manhattanDistance(std::pair<int, int> player, std::pair<int, int> enemy) {
+	return std::abs((player.first - enemy.first) + (player.second, enemy.second));
+}
