@@ -12,7 +12,6 @@
 #include "Displayer.h"
 #include <Attribute.h>
 
-
 class Dice;
 class Role;
 class Ememy;

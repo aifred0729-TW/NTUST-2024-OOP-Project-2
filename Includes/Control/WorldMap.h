@@ -29,6 +29,7 @@ namespace WorldMap {
     extern std::pair<int, int> pos;
     extern std::vector<std::vector<int>>  map; // Map Storge
     extern std::vector<std::vector<bool>> fog; // War Fog (Make some lamp?)
+    extern std::vector<std::vector<std::string>> renderMap; // 每個單元為可輸出色塊
 
     // 地圖目前對準的地塊
     // 只能使用一次
@@ -36,17 +37,21 @@ namespace WorldMap {
     // 只能使用一次
     void loadFog();
 
-    std::vector<std::vector<int>> GetMap(void);
+    std::vector<std::vector<int>> getMap(void);
+    std::vector<std::vector<bool>> getFog(void);
+    std::vector<std::vector<std::string>> getRenderMap();
+    std::vector<std::string> getColorBoard();
+    std::pair<int, int> getPos();
+    int getHeight();
+    int getWidth();
 
     void SetMap(int, int, int);
-
-    std::vector<std::vector<bool>> GetFog(void);
 
     void SetFog(int, int);
 
     void setPos(std::pair<int, int> pos);
 
-    std::pair<int, int> getPos();
+    void renderColor();
 
     // ...
 };

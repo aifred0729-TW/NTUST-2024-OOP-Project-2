@@ -8,6 +8,7 @@
 #include "ConstData.h"
 #include "Displayer.h"
 #include "Color.h"
+#include "WorldMap.h"
 
 // Public
 
@@ -281,5 +282,54 @@ void UI::PreWorldMap(std::vector<Role*> roles) {
 }
 
 void UI::PrintWorldMap() {
+    using namespace WorldMap;
+    std::string colorLast;
+    //system("Pause");
+    for (int c = 0; c < 7; c++) {
+        std::cout << getColorBoard()[c];
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 15; j++) {
+                int x = j + getPos().first;
+                int y = i + getPos().second;
+                if (getMap()[y][x] != c)
+                    continue;
+                for (int ii = 0; ii < 3; ii++) {
+                    moveCursor(2 + j * 8, 6 + i * 4 + ii);
+                    std::cout << "      ";
+                }
 
+            }
+        }
+
+    }
+    std::cout << RESET;
+
+    /*
+
+    using namespace WorldMap;
+    std::string colorLast;
+    //system("Pause");
+    for (int k = 0; k < 50; k++) {
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 15; j++) {
+                int x = j + getPos().first + k;
+                int y = i + getPos().second;
+                if (colorLast != getRenderMap()[y][x]) {
+                    colorLast = getRenderMap()[y][x];
+                    std::cout << colorLast;
+                }
+                for (int ii = 0; ii < 3; ii++) {
+                    moveCursor(2 + j * 8, 6 + i * 4 + ii);
+                    for (int jj = 0; jj < 6; jj++) {
+                        //std::cout << getMap()[y][x];
+                        std::cout << " ";
+                    }
+                }
+
+            }
+        }
+    }
+    std::cout << RESET;
+
+    */
 }

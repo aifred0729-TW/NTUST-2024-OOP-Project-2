@@ -47,6 +47,8 @@ int main() {
     Field battle({ &hero ,&profPao , &myWife }, { &porfDai  , &tonya  ,&dragon });
     //battle.StartBattle();
 
+
+    WorldMap::loadMap("W-1.txt");
     UI::PreWorldMap({ &hero ,&profPao , &myWife });
 
     /*
