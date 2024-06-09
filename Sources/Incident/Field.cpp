@@ -145,15 +145,14 @@ CHOICE:
 TARGET:
 	auto target = ChooseTarget(currEvent, skills[skillToUse.second].GetTargetType());
 	if (target.empty()) {
-		UI::logEvent("行動已取消");
+		UI::logEvent("[已取消行動]");
 		UI::logEvent("");
 		goto CHOICE;
 	}
 
 	int focusUse = ChooseFocus(focus, diceAmount);
 	if (focusUse == -1) {
-		UI::logEvent("行動已取消");
-		UI::logEvent("");
+		UI::logEvent("[已取消目標選擇]");
 		goto TARGET;
 	}
 
@@ -178,6 +177,7 @@ void Field::EnemyMainPhase(Action* currEvent) {
 
 	auto skillToUse = skills[skillNumber];
 	auto target = RandomTarget(currEvent, skillToUse.GetTargetType());
+	UI::logDivider(currEvent->GetObj()->GetName(), skillToUse.GetName());
 	currEvent->GetObj()->useActive(skillToUse.GetName(), target);
 	UI::logEvent("");
 }
