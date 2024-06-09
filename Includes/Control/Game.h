@@ -10,8 +10,8 @@
 #include <vector>
 #include <windows.h>
 
-#include <WorldMap.h>
-#include <Role.h>
+class Role;
+class WorldMap;
 
 class Game {
 private:
@@ -30,9 +30,9 @@ public:
 
     std::vector<Role*> GetMovePriority(void);
     void SetMovePriority(const std::vector<Role*>&);
-    
-    WorldMap *GetWorldMap(void);
-    void SetWorldMap(const WorldMap * &);
+
+    WorldMap* GetWorldMap(void);
+    void SetWorldMap(const WorldMap*&);
 
 public:
     // Initialize Game

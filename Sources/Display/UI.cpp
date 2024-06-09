@@ -258,6 +258,23 @@ void UI::PlayerFrame(std::vector<int> vec) {
     }
 }
 
+void UI::PreWorldMap(std::vector<Role*> roles) {
+    BuildFrame(0, 0, 179, 49);
+    BuildHollowFrame(121, 0, 179, 49);
+    BuildHollowFrame(121, 28, 179, 35);
+    BuildHollowFrame(121, 35, 179, 42);
+    BuildHollowFrame(121, 42, 179, 49);
+    BuildHollowFrame(0, 0, 121, 5);
+    moveCursor(0, 46);
+    displayPlayerInfo(121, 28);
+    displayPlayerInfo(121, 35);
+    displayPlayerInfo(121, 42);
+
+    for (int i = 0; i < roles.size(); i++) {
+        displayPlayerInfo(121, 28 + i * 7, roles[i]);
+    }
+}
+
 void UI::PrintWorldMap() {
 
 }

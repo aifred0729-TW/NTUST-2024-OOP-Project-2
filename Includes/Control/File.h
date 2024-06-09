@@ -10,9 +10,9 @@
 #include <vector>
 #include <windows.h>
 
-#include <WorldMap.h>
-#include <Role.h>
-#include <Enemy.h>
+class WorldMap;
+class Role;
+class Enemy;
 
 class File {
 private:

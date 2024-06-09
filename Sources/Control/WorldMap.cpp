@@ -1,6 +1,11 @@
 ﻿#include "../../Includes/Control/WorldMap.h"
 #include "ConstData.h"
 
+int WorldMap::HEIGHT = 50;
+int WorldMap::WIDTH = 140;
+std::vector<std::vector<int>>   WorldMap::map;
+std::vector<std::vector<bool>>  WorldMap::fog;
+std::pair<int, int> WorldMap::pos;
 void WorldMap::loadMap(std::string mapFile) {
     using namespace std;
 
@@ -46,21 +51,18 @@ void WorldMap::loadFog() {
 std::vector<std::vector<int>> WorldMap::GetMap() { return map; }
 std::vector<std::vector<bool>> WorldMap::GetFog() { return fog; }
 
-void WorldMap::SetMap(int row, int col, MAP_ELEMENT element) {
+void WorldMap::SetMap(int row, int col, int element) {
     map[row][col] = element;
     return;
 }
 
 void WorldMap::SetFog(int row, int col) {
     using namespace std;
-
     const int fogWidth = 5;
-
     int topLimit = row - (fogWidth);
     int downLimit = row + (fogWidth);
     int leftLimit = col - (fogWidth);
     int rightLimit = col + (fogWidth);
-
     for (int i = topLimit; i < row; i++) {
         if (i < 0 || i >= HEIGHT) continue;
         for (int j = col - (i - topLimit); j < col + (i - topLimit) - 1; j++) {
@@ -68,7 +70,6 @@ void WorldMap::SetFog(int row, int col) {
             fog[i][j] = (fog[i][j]) ? false : true;
         }
     }
-
     for (int i = row; i < downLimit; i++) {
         if (i < 0 || i >= HEIGHT) continue;
         for (int j = col - (downLimit - i); j < col + (downLimit - i) - 1; j++) {
@@ -76,7 +77,6 @@ void WorldMap::SetFog(int row, int col) {
             fog[i][j] = (fog[i][j]) ? false : true;
         }
     }
-
     return;
 }
 

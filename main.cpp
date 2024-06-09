@@ -43,7 +43,9 @@ int main() {
     UI::moveCursor(2, 9);
 
     Field battle({ &hero ,&profPao , &myWife }, {  &porfDai  , &tonya  ,&dragon });
-    battle.StartBattle();
+    //battle.StartBattle();
+
+    UI::PreWorldMap({ &hero ,&profPao , &myWife });
 
     /*
         std::vector<Entity*> targets;

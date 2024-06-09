@@ -11,13 +11,13 @@
 #include <windows.h>
 #include <fstream>
 #include <sstream>
-#include "ConstData.h"
+
 
 class WorldMap {
 private:
 
-    static unsigned int HEIGHT;
-    static unsigned int WIDTH;
+    static int HEIGHT;
+    static int WIDTH;
 
     // Map Structure
     // 0 = Player (不他不該出現在這裡)
@@ -49,7 +49,7 @@ public:
 
     static std::vector<std::vector<int>> GetMap(void);
 
-    static void SetMap(int row, int col, MAP_ELEMENT element);
+    static void SetMap(int row, int col, int element);
 
     static std::vector<std::vector<bool>> GetFog(void);
     static void SetFog(int row, int col);

@@ -81,6 +81,9 @@ namespace UI {
     void PlayerFrame(int);
     void PlayerFrame(std::vector<int>);
 
+    //地圖階段
+    void PreWorldMap(std::vector<Role*>);
+
     void PrintWorldMap();
 
     // ...
