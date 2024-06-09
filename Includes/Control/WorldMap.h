@@ -15,6 +15,10 @@
 
 class WorldMap {
 private:
+
+    static unsigned int HEIGHT;
+    static unsigned int WIDTH;
+
     // Map Structure
     // 0 = Player (不他不該出現在這裡)
     // 1 = Ground (Allow to Pass)
@@ -23,6 +27,9 @@ private:
     // 4 = Water  (Not Allow to Pass)
     // 5 = Shop   (Allow to Pass) (修改至可互動物件)
     // 6 = Enemy  (Allow to Pass) (修改至可互動物件)
+
+    // 地圖目前對準的地塊
+    static std::pair<int, int> pos;
 
     static std::vector<std::vector<int>>  map; // Map Storge
     static std::vector<std::vector<bool>> fog; // War Fog (Make some lamp?)
@@ -46,6 +53,9 @@ public:
 
     static std::vector<std::vector<bool>> GetFog(void);
     static void SetFog(int row, int col);
+
+    static void setPos(std::pair<int, int> pos);
+    static std::pair<int, int> getPos();
 
 public:
     // ...

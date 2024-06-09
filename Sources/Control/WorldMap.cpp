@@ -2,74 +2,86 @@
 #include "ConstData.h"
 
 void WorldMap::loadMap(std::string mapFile) {
-	using namespace std;
+    using namespace std;
 
-	ifstream fp(mapFile);
-	stringstream ss("");
-	string stmp = "";
-	int itmp = 0;
-	int row = 0;
+    ifstream fp(mapFile);
+    stringstream ss("");
+    string stmp = "";
+    int itmp = 0;
+    int columns = 0;
+    int rows = 0;
 
-	map.resize(50);
+    map.resize(50);
 
-	while (fp >> stmp) {
-		for (unsigned int i = 0; i < 140; i++) {
-			ss << stmp[i];
-			ss >> itmp;
-			ss.clear();
-			map[row].push_back(itmp);
-		}
-		row++;
-	}
+    while (!fp.eof()) {
+        std::getline(fp, stmp);
+        if (columns == 0)
+            columns = stmp.length();
+        for (unsigned int i = 0; i < columns; i++) {
+            ss << stmp[i];
+            ss >> itmp;
+            ss.clear();
+            map[rows].push_back(itmp);
+        }
+        rows++;
+    }
 
-	return;
+    HEIGHT = rows;
+    WIDTH = columns;
+    return;
 }
 
 void WorldMap::loadFog() {
-	using namespace std;
+    using namespace std;
 
-	fog.resize(50);
+    fog.resize(50);
 
-	for (unsigned int i = 0; i < 50; i++) {
-		fog[i].resize(140, true);
-	}
+    for (unsigned int i = 0; i < 50; i++) {
+        fog[i].resize(140, true);
+    }
 
-	return;
+    return;
 }
 
 std::vector<std::vector<int>> WorldMap::GetMap() { return map; }
 std::vector<std::vector<bool>> WorldMap::GetFog() { return fog; }
 
 void WorldMap::SetMap(int row, int col, MAP_ELEMENT element) {
-	map[row][col] = element;
-	return;
+    map[row][col] = element;
+    return;
 }
 
 void WorldMap::SetFog(int row, int col) {
-	using namespace std;
+    using namespace std;
 
-	const int fogWidth = 10;
+    const int fogWidth = 5;
 
-	int topLimit = row - (fogWidth / 2);
-	int downLimit = row + (fogWidth / 2);
-	int leftLimit = col - (fogWidth / 2);
-	int rightLimit = col + (fogWidth / 2);
+    int topLimit = row - (fogWidth);
+    int downLimit = row + (fogWidth);
+    int leftLimit = col - (fogWidth);
+    int rightLimit = col + (fogWidth);
 
-	for (int i = topLimit; i < row; i++) {
-		if (i < 0 || i >= 50) continue;
-		for (int j = col - (i - topLimit); j < col + (i - topLimit)-1; j++) {
-			if (j < 0 || j >= 140) continue;
-			fog[i][j] = (fog[i][j]) ? false : true;
-		}
-	}
+    for (int i = topLimit; i < row; i++) {
+        if (i < 0 || i >= HEIGHT) continue;
+        for (int j = col - (i - topLimit); j < col + (i - topLimit) - 1; j++) {
+            if (j < 0 || j >= WIDTH) continue;
+            fog[i][j] = (fog[i][j]) ? false : true;
+        }
+    }
 
-	for (int i = row; i < downLimit; i++) {
-		if (i < 0 || i >= 50) continue;
-		for (int j = col - (downLimit - i); j < col + (downLimit - i)-1; j++) {
-			if (j < 0 || j >= 140) continue;
-			fog[i][j] = (fog[i][j]) ? false : true;
-		}
-	}
+    for (int i = row; i < downLimit; i++) {
+        if (i < 0 || i >= HEIGHT) continue;
+        for (int j = col - (downLimit - i); j < col + (downLimit - i) - 1; j++) {
+            if (j < 0 || j >= WIDTH) continue;
+            fog[i][j] = (fog[i][j]) ? false : true;
+        }
+    }
 
-	return;
+    return;
 }
+
+void  WorldMap::setPos(std::pair<int, int> pos) {
+    WorldMap::pos = pos;
+}
+
+std::pair<int, int> WorldMap::getPos() { return pos; }

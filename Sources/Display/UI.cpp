@@ -257,3 +257,7 @@ void UI::PlayerFrame(std::vector<int> vec) {
         BuildHollowFrame(table[index].first, table[index].second, table[index].first + 58, table[index].second + 7);
     }
 }
+
+void UI::PrintWorldMap() {
+
+}

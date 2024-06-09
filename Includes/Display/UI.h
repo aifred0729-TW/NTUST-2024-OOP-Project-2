@@ -81,7 +81,7 @@ namespace UI {
     void PlayerFrame(int);
     void PlayerFrame(std::vector<int>);
 
-    //進行回合框 初始化
+    void PrintWorldMap();
 
     // ...
 };
