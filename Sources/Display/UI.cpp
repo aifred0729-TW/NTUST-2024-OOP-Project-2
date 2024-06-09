@@ -3,6 +3,7 @@
 #include <Enemy.h>
 #include <Entity.h>
 #include <Dice.h>
+#include <Field.h>
 
 // Public
 
@@ -66,7 +67,7 @@ void UI::logDivider(const std::string& str) {
 void UI::logDivider(const std::string& str1, const std::string& str2) {
     std::string output("");
     int i = 26 - str1.length();
-    for (int j = 0; j < i ; j++) {
+    for (int j = 0; j < i; j++) {
         output.push_back('-');
     }
     output = output + str1 + " " + str2;
@@ -87,6 +88,7 @@ int UI::PreBattle(std::vector<Enemy*> enemys, std::vector<Role*> roles) {
     PlayerFrame({ 0,1,2,3,4,5 });
 
     BuildHollowFrame(0, 42, 121, 35); //Dice
+    BuildHollowFrame(0, 7, 121, 11);  //eventQueue
     BuildFrame(121, 7, 179, 42);      //BattleLog
     displayString(124, 9, horizontalLine("Battle Log", 53, '-'));
 
@@ -145,6 +147,83 @@ void UI::renewPlayerInfo() {
     for (int i = 0; i < RolesVector.size(); i++) {
         displayPlayerInfo(58 * i, 42, RolesVector[i]);
     }
+}
+
+void UI::printPriority(std::vector<Action*> eventQueue) {
+    static std::vector<Action*> oldEventQueue = {};
+    static std::string oldOutputStr = "";
+    static int oldStrLengthCount = 0;
+    std::string outputStr = "";
+    int strLengthCount = 0;
+    bool simpleChange = 1;
+    //檢查順序是否改變
+
+    if (oldEventQueue.empty()) {
+        simpleChange = 0;
+    }
+    else if (eventQueue[eventQueue.size() - 1] == oldEventQueue[0]) {
+        for (int i = 0; i < eventQueue.size() - 1; i++) {
+            simpleChange == simpleChange && (eventQueue[i] == oldEventQueue[i + 1]);
+        }
+    }
+    else {
+        simpleChange = 0;
+    }
+
+    //構建字串
+    for (int i = 0; i < eventQueue.size(); i++) {
+        std::string enemyColor = (eventQueue[i]->GetObj()->GetStatus() & DEAD) ?
+            (std::string)DARK + (std::string)RED : (std::string)BOLD + (std::string)RED;
+        std::string roleColor = (eventQueue[i]->GetObj()->GetStatus() & DEAD) ?
+            (std::string)DARK + (std::string)CYAN : (std::string)BOLD + (std::string)CYAN;
+        std::string color = (eventQueue[i]->GetEntityID() < 3) ? enemyColor : roleColor;
+        outputStr += color;
+        outputStr += eventQueue[i]->GetObj()->GetName() + RESET;
+        if (i != eventQueue.size() - 1) {
+            outputStr += " <- ";
+        }
+    }
+
+    //整理輸出區域
+    for (int i = 0; i < eventQueue.size(); i++) {
+        strLengthCount += eventQueue[i]->GetObj()->GetName().length();
+    }
+    strLengthCount += (eventQueue.size() - 1) * 4;
+    /*
+    BuildVoid(0, 7, 121, 11);
+    moveCursor(61 - strLengthCount / 2 - (eventQueue.size() - 1) * 2, 9);
+    */
+    if (simpleChange) {
+        std::string enemyColor = (oldEventQueue[0]->GetObj()->GetStatus() & DEAD) ?
+            (std::string)DARK + (std::string)RED : (std::string)BOLD + (std::string)RED;
+        std::string roleColor = (oldEventQueue[0]->GetObj()->GetStatus() & DEAD) ?
+            (std::string)DARK + (std::string)CYAN : (std::string)BOLD + (std::string)CYAN;
+        std::string color = (oldEventQueue[0]->GetEntityID() < 3) ? enemyColor : roleColor;
+        oldOutputStr += (std::string)RESET + " <- " + color + oldEventQueue[0]->GetObj()->GetName();
+        for (int i = 0; i < oldEventQueue[0]->GetObj()->GetName().length() + 4; i++) {
+            moveCursor(61 - strLengthCount / 2 - i, 9);
+            std::cout << oldOutputStr << " ";
+            BuildVoid(61 - strLengthCount / 2, 8, 60 - strLengthCount / 2 - i, 10);
+            BuildVoid(61 + strLengthCount / 2, 8, 66 + strLengthCount / 2 + oldEventQueue[0]->GetObj()->GetName().length(), 10);
+            Sleep(100);
+        }
+        BuildVoid(0, 7, 121, 11);
+        moveCursor(61 - strLengthCount / 2, 9);
+        std::cout << outputStr;
+        //std::cout << outputStr;
+    }
+    else {
+        for (int i = 0; i < oldStrLengthCount; i++) {
+            moveCursor(61 + (oldStrLengthCount + 1) / 2 - i, 9);
+            std::cout << " ";
+            Sleep(3);
+        }
+        moveCursor(61 - strLengthCount / 2, 9);
+        std::cout << outputStr;
+    }
+    oldStrLengthCount = strLengthCount;
+    oldOutputStr = outputStr;
+    oldEventQueue = eventQueue;
 }
 
 int UI::Display(Entity*) {

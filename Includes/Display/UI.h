@@ -23,6 +23,7 @@ class Field;
 class Store;
 class Entity;
 class Interactive;
+class Action;
 
 namespace UI {
     using namespace Displayer;
@@ -57,6 +58,9 @@ namespace UI {
 
     //更新戰鬥中的玩家資料
     void renewPlayerInfo();
+
+    //戰鬥中的行動順序
+    void printPriority(std::vector<Action*>);
 
     // Display Information of Entities for Field through its ID
     int Display(Entity*);

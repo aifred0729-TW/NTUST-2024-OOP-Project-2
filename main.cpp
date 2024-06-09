@@ -27,9 +27,9 @@ int main() {
     Enemy porfDai("戴文凱");
     Enemy tonya("Tonya");
 
-    //hero.equip("MagicWand");
-    //profPao.equip("Hammer");
-    //myWife.equip("RitualSword");
+    hero.equip("MagicWand");
+    profPao.equip("Hammer");
+    myWife.equip("RitualSword");
 
     profPao.GetAttribute().SetMaxFocus(20);
     profPao.GetAttribute().SetFocus(20);
@@ -42,7 +42,7 @@ int main() {
     //UI::PreBattle({ &dragon , &porfDai  , &tonya }, { &hero ,&profPao  , &myWife });
     UI::moveCursor(2, 9);
 
-    Field battle({ &hero ,&profPao  }, {  &porfDai  , &tonya });
+    Field battle({ &hero ,&profPao , &myWife }, {  &porfDai  , &tonya  ,&dragon });
     battle.StartBattle();
 
     /*
