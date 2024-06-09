@@ -4,6 +4,7 @@
 #include "Includes/Gadget/EquipmentTable.h"
 #include "Includes/Gadget/SkillTable.h"
 #include "Includes/Display/UI.h"
+#include "ItemTable.h"
 #include <Process.h>
 
 #include <string>
@@ -11,6 +12,7 @@
 int main() {
     SkillTable::Initialize();
     EquipmentTable::Initialize();
+    ItemTable::Initialize();
 
     UI::checkConsoleSize(50, 180);
     UI::ShowMenu();
@@ -26,14 +28,20 @@ int main() {
     Role myWife("砂狼白子我婆");
     Enemy porfDai("戴文凱");
     Enemy tonya("Tonya");
-
-    //hero.equip("MagicWand");
-    //profPao.equip("Hammer");
-    //myWife.equip("RitualSword");
+    profPao.addItemToBackpack("MagicWand");
+    profPao.addItemToBackpack("Hammer");
+    
+    hero.backpack.useItem("MagicWand", hero);
+    hero.useItemFromBackpack("MagicWand");
+    hero.backpack.useItem("Hammer", hero);
+    hero.backpack.useItem("MagicWand", hero);
+    
+    profPao.equipForce("Hammer");
+    myWife.equipForce("RitualSword");
 
     profPao.GetAttribute().SetMaxFocus(20);
     profPao.GetAttribute().SetFocus(20);
-
+    
     //system("Pause");
 
 

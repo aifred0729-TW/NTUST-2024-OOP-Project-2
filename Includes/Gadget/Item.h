@@ -1,40 +1,49 @@
 ﻿#ifndef ITEM_H
 #define ITEM_H
 
-#include <vector>
-#include <cstdint>
-#include <ConstData.h>
-
-// itemTable[COIN]();
-// Used COIN，corresponding to ApplyCoin function
-// #include <vector>
-
-class Role;
+#include <string>
+#include "ItemCommand.h"
 
 class Item {
-private:
-    static std::vector<std::pair<int, int>> items;          // ItemID / Counts (need initialize)
-    static void (* const itemTable[ITEM_TOTAL_SIZE])(void); // ItemTable (need initialize；function of ApplyXXX)
-
-private:
-    static void ApplyCoin(void);           // Use Coin
-    static void ApplyGodsBeard(void);      // Use GodsBeard
-    static void ApplyTent(void);           // Use Tent
-    static void ApplyTeleportScroll(void); // Use Teleport Scroll
-    static void ApplyGoldenRoot(void);     // Use Golden Root
-    static void ApplyXXX111(void);         // Use Custom Item 1
-    static void ApplyXXX222(void);         // Use Custom Item 2
-    static void ApplyXXX333(void);         // Use Custom Item 3
-
-    // ...
-
-private:
-    // Log who will use backpack
-    std::vector<Role*> packUsers;
+protected:
+	std::string name;
+	uint16_t price;
+    ItemCommand* command;
 
 public:
-    // Use Item to XXX Role
-    void ApplyItemTo(uint8_t, std::vector<Role*>);
+    Item(std::string name, uint16_t price, ItemCommand* command) : name(name), price(price), command(command) {}
+    virtual ~Item() = default;
+
+    void setName(const std::string& name) { this->name = name; }
+    void setPrice(const uint16_t& price) { this->price = price; }
+    void setCommand(ItemCommand* command) { this->command = command; }
+    std::string getName() const { return name; }
+    uint16_t getPrice() const { return price; }
+    ItemCommand* getCommand() const { return command; }
+
+    void use(Role& role) { command->use(role); }
+    virtual bool isStackable() const = 0;
+};
+
+class StackableItem : public Item {
+private:
+    uint16_t quantity;
+
+public:
+    StackableItem(std::string name, uint16_t price, ItemCommand* command): Item(name, price, command), quantity(1) {}
+
+    bool isStackable() const override { return true; }
+    uint16_t getQuantity() const { return quantity; }
+    void setQuantity(const uint16_t& quantity) { this->quantity = quantity; }
+    void addQuantity(const uint16_t& amount) { this->quantity += amount; }
+    void removeQuantity(const uint16_t& amount) { quantity = (quantity >= amount) ? quantity : 0; }
+};
+
+class NonStackableItem : public Item {
+public:
+	NonStackableItem(std::string name, uint16_t price, ItemCommand* command): Item(name, price, command) {}
+
+	bool isStackable() const override { return false; }
 };
 
 #endif

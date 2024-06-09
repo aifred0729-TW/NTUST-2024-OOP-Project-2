@@ -15,7 +15,7 @@
 class Active;
 
 class Entity {
-private:
+protected:
 	std::string        name;            // Role Name
 	Attribute          attribute;       // Attribute
 	Skill              skill;           // Skill
@@ -46,13 +46,13 @@ public:
 
 	Attribute           GetTotalAttribute(void);
 	Skill               GetTotalSkill(void);
+
 public:
 	// Find the Enemy in Range
 	bool isInRange(std::vector<Entity*>);
-	// Equip and UnEquip Weapon and Armor
-	// 需要和物品欄結合才算完成
-	void equip(std::string equipmentName);
-	void unEquip(std::string equipmentName);
+	// 直接強制用set套上裝備，沒有在跟你把裝備拿下來的
+	void equipForce(std::string equipmentName);
+	void unEquipForce(std::string equipmentName);
 	// 主動技能實做
 	void useActive(std::string skillName, std::vector<Entity*> targets);
 	// 計算經過一切計算後受到的傷害(直接傳原始傷害進來就好)

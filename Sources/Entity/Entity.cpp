@@ -11,9 +11,9 @@ Entity::Entity() {
     skill.pushActive(Attack);
     skill.pushActive(Flee);
     this->dice = Dice();
-    equip("BareHand");
-    equip("BareBody");
-    equip("BareAccessory");
+    equipForce("BareHand");
+    equipForce("BareBody");
+    equipForce("BareAccessory");
     status = 0;
     eventID = 0;
 }
@@ -44,7 +44,7 @@ void Entity::takeDamage(int16_t damage, char attackType) {
     std::string outputStr;
     std::stringstream outputSs;
     UI::logEvent(name + " 防禦後受到了 " + std::to_string(damage) + " 點傷害！，當前HP為 " + std::to_string(attribute.GetHP()) + " !");
-
+    UI::logEvent(std::to_string(GetTotalAttribute().GetHP()) + "/" + std::to_string(GetTotalAttribute().GetMaxHP()));
     if (attribute.GetHP() == 0) {
         UI::logEvent( name + " is dead! 喔不!!" );
         status |= DEAD;
@@ -61,7 +61,7 @@ void Entity::heal(int16_t heal) {
     UI::logEvent(outputStr);
 }
 
-void Entity::equip(std::string equipmentName) {
+void Entity::equipForce(std::string equipmentName) {
     if (EquipmentTable::weaponMap.find(equipmentName) != EquipmentTable::weaponMap.end()) {
         this->equipment.SetWeapon(EquipmentTable::weaponMap[equipmentName]);
         return;
@@ -80,7 +80,7 @@ void Entity::equip(std::string equipmentName) {
     UI::renewPlayerInfo();
 }
 
-void Entity::unEquip(std::string equipmentName) {
+void Entity::unEquipForce(std::string equipmentName) {
     if (this->GetEquipment().GetArmor().GetName() == equipmentName) {
         this->equipment.SetArmor(EquipmentTable::armorMap.find("BareBody")->second);
         return;
