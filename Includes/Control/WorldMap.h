@@ -12,12 +12,7 @@
 #include <fstream>
 #include <sstream>
 
-
-class WorldMap {
-private:
-
-    static int HEIGHT;
-    static int WIDTH;
+namespace WorldMap {
 
     // Map Structure
     // 0 = Player (不他不該出現在這裡)
@@ -28,36 +23,31 @@ private:
     // 5 = Shop   (Allow to Pass) (修改至可互動物件)
     // 6 = Enemy  (Allow to Pass) (修改至可互動物件)
 
+    extern int HEIGHT;
+    extern int WIDTH;
+
+    extern std::pair<int, int> pos;
+    extern std::vector<std::vector<int>>  map; // Map Storge
+    extern std::vector<std::vector<bool>> fog; // War Fog (Make some lamp?)
+
     // 地圖目前對準的地塊
-    static std::pair<int, int> pos;
+    // 只能使用一次
+    void loadMap(std::string mapFile);
+    // 只能使用一次
+    void loadFog();
 
-    static std::vector<std::vector<int>>  map; // Map Storge
-    static std::vector<std::vector<bool>> fog; // War Fog (Make some lamp?)
+    std::vector<std::vector<int>> GetMap(void);
 
-public:
-    WorldMap() { ; };
+    void SetMap(int, int, int);
 
-    WorldMap(std::string mapFile) {
-        loadMap("../Resources/" + mapFile);
-        loadFog();
-    }
+    std::vector<std::vector<bool>> GetFog(void);
 
-    //只能使用一次
-    static void loadMap(std::string mapFile);
-    //只能使用一次
-    static void loadFog();
+    void SetFog(int, int);
 
-    static std::vector<std::vector<int>> GetMap(void);
+    void setPos(std::pair<int, int> pos);
 
-    static void SetMap(int row, int col, int element);
+    std::pair<int, int> getPos();
 
-    static std::vector<std::vector<bool>> GetFog(void);
-    static void SetFog(int row, int col);
-
-    static void setPos(std::pair<int, int> pos);
-    static std::pair<int, int> getPos();
-
-public:
     // ...
 };
 

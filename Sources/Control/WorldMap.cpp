@@ -3,10 +3,16 @@
 
 int WorldMap::HEIGHT = 50;
 int WorldMap::WIDTH = 140;
-std::vector<std::vector<int>>   WorldMap::map;
-std::vector<std::vector<bool>>  WorldMap::fog;
+
 std::pair<int, int> WorldMap::pos;
+std::vector<std::vector<int>>  WorldMap::map; // Map Storge
+std::vector<std::vector<bool>> WorldMap::fog; // War Fog (Make some lamp?)
+
 void WorldMap::loadMap(std::string mapFile) {
+
+    //loadMap("../Resources/" + mapFile);
+    //loadFog();
+
     using namespace std;
 
     ifstream fp(mapFile);
@@ -80,7 +86,7 @@ void WorldMap::SetFog(int row, int col) {
     return;
 }
 
-void  WorldMap::setPos(std::pair<int, int> pos) {
+void WorldMap::setPos(std::pair<int, int> pos) {
     WorldMap::pos = pos;
 }
 
