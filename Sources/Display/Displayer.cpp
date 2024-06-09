@@ -245,7 +245,7 @@ void Displayer::displayPlayerInfo(int x, int y, Role* role) {
     cout << "   PD: " << std::setw(2) << std::setfill('0') << att.GetPD();
     cout << "   MA: " << std::setw(2) << std::setfill('0') << att.GetMA();
     cout << "   MD: " << std::setw(2) << std::setfill('0') << att.GetMD();
-    cout << "   SPD: " << std::setw(2) << std::setfill('0') << att.GetMD();
+    cout << "   SPD: " << std::setw(2) << std::setfill('0') << att.GetSPD();
     cout << "   ACC: " << std::setw(2) << std::setfill('0') << att.GetACC();
 }
 
@@ -267,7 +267,7 @@ void Displayer::displayPlayerInfo(int x, int y, Enemy* enemy) {
     cout << "   PD: " << std::setw(2) << std::setfill('0') << att.GetPD();
     cout << "   MA: " << std::setw(2) << std::setfill('0') << att.GetMA();
     cout << "   MD: " << std::setw(2) << std::setfill('0') << att.GetMD();
-    cout << "   SPD: " << std::setw(2) << std::setfill('0') << att.GetMD();
+    cout << "   SPD: " << std::setw(2) << std::setfill('0') << att.GetSPD();
     cout << "   ACC: " << std::setw(2) << std::setfill('0') << att.GetACC();
 }
 
@@ -289,7 +289,7 @@ void Displayer::displayPlayerInfo(int x, int y, Entity* entity) {
     cout << "   PD: " << std::setw(2) << std::setfill('0') << att.GetPD();
     cout << "   MA: " << std::setw(2) << std::setfill('0') << att.GetMA();
     cout << "   MD: " << std::setw(2) << std::setfill('0') << att.GetMD();
-    cout << "   SPD: " << std::setw(2) << std::setfill('0') << att.GetMD();
+    cout << "   SPD: " << std::setw(2) << std::setfill('0') << att.GetSPD();
     cout << "   ACC: " << std::setw(2) << std::setfill('0') << att.GetACC();
 }
 

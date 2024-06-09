@@ -1,82 +1,80 @@
-﻿#include <Field.h>
+#include <Field.h>
 #include <UI.h>
 // Public
 
-void Field::StartBattle(void) {
-    using namespace std;
+void Field::StartBattle(void) 
+	using namespace std;
 
-    UI::PreBattle(enemys, roles);
+	UI::PreBattle(enemys, roles);
 
-    while (1) {
-        currEvent = RefreshEvent();
+	while (1) {
+		currEvent = RefreshEvent();
 
-        uint8_t currStatus = 0;// currEvent->GetObj()->GetStatus();
-        if (currStatus & DEAD) {
-            continue;
-        }
-        if (currStatus & RETREAT) {
-            continue;
-        }
+		uint8_t currStatus = currEvent->GetObj()->GetStatus();
+		if (currStatus & DEAD) {
+			continue;
+		}
+		if (currStatus & RETREAT) {
+			continue;
+		}
 
-        StatusCount* currentCount = currEvent->GetCount();
-        if (currentCount->dizziness) {
-            currentCount->dizziness--;
-            continue;
-        }
+		StatusCount* currentCount = currEvent->GetCount();
+		if (currentCount->dizziness) {
+			currentCount->dizziness--;
+			continue;
+		}
 
-        MainPhase(currEvent);
-        RemoveDeadEntity();
+		MainPhase(currEvent);
+		RemoveDeadEntity();
 
-        try {
-            ExitPhase();
-        }
-        catch (const exception& e) {
-            UI::displayString(e.what(), 6, 9);
-            return;
-        }
-    }
+		try {
+			ExitPhase();
+		}
+		catch (const exception& e) {
+			UI::displayString(e.what(), 6, 9);
+			return;
+		}
+	}
 }
 
 Action* Field::RefreshEvent(void) {
-    using namespace std;
+	using namespace std;
 
-    auto cmpPriority = [](Action* x, Action* y) {
-        return x->GetPriority() < y->GetPriority();
-    };
-    auto cmpSPD = [](Action* x, Action* y) {
-        return
-            x->GetObj()->GetAttribute().GetSPD() <
-            y->GetObj()->GetAttribute().GetSPD();
-    };
-    auto cmpPA = [](Action* x, Action* y) {
-        return
-            x->GetObj()->GetAttribute().GetPA() <
-            y->GetObj()->GetAttribute().GetPA();
-    };
-    auto cmpPD = [](Action* x, Action* y) {
-        return
-            x->GetObj()->GetAttribute().GetPD() <
-            y->GetObj()->GetAttribute().GetPD();
-    };
-    auto cmpMaxHP = [](Action* x, Action* y) {
-        return
-            x->GetObj()->GetAttribute().GetMaxHP() <
-            y->GetObj()->GetAttribute().GetMaxHP();
-    };
+	auto cmpPriority = [](Action* x, Action* y) {
+		return x->GetPriority() < y->GetPriority();
+	};
+	auto cmpSPD = [](Action* x, Action* y) {
+		return
+			x->GetObj()->GetAttribute().GetSPD() >
+			y->GetObj()->GetAttribute().GetSPD();
+	};
+	auto cmpPA = [](Action* x, Action* y) {
+		return
+			x->GetObj()->GetAttribute().GetPA() >
+			y->GetObj()->GetAttribute().GetPA();
+	};
+	auto cmpPD = [](Action* x, Action* y) {
+		return
+			x->GetObj()->GetAttribute().GetPD() >
+			y->GetObj()->GetAttribute().GetPD();
+	};
+	auto cmpMaxHP = [](Action* x, Action* y) {
+		return
+			x->GetObj()->GetAttribute().GetMaxHP() >
+			y->GetObj()->GetAttribute().GetMaxHP();
+	};
 
-    stable_sort(eventQueue.begin(), eventQueue.end(), cmpMaxHP);
-    stable_sort(eventQueue.begin(), eventQueue.end(), cmpPD);
-    stable_sort(eventQueue.begin(), eventQueue.end(), cmpPA);
-    stable_sort(eventQueue.begin(), eventQueue.end(), cmpSPD);
-    stable_sort(eventQueue.begin(), eventQueue.end(), cmpPriority);
+	stable_sort(eventQueue.begin(), eventQueue.end(), cmpMaxHP);
+	stable_sort(eventQueue.begin(), eventQueue.end(), cmpPD);
+	stable_sort(eventQueue.begin(), eventQueue.end(), cmpPA);
+	stable_sort(eventQueue.begin(), eventQueue.end(), cmpSPD);
+	stable_sort(eventQueue.begin(), eventQueue.end(), cmpPriority);
 
-    // static int a0, a1, a2, a3, a4, a5;	static string a6;
+	// update for the next refresh sort
+	eventQueue[0]->SetTurn(eventQueue[0]->GetTurn() + 1);
+	eventQueue[0]->SetPriority(double(eventQueue[0]->GetTurn() + 1) / eventQueue[0]->GetObj()->GetAttribute().GetSPD() * 100);
 
-    // update for the next refresh sort
-    eventQueue[0]->SetTurn(eventQueue[0]->GetTurn() + 1);
-    eventQueue[0]->SetPriority(double(eventQueue[0]->GetTurn()) / eventQueue[0]->GetObj()->GetAttribute().GetSPD() * 100);
-
-    return eventQueue[0];
+	return eventQueue[0];
 }
 
 void Field::MainPhase(Action* currEvent) {
@@ -137,26 +135,27 @@ CHOICE:
     UI::displayDice(diceAmount, 0);
 
 TARGET:
-    auto target = ChooseTarget(currEvent, skills[skillToUse.second].GetTargetType());
-    if (target.empty()) {
-        UI::logEvent("[ 已取消行動 ]");
-        UI::logEvent("");
-        goto CHOICE;
-    }
+	auto target = ChooseTarget(currEvent, skills[skillToUse.second].GetTargetType());
+	if (target.empty()) {
+		UI::logEvent("行動已取消");
+		UI::logEvent("");
+		goto CHOICE;
+	}
 
-    int focusUse = ChooseFocus(focus, diceAmount);
-    if (focusUse == -1) {
-        UI::logEvent("[ 已取消目標選擇 ]");
-        goto TARGET;
-    }
+	int focusUse = ChooseFocus(focus, diceAmount);
+	if (focusUse == -1) {
+		UI::logEvent("行動已取消");
+		UI::logEvent("");
+		goto TARGET;
+	}
 
-    if (focusUse != 0) {
-        UI::logEvent("使用 " + std::to_string(focusUse) + " 專注點數");
-        currEvent->GetObj()->GetAttribute().SetFocus(focus - focusUse);
-        currEvent->GetObj()->GetDice().SetFocusCount(focusUse);
-    }
-    currEvent->GetObj()->useActive(skillToUse.first, target);
-    UI::logEvent("");
+	if (focusUse != 0) {
+		UI::logEvent("使用 " + std::to_string(focusUse) + " 專注點數");
+		currEvent->GetObj()->GetAttribute().SetFocus(focus - focusUse);
+		currEvent->GetObj()->GetDice().SetFocusCount(focusUse);
+	}
+	currEvent->GetObj()->useActive(skillToUse.first, target);
+	UI::logEvent("");
 }
 
 std::pair<std::string, int> makeChoice(std::vector<Active> choices) {
@@ -182,108 +181,108 @@ void Field::EnemyMainPhase(Action* currEvent) {
 }
 
 std::vector<Entity*> Field::RandomTarget(Action* currEvent, int TargetType) {
-    std::vector<std::string> targetName;
-    std::vector<std::vector<Entity*>> targetPtr;
-    std::vector<Entity*> enemysToEntity;
-    std::vector<Entity*> rolesToEntity;
-    switch (TargetType) {
-    case 0:
-        targetName.push_back("Self");
-        targetPtr.push_back({ currEvent->GetObj() });
-        break;
-    case 3:
-        for (Enemy* E : enemys) {
-            targetName.push_back(E->GetName());
-            targetPtr.push_back({ E });
-        }
-        break;
-    case 4:
-        targetName.push_back("All enemies");
-        for (Enemy* E : enemys) {
-            enemysToEntity.push_back(E);
-        }
-        targetPtr.push_back(enemysToEntity);
-        break;
-    case 1:
-        for (Role* R : roles) {
-            targetName.push_back(R->GetName());
-            targetPtr.push_back({ R });
-        }
-        break;
-    case 2:
-        targetName.push_back("All teammates");
-        for (Role* R : roles) {
-            rolesToEntity.push_back(R);
-        }
-        targetPtr.push_back(rolesToEntity);
-        break;
-    default:
-        for (Enemy* E : enemys) {
-            targetName.push_back(E->GetName());
-            targetPtr.push_back({ E });
-        }
-        for (Role* R : roles) {
-            targetName.push_back(R->GetName());
-            targetPtr.push_back({ R });
-        }
-        break;
-    }
+	std::vector<std::string> targetName;
+	std::vector<std::vector<Entity*>> targetPtr;
+	std::vector<Entity*> enemysToEntity;
+	std::vector<Entity*> rolesToEntity;
+	switch (TargetType) {
+	case 0:
+		targetName.push_back("《 Self 》");
+		targetPtr.push_back({ currEvent->GetObj() });
+		break;
+	case 1:
+		for (Enemy* E : enemys) {
+			targetName.push_back(E->GetName());
+			targetPtr.push_back({ E });
+		}
+		break;
+	case 2:
+		targetName.push_back("《 All enemies 》");
+		for (Enemy* E : enemys) {
+			enemysToEntity.push_back(E);
+		}
+		targetPtr.push_back(enemysToEntity);
+		break;
+	case 3:
+		for (Role* R : roles) {
+			targetName.push_back(R->GetName());
+			targetPtr.push_back({ R });
+		}
+		break;
+	case 4:
+		targetName.push_back("《 All teammates 》");
+		for (Role* R : roles) {
+			rolesToEntity.push_back(R);
+		}
+		targetPtr.push_back(rolesToEntity);
+		break;
+	default:
+		for (Enemy* E : enemys) {
+			targetName.push_back(E->GetName());
+			targetPtr.push_back({ E });
+		}
+		for (Role* R : roles) {
+			targetName.push_back(R->GetName());
+			targetPtr.push_back({ R });
+		}
+		break;
+	}
 
-    return targetPtr[TargetType];
+	return targetPtr[TargetType];
 }
 
 std::vector<Entity*> Field::ChooseTarget(Action* currEvent, int TargetType) {
-    std::vector<std::string> targetName;
-    std::vector<std::vector<Entity*>> targetPtr;
-    std::vector<Entity*> enemysToEntity;
-    std::vector<Entity*> rolesToEntity;
-    switch (TargetType) {
-    case 0:
-        targetName.push_back("Self");
-        targetPtr.push_back({ currEvent->GetObj() });
-        break;
-    case 1:
-        for (Enemy* E : enemys) {
-            targetName.push_back(E->GetName());
-            targetPtr.push_back({ E });
-        }
-        break;
-    case 2:
-        targetName.push_back("All enemies");
-        for (Enemy* E : enemys) {
-            enemysToEntity.push_back(E);
-        }
-        targetPtr.push_back(enemysToEntity);
-        break;
-    case 3:
-        for (Role* R : roles) {
-            targetName.push_back(R->GetName());
-            targetPtr.push_back({ R });
-        }
-        break;
-    case 4:
-        targetName.push_back("All teammates");
-        for (Role* R : roles) {
-            rolesToEntity.push_back(R);
-        }
-        targetPtr.push_back(rolesToEntity);
-        break;
-    default:
-        for (Enemy* E : enemys) {
-            targetName.push_back(E->GetName());
-            targetPtr.push_back({ E });
-        }
-        for (Role* R : roles) {
-            targetName.push_back(R->GetName());
-            targetPtr.push_back({ R });
-        }
-        break;
-    }
-    int targetNumber = UI::makeChoice(targetName, 26, 9);
-    if (targetNumber == -1) {
-        return {};
-    }
-    return targetPtr[targetNumber];
+	std::vector<std::string> targetName;
+	std::vector<std::vector<Entity*>> targetPtr;
+	std::vector<Entity*> enemysToEntity;
+	std::vector<Entity*> rolesToEntity;
+	switch (TargetType) {
+	case 0:
+		targetName.push_back("《 Self 》");
+		targetPtr.push_back({ currEvent->GetObj() });
+		break;
+	case 1:
+		for (Enemy* E : enemys) {
+			targetName.push_back(E->GetName());
+			targetPtr.push_back({ E });
+		}
+		break;
+	case 2:
+		targetName.push_back("《 All enemies 》");
+		for (Enemy* E : enemys) {
+			enemysToEntity.push_back(E);
+		}
+		targetPtr.push_back(enemysToEntity);
+		break;
+	case 3:
+		for (Role* R : roles) {
+			targetName.push_back(R->GetName());
+			targetPtr.push_back({ R });
+		}
+		break;
+	case 4:
+		targetName.push_back("《 All teammates 》");
+		for (Role* R : roles) {
+			rolesToEntity.push_back(R);
+		}
+		targetPtr.push_back(rolesToEntity);
+		break;
+	default:
+		for (Enemy* E : enemys) {
+			targetName.push_back(E->GetName());
+			targetPtr.push_back({ E });
+		}
+		for (Role* R : roles) {
+			targetName.push_back(R->GetName());
+			targetPtr.push_back({ R });
+		}
+		break;
+	}
+	int targetNumber = UI::makeChoice(targetName, 26, 9);
+	if (targetNumber == -1) {
+		return {};
+	}
+	return targetPtr[targetNumber];
 }
 
 int Field::ChooseFocus(int focusPoint, int diceAmount) {
@@ -340,8 +339,8 @@ void Field::ExitPhase(void) {
 
 // constructor
 Action::Action(Entity* val, uint8_t mode, uint8_t ID)
-    :obj(val), turn(0), entityID(ID), count(new StatusCount{ 0, 0, 0, 0 }), dice(nullptr) {
-    priority = 1.0 / val->GetAttribute().GetSPD() * 100;
+	:obj(val), turn(0), entityID(ID), count(new StatusCount{ 0, 0, 0, 0 }), dice(nullptr) {
+	priority = 1.0 / val->GetTotalAttribute().GetSPD() * 100;
 }
 
 Field::Field(std::vector<Role*> players, std::vector<Enemy*> enemies) : currEvent(nullptr) {
