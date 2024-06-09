@@ -1,8 +1,8 @@
-#include <Field.h>
+﻿#include <Field.h>
 #include <UI.h>
 // Public
 
-void Field::StartBattle(void) 
+void Field::StartBattle(void) {
 	using namespace std;
 
 	UI::PreBattle(enemys, roles);
