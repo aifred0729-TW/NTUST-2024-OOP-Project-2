@@ -5,6 +5,10 @@
 #include <Dice.h>
 #include <Field.h>
 
+#include "ConstData.h"
+#include "Displayer.h"
+#include "Color.h"
+
 // Public
 
 using namespace Displayer;
@@ -266,13 +270,14 @@ void UI::PreWorldMap(std::vector<Role*> roles) {
     BuildHollowFrame(121, 42, 179, 49);
     BuildHollowFrame(0, 0, 121, 5);
     moveCursor(0, 46);
-    displayPlayerInfo(121, 28);
-    displayPlayerInfo(121, 35);
-    displayPlayerInfo(121, 42);
-
+    BuildFrame(121, 28, 179, 35);
+    BuildFrame(121, 35, 179, 42);
+    BuildFrame(121, 42, 179, 49);
     for (int i = 0; i < roles.size(); i++) {
         displayPlayerInfo(121, 28 + i * 7, roles[i]);
     }
+
+    PrintWorldMap();
 }
 
 void UI::PrintWorldMap() {

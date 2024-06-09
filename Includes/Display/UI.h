@@ -9,16 +9,13 @@
 #include <string>
 #include <vector>
 #include <windows.h>
-
+#include "Displayer.h"
 #include <Attribute.h>
 
-#include "ConstData.h"
-#include "Displayer.h"
-#include "Color.h"
 
 class Dice;
 class Role;
-class WorldMap;
+class Ememy;
 class Field;
 class Store;
 class Entity;
@@ -27,7 +24,6 @@ class Action;
 
 namespace UI {
     using namespace Displayer;
-
     //std::stack<std::vector<std::vector<char>>> prevPicture;
     //WorldMap* worldMapPoac;
     //Field* fieldPointer;

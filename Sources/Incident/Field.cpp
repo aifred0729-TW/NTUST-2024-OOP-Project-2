@@ -1,5 +1,7 @@
 ﻿#include <Field.h>
 #include <UI.h>
+#include <Keyboard.h>
+#include <color.h>
 // Public
 
 void Field::StartBattle(void) {

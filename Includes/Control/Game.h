@@ -11,12 +11,11 @@
 #include <windows.h>
 
 class Role;
-class WorldMap;
+//class WorldMap;
 
 class Game {
 private:
     std::vector<Role*> movePriority; // Priority of Character Movement
-    WorldMap* worldMap;              // Map
 
 private:
     int Move(void);
@@ -26,13 +25,10 @@ private:
     // ...
 
 public:
-    Game();
+    //Game();
 
-    std::vector<Role*> GetMovePriority(void);
-    void SetMovePriority(const std::vector<Role*>&);
-
-    WorldMap* GetWorldMap(void);
-    void SetWorldMap(const WorldMap*&);
+    //std::vector<Role*> GetMovePriority(void);
+    //void SetMovePriority(const std::vector<Role*>&);
 
 public:
     // Initialize Game

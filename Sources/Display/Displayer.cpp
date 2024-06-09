@@ -3,6 +3,9 @@
 #include <Enemy.h>
 #include <Entity.h>
 #include <Dice.h> //待確認
+#include <Attribute.h>
+#include <KeyBoard.h>
+#include "Color.h"
 
 //移動光標
 void Displayer::moveCursor(int x, int y) {
@@ -206,7 +209,8 @@ void Displayer::displayDice(int count, int focus) {
     for (int i = 0; i < count; i++) {
         if (focus > i) {
             std::cout << YELLOW;
-        }else{
+        }
+        else {
             std::cout << DARK << WHITE;
         }
         displayFile("Dice03.txt", x1, y);

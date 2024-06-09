@@ -10,7 +10,7 @@
 #include <vector>
 #include <windows.h>
 
-class WorldMap;
+//class WorldMap;
 class Role;
 class Enemy;
 
@@ -19,15 +19,12 @@ private:
     std::fstream FileStream;
 
 public:
-    File(std::string);
+    //File(std::string);
     // 
-    std::fstream GetFileStream(void);
-    void SetFileStream(const std::fstream&);
+    //std::fstream GetFileStream(void);
+    //void SetFileStream(const std::fstream&);
 
 public:
-    // Load Map from File
-    void LoadWorldMap(WorldMap&);
-
     // Load Role from File
     void LoadRole(Role&);
 

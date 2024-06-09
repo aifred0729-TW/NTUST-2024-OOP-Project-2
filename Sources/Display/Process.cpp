@@ -2,6 +2,14 @@
 
 #include <skill.h>
 #include <Entity.h>
+#include <Entity.h>
+#include <Store.h>
+#include <Interactive.h>
+#include <Dice.h>
+#include <Field.h>
+#include <KeyBoard.h>
+#include <color.h>
+#include <Displayer.h>
 
 int Process::HandlePreBattle(std::vector<Enemy*> enemys, std::vector<Role*> roles) {
     UI::PreBattle(enemys, roles);
@@ -142,32 +150,4 @@ std::vector<Entity*> Process::targetChoiceSimulator(std::vector<Enemy*>enemys, s
         return {};
     }
     return targetPtr[targetNumber];
-}
-
-int Process::HandleMemu(void) {
-    return 0;
-}
-
-int Process::Handle(std::vector<std::pair<int, int>>*) {
-    return 0;
-}
-
-int Process::Handle(std::vector<Dice*>) {
-    return 0;
-}
-
-int Process::Handle(std::vector<Entity*>) {
-    return 0;
-}
-
-int Process::Handle(Field*) {
-    return 0;
-}
-
-int Process::Handle(Store*) {
-    return 0;
-}
-
-int Process::Handle(Interactive*) {
-    return 0;
 }

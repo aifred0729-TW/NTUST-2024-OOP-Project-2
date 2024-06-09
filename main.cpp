@@ -4,6 +4,8 @@
 #include "Includes/Gadget/EquipmentTable.h"
 #include "Includes/Gadget/SkillTable.h"
 #include "Includes/Display/UI.h"
+#include "Field.h"
+#include <WorldMap.h>
 #include <Process.h>
 
 #include <string>
@@ -42,7 +44,7 @@ int main() {
     //UI::PreBattle({ &dragon , &porfDai  , &tonya }, { &hero ,&profPao  , &myWife });
     UI::moveCursor(2, 9);
 
-    Field battle({ &hero ,&profPao , &myWife }, {  &porfDai  , &tonya  ,&dragon });
+    Field battle({ &hero ,&profPao , &myWife }, { &porfDai  , &tonya  ,&dragon });
     //battle.StartBattle();
 
     UI::PreWorldMap({ &hero ,&profPao , &myWife });

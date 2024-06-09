@@ -5,10 +5,6 @@
 #include <Enemy.h>
 // Public
 
-void File::LoadWorldMap(WorldMap&) {
-	;
-}
-
 void File::LoadRole(Role&) {
 	;
 }
