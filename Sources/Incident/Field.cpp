@@ -10,7 +10,7 @@ void Field::StartBattle(void) {
 	while (1) {
 		currEvent = RefreshEvent();
 
-		uint8_t currStatus = 0;// currEvent->GetObj()->GetStatus();
+		uint8_t currStatus = currEvent->GetObj()->GetStatus();
 		if (currStatus & DEAD) {
 			continue;
 		}
@@ -45,22 +45,22 @@ Action* Field::RefreshEvent(void) {
 	};
 	auto cmpSPD = [](Action* x, Action* y) {
 		return
-			x->GetObj()->GetAttribute().GetSPD() <
+			x->GetObj()->GetAttribute().GetSPD() >
 			y->GetObj()->GetAttribute().GetSPD();
 	};
 	auto cmpPA = [](Action* x, Action* y) {
 		return
-			x->GetObj()->GetAttribute().GetPA() <
+			x->GetObj()->GetAttribute().GetPA() >
 			y->GetObj()->GetAttribute().GetPA();
 	};
 	auto cmpPD = [](Action* x, Action* y) {
 		return
-			x->GetObj()->GetAttribute().GetPD() <
+			x->GetObj()->GetAttribute().GetPD() >
 			y->GetObj()->GetAttribute().GetPD();
 	};
 	auto cmpMaxHP = [](Action* x, Action* y) {
 		return
-			x->GetObj()->GetAttribute().GetMaxHP() <
+			x->GetObj()->GetAttribute().GetMaxHP() >
 			y->GetObj()->GetAttribute().GetMaxHP();
 	};
 
@@ -70,11 +70,9 @@ Action* Field::RefreshEvent(void) {
 	stable_sort(eventQueue.begin(), eventQueue.end(), cmpSPD);
 	stable_sort(eventQueue.begin(), eventQueue.end(), cmpPriority);
 
-	// static int a0, a1, a2, a3, a4, a5;	static string a6;
-
 	// update for the next refresh sort
 	eventQueue[0]->SetTurn(eventQueue[0]->GetTurn() + 1);
-	eventQueue[0]->SetPriority(double(eventQueue[0]->GetTurn()) / eventQueue[0]->GetObj()->GetAttribute().GetSPD() * 100);
+	eventQueue[0]->SetPriority(double(eventQueue[0]->GetTurn() + 1) / eventQueue[0]->GetObj()->GetAttribute().GetSPD() * 100);
 
 	return eventQueue[0];
 }
@@ -139,20 +137,20 @@ CHOICE:
 TARGET:
 	auto target = ChooseTarget(currEvent, skills[skillToUse.second].GetTargetType());
 	if (target.empty()) {
-		UI::logEvent("  ʤw    ");
+		UI::logEvent("行動已取消");
 		UI::logEvent("");
 		goto CHOICE;
 	}
 
 	int focusUse = ChooseFocus(focus, diceAmount);
 	if (focusUse == -1) {
-		UI::logEvent("  ʤw    ");
+		UI::logEvent("行動已取消");
 		UI::logEvent("");
 		goto TARGET;
 	}
 
 	if (focusUse != 0) {
-		UI::logEvent(" ϥ  " + std::to_string(focusUse) + "  M ` I  ");
+		UI::logEvent("使用 " + std::to_string(focusUse) + " 專注點數");
 		currEvent->GetObj()->GetAttribute().SetFocus(focus - focusUse);
 		currEvent->GetObj()->GetDice().SetFocusCount(focusUse);
 	}
@@ -189,7 +187,7 @@ std::vector<Entity*> Field::RandomTarget(Action* currEvent, int TargetType) {
 	std::vector<Entity*> rolesToEntity;
 	switch (TargetType) {
 	case 0:
-		targetName.push_back(" m Self  n");
+		targetName.push_back("《 Self 》");
 		targetPtr.push_back({ currEvent->GetObj() });
 		break;
 	case 1:
@@ -199,7 +197,7 @@ std::vector<Entity*> Field::RandomTarget(Action* currEvent, int TargetType) {
 		}
 		break;
 	case 2:
-		targetName.push_back(" m All enemies  n");
+		targetName.push_back("《 All enemies 》");
 		for (Enemy* E : enemys) {
 			enemysToEntity.push_back(E);
 		}
@@ -212,7 +210,7 @@ std::vector<Entity*> Field::RandomTarget(Action* currEvent, int TargetType) {
 		}
 		break;
 	case 4:
-		targetName.push_back(" m All teammates  n");
+		targetName.push_back("《 All teammates 》");
 		for (Role* R : roles) {
 			rolesToEntity.push_back(R);
 		}
@@ -240,7 +238,7 @@ std::vector<Entity*> Field::ChooseTarget(Action* currEvent, int TargetType) {
 	std::vector<Entity*> rolesToEntity;
 	switch (TargetType) {
 	case 0:
-		targetName.push_back(" m Self  n");
+		targetName.push_back("《 Self 》");
 		targetPtr.push_back({ currEvent->GetObj() });
 		break;
 	case 1:
@@ -250,7 +248,7 @@ std::vector<Entity*> Field::ChooseTarget(Action* currEvent, int TargetType) {
 		}
 		break;
 	case 2:
-		targetName.push_back(" m All enemies  n");
+		targetName.push_back("《 All enemies 》");
 		for (Enemy* E : enemys) {
 			enemysToEntity.push_back(E);
 		}
@@ -263,7 +261,7 @@ std::vector<Entity*> Field::ChooseTarget(Action* currEvent, int TargetType) {
 		}
 		break;
 	case 4:
-		targetName.push_back(" m All teammates  n");
+		targetName.push_back("《 All teammates 》");
 		for (Role* R : roles) {
 			rolesToEntity.push_back(R);
 		}
@@ -342,7 +340,7 @@ void Field::ExitPhase(void) {
 // constructor
 Action::Action(Entity* val, uint8_t mode, uint8_t ID)
 	:obj(val), turn(0), entityID(ID), count(new StatusCount{ 0, 0, 0, 0 }), dice(nullptr) {
-	priority = 1.0 / val->GetAttribute().GetSPD() * 100;
+	priority = 1.0 / val->GetTotalAttribute().GetSPD() * 100;
 }
 
 Field::Field(std::vector<Role*> players, std::vector<Enemy*> enemies) : currEvent(nullptr) {

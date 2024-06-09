@@ -28,7 +28,7 @@ private:
 	Dice* dice;
 	Entity* obj;
 	StatusCount* count;
-	uint32_t priority;
+	double priority;
 	uint8_t turn;
 	uint8_t entityID;
 
@@ -36,14 +36,14 @@ public:
 	Action(Entity* val, uint8_t mode, uint8_t ID);
 
 	void SetObj(Entity* val) { obj = val; }
-	void SetPriority(uint32_t val) { priority = val; }
+	void SetPriority(double val) { priority = val; }
 	void SetTurn(uint8_t val) { turn = val; }
 	void SetEntityID(uint8_t val) { entityID = val; }
 
 	Dice* GetDice(void) { return dice; }
 	Entity* GetObj(void) { return obj; }
 	StatusCount* GetCount(void) { return count; }
-	uint32_t GetPriority(void) { return priority; }
+	double GetPriority(void) { return priority; }
 	uint8_t	GetTurn(void) { return turn; }
 	uint8_t	GetEntityID(void) { return entityID; }
 };
