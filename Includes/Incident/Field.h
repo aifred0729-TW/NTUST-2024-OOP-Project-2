@@ -63,6 +63,7 @@ private:
 	void RemoveDeadEntity(void);
 	void PlayerMainPhase(Action*);
 	void EnemyMainPhase(Action*);
+	void RestoreEvent(void);
 
 	void MainPhase(Action*);
 	void ExitPhase(void);
