@@ -84,11 +84,9 @@ void Game::MainProcess(void) {
 
     system("Pause");
     system("CLS");
-
+    UI::mapPhase();
     UI::PreWorldMap(roles);
     // vector<Role*> executionRoles;
-
-    OnePlayerMovePhase(roles[0]);
 
     while (true) {
         turn++;
@@ -114,9 +112,10 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
     UI::displayMapGrid();
 
     while (1) {
-
         KeyBoard::keyUpdate(keyState);
         if (keyState[KeyBoard::EP]) {
+            currentActRole->heal(movementPoint);
+            break;
         }
         else if (keyState[KeyBoard::EI]) {
             // backpack process
@@ -127,6 +126,30 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             // Display Please Roll Dice (UI)
             // displayRollDice();
             // ditect entity is interactiveable
+            std::pair<int, int> Rpos = { currentActRole->GetPosition().first ,currentActRole->GetPosition().second };
+            if (Rpos == WorldMap::pos && movementPoint > 0) {
+                int moveable;
+                if (keyState[KeyBoard::EDU]) {
+                    moveable = currentActRole->movePos(0, -1);
+                }
+                else if (keyState[KeyBoard::EDD]) {
+                    moveable = currentActRole->movePos(0, 1);
+                }
+                else if (keyState[KeyBoard::EDL]) {
+                    moveable = currentActRole->movePos(-1, 0);
+                }
+                else if (keyState[KeyBoard::EDR]) {
+                    moveable = currentActRole->movePos(1, 0);
+                }
+                if (moveable == 0) {
+                    Rpos = { currentActRole->GetPosition().first ,currentActRole->GetPosition().second };
+                    movementPoint--;
+                }
+            }
+            else if (movementPoint <= 0) {
+                continue;
+            }
+            WorldMap::setPos(Rpos);
         }
         else if (keyState[KeyBoard::EW]) {
             WorldMap::movePos(0, -1);
@@ -147,19 +170,18 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
         else {
             continue;
         }
-
-        //if (distanceDisplayWork == 1) {
-        std::cout << BG_WHITE;
-        UI::displayMapGrid();
-        distanceDisplayWork = 0;
-        //}
-
         UI::PrintWorldMap();
+
+        if (distanceDisplayWork == 1) {
+            std::cout << BG_WHITE;
+            UI::displayMapGrid();
+            distanceDisplayWork = 0;
+        }
+
         if (!WorldMap::GetRect().stores.empty()) {
             UI::BuildFrame(121, 0, 179, 28);
 
             std::vector<Store*> storesToDisplay;
-            //UI::displayDiceMove({ 0, 1, 0, 1, 0, 1 });
             //WorldMap::GetRect().stores[0]->SellItemTo();
         }
         else if (!WorldMap::GetRect().enemys.empty() || !WorldMap::GetRect().roles.empty()) {
@@ -184,17 +206,25 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                 std::cout << BG_BRIGHT_CYAN;
                 UI::distanceDisplay(0, 0, 3);
                 for (auto R : WorldMap::GetRect().roles) {
+                    if (R == currentActRole) {
+                        std::cout << BG_BRIGHT_YELLOW;
+                        int x = currentActRole->GetPosition().first - WorldMap::getPos().first;
+                        int y = currentActRole->GetPosition().second - WorldMap::getPos().second;
+                        UI::distanceDisplay(x, y, movementPoint);
+                    }
                     entitysToDisplay.push_back(R);
                 }
             }
             UI::displayPlayerInfo(121, 0, entitysToDisplay);
         }
         else {
-            std::cout << BG_BRIGHT_YELLOW;
-            int x = currentActRole->GetPosition().first - WorldMap::getPos().first;
-            int y = currentActRole->GetPosition().second - WorldMap::getPos().second;
-            UI::distanceDisplay(x, y, movementPoint);
-
+            if (WorldMap::VisibleOnMap(currentActRole->GetPosition())) {
+                distanceDisplayWork = 1;
+                std::cout << BG_BRIGHT_YELLOW;
+                int x = currentActRole->GetPosition().first - WorldMap::getPos().first;
+                int y = currentActRole->GetPosition().second - WorldMap::getPos().second;
+                UI::distanceDisplay(x, y, movementPoint);
+            }
             std::cout << BG_BRIGHT_CYAN;
             UI::distanceDisplay(0, 0, 0);
         }
@@ -207,6 +237,10 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
         // if checkIsOnEnemy
         // enterCombat
 
+        if (movementPoint <= 0) {
+            // 按P跳過回合 不會自動跳
+            // break;
+        }
     }
 
     return 0;

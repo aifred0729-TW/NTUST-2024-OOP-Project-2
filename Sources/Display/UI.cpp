@@ -18,6 +18,8 @@ using namespace Displayer;
 std::vector<Enemy*> EnemysVector;
 std::vector<Role*> RolesVector;
 std::vector<std::string> battleLog = {};
+std::vector<std::string> mapLog = {};
+int UI::phase = 0;
 
 void UI::checkConsoleSize(int requiredRows, int requiredCols) {
     static int preRequiredRows = 0;
@@ -47,20 +49,33 @@ void UI::checkConsoleSize(int requiredRows, int requiredCols) {
 
 void UI::logInitialization() {
     battleLog.clear();
+    mapLog.clear();
 }
 
 void UI::logEvent(const std::string& event) {
     const int MAX_ROWS = 30;
-    battleLog.push_back(event);
-    if (battleLog.size() > MAX_ROWS) {
-        battleLog.erase(battleLog.begin());
+    const int MAX_ROWS2 = 4;
+    if (phase == 1) {
+        battleLog.push_back(event);
+        if (battleLog.size() > MAX_ROWS) {
+            battleLog.erase(battleLog.begin());
+        }
+        for (int i = battleLog.size() - 1; i >= 0; i--) {
+            std::cout << BLACK;
+            BuildHollowFrame(124, 41 - i, 176, 41 - i);
+            displayString(124, 41 - i, battleLog[battleLog.size() - i - 1]);
+        }
     }
-    int ROWS = battleLog.size();
-
-    for (int i = battleLog.size() - 1; i >= 0; i--) {
-        std::cout << BLACK;
-        BuildHollowFrame(124, 41 - i, 176, 41 - i);
-        displayString(124, 41 - i, battleLog[battleLog.size() - i - 1]);
+    else if (phase == 2) {
+        mapLog.push_back(event);
+        if (mapLog.size() > MAX_ROWS2) {
+            mapLog.erase(mapLog.begin());
+        }
+        for (int i = mapLog.size() - 1; i >= 0; i--) {
+            std::cout << BLACK;
+            BuildHollowFrame(5, 4 - i, 121, 4 - i);
+            displayString(5, 4 - i, mapLog[mapLog.size() - i - 1]);
+        }
     }
     //Sleep(150);
 }
@@ -406,4 +421,12 @@ void UI::distanceDisplay(int x, int y, int distance) {
     }
     //distanceDisplay(x, y, distance - 1);
     cout << RESET;
+}
+
+void UI::battlePhase() {
+    phase = 1;
+}
+
+void UI::mapPhase() {
+    phase = 2;
 }
