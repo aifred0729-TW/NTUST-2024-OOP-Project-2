@@ -59,7 +59,8 @@ int main() {
 	//UI::PreBattle({ &dragon , &porfDai  , &tonya }, { &hero ,&profPao  , &myWife });
 	UI::moveCursor(2, 9);
 
-    Field battle({ &hero ,&profPao , &myWife }, {  &porfDai  , &tonya  ,&dragon });
+    // Field battle({ &hero ,&profPao , &myWife }, {  &porfDai  , &tonya  ,&dragon });
+    Field battle({ &profPao }, { &tonya });
     battle.StartBattle();
 
 	/*

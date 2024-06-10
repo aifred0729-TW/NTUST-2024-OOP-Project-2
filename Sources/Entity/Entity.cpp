@@ -37,6 +37,45 @@ void Entity::useActive(std::string skillName, std::vector<Entity*> target) {
     }
 }
 
+void Entity::usePassive(std::string skillName, std::vector<Entity*> target) {
+	for (auto& passive : totalSkill.GetPassive()) {
+		if (passive.GetName() == skillName) {
+            passive.SetTick(passive.GetCoolDown());
+			passive.apply(*this, target);
+			UI::renewPlayerInfo();
+			return;
+		}
+	}
+}
+
+void Entity::useBuff(std::string skillName, std::vector<Entity*> target) {
+    for (auto& buff : totalSkill.GetBuff()) {
+        if (buff.GetName() == skillName) {
+            buff.apply(*this, target);
+            UI::renewPlayerInfo();
+            return;
+        }
+    }
+}   
+
+void Entity::addBuff(std::string skillName, uint8_t round) {
+    int index = 0;
+    for (index = 0; index < totalSkill.GetBuff().size(); index++) {
+        if (totalSkill.GetBuff()[index].GetName() == skillName)
+            break;
+    }
+
+    if (index == totalSkill.GetBuff().size()) {
+        Buff buff = SkillTable::buffMap.find(skillName)->second;
+        buff.SetTick(round);
+        totalSkill.pushBuff(buff);
+        UI::logEvent(name + " 身上新增了將持續 " + std::to_string(buff.GetTick()) + " 回合的 " + skillName + "。");
+    } else {
+        totalSkill.GetBuff()[index].addTick(round);
+        UI::logEvent(name + " 的 " + skillName + " 延長至 " + std::to_string(totalSkill.GetBuff()[index].GetTick()) + " 回合。");
+    }
+}
+
 void Entity::takeDamage(int16_t damage, char attackType) {
     int16_t armor = attackType == 'P' ? totalAttribute.GetPD() : totalAttribute.GetMD();
     double absorption = armor / (double)(armor + 50);
@@ -75,6 +114,29 @@ void Entity::renewPlayer(void) {
     totalSkill += equipment.GetArmor().GetSkill();
     totalSkill += equipment.GetWeapon().GetSkill();
     totalSkill += equipment.GetAccessory().GetSkill();
+}
+
+void Entity::decreaseTick(void) {
+    for (auto& active : totalSkill.GetActive()) {
+		if (active.GetTick() > 0) {
+			active.SetTick(active.GetTick() - 1);
+		}
+	}
+
+    for (auto& passive : totalSkill.GetPassive()) {
+        if (passive.GetTick() > 0) {
+            passive.SetTick(passive.GetTick() - 1);
+        }
+    }
+    
+    for (int i = 0 ; i < totalSkill.GetBuff().size(); i++) {
+		if (totalSkill.GetBuff()[i].GetTick() > 1) {
+			totalSkill.GetBuff()[i].SetTick(totalSkill.GetBuff()[i].GetTick() - 1);
+        } else if (totalSkill.GetBuff()[i].GetTick() == 1) {
+            totalSkill.GetBuff().erase(totalSkill.GetBuff().begin() + i);
+            i--;
+        }
+	}
 }
 
 void Entity::equipForce(std::string equipmentName) {

@@ -8,32 +8,32 @@
 
 class Entity;
 
-class AttackCommand : public SkillCommand {
+class AttackActiveCommand : public SkillCommand {
 public:
     void execute(Entity& caster, std::vector<Entity*> target, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) override;
 };
 
-class FleeCommand : public SkillCommand {
+class FleeActiveCommand : public SkillCommand {
 public:
 	void execute(Entity& caster, std::vector<Entity*> target, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) override;
 };
 
-class ProvokeCommand : public SkillCommand {
+class ProvokeActiveCommand : public SkillCommand {
 public:
 	void execute(Entity& caster, std::vector<Entity*> target, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) override;
 };
 
-class ShockBlastCommand : public SkillCommand {
+class ShockBlastActiveCommand : public SkillCommand {
 public:
 	void execute(Entity& caster, std::vector<Entity*> target, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) override;
 };
 
-class HealCommand : public SkillCommand {
+class HealActiveCommand : public SkillCommand {
 public:
 	void execute(Entity& caster, std::vector<Entity*> target, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) override;
 };
 
-class SpeedUpCommand : public SkillCommand {
+class SpeedUpActiveCommand : public SkillCommand {
 public:
 	void execute(Entity& caster, std::vector<Entity*> target, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) override;
 };

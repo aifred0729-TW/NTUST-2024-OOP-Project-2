@@ -27,6 +27,7 @@ public:
     void SetCommand(SkillCommand* command) { this->command = command; }
     void SetTick(const uint8_t& tick) { this->tick = tick; }
     void SetTargetType(const uint8_t& targetType) { this->targetType = targetType; }
+    void addTick(const uint8_t& tick) { this->tick += tick; }
 
     bool operator==(const SkillBase& other) const {
         return name == other.name;

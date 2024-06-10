@@ -62,6 +62,9 @@ public:
 	void unEquipForce(std::string equipmentName);
 	// 主動技能實做
 	void useActive(std::string skillName, std::vector<Entity*> targets);
+	void usePassive(std::string skillName, std::vector<Entity*> targets);
+	void useBuff(std::string skillName, std::vector<Entity*> targets);
+	void addBuff(std::string skillName, uint8_t round);
 	// 計算經過一切計算後受到的傷害(直接傳原始傷害進來就好)
 	void takeDamage(int16_t damage, char attackType);
 	// 直接受到的治療數值

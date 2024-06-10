@@ -5,7 +5,7 @@
 #include <Dice.h>
 #include "Entity.h"
 
-void AttackCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
+void AttackActiveCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto casterWeapon = caster.GetEquipment().GetWeapon();
     auto cta = caster.GetTotalAttribute();
     int16_t damage = casterWeapon.GetAttackType() == 'P' ? static_cast<int16_t>(cta.GetPA()) : static_cast<int16_t>(cta.GetMA());
@@ -24,7 +24,7 @@ void AttackCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_
     targets[0]->takeDamage(damage, casterWeapon.GetAttackType());
 }
 
-void FleeCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
+void FleeActiveCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto cta = caster.GetTotalAttribute();
 
     auto& casterDice = caster.GetDice();
@@ -45,7 +45,7 @@ void FleeCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t 
     }
 }
 
-void ProvokeCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
+void ProvokeActiveCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto cta = caster.GetTotalAttribute();
 
     auto& casterDice = caster.GetDice();
@@ -57,14 +57,14 @@ void ProvokeCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8
     casterDice.displayResult();
 
     if (casterDice.GetMovementPoint() == 1) {
-        UI::logEvent("挑釁成功，現在 " + targets[0]->GetName() + " 很想躁。");
-        // targets[0]->SetStatus(挑釁狀態);
+        UI::logEvent("挑釁成功，現在 " + targets[0]->GetName() + " 很躁。");
+        targets[0]->addBuff("Angry", 3);
     } else {
         UI::logEvent("挑釁失敗，" + targets[0]->GetName() + " 只把" + caster.GetName() + " 當小丑。");
     }
 }
 
-void ShockBlastCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
+void ShockBlastActiveCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto casterWeapon = caster.GetEquipment().GetWeapon();
     auto cta = caster.GetTotalAttribute();
 
@@ -85,7 +85,7 @@ void ShockBlastCommand::execute(Entity& caster, std::vector<Entity*> targets, ui
     }
 }
 
-void HealCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
+void HealActiveCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto cta = caster.GetTotalAttribute();
 
     auto& casterDice = caster.GetDice();
@@ -101,7 +101,7 @@ void HealCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t 
     targets[0]->heal(heal);
 }
 
-void SpeedUpCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
+void SpeedUpActiveCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto cta = caster.GetTotalAttribute();
 
     auto& casterDice = caster.GetDice();
@@ -114,6 +114,7 @@ void SpeedUpCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8
         UI::logEvent(caster.GetName() + " 的 Speed Up 成功！");
         UI::logEvent("給予 " + targets[0]->GetName() + " 1 回合的 SpeedUp Buff。");
         // 給予SpeedUp Buff一回合
+        targets[0]->addBuff("SpeedUp", 1);
     } else {
         UI::logEvent(caster.GetName() + " 的 Speed Up 失敗！");
     }
