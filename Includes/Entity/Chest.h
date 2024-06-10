@@ -16,11 +16,11 @@
 class Chest : public Interactive {
 
 public:
-    Chest(/**/);
+    Chest() {};
 
 public:
-    // Give Item to Role
-    void GiveItemTo(Role*);
+    // Give Item or Money to Role
+    void GiveTreasureTo(Role*);
 };
 
 #endif
