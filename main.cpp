@@ -52,9 +52,10 @@ int main() {
 
     WorldMap::loadMap("W-1.txt");
     UI::PreWorldMap({ &hero ,&profPao , &myWife });
-
+    /*
     std::cout << BG_BRIGHT_CYAN;
     UI::distanceDisplay(0, 0, 0);
+    */
     UI::moveCursor(0, 0);
     Process::worldMapViewSimulator();
 

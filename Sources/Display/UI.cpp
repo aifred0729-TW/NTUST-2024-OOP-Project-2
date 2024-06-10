@@ -276,7 +276,8 @@ void UI::PreWorldMap(std::vector<Role*> roles) {
     BuildFrame(121, 42, 179, 49);
 
     std::cout << BG_WHITE;
-    UI::BuildVoid(1, 5, 120, 49);
+    UI::displayMapGrid();
+    //UI::BuildVoid(1, 5, 120, 49);
     for (int i = 0; i < roles.size(); i++) {
         displayPlayerInfo(121, 28 + i * 7, roles[i]);
     }
@@ -316,7 +317,7 @@ void UI::PrintWorldMap() {
         }
     }
     std::cout << BG_BRIGHT_RED;
-    for (auto E : enemys) {
+    for (auto E : WorldMap::enemys) {
         if (WorldMap::VisibleOnMap(E->GetPosition())) {
             int x = E->GetPosition().first - pos.first + 7;
             int y = E->GetPosition().second - pos.second + 5;
@@ -327,7 +328,7 @@ void UI::PrintWorldMap() {
         }
     }
     std::cout << BG_BRIGHT_CYAN;
-    for (auto R : roles) {
+    for (auto R : WorldMap::roles) {
         if (WorldMap::VisibleOnMap(R->GetPosition())) {
             int x = R->GetPosition().first - pos.first + 7;
             int y = R->GetPosition().second - pos.second + 5;
@@ -347,9 +348,9 @@ void UI::distanceDisplay(int x, int y, int distance) {
         return;
     }
     using namespace std;
-    static int dlog = 0;
-    static int xlog = 0;
-    static int ylog = 0;
+    // static int dlog = 0;
+    // static int xlog = 0;
+    // static int ylog = 0;
     int x1 = (x + 7) * 8;
     int y1 = (y + 5) * 4 + 5;
     int d1 = distance;

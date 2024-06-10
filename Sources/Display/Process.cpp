@@ -155,6 +155,7 @@ std::vector<Entity*> Process::targetChoiceSimulator(std::vector<Enemy*>enemys, s
 
 int Process::worldMapViewSimulator() {
     bool keyState[KeyBoard::INVALID];
+    bool distanceDisplayWork = 0;
     while (1) {
         KeyBoard::keyUpdate(keyState);
         if (keyState[KeyBoard::EW]) {
@@ -176,7 +177,46 @@ int Process::worldMapViewSimulator() {
         else {
             continue;
         }
+
+        if (distanceDisplayWork == 1) {
+            std::cout << BG_WHITE;
+            UI::displayMapGrid();
+            distanceDisplayWork = 0;
+        }
+
         UI::PrintWorldMap();
+        if (!WorldMap::GetRect().enemys.empty() || !WorldMap::GetRect().roles.empty()) {
+
+            UI::BuildHollowFrame(121, 0, 179, 28);
+
+            std::vector<Entity*> entitysToDisplay;
+            if (!WorldMap::GetRect().enemys.empty()) {
+                distanceDisplayWork = 1;
+                std::cout << BG_WHITE;
+                UI::displayMapGrid();
+                std::cout << BG_BRIGHT_RED;
+                UI::distanceDisplay(0, 0, 3);
+                for (auto E : WorldMap::GetRect().enemys) {
+                    entitysToDisplay.push_back(E);
+                }
+            }
+            else if (!WorldMap::GetRect().roles.empty()) {
+                distanceDisplayWork = 1;
+                std::cout << BG_WHITE;
+                UI::displayMapGrid();
+                std::cout << BG_BRIGHT_CYAN;
+                UI::distanceDisplay(0, 0, 3);
+                for (auto R : WorldMap::GetRect().roles) {
+                    entitysToDisplay.push_back(R);
+                }
+            }
+            UI::displayPlayerInfo(121, 0, entitysToDisplay);
+        }
+        else {
+            std::cout << BG_BRIGHT_CYAN;
+            UI::distanceDisplay(0, 0, 0);
+        }
+
         //UI::renewPlayerInfo();
     }
     return 0;

@@ -16,6 +16,12 @@ class Role;
 class Enemy;
 class Entity;
 
+struct Rect {
+    int terrain; // 地形
+    std::vector<Enemy*> enemys; // 地塊上的敵人
+    std::vector<Role*> roles; // 地塊上的角色
+};
+
 namespace WorldMap {
 
     // Map Structure
@@ -66,7 +72,8 @@ namespace WorldMap {
 
     void renderColor();
     bool VisibleOnMap(std::pair<int, int > pos);
-    
+    Rect GetRect(std::pair<int, int > pos);
+    Rect GetRect();
 
     // ...
 };

@@ -54,6 +54,8 @@ namespace Displayer {
     void displayPlayerInfo(int x, int y, Role*);
     void displayPlayerInfo(int x, int y, Enemy*);
     void displayPlayerInfo(int x, int y, Entity*);
+    void displayPlayerInfo(int x, int y, std::vector<Entity*> entitys);
+
     void displayMiddleRectangle();
     void displayMovement();
     void displayPlayerBackpack();
@@ -62,6 +64,7 @@ namespace Displayer {
     void displayChoice(std::vector<Active>, int, int, int);
     std::pair<std::string, int> makeChoice(std::vector<Active>, int, int);
     void printOnMap(int, int, std::string);
+    void displayMapGrid();
 };
 
 #endif
