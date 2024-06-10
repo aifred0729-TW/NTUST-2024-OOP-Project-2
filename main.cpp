@@ -6,20 +6,13 @@
 #include "Includes/Display/UI.h"
 #include "ItemTable.h"
 #include <Process.h>
+#include <Game.h>
 
 #include <string>
 
 int main() {
-	SkillTable::Initialize();
-	EquipmentTable::Initialize();
-	ItemTable::Initialize();
-
-	UI::checkConsoleSize(50, 180);
-	UI::ShowMenu();
-	//ui.makeChoice({"FUCKOOP","FUCK戴文凱","FUCK花凱隆"}, 50,20);
-
-	system("Pause");
-	system("CLS");
+	Game G;
+	G.MainProcess();
 
 	Role hero("hero");
 	Enemy dragon("dragon");
@@ -43,8 +36,6 @@ int main() {
 
 	profPao.GetAttribute().SetMaxFocus(20);
 	profPao.GetAttribute().SetFocus(20);
-
-	//system("Pause");
 
 
 	//Process::HandlePreBattle({ &dragon , &porfDai  , &tonya }, { &hero ,&profPao  , &myWife });

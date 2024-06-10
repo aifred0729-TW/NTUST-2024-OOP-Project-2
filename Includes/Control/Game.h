@@ -12,6 +12,12 @@
 
 #include <WorldMap.h>
 #include <Role.h>
+#include <Enemy.h>
+#include <UI.h>
+#include <Process.h>
+#include <SkillTable.h>
+#include <Equipment.h>
+#include <ItemTable.h>
 
 class Game {
 private:
@@ -26,17 +32,16 @@ private:
     // ...
 
 public:
-    Game();
-
-    std::vector<Role*> GetMovePriority(void);
-    void SetMovePriority(const std::vector<Role*>&);
-    
-    WorldMap *GetWorldMap(void);
-    void SetWorldMap(const WorldMap * &);
+    Game() {
+        ;
+    }
 
 public:
     // Initialize Game
-    int Init(void);
+    void Initialize();
+
+    // Game Main Process
+    void MainProcess(void);
 };
 
 #endif
