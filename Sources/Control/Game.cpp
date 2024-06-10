@@ -27,8 +27,11 @@ void Game::sortExecutionRole() {
             Attribute rolesA = roles[j]->GetTotalAttribute();
             Attribute rolesB = roles[jj]->GetTotalAttribute();
             if (rolesA.GetSPD() < rolesB.GetSPD()) std::swap(roles[j], roles[jj]);
+            else if (rolesA.GetSPD() > rolesB.GetSPD()) {}
             else if (rolesA.GetPA() + rolesA.GetMA() < rolesB.GetPA() + rolesB.GetMA()) std::swap(roles[j], roles[jj]);
+            else if (rolesA.GetPA() + rolesA.GetMA() > rolesB.GetPA() + rolesB.GetMA()) {}
             else if (rolesA.GetPD() + rolesA.GetMD() < rolesB.GetPD() + rolesB.GetMD()) std::swap(roles[j], roles[jj]);
+            else if (rolesA.GetPD() + rolesA.GetMD() > rolesB.GetPD() + rolesB.GetMD()) {}
             else if (rolesA.GetMaxHP() < rolesB.GetMaxHP()) std::swap(roles[j], roles[jj]);
         }
     }
