@@ -95,7 +95,7 @@ void Role::SetPosition(const std::pair<uint32_t, uint32_t>& position) {
 }
 
 void Role::SetMoney(const uint16_t money) {
-    this->money = money;
+    Role::money = money;
 }
 
 uint8_t Role::GetMovementPoint(void) const {
@@ -110,6 +110,6 @@ std::pair<uint32_t, uint32_t> Role::GetPosition(void) const {
     return position;
 }
 
-uint16_t Role::GetMoney(void) const {
-    return money;
+uint16_t Role::GetMoney(void) {
+    return Role::money;
 }

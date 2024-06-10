@@ -12,6 +12,7 @@
 #include <Displayer.h>
 #include <WorldMap.h>
 #include "Equipment.h"
+#include "Store.h"
 
 int Process::HandlePreBattle(std::vector<Enemy*> enemys, std::vector<Role*> roles) {
     UI::PreBattle(enemys, roles);
@@ -186,9 +187,16 @@ int Process::worldMapViewSimulator() {
         }
 
         UI::PrintWorldMap();
-        if (!WorldMap::GetRect().enemys.empty() || !WorldMap::GetRect().roles.empty()) {
+        if (!WorldMap::GetRect().stores.empty()) {
+            UI::BuildFrame(121, 0, 179, 28);
 
-            UI::BuildHollowFrame(121, 0, 179, 28);
+            std::vector<Store*> storesToDisplay;
+            //UI::displayDiceMove({ 0, 1, 0, 1, 0, 1 });
+            //WorldMap::GetRect().stores[0]->SellItemTo();
+        }
+        else if (!WorldMap::GetRect().enemys.empty() || !WorldMap::GetRect().roles.empty()) {
+
+            UI::BuildFrame(121, 0, 179, 28);
 
             std::vector<Entity*> entitysToDisplay;
             if (!WorldMap::GetRect().enemys.empty()) {

@@ -18,7 +18,7 @@
 
 int main() {
     Game G;
-    //G.MainProcess();
+    G.MainProcess();
 
     UI::checkConsoleSize(50, 180);
     //UI::ShowMenu();

@@ -25,6 +25,7 @@ private:
 
 private:
     std::vector<Role*> roles;
+    std::vector<Enemy*> enemys;
 
     int Move(void);
     int GetKeyboard(void);
@@ -35,9 +36,7 @@ private:
     void sortExecutionRole();
 
 public:
-    Game() {
-        Initialize();
-    }
+    Game() {}
 
     // Initialize Game
     void Initialize();
@@ -45,10 +44,11 @@ public:
     bool checkIsOnShop();
     bool checkIsOnEnemy();
 
-
 public:
     // Game Main Process
     void MainProcess(void);
+    int OnePlayerMovePhase(Role* currentActRole);
+    static int GenerateMovementPoint(Role* currentActRole);
 };
 
 #endif
