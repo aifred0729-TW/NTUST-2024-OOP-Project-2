@@ -22,13 +22,13 @@ int main() {
     //system("Pause");
     system("CLS");
 
-    Role hero("hero");
-    Enemy dragon("dragon");
+    Role hero("hero", 10, 1);
+    Enemy dragon("dragon", 1, 1);
 
-    Role profPao("鮑興國");
-    Role myWife("砂狼白子我婆");
-    Enemy porfDai("戴文凱");
-    Enemy tonya("Tonya");
+    Role profPao("鮑興國", 9, 5);
+    Role myWife("砂狼白子我婆", 6, 9);
+    Enemy porfDai("戴文凱", 9, 6);
+    Enemy tonya("Tonya", 7, 7);
 
     hero.equip("MagicWand");
     profPao.equip("Hammer");
@@ -37,6 +37,8 @@ int main() {
     profPao.GetAttribute().SetMaxFocus(20);
     profPao.GetAttribute().SetFocus(20);
 
+    WorldMap::SetEnemys({ &dragon ,&porfDai ,&tonya });
+    WorldMap::SetRoles({ &hero ,&profPao ,&myWife });
     //system("Pause");
 
 
@@ -48,12 +50,13 @@ int main() {
     Field battle({ &hero ,&profPao , &myWife }, { &porfDai  , &tonya  ,&dragon });
     //battle.StartBattle();
 
-
     WorldMap::loadMap("W-1.txt");
     UI::PreWorldMap({ &hero ,&profPao , &myWife });
 
     std::cout << BG_BRIGHT_CYAN;
     UI::distanceDisplay(0, 0, 0);
+    UI::moveCursor(0, 0);
+    Process::worldMapViewSimulator();
 
     /*
         std::vector<Entity*> targets;
