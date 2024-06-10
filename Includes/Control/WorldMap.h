@@ -53,6 +53,8 @@ namespace WorldMap {
 
     void renderColor();
 
+    
+
     // ...
 };
 

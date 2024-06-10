@@ -1,11 +1,12 @@
 ﻿#include "../../Includes/Control/WorldMap.h"
 #include "ConstData.h"
 #include <Color.h>
+#include <UI.h>
 
 int WorldMap::HEIGHT = 50;
 int WorldMap::WIDTH = 140;
 
-std::pair<int, int> WorldMap::pos = { 5, 7 };
+std::pair<int, int> WorldMap::pos = { 140, 2 };
 std::vector<std::vector<int>>  WorldMap::map; // Map Storge
 std::vector<std::vector<bool>> WorldMap::fog; // War Fog (Make some lamp?)
 std::vector<std::vector<std::string>>  WorldMap::renderMap; // 每個單元為可輸出色塊

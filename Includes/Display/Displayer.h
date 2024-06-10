@@ -61,6 +61,7 @@ namespace Displayer {
     int makeChoice(std::vector<std::string>, int, int);
     void displayChoice(std::vector<Active>, int, int, int);
     std::pair<std::string, int> makeChoice(std::vector<Active>, int, int);
+    void printOnMap(int, int, std::string);
 };
 
 #endif

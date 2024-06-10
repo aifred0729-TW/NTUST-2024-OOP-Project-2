@@ -425,3 +425,10 @@ std::pair<std::string, int> Displayer::makeChoice(std::vector<Active> choices, i
     }
     //return "-1";
 }
+
+void Displayer::printOnMap(int x, int y, std::string str) {
+    if (!(x < 2 || x > 119 || y < 6 || y > 48)) {
+        moveCursor(x, y);
+        std::cout << str;
+    }
+}

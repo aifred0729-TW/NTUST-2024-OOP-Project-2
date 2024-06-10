@@ -81,6 +81,7 @@ namespace UI {
 
     void PrintWorldMap();
 
+    void distanceDisplay(int , int , int);
     // ...
 };
 

@@ -5,6 +5,7 @@
 #include "Includes/Gadget/SkillTable.h"
 #include "Includes/Display/UI.h"
 #include "Field.h"
+#include <Color.h>
 #include <WorldMap.h>
 #include <Process.h>
 
@@ -15,10 +16,10 @@ int main() {
     EquipmentTable::Initialize();
 
     UI::checkConsoleSize(50, 180);
-    UI::ShowMenu();
+    //UI::ShowMenu();
     //ui.makeChoice({"FUCKOOP","FUCK戴文凱","FUCK花凱隆"}, 50,20);
 
-    system("Pause");
+    //system("Pause");
     system("CLS");
 
     Role hero("hero");
@@ -50,6 +51,9 @@ int main() {
 
     WorldMap::loadMap("W-1.txt");
     UI::PreWorldMap({ &hero ,&profPao , &myWife });
+
+    std::cout << BG_BRIGHT_CYAN;
+    UI::distanceDisplay(0, 0, 0);
 
     /*
         std::vector<Entity*> targets;
@@ -135,5 +139,6 @@ int main() {
         //std::cout << std::endl;
         */
 
+    UI::moveCursor(5, 1);
     return 0;
 }
