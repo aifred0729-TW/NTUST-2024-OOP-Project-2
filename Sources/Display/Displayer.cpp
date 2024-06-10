@@ -6,6 +6,7 @@
 #include <Attribute.h>
 #include <KeyBoard.h>
 #include "Color.h"
+#include "SkillBase.h"
 
 //移動光標
 void Displayer::moveCursor(int x, int y) {

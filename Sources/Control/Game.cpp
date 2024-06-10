@@ -2,6 +2,8 @@
 
 #include <WorldMap.h>
 #include <Role.h>
+#include <KeyBoard.h>
+#include <EquipmentTable.h>
 
 // Private
 
@@ -80,6 +82,7 @@ void Game::MainProcess(void) {
 bool Game::checkIsOnShop() {
 	using namespace std;
 
-	if 
-	
+	// if 
+
+	return 0;
 }

@@ -2,7 +2,7 @@
 
 #include <skill.h>
 #include <Entity.h>
-#include <Entity.h>
+#include <Enemy.h>
 #include <Store.h>
 #include <Interactive.h>
 #include <Dice.h>
@@ -11,6 +11,7 @@
 #include <color.h>
 #include <Displayer.h>
 #include <WorldMap.h>
+#include "Equipment.h"
 
 int Process::HandlePreBattle(std::vector<Enemy*> enemys, std::vector<Role*> roles) {
     UI::PreBattle(enemys, roles);
@@ -216,7 +217,7 @@ int Process::worldMapViewSimulator() {
             std::cout << BG_BRIGHT_CYAN;
             UI::distanceDisplay(0, 0, 0);
         }
-
+        UI::moveCursor(0, 0);
         //UI::renewPlayerInfo();
     }
     return 0;

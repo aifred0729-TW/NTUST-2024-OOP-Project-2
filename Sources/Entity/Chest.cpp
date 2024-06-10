@@ -1,6 +1,7 @@
 ﻿#include "../../Includes/Entity/Chest.h"
 #include "ItemTable.h"
 #include "Displayer.h"
+#include "Backpack.h"
 // Public
 
 void Chest::GiveTreasureTo(Role* player) {

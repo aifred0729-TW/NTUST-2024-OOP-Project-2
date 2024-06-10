@@ -2,6 +2,14 @@
 #include <UI.h>
 #include <Keyboard.h>
 #include <color.h>
+
+#include <ConstData.h>
+#include <Enemy.h>
+#include <Role.h>
+#include <Dice.h>
+#include <Entity.h>
+#include <Skill.h>
+#include <Equipment.h>
 // Public
 
 void Field::StartBattle(void) {

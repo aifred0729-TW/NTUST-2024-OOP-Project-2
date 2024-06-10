@@ -1,5 +1,11 @@
 ﻿#include "../../Includes/Entity/Entity.h"
 
+#include "Attribute.h"
+#include "Skill.h"
+#include "Equipment.h"
+#include "EquipmentTable.h"
+#include "SkillTable.h"
+
 // Public
 Entity::Entity() {
     faction = 1;
@@ -17,7 +23,6 @@ Entity::Entity() {
     equipForce("BareAccessory");
     status = 0;
     eventID = 0;
-    mode = ROLE;
 }
 
 Entity::Entity(std::string name) : Entity() {
@@ -176,8 +181,4 @@ uint8_t   Entity::GetStatus(void) {
 
 uint8_t   Entity::GetEventID(void) {
     return eventID;
-}
-
-uint8_t   Entity::GetMode(void) {
-    return mode;
 }

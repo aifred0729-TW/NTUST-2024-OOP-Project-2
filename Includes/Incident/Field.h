@@ -11,10 +11,11 @@
 #include <vector>
 #include <windows.h>
 
-#include <ConstData.h>
-#include <Enemy.h>
-#include <Role.h>
-#include <Dice.h>
+class Dice;
+class Entity;
+struct StatusCount;
+class Role;
+class Enemy;
 
 struct StatusCount {
 	uint8_t poisoned;

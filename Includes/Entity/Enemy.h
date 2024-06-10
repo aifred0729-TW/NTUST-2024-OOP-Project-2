@@ -12,6 +12,8 @@
 
 #include <Interactive.h>
 
+#include "Entity.h"
+
 class Enemy : public Entity, public Interactive {
 private:
     std::pair<uint32_t, uint32_t> position;

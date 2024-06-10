@@ -8,23 +8,23 @@
 #include <string>
 #include <utility>
 #include <vector>
+
 #include "Entity.h"
-#include "Backpack.h"
-#include "Equipment.h"
-#include "EquipmentTable.h"
+
+class Backpack;
 
 class Role : public Entity {
 private:
     uint8_t movementPoint;
     uint32_t step;
     std::pair<uint32_t, uint32_t> position;
-    uint16_t money;
+    static uint16_t money;
 public:
     static Backpack backpack;
+
     Role();  // Default constructor
     Role(std::string name);  // Constructor with name (Role Name
     Role(std::string name, int x, int y);
-
 
     void SetMovementPoint(const uint8_t);
     void SetStep(const uint32_t);

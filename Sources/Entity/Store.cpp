@@ -1,6 +1,7 @@
 ﻿#include "../../Includes/Entity/Store.h"
 #include "ItemTable.h"
 #include "Displayer.h"
+#include "Backpack.h"
 
 // Public
 

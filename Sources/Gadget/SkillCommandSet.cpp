@@ -1,4 +1,8 @@
 ﻿#include "../../Includes/Gadget/SkillCommandSet.h"
+#include "Entity.h"
+#include "Enemy.h"
+#include "Role.h"
+#include "Equipment.h"
 
 void AttackCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto casterWeapon = caster.GetEquipment().GetWeapon();

@@ -4,6 +4,7 @@
 #include "Includes/Gadget/EquipmentTable.h"
 #include "Includes/Gadget/SkillTable.h"
 #include "Includes/Display/UI.h"
+#include "Backpack.h"
 #include "Field.h"
 #include <Color.h>
 #include <WorldMap.h>
@@ -15,8 +16,8 @@
 #include <string>
 
 int main() {
-	Game G;
-	G.MainProcess();
+    Game G;
+    //G.MainProcess();
 
     UI::checkConsoleSize(50, 180);
     //UI::ShowMenu();
@@ -24,32 +25,30 @@ int main() {
 
     //system("Pause");
     system("CLS");
-	Role hero("hero");
-	Enemy dragon("dragon");
+    Role hero("hero", 1, 1);
+    Enemy dragon("dragon", 2, 2);
 
-	Role profPao("鮑興國");
-	Role myWife("砂狼白子我婆");
-	Enemy porfDai("戴文凱");
-	Enemy tonya("Tonya");
-	// 新增物品到包包裡面
-	profPao.addItemToBackpack("MagicWand");
-	profPao.addItemToBackpack("Hammer");
-	// 從包包裡使用物品 
-	hero.backpack.useItem("MagicWand", hero);
-	// 從包包裡使用物品(第二種實作方法
-	hero.useItemFromBackpack("MagicWand");
-	hero.backpack.useItem("Hammer", hero);
-	hero.backpack.useItem("MagicWand", hero);
+    Role profPao("鮑興國", 3, 3);
+    Role myWife("砂狼白子我婆", 4, 4);
+    Enemy porfDai("戴文凱", 5, 5);
+    Enemy tonya("Tonya", 6, 6);
+    // 新增物品到包包裡面
+    profPao.addItemToBackpack("MagicWand");
+    profPao.addItemToBackpack("Hammer");
+    // 從包包裡使用物品 
+    hero.backpack.useItem("MagicWand", hero);
+    // 從包包裡使用物品(第二種實作方法
+    hero.useItemFromBackpack("MagicWand");
+    hero.backpack.useItem("Hammer", hero);
+    hero.backpack.useItem("MagicWand", hero);
 
-	profPao.equipForce("Hammer");
-	myWife.equipForce("RitualSword");
+    profPao.equipForce("Hammer");
+    myWife.equipForce("RitualSword");
 
-	profPao.GetAttribute().SetMaxFocus(20);
-	profPao.GetAttribute().SetFocus(20);
+    profPao.GetAttribute().SetMaxFocus(20);
+    profPao.GetAttribute().SetFocus(20);
 
-
-
-	//Process::HandlePreBattle({ &dragon , &porfDai  , &tonya }, { &hero ,&profPao  , &myWife });
+    //Process::HandlePreBattle({ &dragon , &porfDai  , &tonya }, { &hero ,&profPao  , &myWife });
 
     WorldMap::SetEnemys({ &dragon ,&porfDai ,&tonya });
     WorldMap::SetRoles({ &hero ,&profPao ,&myWife });
