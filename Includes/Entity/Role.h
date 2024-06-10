@@ -30,7 +30,10 @@ public:
     void SetStep(const uint32_t);
     void SetPosition(const std::pair<uint32_t, uint32_t>&);
     static void SetMoney(const uint16_t);
-    
+
+    int movePos(int x, int y);
+    int movePos(std::pair<int, int>);
+
     uint8_t GetMovementPoint() const;
     uint32_t GetStep() const;
     std::pair<uint32_t, uint32_t> GetPosition() const;

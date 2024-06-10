@@ -6,6 +6,7 @@
 #include "Backpack.h"
 #include "Equipment.h"
 #include "EquipmentTable.h"
+#include "WorldMap.h"
 
 Backpack Role::backpack;
 uint16_t Role::money = 0;
@@ -112,4 +113,19 @@ std::pair<uint32_t, uint32_t> Role::GetPosition(void) const {
 
 uint16_t Role::GetMoney(void) {
     return Role::money;
+}
+
+int Role::movePos(int x, int y) {
+    auto Rect = WorldMap::GetRect({ (int)(position.first + x), (int)(position.second + y) });
+    if (Rect.moveable) {
+        position.first = position.first + x;
+        position.second = position.second + y;
+    }
+    else {
+        return -1;
+    }
+    return 0;
+}
+int Role::movePos(std::pair<int, int> pos) {
+    return movePos(pos.first, pos.second);
 }

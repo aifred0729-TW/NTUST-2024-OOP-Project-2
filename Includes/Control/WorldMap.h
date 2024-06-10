@@ -22,6 +22,7 @@ struct Rect {
     std::vector<Enemy*> enemys; // 地塊上的敵人
     std::vector<Role*> roles; // 地塊上的角色
     std::vector<Store*> stores; // 地塊上的商店
+    bool moveable;
 };
 
 namespace WorldMap {

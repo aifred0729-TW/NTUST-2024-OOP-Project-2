@@ -193,6 +193,12 @@ Rect WorldMap::GetRect(std::pair<int, int > pos) {
             output.stores.push_back(S);
         }
     }
+    if (output.terrain == 1) {
+        output.moveable = true;
+    }
+    else {
+        output.moveable = false;
+    }
     return output;
 }
 
