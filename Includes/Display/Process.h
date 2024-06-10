@@ -1,15 +1,11 @@
 ﻿#ifndef PROCESS_H
 #define PROCESS_H
 
-#include <Entity.h>
-#include <Store.h>
-#include <Interactive.h>
-#include <Dice.h>
-#include <Field.h>
+#include <vector>
 
 class Dice;
 class Role;
-class WorldMap;
+class Enemy;
 class Field;
 class Store;
 class Entity;
@@ -34,27 +30,7 @@ public:
     //隸屬於技能目標選取的專注模擬器
     static std::vector<Entity*> targetChoiceSimulator(std::vector<Enemy*>enemys, std::vector<Role*>roles, Role* caster, int TargetType);
 
-    // Handle Display Menu
-    int HandleMemu(void);
-
-    // Handle Display Backpack
-    int Handle(std::vector<std::pair<int, int>>*);
-
-    // Handle Display Dice
-    int Handle(std::vector<Dice*>);
-
-    // Handle Display Information of Roles
-    int Handle(std::vector<Entity*>);
-
-    // Handle Display Battle Status
-    int Handle(Field*);
-
-    // Handle Display Shops
-    int Handle(Store*);
-
-    // Handle Display Interactive Objects
-    int Handle(Interactive*);
-
+    static int worldMapViewSimulator();
     // ...
 };
 

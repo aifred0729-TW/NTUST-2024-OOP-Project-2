@@ -1,4 +1,5 @@
-﻿#include "Role.h"
+﻿#include "../../Includes/Entity/Role.h"
+#include <Entity.h>
 #include "ItemTable.h"
 // #include "Backpack.h"
 
@@ -14,8 +15,17 @@ Role::Role(std::string name) {
     SetMovementPoint(0);
     SetStep(0);
     SetPosition({ 0, 0 });
-    SetMode(ROLE);
-    SetMoney(800);
+    SetFaction(0);
+}
+
+Role::Role(std::string name, int x, int y) {
+    SetName(name);
+    SetPack(Item());
+    SetMovementPoint(0);
+    SetStep(0);
+    SetPosition({ x, y });
+    SetFaction(0);
+
 }
 
 void Role::equip(const std::string& name) {

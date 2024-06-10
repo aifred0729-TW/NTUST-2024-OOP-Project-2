@@ -5,6 +5,11 @@
 #include <Dice.h>
 #include <Field.h>
 
+#include "ConstData.h"
+#include "Displayer.h"
+#include "Color.h"
+#include "WorldMap.h"
+
 // Public
 
 using namespace Displayer;
@@ -256,4 +261,137 @@ void UI::PlayerFrame(std::vector<int> vec) {
     for (auto index : vec) {
         BuildHollowFrame(table[index].first, table[index].second, table[index].first + 58, table[index].second + 7);
     }
+}
+
+void UI::PreWorldMap(std::vector<Role*> roles) {
+    BuildFrame(0, 0, 179, 49);
+    BuildHollowFrame(121, 0, 179, 49);
+    BuildHollowFrame(121, 28, 179, 35); // 玩家框
+    BuildHollowFrame(121, 35, 179, 42); // 玩家框
+    BuildHollowFrame(121, 42, 179, 49); // 玩家框
+    BuildHollowFrame(0, 0, 121, 5); // 上欄
+    moveCursor(0, 46);
+    BuildFrame(121, 28, 179, 35);
+    BuildFrame(121, 35, 179, 42);
+    BuildFrame(121, 42, 179, 49);
+
+    std::cout << BG_WHITE;
+    UI::displayMapGrid();
+    //UI::BuildVoid(1, 5, 120, 49);
+    for (int i = 0; i < roles.size(); i++) {
+        displayPlayerInfo(121, 28 + i * 7, roles[i]);
+    }
+
+    PrintWorldMap();
+}
+
+// 這是為了效能才會寫這麼醜
+void UI::PrintWorldMap() {
+    using namespace WorldMap;
+    std::string colorLast;
+    int H = WorldMap::getHeight();
+    int W = WorldMap::getWidth();
+    for (int c = 4; c >= 0; c--) {
+        std::cout << getColorBoard()[c];
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 15; j++) {
+                int x = j + getPos().first - 7;
+                int y = i + getPos().second - 5;
+                if (x < 0 || x >= W || y < 0 || y >= H) {
+                    if (c == 0) {
+                        for (int ii = 0; ii < 3; ii++) {
+                            moveCursor(2 + j * 8, 6 + i * 4 + ii);
+                            std::cout << "      ";
+                        }
+                    }
+                    continue;
+                }
+                if (getMap()[y][x] != c)
+                    continue;
+                for (int ii = 0; ii < 3; ii++) {
+                    moveCursor(2 + j * 8, 6 + i * 4 + ii);
+                    std::cout << "      ";
+                }
+
+            }
+        }
+    }
+    std::cout << BG_BRIGHT_RED;
+    for (auto E : WorldMap::enemys) {
+        if (WorldMap::VisibleOnMap(E->GetPosition())) {
+            int x = E->GetPosition().first - pos.first + 7;
+            int y = E->GetPosition().second - pos.second + 5;
+            for (int ii = 0; ii < 3; ii++) {
+                moveCursor(2 + x * 8, 6 + y * 4 + ii);
+                std::cout << "      ";
+            }
+        }
+    }
+    std::cout << BG_BRIGHT_CYAN;
+    for (auto R : WorldMap::roles) {
+        if (WorldMap::VisibleOnMap(R->GetPosition())) {
+            int x = R->GetPosition().first - pos.first + 7;
+            int y = R->GetPosition().second - pos.second + 5;
+            for (int ii = 0; ii < 3; ii++) {
+                moveCursor(2 + x * 8, 6 + y * 4 + ii);
+                std::cout << "      ";
+            }
+        }
+    }
+
+    moveCursor(0, 0);
+    std::cout << RESET;
+}
+
+void UI::distanceDisplay(int x, int y, int distance) {
+    if (distance < 0) {
+        return;
+    }
+    using namespace std;
+    // static int dlog = 0;
+    // static int xlog = 0;
+    // static int ylog = 0;
+    int x1 = (x + 7) * 8;
+    int y1 = (y + 5) * 4 + 5;
+    int d1 = distance;
+    int x2, y2;
+    for (int i = 0; i <= d1; i++) {
+        x2 = x1 - 8 * (d1 - i);
+        y2 = y1 - i * 4;
+        printOnMap(x2 + 2, y2, "      ");
+        printOnMap(x2, y2, "  ");
+        printOnMap(x2 + 8, y2, "  ");
+        for (int k = 1; k <= 3; k++) {
+            printOnMap(x2, y2 + k, "  ");
+        }
+
+        x2 = x1 + 8 * (d1 - i);
+        y2 = y1 - i * 4;
+        printOnMap(x2 + 2, y2, "      ");
+        printOnMap(x2, y2, "  ");
+        printOnMap(x2 + 8, y2, "  ");
+        for (int k = 1; k <= 3; k++) {
+            printOnMap(x2 + 8, y2 + k, "  ");
+        }
+
+        x2 = x1 - 8 * (d1 - i);
+        y2 = y1 + 4 + i * 4;
+        printOnMap(x2 + 2, y2, "      ");
+        printOnMap(x2, y2, "  ");
+        printOnMap(x2 + 8, y2, "  ");
+        for (int k = 1; k <= 3; k++) {
+            printOnMap(x2, y2 - k, "  ");
+        }
+
+        x2 = x1 + 8 * (d1 - i);
+        y2 = y1 + 4 + i * 4;
+        printOnMap(x2 + 2, y2, "      ");
+        printOnMap(x2, y2, "  ");
+        printOnMap(x2 + 8, y2, "  ");
+        for (int k = 1; k <= 3; k++) {
+            printOnMap(x2 + 8, y2 + k - 4, "  ");
+        }
+    }
+    //distanceDisplay(x, y, distance - 1);
+    cout << RESET;
 }

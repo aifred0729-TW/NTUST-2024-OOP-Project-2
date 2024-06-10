@@ -3,6 +3,9 @@
 #include <Enemy.h>
 #include <Entity.h>
 #include <Dice.h> //待確認
+#include <Attribute.h>
+#include <KeyBoard.h>
+#include "Color.h"
 
 //移動光標
 void Displayer::moveCursor(int x, int y) {
@@ -206,7 +209,8 @@ void Displayer::displayDice(int count, int focus) {
     for (int i = 0; i < count; i++) {
         if (focus > i) {
             std::cout << YELLOW;
-        }else{
+        }
+        else {
             std::cout << DARK << WHITE;
         }
         displayFile("Dice03.txt", x1, y);
@@ -269,6 +273,27 @@ void Displayer::displayPlayerInfo(int x, int y, Enemy* enemy) {
     cout << "   MD: " << std::setw(2) << std::setfill('0') << att.GetMD();
     cout << "   SPD: " << std::setw(2) << std::setfill('0') << att.GetSPD();
     cout << "   ACC: " << std::setw(2) << std::setfill('0') << att.GetACC();
+}
+
+void Displayer::displayPlayerInfo(int x, int y, std::vector<Entity*> entitys) {
+    using namespace std;
+    for (int i = 0; i < entitys.size(); i++) {
+        Attribute att = entitys[i]->GetTotalAttribute();
+        BuildVoid(x, y, x + 58, y + 6 + 6*i);
+        moveCursor(x + 3, y + 2 + 6 * i);
+        cout << "Player: ";
+        cout << entitys[i]->GetName();
+        moveCursor(x + 3, y + 3 + 6 * i);
+        cout << "HP:  " << att.GetHP() << " / " << att.GetMaxHP() << " ";
+        cout << HpDisplayer(att.GetHP(), att.GetMaxHP());
+        moveCursor(x + 3, y + 4 + 6 * i);
+        cout << "PA: " << setw(2) << setfill('0') << att.GetPA();
+        cout << "   PD: " << setw(2) << setfill('0') << att.GetPD();
+        cout << "   MA: " << setw(2) << setfill('0') << att.GetMA();
+        cout << "   MD: " << setw(2) << setfill('0') << att.GetMD();
+        cout << "   SPD: " << setw(2) << setfill('0') << att.GetSPD();
+        cout << "   ACC: " << setw(2) << setfill('0') << att.GetACC();
+    }
 }
 
 void Displayer::displayPlayerInfo(int x, int y, Entity* entity) {
@@ -420,4 +445,28 @@ std::pair<std::string, int> Displayer::makeChoice(std::vector<Active> choices, i
         }
     }
     //return "-1";
+}
+
+void Displayer::printOnMap(int x, int y, std::string str) {
+    if (!(x < 2 || x > 119 || y < 6 || y > 48)) {
+        moveCursor(x, y);
+        std::cout << str;
+    }
+}
+
+void Displayer::displayMapGrid() {
+    for (int i = 0; i < 10; i++) {
+        moveCursor(2, 9 + 4 * i);
+        for (int j = 0; j < 118; j++) {
+            std::cout << " ";
+        }
+    }
+    for (int i = 0; i < 14; i++) {
+        moveCursor(8 + 8 * i, 9);
+        for (int j = 0; j < 43; j++) {
+            moveCursor(8 + 8 * i, 6 + j);
+            std::cout << "  ";
+        }
+    }
+    std::cout << RESET;
 }

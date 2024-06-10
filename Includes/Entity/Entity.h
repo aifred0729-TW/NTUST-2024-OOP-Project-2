@@ -15,52 +15,55 @@
 class Active;
 
 class Entity {
-protected:
-	std::string        name;            // Role Name
-	Attribute          attribute;       // Attribute
-	Skill              skill;           // Skill
-	Equipment          equipment;	    // Equipment
-	Dice               dice;            // Dice
-	uint8_t            status;          // Role Status
-	uint8_t            eventID;         // Current Event
-	uint8_t            mode;           // Mode, Role = 0, Enemy = 1
+private:
+    std::string        name;            // Role Name
+    Attribute          attribute;       // Attribute
+    Skill              skill;           // Skill
+    Equipment          equipment;	    // Equipment
+    Dice               dice;            // Dice
+    uint8_t            status;          // Role Status
+    uint8_t            eventID;         // Current Event
+    bool               faction;         // 0:ROLE 1:ENEMY
+
 
 public:
-	Entity();
-	Entity(std::string name);
+    Entity();
+    Entity(std::string name);
+    Entity(std::string name, bool faction);
 
-	void SetName(const std::string&);
-	void SetAttribute(const Attribute&);
-	void SetSkill(const Skill&);
-	void SetEquipment(const Equipment&);
-	void SetDice(const Dice&);
-	void SetStatus(const uint8_t);
-	void SetEventID(const uint8_t);
-	void SetMode(const uint8_t);
+    void SetName(const std::string&);
+    void SetAttribute(const Attribute&);
+    void SetSkill(const Skill&);
+    void SetEquipment(const Equipment&);
+    void SetDice(const Dice&);
+    void SetStatus(const uint8_t);
+    void SetEventID(const uint8_t);
+    void SetFaction(const bool);
 
-	std::string         GetName(void);
-	Attribute&          GetAttribute(void);
-	Skill&              GetSkill(void);
-	Equipment           GetEquipment(void);
-	Dice&               GetDice(void);
-	uint8_t             GetStatus(void);
-	uint8_t             GetEventID(void);
-	uint8_t             GetMode(void);
-	Attribute           GetTotalAttribute(void);
-	Skill               GetTotalSkill(void);
+    std::string         GetName(void);
+    Attribute& GetAttribute(void);
+    Skill& GetSkill(void);
+    Equipment           GetEquipment(void);
+    Dice& GetDice(void);
+    uint8_t             GetStatus(void);
+    uint8_t             GetEventID(void);
 
+    Attribute           GetTotalAttribute(void);
+    Skill               GetTotalSkill(void);
 public:
-	// Find the Enemy in Range
-	bool isInRange(std::vector<Entity*>);
-	// 直接強制用set套上裝備，沒有在跟你把裝備拿下來的
-	void equipForce(std::string equipmentName);
-	void unEquipForce(std::string equipmentName);
-	// 主動技能實做
-	void useActive(std::string skillName, std::vector<Entity*> targets);
-	// 計算經過一切計算後受到的傷害(直接傳原始傷害進來就好)
-	void takeDamage(int16_t damage, char attackType);
-	// 直接受到的治療數值
-	void heal(int16_t heal);
+    // Find the Enemy in Range
+    bool isInRange(std::vector<Entity*>);
+    // Equip and UnEquip Weapon and Armor
+    // 需要和物品欄結合才算完成
+    void equip(std::string equipmentName);
+    void unEquip(std::string equipmentName);
+    // 主動技能實做
+    void useActive(std::string skillName, std::vector<Entity*> targets);
+    // 計算經過一切計算後受到的傷害(直接傳原始傷害進來就好)
+    void takeDamage(int16_t damage, char attackType);
+    // 直接受到的治療數值
+    void heal(int16_t heal);
+
 };
 
 #endif

@@ -22,7 +22,6 @@
 class Game {
 private:
     std::vector<Role*> movePriority; // Priority of Character Movement
-    WorldMap* worldMap;              // Map
 
 private:
     int Move(void);
@@ -41,6 +40,7 @@ public:
 
     bool checkIsOnShop();
     bool checkIsOnEnemy();
+
 
 public:
     // Game Main Process

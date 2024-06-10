@@ -22,7 +22,9 @@ private:
 public:
     static Backpack backpack;
     Role();  // Default constructor
-    Role(std::string name);  // Constructor with name (Role Name)
+    Role(std::string name);  // Constructor with name (Role Name
+    Role(std::string name, int x, int y);
+
 
     void SetMovementPoint(const uint8_t);
     void SetStep(const uint32_t);

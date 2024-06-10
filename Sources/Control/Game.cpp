@@ -1,5 +1,8 @@
 ﻿#include "../../Includes/Control/Game.h"
 
+#include <WorldMap.h>
+#include <Role.h>
+
 // Private
 
 int Game::Move(void) {

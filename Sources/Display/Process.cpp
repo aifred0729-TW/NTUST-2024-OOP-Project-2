@@ -2,6 +2,15 @@
 
 #include <skill.h>
 #include <Entity.h>
+#include <Entity.h>
+#include <Store.h>
+#include <Interactive.h>
+#include <Dice.h>
+#include <Field.h>
+#include <KeyBoard.h>
+#include <color.h>
+#include <Displayer.h>
+#include <WorldMap.h>
 
 int Process::HandlePreBattle(std::vector<Enemy*> enemys, std::vector<Role*> roles) {
     UI::PreBattle(enemys, roles);
@@ -144,30 +153,71 @@ std::vector<Entity*> Process::targetChoiceSimulator(std::vector<Enemy*>enemys, s
     return targetPtr[targetNumber];
 }
 
-int Process::HandleMemu(void) {
-    return 0;
-}
+int Process::worldMapViewSimulator() {
+    bool keyState[KeyBoard::INVALID];
+    bool distanceDisplayWork = 0;
+    while (1) {
+        KeyBoard::keyUpdate(keyState);
+        if (keyState[KeyBoard::EW]) {
+            WorldMap::movePos(0, -1);
+        }
+        else if (keyState[KeyBoard::EA]) {
+            WorldMap::movePos(-1, 0);
+        }
+        else if (keyState[KeyBoard::ES]) {
+            WorldMap::movePos(0, 1);
+        }
+        else if (keyState[KeyBoard::ED]) {
+            WorldMap::movePos(1, 0);
+        }
+        else if (keyState[KeyBoard::ESPACE] || keyState[KeyBoard::EENTER]) {
+        }
+        else if (keyState[KeyBoard::EESC]) {
+        }
+        else {
+            continue;
+        }
 
-int Process::Handle(std::vector<std::pair<int, int>>*) {
-    return 0;
-}
+        if (distanceDisplayWork == 1) {
+            std::cout << BG_WHITE;
+            UI::displayMapGrid();
+            distanceDisplayWork = 0;
+        }
 
-int Process::Handle(std::vector<Dice*>) {
-    return 0;
-}
+        UI::PrintWorldMap();
+        if (!WorldMap::GetRect().enemys.empty() || !WorldMap::GetRect().roles.empty()) {
 
-int Process::Handle(std::vector<Entity*>) {
-    return 0;
-}
+            UI::BuildHollowFrame(121, 0, 179, 28);
 
-int Process::Handle(Field*) {
-    return 0;
-}
+            std::vector<Entity*> entitysToDisplay;
+            if (!WorldMap::GetRect().enemys.empty()) {
+                distanceDisplayWork = 1;
+                std::cout << BG_WHITE;
+                UI::displayMapGrid();
+                std::cout << BG_BRIGHT_RED;
+                UI::distanceDisplay(0, 0, 3);
+                for (auto E : WorldMap::GetRect().enemys) {
+                    entitysToDisplay.push_back(E);
+                }
+            }
+            else if (!WorldMap::GetRect().roles.empty()) {
+                distanceDisplayWork = 1;
+                std::cout << BG_WHITE;
+                UI::displayMapGrid();
+                std::cout << BG_BRIGHT_CYAN;
+                UI::distanceDisplay(0, 0, 3);
+                for (auto R : WorldMap::GetRect().roles) {
+                    entitysToDisplay.push_back(R);
+                }
+            }
+            UI::displayPlayerInfo(121, 0, entitysToDisplay);
+        }
+        else {
+            std::cout << BG_BRIGHT_CYAN;
+            UI::distanceDisplay(0, 0, 0);
+        }
 
-int Process::Handle(Store*) {
-    return 0;
-}
-
-int Process::Handle(Interactive*) {
+        //UI::renewPlayerInfo();
+    }
     return 0;
 }

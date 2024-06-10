@@ -9,16 +9,12 @@
 #include <string>
 #include <vector>
 #include <windows.h>
-
-#include <Attribute.h>
-
-#include "ConstData.h"
 #include "Displayer.h"
-#include "Color.h"
+#include <Attribute.h>
 
 class Dice;
 class Role;
-class WorldMap;
+class Enemy;
 class Field;
 class Store;
 class Entity;
@@ -27,7 +23,6 @@ class Action;
 
 namespace UI {
     using namespace Displayer;
-
     //std::stack<std::vector<std::vector<char>>> prevPicture;
     //WorldMap* worldMapPoac;
     //Field* fieldPointer;
@@ -81,8 +76,12 @@ namespace UI {
     void PlayerFrame(int);
     void PlayerFrame(std::vector<int>);
 
-    //進行回合框 初始化
+    //地圖階段
+    void PreWorldMap(std::vector<Role*>);
 
+    void PrintWorldMap();
+
+    void distanceDisplay(int , int , int);
     // ...
 };
 
