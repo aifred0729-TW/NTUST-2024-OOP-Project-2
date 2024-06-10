@@ -19,37 +19,30 @@ void Role::equip(const std::string& name) {
         if (this->equipment.GetWeapon().GetName() != "BareHand")
             addItemToBackpack(equipment.GetWeapon().GetName());
         this->equipment.SetWeapon(EquipmentTable::weaponMap[name]);
-        return;
     } else if (EquipmentTable::armorMap.find(name) != EquipmentTable::armorMap.end()) {
         if (this->equipment.GetArmor().GetName() != "BareBody")
             addItemToBackpack(equipment.GetArmor().GetName());
         this->equipment.SetArmor(EquipmentTable::armorMap[name]);
-        return;
     } else if (EquipmentTable::accessoryMap.find(name) != EquipmentTable::accessoryMap.end()) {
         if (this->equipment.GetAccessory().GetName() != "BareAccessory")
             addItemToBackpack(equipment.GetAccessory().GetName());
         this->equipment.SetAccessory(EquipmentTable::accessoryMap[name]);
-        return;
     }
-    UI::renewPlayerInfo();
+    renewPlayer();
 }
 
 void Role::unEquip(const std::string& name) {
     if (this->GetEquipment().GetArmor().GetName() == name) {
         addItemToBackpack(equipment.GetArmor().GetName());
         this->equipment.SetArmor(EquipmentTable::armorMap.find("BareBody")->second);
-        return;
     } else if (this->GetEquipment().GetWeapon().GetName() == name) {
         addItemToBackpack(equipment.GetWeapon().GetName());
         this->equipment.SetWeapon(EquipmentTable::weaponMap.find("BareHand")->second);
-        return;
     } else if (this->GetEquipment().GetAccessory().GetName() == name) {
         addItemToBackpack(equipment.GetAccessory().GetName());
         this->equipment.SetAccessory(EquipmentTable::accessoryMap.find("BareAccessory")->second);
-        return;
-    } else {
-        std::cerr << "Equipment " << name << " not found!" << std::endl;
     }
+    renewPlayer();
 }
 
 void Role::addItemToBackpack(const std::string& name) {

@@ -29,7 +29,7 @@ Attribute EquipmentBase::GetAttribute() const {
 	return attribute;
 }
 
-Skill EquipmentBase::GetSkill() const {
+Skill& EquipmentBase::GetSkill() {
 	return skill;
 }
 

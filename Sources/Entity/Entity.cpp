@@ -16,6 +16,7 @@ Entity::Entity() {
     equipForce("BareAccessory");
     status = 0;
     eventID = 0;
+    renewPlayer();
 }
 
 Entity::Entity(std::string name) : Entity() {
@@ -23,15 +24,14 @@ Entity::Entity(std::string name) : Entity() {
 }
 
 void Entity::useActive(std::string skillName, std::vector<Entity*> target) {
-    Skill combinedSkill = GetTotalSkill();
-    for (auto active : combinedSkill.GetActive()) {
+    for (auto& active : totalSkill.GetActive()) {
         if (active.GetName() == skillName) {
+            active.SetTick(active.GetCoolDown());
             active.apply(*this, target);
             UI::renewPlayerInfo();
             return;
         }
     }
-    std::cerr << "Skill " << skillName << " not found in active skills!" << std::endl;
 }
 
 void Entity::takeDamage(int16_t damage, char attackType) {
@@ -40,6 +40,7 @@ void Entity::takeDamage(int16_t damage, char attackType) {
     damage = static_cast<int16_t>((double)damage * (1 - absorption));
     int16_t damageTaken = GetTotalAttribute().GetHP() - damage;
     attribute.SetHP(damageTaken > 0 ? damageTaken : 0);
+    totalAttribute = attribute;
 
     std::string outputStr;
     std::stringstream outputSs;
@@ -49,11 +50,14 @@ void Entity::takeDamage(int16_t damage, char attackType) {
         UI::logEvent( name + " is dead! 喔不!!" );
         status |= DEAD;
     }
+
 }
 
 void Entity::heal(int16_t heal) {
     int16_t healTaken = GetTotalAttribute().GetHP() + heal;
     attribute.SetHP(healTaken < GetTotalAttribute().GetMaxHP() ? healTaken : GetTotalAttribute().GetMaxHP());
+    totalAttribute = attribute;
+
     std::string outputStr;
     std::stringstream outputSs;
     outputSs << name << " 受到了 " << heal << " 點治療！，當前HP為 " << attribute.GetHP() << " !" << std::endl;
@@ -61,113 +65,40 @@ void Entity::heal(int16_t heal) {
     UI::logEvent(outputStr);
 }
 
+void Entity::renewPlayer(void) {
+    totalAttribute = attribute;
+    totalAttribute += equipment.GetArmor().GetAttribute();
+    totalAttribute += equipment.GetWeapon().GetAttribute();
+    totalAttribute += equipment.GetAccessory().GetAttribute();
+
+    totalSkill = skill;
+    totalSkill += equipment.GetArmor().GetSkill();
+    totalSkill += equipment.GetWeapon().GetSkill();
+    totalSkill += equipment.GetAccessory().GetSkill();
+}
+
 void Entity::equipForce(std::string equipmentName) {
     if (EquipmentTable::weaponMap.find(equipmentName) != EquipmentTable::weaponMap.end()) {
         this->equipment.SetWeapon(EquipmentTable::weaponMap[equipmentName]);
-        return;
-    }
-    else if (EquipmentTable::armorMap.find(equipmentName) != EquipmentTable::armorMap.end()) {
+    } else if (EquipmentTable::armorMap.find(equipmentName) != EquipmentTable::armorMap.end()) {
         this->equipment.SetArmor(EquipmentTable::armorMap[equipmentName]);
-        return;
-    }
-    else if (EquipmentTable::accessoryMap.find(equipmentName) != EquipmentTable::accessoryMap.end()) {
+    } else if (EquipmentTable::accessoryMap.find(equipmentName) != EquipmentTable::accessoryMap.end()) {
         this->equipment.SetAccessory(EquipmentTable::accessoryMap[equipmentName]);
-        return;
     }
-    else {
-        std::cerr << "Equipment " << equipmentName << " not found!" << std::endl;
-    }
-    UI::renewPlayerInfo();
+    renewPlayer();
 }
 
 void Entity::unEquipForce(std::string equipmentName) {
     if (this->GetEquipment().GetArmor().GetName() == equipmentName) {
         this->equipment.SetArmor(EquipmentTable::armorMap.find("BareBody")->second);
-        return;
-    }
-    else if (this->GetEquipment().GetWeapon().GetName() == equipmentName) {
+    } else if (this->GetEquipment().GetWeapon().GetName() == equipmentName) {
         this->equipment.SetWeapon(EquipmentTable::weaponMap.find("BareHand")->second);
-        return;
-    }
-    else if (this->GetEquipment().GetAccessory().GetName() == equipmentName) {
+    } else if (this->GetEquipment().GetAccessory().GetName() == equipmentName) {
         this->equipment.SetAccessory(EquipmentTable::accessoryMap.find("BareAccessory")->second);
-        return;
     }
-    else {
-        std::cerr << "Equipment " << equipmentName << " not found!" << std::endl;
-    }
-}
-
-Attribute Entity::GetTotalAttribute(void) {
-    Attribute totalAttribute;
-    totalAttribute += this->attribute;
-    totalAttribute += equipment.GetTotalAttribute();
-    return totalAttribute;
-}
-
-Skill Entity::GetTotalSkill(void) {
-    Skill fuck;
-    fuck += this->skill;
-    fuck += equipment.GetTotalSkills();
-    return fuck;
+    renewPlayer();
 }
 
 bool Entity::isInRange(std::vector<Entity*>) {
     return 0;
-}
-
-void Entity::SetName(const std::string& name) {
-    this->name = name;
-}
-
-void Entity::SetAttribute(const Attribute& attribute) {
-    this->attribute = attribute;
-}
-
-void Entity::SetSkill(const Skill& skill) {
-    this->skill = skill;
-}
-
-void Entity::SetEquipment(const Equipment& equipment) {
-    this->equipment = equipment;
-}
-
-void Entity::SetDice(const Dice& dice) {
-    this->dice = dice;
-}
-
-void Entity::SetStatus(const uint8_t status) {
-    this->status = status;
-}
-
-void Entity::SetEventID(const uint8_t eventID) {
-    this->eventID = eventID;
-}
-
-std::string Entity::GetName(void) {
-    return name;
-}
-
-Attribute& Entity::GetAttribute(void) {
-    return attribute;
-}
-
-Skill& Entity::GetSkill(void) {
-    return skill;
-}
-
-Dice& Entity::GetDice(void) {
-    return dice;
-}
-
-Equipment Entity::GetEquipment(void) {
-    return equipment;
-}
-
-uint8_t   Entity::GetStatus(void) {
-    return status;
-}
-
-uint8_t   Entity::GetEventID(void) {
-    return eventID;
 }

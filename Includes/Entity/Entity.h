@@ -18,7 +18,9 @@ class Entity {
 protected:
 	std::string        name;            // Role Name
 	Attribute          attribute;       // Attribute
+	Attribute          totalAttribute;  // Total Attribute
 	Skill              skill;           // Skill
+	Skill              totalSkill;      // Total Skill
 	Equipment          equipment;	    // Equipment
 	Dice               dice;            // Dice
 	uint8_t            status;          // Role Status
@@ -28,24 +30,27 @@ public:
 	Entity();
 	Entity(std::string name);
 
-	void SetName(const std::string&);
-	void SetAttribute(const Attribute&);
-	void SetSkill(const Skill&);
-	void SetEquipment(const Equipment&);
-	void SetDice(const Dice&);
-	void SetStatus(const uint8_t);
-	void SetEventID(const uint8_t);
+	void SetName(const std::string& name) { this->name = name; }
+	void SetAttribute(const Attribute& attribute) { this->attribute = attribute; }
+	void SetSkill(const Skill& skill) { this->skill = skill; }
+	void SetEquipment(const Equipment& equipment) { this->equipment = equipment; }
+	void SetDice(const Dice& dice) { this->dice = dice; }
+	void SetStatus(const uint8_t status) { this->status = status; }
+	void SetEventID(const uint8_t eventID) { this->eventID = eventID; }
 
-	std::string         GetName(void);
-	Attribute&          GetAttribute(void);
-	Skill&              GetSkill(void);
-	Equipment           GetEquipment(void);
-	Dice&               GetDice(void);
-	uint8_t             GetStatus(void);
-	uint8_t             GetEventID(void);
+	std::string         GetName(void) { return name; }
+	Attribute&          GetAttribute(void) { return attribute; }
+	Skill&              GetSkill(void) { return skill; }
+	Equipment           GetEquipment(void) { return equipment; }
+	Dice&               GetDice(void) { return dice; }
+	uint8_t             GetStatus(void) { return status; }
+	uint8_t             GetEventID(void) { return eventID; }
 
-	Attribute           GetTotalAttribute(void);
-	Skill               GetTotalSkill(void);
+	Attribute&          GetTotalAttribute(void) { return totalAttribute; }
+	Skill&              GetTotalSkill(void) { return totalSkill; }
+
+	void                renewPlayer(void);
+	void                decreaseTick(void);
 
 public:
 	// Find the Enemy in Range

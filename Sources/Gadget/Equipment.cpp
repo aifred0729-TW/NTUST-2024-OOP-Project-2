@@ -20,7 +20,7 @@ Attribute Equipment::GetTotalAttribute() const {
 	return attribute;
 }
 
-Skill Equipment::GetTotalSkills() const {
+Skill& Equipment::GetTotalSkills() {
 	Skill skill;
 	skill += weapon.GetSkill();
 	skill += armor.GetSkill();

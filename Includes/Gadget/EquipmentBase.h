@@ -20,7 +20,7 @@ public:
 
 	std::string GetName() const;
 	Attribute GetAttribute() const;
-	Skill GetSkill() const;
+	Skill& GetSkill() ;
 };
 
 class Accessory :public EquipmentBase {

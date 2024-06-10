@@ -31,6 +31,8 @@ int main() {
 	// 新增物品到包包裡面
 	profPao.addItemToBackpack("MagicWand");
 	profPao.addItemToBackpack("Hammer");
+	profPao.addItemToBackpack("WoodenShield");
+	profPao.addItemToBackpack("HolyGrail");
 	// 從包包裡使用物品 
 	hero.backpack.useItem("MagicWand", hero);
 	// 從包包裡使用物品(第二種實作方法
@@ -38,7 +40,8 @@ int main() {
 	hero.backpack.useItem("Hammer", hero);
 	hero.backpack.useItem("MagicWand", hero);
 
-	profPao.equipForce("Hammer");
+	profPao.useItemFromBackpack("Hammer");
+	profPao.useItemFromBackpack("WoodenShield");
 	myWife.equipForce("RitualSword");
 
 	profPao.GetAttribute().SetMaxFocus(20);
@@ -52,7 +55,8 @@ int main() {
 	//UI::PreBattle({ &dragon , &porfDai  , &tonya }, { &hero ,&profPao  , &myWife });
 	UI::moveCursor(2, 9);
 
-    Field battle({ &hero ,&profPao , &myWife }, {  &porfDai  , &tonya  ,&dragon });
+    Field battle({ &hero }, { &porfDai });
+    // Field battle({ &hero ,&profPao , &myWife }, {  &porfDai  , &tonya  ,&dragon });
     battle.StartBattle();
 
 	/*

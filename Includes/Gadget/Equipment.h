@@ -28,7 +28,7 @@ public:
 
 public:
     Attribute GetTotalAttribute() const;
-    Skill GetTotalSkills() const;
+    Skill& GetTotalSkills() ;
 };
 
 #endif
