@@ -3,8 +3,7 @@
 void AttackCommand::execute(Entity& caster, std::vector<Entity*> targets, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) {
     auto casterWeapon = caster.GetEquipment().GetWeapon();
     auto cta = caster.GetTotalAttribute();
-
-    int16_t damage = static_cast<int16_t>(cta.GetPA());
+    int16_t damage = casterWeapon.GetAttackType() == 'P' ? static_cast<int16_t>(cta.GetPA()) : static_cast<int16_t>(cta.GetMA());
     UI::logEvent(caster.GetName() + " 的 Attack 理想攻擊力為 " + std::to_string(damage));
 
     auto& casterDice = caster.GetDice();

@@ -35,18 +35,18 @@ void Entity::useActive(std::string skillName, std::vector<Entity*> target) {
 }
 
 void Entity::takeDamage(int16_t damage, char attackType) {
-    int16_t armor = attackType == 'P' ? GetTotalAttribute().GetPD() : GetTotalAttribute().GetMD();
+    int16_t armor = attackType == 'P' ? totalAttribute.GetPD() : totalAttribute.GetMD();
     double absorption = armor / (double)(armor + 50);
     damage = static_cast<int16_t>((double)damage * (1 - absorption));
-    int16_t damageTaken = GetTotalAttribute().GetHP() - damage;
-    attribute.SetHP(damageTaken > 0 ? damageTaken : 0);
-    totalAttribute = attribute;
+    int16_t damageTaken = totalAttribute.GetHP() - damage;
+    totalAttribute.SetHP(damageTaken > 0 ? damageTaken : 0);
+    attribute = totalAttribute;
 
     std::string outputStr;
     std::stringstream outputSs;
-    UI::logEvent(name + " 防禦後受到了 " + std::to_string(damage) + " 點傷害！，當前HP為 " + std::to_string(attribute.GetHP()) + " !");
-    UI::logEvent(std::to_string(GetTotalAttribute().GetHP()) + "/" + std::to_string(GetTotalAttribute().GetMaxHP()));
-    if (attribute.GetHP() == 0) {
+    UI::logEvent(name + " 防禦後受到了 " + std::to_string(damage) + " 點傷害！，當前HP為 " + std::to_string(totalAttribute.GetHP()) + " !");
+    UI::logEvent(std::to_string(totalAttribute.GetHP()) + "/" + std::to_string(totalAttribute.GetMaxHP()));
+    if (totalAttribute.GetHP() == 0) {
         UI::logEvent( name + " is dead! 喔不!!" );
         status |= DEAD;
     }
@@ -54,13 +54,13 @@ void Entity::takeDamage(int16_t damage, char attackType) {
 }
 
 void Entity::heal(int16_t heal) {
-    int16_t healTaken = GetTotalAttribute().GetHP() + heal;
-    attribute.SetHP(healTaken < GetTotalAttribute().GetMaxHP() ? healTaken : GetTotalAttribute().GetMaxHP());
-    totalAttribute = attribute;
+    int16_t healTaken = totalAttribute.GetHP() + heal;
+    totalAttribute.SetHP(healTaken < totalAttribute.GetMaxHP() ? healTaken : totalAttribute.GetMaxHP());
+    attribute = totalAttribute;
 
     std::string outputStr;
     std::stringstream outputSs;
-    outputSs << name << " 受到了 " << heal << " 點治療！，當前HP為 " << attribute.GetHP() << " !" << std::endl;
+    outputSs << name << " 受到了 " << heal << " 點治療！，當前HP為 " << totalAttribute.GetHP() << " !" << std::endl;
     std::getline(outputSs, outputStr);
     UI::logEvent(outputStr);
 }
