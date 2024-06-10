@@ -33,5 +33,4 @@ void Backpack::useItem(const std::string& itemName, Role& role) {
             return;
         }
     }
-    std::cout << "Item not found!" << std::endl;
 }

@@ -1,4 +1,4 @@
-#include <vector>
+ï»¿#include <vector>
 #include <iostream>
 
 #include "ItemCommandSet.h"
@@ -6,19 +6,19 @@
 #include "UI.h"
 
 void GodsbeardCommand::use(Role& role) {
-	UI::logEvent(role.GetName() + "®ø¯Ó¤F Godsbeard ¦^´_¤F 25 ÂI¥Í©R­È¡C");
+	UI::logEvent(role.GetName() + "æ¶ˆè€—äº† Godsbeard å›å¾©äº† 25 é»ç”Ÿå‘½å€¼ã€‚");
 	role.heal(25);
 }
 
 void GoldenRootCommand::use(Role& role) {
-	UI::logEvent(role.GetName() + "®ø¯Ó¤F GoldenRoot ¦^´_¤F 3 ÂI±Mª`¤O¡C");
+	UI::logEvent(role.GetName() + "æ¶ˆè€—äº† GoldenRoot å›å¾©äº† 3 é»å°ˆæ³¨åŠ›ã€‚");
 	role.GetTotalAttribute().SetFocus(role.GetTotalAttribute().GetFocus() + 3);
 }
 
 void TeleportScrollCommand::use(Role& role) {
-	UI::logEvent("Àş¶¡²¾°Ê¡I¡I°Ú«¢");
+	UI::logEvent("ç¬é–“ç§»å‹•ï¼ï¼å•Šå“ˆ");
 }
 
 void TentCommand::use(Role& role) {
-	UI::logEvent("±bÁO¡A©ñ¸m¡I");
+	UI::logEvent("å¸³ç¯·ï¼Œæ”¾ç½®ï¼");
 }

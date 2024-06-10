@@ -1,4 +1,4 @@
-#ifndef ITEMCOMMANDSET_H
+﻿#ifndef ITEMCOMMANDSET_H
 #define ITEMCOMMANDSET_H
 
 #include "ItemCommand.h"

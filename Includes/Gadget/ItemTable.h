@@ -1,4 +1,4 @@
-#ifndef ITEMTABLE_H
+﻿#ifndef ITEMTABLE_H
 #define ITEMTABLE_H
 
 #include <map>
