@@ -20,14 +20,14 @@ int Game::GiveRandomAttribate(void) {
 }
 
 void Game::sortExecutionRole() {
-    for (unsigned int i = roles.size()-1; i > 0; i--) {
+    for (unsigned int i = roles.size() - 1; i > 0; i--) {
         for (unsigned int j = 0; j < i; j++) {
-            Attribute rolesA = roles[j].GetAttribute();
-            Attribute rolesB = roles[j + 1].GetAttribute();
-            if (rolesA.GetSPD() < rolesB.GetSPD()) std::swap(roles[j], roles[j + 1]);
-            else if (rolesA.GetPA() + rolesA.GetMA() < rolesB.GetPA() + rolesB.GetMA()) std::swap(roles[j], roles[j + 1]);
-            else if (rolesA.GetPD() + rolesA.GetMD() < rolesB.GetPD() + rolesB.GetMD()) std::swap(roles[j], roles[j + 1]);
-            else if (rolesA.GetMaxHP() < rolesB.GetMaxHP()) std::swap(roles[j], roles[j + 1]);
+            Attribute rolesA = roles[j]->GetAttribute();
+            Attribute rolesB = roles[(int)j + 1]->GetAttribute();
+            if (rolesA.GetSPD() < rolesB.GetSPD()) std::swap(roles[j], roles[(int)j + 1]);
+            else if (rolesA.GetPA() + rolesA.GetMA() < rolesB.GetPA() + rolesB.GetMA()) std::swap(roles[j], roles[(int)j + 1]);
+            else if (rolesA.GetPD() + rolesA.GetMD() < rolesB.GetPD() + rolesB.GetMD()) std::swap(roles[j], roles[(int)j + 1]);
+            else if (rolesA.GetMaxHP() < rolesB.GetMaxHP()) std::swap(roles[j], roles[(int)j + 1]);
         }
     }
     return;
@@ -40,14 +40,14 @@ void Game::Initialize() {
     EquipmentTable::Initialize();
     ItemTable::Initialize();
     Role Kazusa("杏山千紗", 1, 1);
-    Role Shiorko("砂狼白子", 3, 1);
+    Role Shiroko("砂狼白子", 3, 1);
     Role Hoshino("小鳥游星野", 5, 1);
-    
-    Role& KazusaRef = Kazusa;
-    Role& ShiorkoRef = Shiorko;
-    Role& HoshinoRef = Hoshino;
+
+    Role* KazusaRef = &Kazusa;
+    Role* ShirokoRef = &Shiroko;
+    Role* HoshinoRef = &Hoshino;
     roles.push_back(KazusaRef);
-    roles.push_back(ShiorkoRef);
+    roles.push_back(ShirokoRef);
     roles.push_back(HoshinoRef);
     sortExecutionRole();
 

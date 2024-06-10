@@ -9,6 +9,7 @@
 #include <Color.h>
 #include <WorldMap.h>
 #include "ItemTable.h"
+#include <Store.h>
 
 #include <Process.h>
 #include <Game.h>
@@ -25,33 +26,37 @@ int main() {
 
     //system("Pause");
     system("CLS");
-    Role hero("hero", 1, 1);
-    Enemy dragon("dragon", 2, 2);
 
-    Role profPao("鮑興國", 3, 3);
-    Role myWife("砂狼白子我婆", 4, 4);
-    Enemy porfDai("戴文凱", 5, 5);
-    Enemy tonya("Tonya", 6, 6);
+    Role Kazusa("杏山千紗", 1, 1);
+    Role Shiroko("砂狼白子", 3, 1);
+    Role Hoshino("小鳥游星野", 5, 1);
+
+    Enemy fat_tonya("胖子 - Tonya", 1, 3);
+    Enemy troll_tonya("巨魔 - Tonya", 3, 3);
+    Enemy boomer_tonya("胖子炸彈 - Tonya", 5, 3);
+
+    Store shop1("RB-509 碼田", 1, 5);
     // 新增物品到包包裡面
-    profPao.addItemToBackpack("MagicWand");
-    profPao.addItemToBackpack("Hammer");
+    Kazusa.addItemToBackpack("MagicWand");
+    Kazusa.addItemToBackpack("Hammer");
     // 從包包裡使用物品 
-    hero.backpack.useItem("MagicWand", hero);
+    Shiroko.backpack.useItem("MagicWand", Shiroko);
     // 從包包裡使用物品(第二種實作方法
-    hero.useItemFromBackpack("MagicWand");
-    hero.backpack.useItem("Hammer", hero);
-    hero.backpack.useItem("MagicWand", hero);
+    Shiroko.useItemFromBackpack("MagicWand");
+    Shiroko.backpack.useItem("Hammer", Shiroko);
+    Shiroko.backpack.useItem("MagicWand", Shiroko);
 
-    profPao.equipForce("Hammer");
-    myWife.equipForce("RitualSword");
+    Kazusa.equipForce("Hammer");
+    Hoshino.equipForce("RitualSword");
 
-    profPao.GetAttribute().SetMaxFocus(20);
-    profPao.GetAttribute().SetFocus(20);
+    Kazusa.GetAttribute().SetMaxFocus(20);
+    Kazusa.GetAttribute().SetFocus(20);
 
     //Process::HandlePreBattle({ &dragon , &porfDai  , &tonya }, { &hero ,&profPao  , &myWife });
 
-    WorldMap::SetEnemys({ &dragon ,&porfDai ,&tonya });
-    WorldMap::SetRoles({ &hero ,&profPao ,&myWife });
+    WorldMap::SetRoles({ &Kazusa ,&Shiroko ,&Hoshino });
+    WorldMap::SetEnemys({ &fat_tonya ,&troll_tonya ,&boomer_tonya });
+    WorldMap::SetStores({ &shop1 });
     //system("Pause");
 
 
@@ -61,11 +66,13 @@ int main() {
     UI::moveCursor(2, 9);
 
 
-    Field battle({ &hero ,&profPao , &myWife }, { &porfDai  , &tonya  ,&dragon });
+    Field battle({ &Kazusa ,&Shiroko ,&Hoshino }, { &fat_tonya ,&troll_tonya ,&boomer_tonya });
     //battle.StartBattle();
 
     WorldMap::loadMap("W-1.txt");
-    UI::PreWorldMap({ &hero ,&profPao , &myWife });
+    UI::PreWorldMap({ &Kazusa ,&Shiroko ,&Hoshino });
+
+
     /*
     std::cout << BG_BRIGHT_CYAN;
     UI::distanceDisplay(0, 0, 0);

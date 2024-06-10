@@ -4,6 +4,23 @@
 #include "Backpack.h"
 
 // Public
+Store::Store(std::string name, std::pair<int, int> position) {
+    this->name = name;
+    this->position = position;
+};
+
+Store::Store(std::string name, int x, int y) {
+    this->name = name;
+    this->position = { x,y };
+}
+
+std::pair<int, int> Store::GetPosition(void) const {
+    return position;
+}
+
+std::string Store::GetName(void) const {
+    return name;
+}
 
 void Store::SellItemTo(Role* player) {
     std::vector<std::string> ITEM_TABLE = { "Godsbeard", "GoldenRoot", "TeleportScroll", "Tent", "WoodenSword", "Hammer", "GiantHammer", "MagicWand",

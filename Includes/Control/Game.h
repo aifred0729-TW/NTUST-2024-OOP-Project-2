@@ -24,7 +24,7 @@ private:
     std::vector<Role*> movePriority; // Priority of Character Movement
 
 private:
-    std::vector<Role> roles;
+    std::vector<Role*> roles;
 
     int Move(void);
     int GetKeyboard(void);
