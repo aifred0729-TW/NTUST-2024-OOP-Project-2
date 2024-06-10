@@ -28,6 +28,12 @@ public:
         EV = 13,
         EESC = 14,
         EENTER = 15,
+        EP = 16,
+        EI = 17,
+        EDU = 18,
+        EDL = 19,
+        EDR = 20,
+        EDD = 21,
         INVALID,
     };
     static int keyUpdate(bool key[]);
