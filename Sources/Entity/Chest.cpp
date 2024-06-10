@@ -4,8 +4,7 @@
 // Public
 
 void Chest::GiveTreasureTo(Role* player) {
-    std::vector<std::string> ITEM_TABLE = { "Godsbeard", "GoldenRoot", "TeleportScroll", "Tent", "WoodenSword", "Hammer", "GiantHammer", "MagicWand",
-"RitualSword", "WoodenShield", "PlateArmor", "LeatherArmor", "Robe", "LaurelWreath", "HolyGrail", "Shoes", "Bracelet" };
+    std::vector<std::string> ITEM_TABLE = { "Godsbeard", "GoldenRoot", "TeleportScroll", "Tent"};
     using namespace Displayer;
     ItemTable itemList;
     uint16_t money, treasure;

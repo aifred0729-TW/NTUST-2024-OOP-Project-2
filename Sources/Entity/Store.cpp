@@ -25,6 +25,15 @@ void Store::SellItemTo(Role* player) {
     "RitualSword", "WoodenShield", "PlateArmor", "LeatherArmor", "Robe", "LaurelWreath", "HolyGrail", "Shoes", "Bracelet" };
     for (const auto& pair : itemList.itemMap) {
         if (pair.first == ITEM_TABLE[choiceIndex]) {
+            if (!pair.second->isStackable()) { // 由於裝備不能疊加，所以多判斷背包是否已經有裝備
+                std::vector<Item*> items = player->backpack.getItems();
+                for (int i = 0; i < items.size(); ++i) {
+                    if (items[i] == pair.second) {
+                        std::cout << "you have bought this equipment.\n"; // 要跟左呈討論display
+                        return;
+                    }
+                }
+            }
             price = pair.second->getPrice();
             money = player->GetMoney();
             if (price > money) {
