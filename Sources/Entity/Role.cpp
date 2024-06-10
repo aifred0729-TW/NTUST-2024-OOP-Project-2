@@ -1,4 +1,5 @@
 ﻿#include "../../Includes/Entity/Role.h"
+#include <Entity.h>
 
 Role::Role()
     : pack(), movementPoint(0), step(0), position({ 0, 0 }) {}
@@ -9,6 +10,16 @@ Role::Role(std::string name) {
     SetMovementPoint(0);
     SetStep(0);
     SetPosition({ 0, 0 });
+    SetFaction(0);
+}
+
+Role::Role(std::string name, int x, int y) {
+    SetName(name);
+    SetPack(Item());
+    SetMovementPoint(0);
+    SetStep(0);
+    SetPosition({ x, y });
+    SetFaction(0);
 }
 
 void Role::SetPack(const Item& pack) {

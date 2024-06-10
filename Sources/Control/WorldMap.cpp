@@ -6,11 +6,14 @@
 int WorldMap::HEIGHT = 50;
 int WorldMap::WIDTH = 140;
 
-std::pair<int, int> WorldMap::pos = { 140, 2 };
+std::pair<int, int> WorldMap::pos = { 0, 0 };
 std::vector<std::vector<int>>  WorldMap::map; // Map Storge
 std::vector<std::vector<bool>> WorldMap::fog; // War Fog (Make some lamp?)
 std::vector<std::vector<std::string>>  WorldMap::renderMap; // 每個單元為可輸出色塊
-const std::vector<std::string> colorBoard = { BG_WHITE, BG_BRIGHT_YELLOW, BG_BRIGHT_BLACK, BG_GREEN, BG_BRIGHT_BLUE, BG_BRIGHT_RED ,BG_BRIGHT_RED };
+std::vector<Enemy*> WorldMap::enemys;
+std::vector<Role*> WorldMap::roles;
+
+const std::vector<std::string> colorBoard = { BG_BRIGHT_BLACK, BG_WHITE, BG_BRIGHT_BLACK, BG_GREEN, BG_BRIGHT_BLUE, BG_BRIGHT_RED ,BG_BRIGHT_RED };
 
 void WorldMap::loadMap(std::string mapFile) {
     using namespace std;
@@ -75,6 +78,14 @@ std::pair<int, int> WorldMap::getPos() { return pos; }
 int WorldMap::getHeight() { return HEIGHT; }
 int WorldMap::getWidth() { return WIDTH; }
 
+void WorldMap::SetEnemys(std::vector<Enemy*> enemys) {
+    WorldMap::enemys = enemys;
+}
+
+void WorldMap::SetRoles(std::vector<Role*> roles) {
+    WorldMap::roles = roles;
+}
+
 void WorldMap::SetMap(int row, int col, int element) {
     map[row][col] = element;
     renderColor();
@@ -105,8 +116,32 @@ void WorldMap::SetFog(int row, int col) {
     return;
 }
 
-void WorldMap::setPos(std::pair<int, int> pos) {
-    WorldMap::pos = pos;
+bool WorldMap::posValid(std::pair<int, int> pos) {
+    return !(pos.first < 0 || pos.first >= WIDTH || pos.second < 0 || pos.second >= HEIGHT);
+}
+
+
+int WorldMap::setPos(std::pair<int, int> pos) {
+    if (posValid(pos)) {
+        WorldMap::pos = pos;
+        return 0;
+    }
+    // 位置無效
+    return 1;
+}
+
+int WorldMap::movePos(std::pair<int, int> change) {
+    std::pair<int, int> dPos = { change.first + pos.first , change.second + pos.second };
+    if (posValid(dPos)) {
+        WorldMap::pos = dPos;
+        return 0;
+    }
+    // 位置無效
+    return 1;
+}
+
+int WorldMap::movePos(int x, int y) {
+    return movePos({ x,y });
 }
 
 void WorldMap::renderColor() {
@@ -117,6 +152,13 @@ void WorldMap::renderColor() {
             renderMap[i][j] = map[i][j] <= 4 ? colorBoard[map[i][j]] : BG_BRIGHT_RED;
         }
     }
+}
+
+
+bool WorldMap::VisibleOnMap(std::pair<int, int > pos) {
+    int dx = pos.first - WorldMap::pos.first;
+    int dy = pos.second - WorldMap::pos.second;
+    return (!(dx < -7 || dx > 7 || dy < -5 || dy > 5));
 }
 
 // Map Structure

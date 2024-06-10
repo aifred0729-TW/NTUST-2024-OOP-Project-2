@@ -30,6 +30,7 @@ public:
     //隸屬於技能目標選取的專注模擬器
     static std::vector<Entity*> targetChoiceSimulator(std::vector<Enemy*>enemys, std::vector<Role*>roles, Role* caster, int TargetType);
 
+    static int worldMapViewSimulator();
     // ...
 };
 

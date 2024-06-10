@@ -12,6 +12,10 @@
 #include <fstream>
 #include <sstream>
 
+class Role;
+class Enemy;
+class Entity;
+
 namespace WorldMap {
 
     // Map Structure
@@ -30,6 +34,8 @@ namespace WorldMap {
     extern std::vector<std::vector<int>>  map; // Map Storge
     extern std::vector<std::vector<bool>> fog; // War Fog (Make some lamp?)
     extern std::vector<std::vector<std::string>> renderMap; // 每個單元為可輸出色塊
+    extern std::vector<Enemy*> enemys;
+    extern std::vector<Role*> roles;
 
     // 地圖目前對準的地塊
     // 只能使用一次
@@ -42,17 +48,24 @@ namespace WorldMap {
     std::vector<std::vector<std::string>> getRenderMap();
     std::vector<std::string> getColorBoard();
     std::pair<int, int> getPos();
+
     int getHeight();
     int getWidth();
+
+    void SetEnemys(std::vector<Enemy*> enemys);
+    void SetRoles(std::vector<Role*> roles);
 
     void SetMap(int, int, int);
 
     void SetFog(int, int);
 
-    void setPos(std::pair<int, int> pos);
+    bool posValid(std::pair<int, int> pos);
+    int setPos(std::pair<int, int> pos);
+    int movePos(std::pair<int, int> pos);
+    int movePos(int x, int y);
 
     void renderColor();
-
+    bool VisibleOnMap(std::pair<int, int > pos);
     
 
     // ...

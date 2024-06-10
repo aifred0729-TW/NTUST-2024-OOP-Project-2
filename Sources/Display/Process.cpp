@@ -10,6 +10,7 @@
 #include <KeyBoard.h>
 #include <color.h>
 #include <Displayer.h>
+#include <WorldMap.h>
 
 int Process::HandlePreBattle(std::vector<Enemy*> enemys, std::vector<Role*> roles) {
     UI::PreBattle(enemys, roles);
@@ -150,4 +151,33 @@ std::vector<Entity*> Process::targetChoiceSimulator(std::vector<Enemy*>enemys, s
         return {};
     }
     return targetPtr[targetNumber];
+}
+
+int Process::worldMapViewSimulator() {
+    bool keyState[KeyBoard::INVALID];
+    while (1) {
+        KeyBoard::keyUpdate(keyState);
+        if (keyState[KeyBoard::EW]) {
+            WorldMap::movePos(0, -1);
+        }
+        else if (keyState[KeyBoard::EA]) {
+            WorldMap::movePos(-1, 0);
+        }
+        else if (keyState[KeyBoard::ES]) {
+            WorldMap::movePos(0, 1);
+        }
+        else if (keyState[KeyBoard::ED]) {
+            WorldMap::movePos(1, 0);
+        }
+        else if (keyState[KeyBoard::ESPACE] || keyState[KeyBoard::EENTER]) {
+        }
+        else if (keyState[KeyBoard::EESC]) {
+        }
+        else {
+            continue;
+        }
+        UI::PrintWorldMap();
+        //UI::renewPlayerInfo();
+    }
+    return 0;
 }

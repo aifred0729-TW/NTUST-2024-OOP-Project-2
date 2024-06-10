@@ -14,7 +14,7 @@
 
 class Dice;
 class Role;
-class Ememy;
+class Enemy;
 class Field;
 class Store;
 class Entity;

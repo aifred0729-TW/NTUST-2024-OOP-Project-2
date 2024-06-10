@@ -13,9 +13,15 @@
 #include <Interactive.h>
 
 class Enemy : public Entity, public Interactive {
+private:
+    std::pair<uint32_t, uint32_t> position;
 public:
-	Enemy();
-	Enemy(std::string name);
+    Enemy();
+    Enemy(std::string name);
+    Enemy(std::string name, int x, int y);
+
+    void SetPosition(const std::pair<uint32_t, uint32_t>&);
+    std::pair<uint32_t, uint32_t> GetPosition(void);
 };
 
 #endif

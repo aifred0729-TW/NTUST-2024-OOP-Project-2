@@ -2,6 +2,7 @@
 
 // Public
 Entity::Entity() {
+    faction = 1;
     attribute = Attribute();
     attribute.randomAttribute();
     equipment = Equipment();
@@ -46,7 +47,7 @@ void Entity::takeDamage(int16_t damage, char attackType) {
     UI::logEvent(name + " 防禦後受到了 " + std::to_string(damage) + " 點傷害！，當前HP為 " + std::to_string(attribute.GetHP()) + " !");
 
     if (attribute.GetHP() == 0) {
-        UI::logEvent( name + " is dead! 喔不!!" );
+        UI::logEvent(name + " is dead! 喔不!!");
         status |= DEAD;
     }
 }
@@ -142,6 +143,10 @@ void Entity::SetStatus(const uint8_t status) {
 
 void Entity::SetEventID(const uint8_t eventID) {
     this->eventID = eventID;
+}
+
+void Entity::SetFaction(const bool faction) {
+    this->faction = faction;
 }
 
 std::string Entity::GetName(void) {

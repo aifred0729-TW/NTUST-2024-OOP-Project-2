@@ -25,6 +25,7 @@ private:
 public:
     Role();  // Default constructor
     Role(std::string name);  // Constructor with name (Role Name
+    Role(std::string name, int x, int y);
 
     void SetPack(const Item&);
     void SetMovementPoint(const uint8_t);
