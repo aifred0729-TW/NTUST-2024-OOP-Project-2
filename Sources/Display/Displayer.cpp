@@ -275,6 +275,27 @@ void Displayer::displayPlayerInfo(int x, int y, Enemy* enemy) {
     cout << "   ACC: " << std::setw(2) << std::setfill('0') << att.GetACC();
 }
 
+void Displayer::displayPlayerInfo(int x, int y, std::vector<Entity*> entitys) {
+    using namespace std;
+    for (int i = 0; i < entitys.size(); i++) {
+        Attribute att = entitys[i]->GetTotalAttribute();
+        BuildVoid(x, y, x + 58, y + 6 + 6*i);
+        moveCursor(x + 3, y + 2 + 6 * i);
+        cout << "Player: ";
+        cout << entitys[i]->GetName();
+        moveCursor(x + 3, y + 3 + 6 * i);
+        cout << "HP:  " << att.GetHP() << " / " << att.GetMaxHP() << " ";
+        cout << HpDisplayer(att.GetHP(), att.GetMaxHP());
+        moveCursor(x + 3, y + 4 + 6 * i);
+        cout << "PA: " << setw(2) << setfill('0') << att.GetPA();
+        cout << "   PD: " << setw(2) << setfill('0') << att.GetPD();
+        cout << "   MA: " << setw(2) << setfill('0') << att.GetMA();
+        cout << "   MD: " << setw(2) << setfill('0') << att.GetMD();
+        cout << "   SPD: " << setw(2) << setfill('0') << att.GetSPD();
+        cout << "   ACC: " << setw(2) << setfill('0') << att.GetACC();
+    }
+}
+
 void Displayer::displayPlayerInfo(int x, int y, Entity* entity) {
     using namespace std;
     Attribute att = entity->GetTotalAttribute();
@@ -431,4 +452,21 @@ void Displayer::printOnMap(int x, int y, std::string str) {
         moveCursor(x, y);
         std::cout << str;
     }
+}
+
+void Displayer::displayMapGrid() {
+    for (int i = 0; i < 10; i++) {
+        moveCursor(2, 9 + 4 * i);
+        for (int j = 0; j < 118; j++) {
+            std::cout << " ";
+        }
+    }
+    for (int i = 0; i < 14; i++) {
+        moveCursor(8 + 8 * i, 9);
+        for (int j = 0; j < 43; j++) {
+            moveCursor(8 + 8 * i, 6 + j);
+            std::cout << "  ";
+        }
+    }
+    std::cout << RESET;
 }

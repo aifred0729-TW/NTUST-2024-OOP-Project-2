@@ -2,6 +2,8 @@
 #include "ConstData.h"
 #include <Color.h>
 #include <UI.h>
+#include <Enemy.h>
+#include <Role.h>
 
 int WorldMap::HEIGHT = 50;
 int WorldMap::WIDTH = 140;
@@ -159,6 +161,26 @@ bool WorldMap::VisibleOnMap(std::pair<int, int > pos) {
     int dx = pos.first - WorldMap::pos.first;
     int dy = pos.second - WorldMap::pos.second;
     return (!(dx < -7 || dx > 7 || dy < -5 || dy > 5));
+}
+
+Rect WorldMap::GetRect(std::pair<int, int > pos) {
+    Rect output;
+    output.terrain = getMap()[pos.second][pos.first];
+    for (Enemy* E : WorldMap::enemys) {
+        if (E->GetPosition().first == pos.first && E->GetPosition().second == pos.second) {
+            output.enemys.push_back(E);
+        }
+    }
+    for (Role* R : WorldMap::roles) {
+        if (R->GetPosition().first == pos.first && R->GetPosition().second == pos.second) {
+            output.roles.push_back(R);
+        }
+    }
+    return output;
+}
+
+Rect WorldMap::GetRect() {
+    return GetRect(WorldMap::pos);
 }
 
 // Map Structure
