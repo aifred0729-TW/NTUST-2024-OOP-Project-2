@@ -19,6 +19,7 @@ Entity::Entity() {
     equipForce("BareAccessory");
     status = 0;
     eventID = 0;
+    lastDamage = 0;
     renewPlayer();
 }
 
@@ -80,6 +81,15 @@ void Entity::takeDamage(int16_t damage, char attackType) {
     int16_t armor = attackType == 'P' ? totalAttribute.GetPD() : totalAttribute.GetMD();
     double absorption = armor / (double)(armor + 50);
     damage = static_cast<int16_t>((double)damage * (1 - absorption));
+
+    for (auto& passive : totalSkill.GetPassive()) {
+        if (passive.GetName() == "Fortify" && passive.GetTick() == 0 && damage != 0) {
+            usePassive("Fortify", { &(*this) });
+            damage = static_cast<int16_t>(damage * 0.9);
+        }
+    }
+
+    lastDamage = damage;
     int16_t damageTaken = totalAttribute.GetHP() - damage;
     totalAttribute.SetHP(damageTaken > 0 ? damageTaken : 0);
     attribute = totalAttribute;

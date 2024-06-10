@@ -119,3 +119,28 @@ void SpeedUpActiveCommand::execute(Entity& caster, std::vector<Entity*> targets,
         UI::logEvent(caster.GetName() + " 的 Speed Up 失敗！");
     }
 }
+
+void RunPassiveCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+	if (targets[0]->GetDice().GetFocusCount() == 0) {
+		targets[0]->GetDice().SetFocusCount(1);
+		UI::logEvent(caster.GetName() + " 的被動 Run 被觸發，第一個擲骰保證成功！");
+	}
+}
+
+void HammerSplashPassiveCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+    UI::logEvent(caster.GetName() + " 的被動 HammerSplash 被觸發！");
+    targets[0]->addBuff("Dizziness", 1);
+    for (int i = 1; i < targets.size(); i++) {
+        targets[i]->takeDamage(targets[0]->GetlastDamage(), 'P');
+	}
+}
+
+void DestroyPassiveCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+	UI::logEvent(caster.GetName() + " 的被動 Destroy 被觸發！");
+	// 現在沒有人可以觸發 Destroy，所以這邊就先不寫，留時間給其他東西
+}
+
+void FortifyPassiveCommand::execute(Entity& caster, std::vector<Entity*> targets) {
+	// Fortify 不應該在這裡被觸發，而是要在Entity::takeDamage()裡面被觸發
+    UI::logEvent(caster.GetName() + " 的被動 Fortify 被觸發！所受傷害自動 * 0.9");
+}

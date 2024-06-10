@@ -23,6 +23,7 @@ protected:
 	Attribute          totalAttribute;  // Total Attribute
 	Skill              skill;           // Skill
 	Skill              totalSkill;      // Total Skill
+	int16_t            lastDamage;      // Last Damage
 	Equipment          equipment;	    // Equipment
 	Dice               dice;            // Dice
 	uint8_t            status;          // Role Status
@@ -39,6 +40,7 @@ public:
 	void SetDice(const Dice& dice) { this->dice = dice; }
 	void SetStatus(const uint8_t status) { this->status = status; }
 	void SetEventID(const uint8_t eventID) { this->eventID = eventID; }
+	void SetlastDamage(const int16_t lastDamage) { this->lastDamage = lastDamage; }
 
 	std::string         GetName(void) { return name; }
 	Attribute&          GetAttribute(void) { return attribute; }
@@ -47,6 +49,7 @@ public:
 	Dice&               GetDice(void) { return dice; }
 	uint8_t             GetStatus(void) { return status; }
 	uint8_t             GetEventID(void) { return eventID; }
+	int16_t             GetlastDamage(void) { return lastDamage; }
 
 	Attribute&          GetTotalAttribute(void) { return totalAttribute; }
 	Skill&              GetTotalSkill(void) { return totalSkill; }

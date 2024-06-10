@@ -7,6 +7,7 @@
 #include <SkillCommand.h>
 
 class Attribute;
+class Entity;
 
 class SkillBase {
 protected:
@@ -53,9 +54,10 @@ public:
 
     uint8_t GetCoolDown() const { return coolDown; }
     void SetCoolDown(const uint8_t& coolDown) { this->coolDown = coolDown; }
+
+    void apply(Entity& caster, std::vector<Entity*> targets) override;
 };
 
-class Entity;
 
 class Active : public SkillBase {
 private:

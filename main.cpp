@@ -34,6 +34,7 @@ int main() {
 	profPao.addItemToBackpack("WoodenSword");
 	profPao.addItemToBackpack("Hammer");
 	profPao.addItemToBackpack("WoodenShield");
+	profPao.addItemToBackpack("PlateArmor");
 	profPao.addItemToBackpack("HolyGrail");
 	// 從包包裡使用物品 
 	hero.backpack.useItem("MagicWand", hero);
@@ -47,8 +48,9 @@ int main() {
 	hero.backpack.useItem("MagicWand", hero);
 	// hero.backpack.useItem("MagicWand", hero);
 
-	profPao.useItemFromBackpack("WoodenSword");
-	profPao.useItemFromBackpack("WoodenShield");
+	// profPao.useItemFromBackpack("WoodenSword");
+	profPao.useItemFromBackpack("Hammer");
+	profPao.useItemFromBackpack("PlateArmor");
 	myWife.equipForce("RitualSword");
 
 	//system("Pause");

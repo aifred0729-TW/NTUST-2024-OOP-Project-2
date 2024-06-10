@@ -22,10 +22,10 @@ void SkillTable::ActiveTableInitialize() {
 }
 
 void SkillTable::PassiveTableInitialize() {
-    passiveMap["Run"] = Passive("Run", 0, nullptr, 0);
-    passiveMap["HammerSplash"] = Passive("HammerSplash", 0, nullptr, 2);
-    passiveMap["Destroy"] = Passive("Destroy", 0, nullptr, 1);
-    passiveMap["Fortify"] = Passive("Fortify", 5, nullptr, 0);
+    passiveMap["Run"] = Passive("Run", 0, new RunPassiveCommand(), 0);
+    passiveMap["HammerSplash"] = Passive("HammerSplash", 0, new HammerSplashPassiveCommand(), 2);
+    passiveMap["Destroy"] = Passive("Destroy", 0, new DestroyPassiveCommand(), 1);
+    passiveMap["Fortify"] = Passive("Fortify", 5, new FortifyPassiveCommand(), 0);
 }
 
 void SkillTable::BuffTableInitialize() {
