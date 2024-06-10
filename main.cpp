@@ -28,10 +28,12 @@ int main() {
 	Role myWife("砂狼白子我婆");
 	Enemy porfDai("戴文凱");
 	Enemy tonya("Tonya");
+	// 新增物品到包包裡面
 	profPao.addItemToBackpack("MagicWand");
 	profPao.addItemToBackpack("Hammer");
-
+	// 從包包裡使用物品 
 	hero.backpack.useItem("MagicWand", hero);
+	// 從包包裡使用物品(第二種實作方法
 	hero.useItemFromBackpack("MagicWand");
 	hero.backpack.useItem("Hammer", hero);
 	hero.backpack.useItem("MagicWand", hero);

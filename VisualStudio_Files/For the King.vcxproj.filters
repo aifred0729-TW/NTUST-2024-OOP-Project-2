@@ -55,6 +55,12 @@
     <Filter Include="Sources\Gadget\Skill">
       <UniqueIdentifier>{6d4957f9-41eb-49b0-b480-98d595588d26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Includes\Gadget\Item">
+      <UniqueIdentifier>{abd12411-0923-43b3-8eff-34deaa4c10e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Gadget\Item">
+      <UniqueIdentifier>{6f8e4696-161d-43df-936c-60fe7caad07b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp">
@@ -92,9 +98,6 @@
     </ClCompile>
     <ClCompile Include="..\Sources\Entity\Store.cpp">
       <Filter>Sources\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\Gadget\Item.cpp">
-      <Filter>Sources\Gadget</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Gadget\Dice.cpp">
       <Filter>Sources\Gadget</Filter>
@@ -134,6 +137,15 @@
     </ClCompile>
     <ClCompile Include="..\Sources\Display\KeyBoard.cpp">
       <Filter>Sources\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\ItemTable.cpp">
+      <Filter>Sources\Gadget\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\ItemCommandSet.cpp">
+      <Filter>Sources\Gadget\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Backpack.cpp">
+      <Filter>Sources\Gadget\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +191,6 @@
     <ClInclude Include="..\Includes\Gadget\Dice.h">
       <Filter>Includes\Gadget</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\Gadget\Item.h">
-      <Filter>Includes\Gadget</Filter>
-    </ClInclude>
     <ClInclude Include="..\Includes\Incident\Event.h">
       <Filter>Includes\Incident</Filter>
     </ClInclude>
@@ -223,6 +232,21 @@
     </ClInclude>
     <ClInclude Include="..\Includes\Gadget\SkillCommandSet.h">
       <Filter>Includes\Gadget\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\ItemTable.h">
+      <Filter>Includes\Gadget\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\ItemCommandSet.h">
+      <Filter>Includes\Gadget\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\ItemCommand.h">
+      <Filter>Includes\Gadget\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Backpack.h">
+      <Filter>Includes\Gadget\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Item.h">
+      <Filter>Includes\Gadget\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
