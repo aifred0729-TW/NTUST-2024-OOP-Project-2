@@ -33,13 +33,16 @@ private:
 
 public:
     Game() {
-        ;
+        Initialize();
     }
 
-public:
     // Initialize Game
     void Initialize();
 
+    bool checkIsOnShop();
+    bool checkIsOnEnemy();
+
+public:
     // Game Main Process
     void MainProcess(void);
 };
