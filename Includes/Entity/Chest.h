@@ -11,7 +11,8 @@
 #include <windows.h>
 
 #include <Interactive.h>
-#include <Role.h>
+
+class Role;
 
 class Chest : public Interactive {
 

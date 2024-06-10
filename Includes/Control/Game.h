@@ -10,8 +10,8 @@
 #include <vector>
 #include <windows.h>
 
-#include <WorldMap.h>
-#include <Role.h>
+class Role;
+class WorldMap;
 
 class Game {
 private:

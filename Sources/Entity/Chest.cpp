@@ -1,6 +1,4 @@
-﻿#include "../../Includes/Entity/Chest.h"
-
-// Public
+﻿#include <Chest.h>
 
 void Chest::GiveItemTo(Role*) {
     ;

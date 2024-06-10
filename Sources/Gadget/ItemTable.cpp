@@ -1,4 +1,5 @@
 ﻿#include "ItemTable.h"
+#include "Item.h"
 #include "ItemCommandSet.h"
 
 std::map<std::string, Item*> ItemTable::itemMap;

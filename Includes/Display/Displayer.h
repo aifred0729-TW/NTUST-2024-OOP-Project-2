@@ -10,15 +10,6 @@
 #include <conio.h>
 #include <iomanip>
 
-/*
-#include <Enemy.h>
-#include <Role.h>
-*/
-#include <Attribute.h>
-
-#include <KeyBoard.h>
-#include "Color.h"
-
 class Enemy;
 class Role;
 class Entity;

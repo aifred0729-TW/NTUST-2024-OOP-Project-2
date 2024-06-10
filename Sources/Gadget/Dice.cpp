@@ -1,4 +1,4 @@
-﻿#include "../../Includes/Gadget/Dice.h"
+﻿#include <Dice.h>
 
 // Public
 

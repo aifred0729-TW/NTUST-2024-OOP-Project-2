@@ -3,8 +3,10 @@
 
 #include <map>
 #include <string>
-#include <EquipmentBase.h>
-#include <Equipment.h>
+
+class Weapon;
+class Armor;
+class Accessory;
 
 class EquipmentTable {
 private:

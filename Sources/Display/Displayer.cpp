@@ -1,8 +1,11 @@
-﻿#include "../../Includes/Display/Displayer.h"
+﻿#include <Displayer.h>
 #include <Role.h>
 #include <Enemy.h>
 #include <Entity.h>
-#include <Dice.h> //待確認
+#include <Dice.h>
+#include <Attribute.h>
+#include <KeyBoard.h>
+#include <Color.h>
 
 //移動光標
 void Displayer::moveCursor(int x, int y) {

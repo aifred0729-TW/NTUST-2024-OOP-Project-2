@@ -3,8 +3,10 @@
 
 #include <map>
 #include <string>
-#include "Skill.h"
-#include "SkillCommandSet.h"
+
+class Active;
+class Passive;
+class Buff;
 
 class SkillTable {
 private:

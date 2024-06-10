@@ -1,11 +1,12 @@
-﻿#include "Includes/Entity/Role.h"
-#include "Includes/Entity/Enemy.h"
-#include "Includes/Gadget/Equipment.h"
-#include "Includes/Gadget/EquipmentTable.h"
-#include "Includes/Gadget/SkillTable.h"
-#include "Includes/Display/UI.h"
-#include "ItemTable.h"
-#include <Process.h>
+﻿#include <SkillTable.h>
+#include <ItemTable.h>
+#include <Role.h>
+#include <Enemy.h>
+#include <Field.h>
+#include <Attribute.h>
+#include <KeyBoard.h>
+#include <Color.h>
+#include <Backpack.h>
 
 #include <string>
 
@@ -30,22 +31,25 @@ int main() {
 	Enemy tonya("Tonya");
 	// 新增物品到包包裡面
 	profPao.addItemToBackpack("MagicWand");
+	profPao.addItemToBackpack("WoodenSword");
 	profPao.addItemToBackpack("Hammer");
 	profPao.addItemToBackpack("WoodenShield");
 	profPao.addItemToBackpack("HolyGrail");
 	// 從包包裡使用物品 
 	hero.backpack.useItem("MagicWand", hero);
 	// 從包包裡使用物品(第二種實作方法
-	hero.useItemFromBackpack("MagicWand");
-	hero.backpack.useItem("Hammer", hero);
-	hero.backpack.useItem("MagicWand", hero);
-
-	profPao.useItemFromBackpack("Hammer");
-	profPao.useItemFromBackpack("WoodenShield");
-	myWife.equipForce("RitualSword");
-
+	profPao.GetAttribute().SetPA(10);
 	profPao.GetAttribute().SetMaxFocus(20);
 	profPao.GetAttribute().SetFocus(20);
+	hero.GetAttribute().SetACC(90);
+
+	hero.useItemFromBackpack("MagicWand");
+	hero.backpack.useItem("MagicWand", hero);
+	// hero.backpack.useItem("MagicWand", hero);
+
+	profPao.useItemFromBackpack("WoodenSword");
+	profPao.useItemFromBackpack("WoodenShield");
+	myWife.equipForce("RitualSword");
 
 	//system("Pause");
 
@@ -55,8 +59,7 @@ int main() {
 	//UI::PreBattle({ &dragon , &porfDai  , &tonya }, { &hero ,&profPao  , &myWife });
 	UI::moveCursor(2, 9);
 
-    Field battle({ &hero }, { &porfDai });
-    // Field battle({ &hero ,&profPao , &myWife }, {  &porfDai  , &tonya  ,&dragon });
+    Field battle({ &hero ,&profPao , &myWife }, {  &porfDai  , &tonya  ,&dragon });
     battle.StartBattle();
 
 	/*

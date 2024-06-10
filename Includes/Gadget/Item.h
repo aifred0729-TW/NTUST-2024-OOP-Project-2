@@ -2,7 +2,7 @@
 #define ITEM_H
 
 #include <string>
-#include "ItemCommand.h"
+#include <ItemCommand.h>
 
 class Item {
 protected:

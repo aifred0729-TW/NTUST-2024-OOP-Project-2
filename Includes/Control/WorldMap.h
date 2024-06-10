@@ -11,7 +11,8 @@
 #include <windows.h>
 #include <fstream>
 #include <sstream>
-#include "ConstData.h"
+
+#include <ConstData.h>
 
 class WorldMap {
 private:

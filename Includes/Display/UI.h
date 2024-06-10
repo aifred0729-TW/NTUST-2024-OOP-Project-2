@@ -10,11 +10,7 @@
 #include <vector>
 #include <windows.h>
 
-#include <Attribute.h>
-
-#include "ConstData.h"
-#include "Displayer.h"
-#include "Color.h"
+#include <Displayer.h>
 
 class Dice;
 class Role;

@@ -1,7 +1,10 @@
-﻿#include "../../Includes/Display/Process.h"
-
-#include <skill.h>
-#include <Entity.h>
+﻿#include <Process.h>
+#include <UI.h>
+#include <KeyBoard.h>
+#include <Color.h>
+#include <Role.h>
+#include <Enemy.h>
+#include <Dice.h>
 
 int Process::HandlePreBattle(std::vector<Enemy*> enemys, std::vector<Role*> roles) {
     UI::PreBattle(enemys, roles);
@@ -29,7 +32,7 @@ int Process::fightSimulator(std::vector<Enemy*>enemys, std::vector<Role*>roles) 
 
             int diceAmount = skillToUse.first == "Attack" ?
                 roles[i]->GetEquipment().GetWeapon().GetDiceAmount() : skills[skillToUse.second].GetDiceAmount();
-            int focus = roles[i]->GetAttribute().GetFocus();
+            int focus = roles[i]->GetTotalAttribute().GetFocus();
 
             UI::displayDice(diceAmount, 0);
 
@@ -49,7 +52,7 @@ int Process::fightSimulator(std::vector<Enemy*>enemys, std::vector<Role*>roles) 
             }
             if (focusUse != 0) {
                 UI::logEvent("使用 " + std::to_string(focusUse) + " 專注點數");
-                roles[i]->GetAttribute().SetFocus(focus - focusUse);
+                roles[i]->GetTotalAttribute().SetFocus(focus - focusUse);
                 roles[i]->GetDice().SetFocusCount(focusUse);
             }
             roles[i]->useActive(skillToUse.first, target);

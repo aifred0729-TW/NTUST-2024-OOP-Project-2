@@ -1,5 +1,6 @@
 ﻿#include "Role.h"
 #include "ItemTable.h"
+#include "Backpack.h"
 // #include "Backpack.h"
 
 Backpack Role::backpack;

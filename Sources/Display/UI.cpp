@@ -1,9 +1,12 @@
-﻿#include "../../Includes/Display/UI.h"
+﻿#include <UI.h>
 #include <Role.h>
 #include <Enemy.h>
 #include <Entity.h>
 #include <Dice.h>
 #include <Field.h>
+#include <Attribute.h>
+#include <ConstData.h>
+#include <Color.h>
 
 // Public
 

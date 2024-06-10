@@ -1,4 +1,7 @@
-﻿#include "../../Includes/Entity/Entity.h"
+﻿#include <Entity.h>
+#include <Attribute.h>
+#include <Skill.h>
+#include <Dice.h>
 
 // Public
 Entity::Entity() {
@@ -42,15 +45,12 @@ void Entity::takeDamage(int16_t damage, char attackType) {
     totalAttribute.SetHP(damageTaken > 0 ? damageTaken : 0);
     attribute = totalAttribute;
 
-    std::string outputStr;
-    std::stringstream outputSs;
     UI::logEvent(name + " 防禦後受到了 " + std::to_string(damage) + " 點傷害！，當前HP為 " + std::to_string(totalAttribute.GetHP()) + " !");
     UI::logEvent(std::to_string(totalAttribute.GetHP()) + "/" + std::to_string(totalAttribute.GetMaxHP()));
     if (totalAttribute.GetHP() == 0) {
         UI::logEvent( name + " is dead! 喔不!!" );
         status |= DEAD;
     }
-
 }
 
 void Entity::heal(int16_t heal) {

@@ -1,5 +1,9 @@
 ﻿#include "EquipmentTable.h"
-#include "SkillTable.h"
+#include <SkillTable.h>
+#include <SkillBase.h>
+#include <Skill.h>
+#include <EquipmentBase.h>
+#include <Equipment.h>
 
 std::map<std::string, Weapon> EquipmentTable::weaponMap;
 std::map<std::string, Armor> EquipmentTable::armorMap;
@@ -63,7 +67,6 @@ void EquipmentTable::WeaponTableInitialize() {
 void EquipmentTable::ArmorTableInitialize() {
 	Active Provoke = SkillTable::activeMap.find("Provoke")->second;
 	Passive Fortify = SkillTable::passiveMap.find("Fortify")->second;
-	Buff LaurelBuff = SkillTable::buffMap.find("LaurelBuff")->second;
 
 	Attribute bareBodyAttribute;
 	Skill bareBodySkill;
@@ -90,7 +93,6 @@ void EquipmentTable::ArmorTableInitialize() {
 
 	Attribute laurelWreathAttribute;
 	Skill laurelWreathSkill;
-	laurelWreathSkill.pushBuff(LaurelBuff);
 
 	armorMap["BareBody"] = Armor("BareBody", bareBodyAttribute, bareBodySkill);
 	armorMap["WoodenShield"] = Armor("WoodenShield", woodenShieldAttribute, woodenShieldSkill);

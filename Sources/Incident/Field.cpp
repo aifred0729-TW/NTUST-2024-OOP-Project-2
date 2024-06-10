@@ -1,5 +1,8 @@
 ﻿#include <Field.h>
 #include <UI.h>
+#include <Attribute.h>
+#include <KeyBoard.h>
+#include <Color.h>
 // Public
 
 void Field::StartBattle(void) {
@@ -46,23 +49,23 @@ Action* Field::RefreshEvent(void) {
     };
     auto cmpSPD = [](Action* x, Action* y) {
         return
-            x->GetObj()->GetAttribute().GetSPD() >
-            y->GetObj()->GetAttribute().GetSPD();
+            x->GetObj()->GetTotalAttribute().GetSPD() >
+            y->GetObj()->GetTotalAttribute().GetSPD();
     };
     auto cmpAttack = [](Action* x, Action* y) {
         return
-            x->GetObj()->GetAttribute().GetPA() + x->GetObj()->GetAttribute().GetMA() >
-            y->GetObj()->GetAttribute().GetPA() + y->GetObj()->GetAttribute().GetMA();
+            x->GetObj()->GetTotalAttribute().GetPA() + x->GetObj()->GetTotalAttribute().GetMA() >
+            y->GetObj()->GetTotalAttribute().GetPA() + y->GetObj()->GetTotalAttribute().GetMA();
     };
     auto cmpDefend = [](Action* x, Action* y) {
         return
-            x->GetObj()->GetAttribute().GetPD() + x->GetObj()->GetAttribute().GetMD() >
-            y->GetObj()->GetAttribute().GetPD() + y->GetObj()->GetAttribute().GetMD();
+            x->GetObj()->GetTotalAttribute().GetPD() + x->GetObj()->GetTotalAttribute().GetMD() >
+            y->GetObj()->GetTotalAttribute().GetPD() + y->GetObj()->GetTotalAttribute().GetMD();
     };
     auto cmpMaxHP = [](Action* x, Action* y) {
         return
-            x->GetObj()->GetAttribute().GetMaxHP() >
-            y->GetObj()->GetAttribute().GetMaxHP();
+            x->GetObj()->GetTotalAttribute().GetMaxHP() >
+            y->GetObj()->GetTotalAttribute().GetMaxHP();
     };
 
     stable_sort(eventQueue.begin(), eventQueue.end(), cmpMaxHP);
@@ -73,7 +76,7 @@ Action* Field::RefreshEvent(void) {
 
     // update for the next refresh sort
     eventQueue[0]->SetTurn(eventQueue[0]->GetTurn() + 1);
-    eventQueue[0]->SetPriority(double(eventQueue[0]->GetTurn() + 1) / eventQueue[0]->GetObj()->GetAttribute().GetSPD() * 100);
+    eventQueue[0]->SetPriority(double(eventQueue[0]->GetTurn() + 1) / eventQueue[0]->GetObj()->GetTotalAttribute().GetSPD() * 100);
     UI::printPriority(eventQueue);
     return eventQueue[0];
 }
@@ -139,7 +142,7 @@ CHOICE:
 
     int diceAmount = skillToUse.first == "Attack" ?
         currEvent->GetObj()->GetEquipment().GetWeapon().GetDiceAmount() : skills[skillToUse.second].GetDiceAmount();
-    int focus = currEvent->GetObj()->GetAttribute().GetFocus();
+    int focus = currEvent->GetObj()->GetTotalAttribute().GetFocus();
 
     UI::displayDice(diceAmount, 0);
 
@@ -159,7 +162,7 @@ TARGET:
 
     if (focusUse != 0) {
         UI::logEvent("使用 " + std::to_string(focusUse) + " 專注點數");
-        currEvent->GetObj()->GetAttribute().SetFocus(focus - focusUse);
+        currEvent->GetObj()->GetTotalAttribute().SetFocus(focus - focusUse);
         currEvent->GetObj()->GetDice().SetFocusCount(focusUse);
     }
     currEvent->GetObj()->useActive(skillToUse.first, target);

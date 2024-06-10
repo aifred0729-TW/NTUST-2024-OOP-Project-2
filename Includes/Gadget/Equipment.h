@@ -6,8 +6,12 @@
 #include <set>
 
 #include <EquipmentBase.h>
-#include <Attribute.h>
-#include <Skill.h>
+
+class Skill;
+class Weapon;
+class Armor;
+class Accessory;
+class Attribute;
 
 class Equipment {
 private:

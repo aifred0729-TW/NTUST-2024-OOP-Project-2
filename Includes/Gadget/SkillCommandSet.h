@@ -4,9 +4,9 @@
 #include <vector>
 #include <iostream>
 
-#include "../../Includes/Gadget/SkillTable.h"
-#include "SkillCommand.h"
-#include "Entity.h"
+#include <SkillCommand.h>
+
+class Entity;
 
 class AttackCommand : public SkillCommand {
 public:

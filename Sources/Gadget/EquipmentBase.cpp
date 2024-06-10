@@ -1,4 +1,6 @@
 ﻿#include <EquipmentBase.h>
+#include <Attribute.h>
+#include <Skill.h>
 
 // Default constructor
 EquipmentBase::EquipmentBase() {}

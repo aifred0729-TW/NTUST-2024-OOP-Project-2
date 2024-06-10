@@ -1,4 +1,4 @@
-﻿#include "../../Includes/Entity/Enemy.h"
+﻿#include <Enemy.h>
 
 Enemy::Enemy() : Entity(), Interactive() {}
 Enemy::Enemy(std::string name) : Interactive() {

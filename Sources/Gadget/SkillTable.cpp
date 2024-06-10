@@ -1,4 +1,6 @@
 ﻿#include "SkillTable.h"
+#include "SkillCommandSet.h"
+#include "Skill.h"
 
 std::map<std::string, Active> SkillTable::activeMap;
 std::map<std::string, Passive> SkillTable::passiveMap;
@@ -31,5 +33,4 @@ void SkillTable::BuffTableInitialize() {
 	buffMap["Dizziness"] = Buff("Dizziness", nullptr, 0);
 	buffMap["Poisoned"] = Buff("Poisoned", nullptr, 0);
 	buffMap["SpeedUp"] = Buff("SpeedUp", nullptr, 0);
-	buffMap["LaurelBuff"] = Buff("LaurelBuff", nullptr, 0);
 }

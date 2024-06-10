@@ -1,14 +1,11 @@
 ﻿#ifndef PROCESS_H
 #define PROCESS_H
 
-#include <Entity.h>
-#include <Store.h>
-#include <Interactive.h>
-#include <Dice.h>
-#include <Field.h>
+#include <vector>
 
 class Dice;
 class Role;
+class Enemy;
 class WorldMap;
 class Field;
 class Store;

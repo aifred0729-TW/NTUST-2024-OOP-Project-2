@@ -6,13 +6,15 @@
 #include <set>
 #include <unordered_set>
 #include <algorithm>
-#include "Attribute.h"
-#include "Skill.h"
+
 #include "Equipment.h"
 #include "EquipmentTable.h"
 #include "SkillTable.h"
+#include <Dice.h>
 
+class Attribute;
 class Active;
+class Skill;
 
 class Entity {
 protected:
@@ -31,8 +33,8 @@ public:
 	Entity(std::string name);
 
 	void SetName(const std::string& name) { this->name = name; }
-	void SetAttribute(const Attribute& attribute) { this->attribute = attribute; }
-	void SetSkill(const Skill& skill) { this->skill = skill; }
+	void SetAttribute(const Attribute& attribute) { this->attribute = attribute; this->totalAttribute = attribute; }
+	void SetSkill(const Skill& skill) { this->skill = skill; this->totalSkill = skill; }
 	void SetEquipment(const Equipment& equipment) { this->equipment = equipment; }
 	void SetDice(const Dice& dice) { this->dice = dice; }
 	void SetStatus(const uint8_t status) { this->status = status; }

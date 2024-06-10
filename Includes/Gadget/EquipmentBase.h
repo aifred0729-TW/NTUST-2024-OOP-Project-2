@@ -1,8 +1,15 @@
 ﻿#ifndef EQUIPMENT_COMPONENT_H
 #define EQUIPMENT_COMPONENT_H
 
+#include <string>
+#include <cstdint>
+#include <vector>
+
 #include <Attribute.h>
 #include <Skill.h>
+
+class Attribute;
+class Skill;
 
 class EquipmentBase {
 private:

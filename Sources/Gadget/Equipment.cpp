@@ -5,6 +5,8 @@
 #include <Equipment.h>
 #include <EquipmentBase.h>
 #include <EquipmentTable.h>
+#include <Attribute.h>
+#include <Skill.h>
 
 Equipment::Equipment() {
 	armor = Armor();

@@ -1,5 +1,8 @@
 ﻿#include <SkillBase.h>
 #include <Entity.h>
+#include <Attribute.h>
+#include <iostream>
+#include <string>
 
 SkillBase::SkillBase() : tick(0), command(nullptr) {}
 SkillBase::SkillBase(std::string name, SkillCommand* command, uint8_t targetType)

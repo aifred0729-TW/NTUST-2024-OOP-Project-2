@@ -1,5 +1,16 @@
-﻿#include "../../Includes/Control/WorldMap.h"
-#include "ConstData.h"
+﻿#include <WorldMap.h>
+#include <ConstData.h>
+
+#include <cstdint>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <stack>
+#include <string>
+#include <vector>
+#include <windows.h>
+#include <fstream>
+#include <sstream>
 
 void WorldMap::loadMap(std::string mapFile) {
 	using namespace std;

@@ -1,5 +1,8 @@
-﻿#include "Skill.h"
-#include <algorithm>
+﻿#include <algorithm>
+#include <Skill.h>
+#include <Dice.h>
+#include <SkillBase.h>
+#include <ConstData.h>
 
 Skill::Skill() : active(), passive(), buff() {}
 

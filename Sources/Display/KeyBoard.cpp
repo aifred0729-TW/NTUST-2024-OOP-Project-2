@@ -1,4 +1,4 @@
-﻿#include "../../Includes/Display/KeyBoard.h"
+﻿#include <KeyBoard.h>
 
 int KeyBoard::keyUpdate(bool key[]) {
     for (long long i = 0; i < ValidInput::INVALID; i++) {

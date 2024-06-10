@@ -2,10 +2,11 @@
 #define SKILL_BASE_H
 
 #include <vector> 
+#include <string>
 
-#include <Dice.h>
-#include <Attribute.h>
 #include <SkillCommand.h>
+
+class Attribute;
 
 class SkillBase {
 protected:

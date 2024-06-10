@@ -8,10 +8,12 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include "Entity.h"
-#include "Backpack.h"
+
+#include <Entity.h>
 #include "Equipment.h"
 #include "EquipmentTable.h"
+
+class Backpack;
 
 class Role : public Entity {
 private:
