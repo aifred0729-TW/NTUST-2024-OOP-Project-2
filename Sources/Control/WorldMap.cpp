@@ -4,6 +4,7 @@
 #include <UI.h>
 #include <Enemy.h>
 #include <Role.h>
+#include <Store.h>
 
 int WorldMap::HEIGHT = 50;
 int WorldMap::WIDTH = 140;
@@ -14,6 +15,7 @@ std::vector<std::vector<bool>> WorldMap::fog; // War Fog (Make some lamp?)
 std::vector<std::vector<std::string>>  WorldMap::renderMap; // 每個單元為可輸出色塊
 std::vector<Enemy*> WorldMap::enemys;
 std::vector<Role*> WorldMap::roles;
+std::vector<Store*> WorldMap::stores;
 
 const std::vector<std::string> colorBoard = { BG_BRIGHT_BLACK, BG_WHITE, BG_BRIGHT_BLACK, BG_GREEN, BG_BRIGHT_BLUE, BG_BRIGHT_RED ,BG_BRIGHT_RED };
 
@@ -42,7 +44,7 @@ void WorldMap::loadMap(std::string mapFile) {
         std::getline(fp, stmp);
         if (columns == 0)
             columns = stmp.length();
-        for (unsigned int i = 0; i < columns; i++) {
+        for (int i = 0; i < columns; i++) {
             ss << stmp[i];
             ss >> itmp;
             ss.clear();
@@ -65,7 +67,7 @@ void WorldMap::loadFog() {
 
     fog.resize(HEIGHT);
 
-    for (unsigned int i = 0; i < HEIGHT; i++) {
+    for (int i = 0; i < HEIGHT; i++) {
         fog[i].resize(WIDTH, true);
     }
 
@@ -88,6 +90,10 @@ void WorldMap::SetRoles(std::vector<Role*> roles) {
     WorldMap::roles = roles;
 }
 
+void WorldMap::SetStores(std::vector<Store*> stores) {
+    WorldMap::stores = stores;
+}
+
 void WorldMap::SetMap(int row, int col, int element) {
     map[row][col] = element;
     renderColor();
@@ -98,30 +104,30 @@ void WorldMap::SetFog(int row, int col) {
 
     using namespace std;
 
-	const int fogWidth = 10;
+    const int fogWidth = 10;
 
-	int topLimit = row - (fogWidth / 2);
-	int downLimit = row + (fogWidth / 2);
-	int leftLimit = col - (fogWidth / 2);
-	int rightLimit = col + (fogWidth / 2);
+    int topLimit = row - (fogWidth / 2);
+    int downLimit = row + (fogWidth / 2);
+    int leftLimit = col - (fogWidth / 2);
+    int rightLimit = col + (fogWidth / 2);
 
-	for (int i = topLimit; i < row; i++) {
-		if (i < 0 || i >= 50) continue;
-		for (int j = col - (i - topLimit); j < col + (i - topLimit)-1; j++) {
-			if (j < 0 || j >= 140) continue;
-			fog[i][j] = (fog[i][j]) ? false : true;
-		}
-	}
+    for (int i = topLimit; i < row; i++) {
+        if (i < 0 || i >= 50) continue;
+        for (int j = col - (i - topLimit); j < col + (i - topLimit) - 1; j++) {
+            if (j < 0 || j >= 140) continue;
+            fog[i][j] = (fog[i][j]) ? false : true;
+        }
+    }
 
-	for (int i = row; i < downLimit; i++) {
-		if (i < 0 || i >= 50) continue;
-		for (int j = col - (downLimit - i); j < col + (downLimit - i)-1; j++) {
-			if (j < 0 || j >= 140) continue;
-			fog[i][j] = (fog[i][j]) ? false : true;
-		}
-	}
+    for (int i = row; i < downLimit; i++) {
+        if (i < 0 || i >= 50) continue;
+        for (int j = col - (downLimit - i); j < col + (downLimit - i) - 1; j++) {
+            if (j < 0 || j >= 140) continue;
+            fog[i][j] = (fog[i][j]) ? false : true;
+        }
+    }
 
-	return;
+    return;
 }
 
 bool WorldMap::posValid(std::pair<int, int> pos) {
@@ -182,6 +188,11 @@ Rect WorldMap::GetRect(std::pair<int, int > pos) {
             output.roles.push_back(R);
         }
     }
+    for (Store* S : WorldMap::stores) {
+        if (S->GetPosition().first == pos.first && S->GetPosition().second == pos.second) {
+            output.stores.push_back(S);
+        }
+    }
     return output;
 }
 
@@ -199,6 +210,6 @@ Rect WorldMap::GetRect() {
    // 6 = Enemy  (Allow to Pass) (修改至可互動物件)
 
 int WorldMap::manhattanDistance(std::pair<int, int> player, std::pair<int, int> enemy) {
-	return std::abs((player.first - enemy.first) + (player.second, enemy.second));
+    return std::abs((player.first - enemy.first) + (player.second, enemy.second));
 }
 

@@ -15,11 +15,13 @@
 class Role;
 class Enemy;
 class Entity;
+class Store;
 
 struct Rect {
     int terrain; // 地形
     std::vector<Enemy*> enemys; // 地塊上的敵人
     std::vector<Role*> roles; // 地塊上的角色
+    std::vector<Store*> stores; // 地塊上的商店
 };
 
 namespace WorldMap {
@@ -42,6 +44,7 @@ namespace WorldMap {
     extern std::vector<std::vector<std::string>> renderMap; // 每個單元為可輸出色塊
     extern std::vector<Enemy*> enemys;
     extern std::vector<Role*> roles;
+    extern std::vector<Store*> stores;
 
     // 地圖目前對準的地塊
     // 只能使用一次
@@ -60,6 +63,7 @@ namespace WorldMap {
 
     void SetEnemys(std::vector<Enemy*> enemys);
     void SetRoles(std::vector<Role*> roles);
+    void SetStores(std::vector<Store*> stores);
 
     void SetMap(int, int, int);
 

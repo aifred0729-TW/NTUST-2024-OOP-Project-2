@@ -9,6 +9,7 @@
 #include "Displayer.h"
 #include "Color.h"
 #include "WorldMap.h"
+#include "Store.h"
 
 // Public
 
@@ -191,9 +192,9 @@ void UI::printPriority(std::vector<Action*> eventQueue) {
 
     //整理輸出區域
     for (int i = 0; i < eventQueue.size(); i++) {
-        strLengthCount += eventQueue[i]->GetObj()->GetName().length();
+        strLengthCount += (int)eventQueue[i]->GetObj()->GetName().length();
     }
-    strLengthCount += (eventQueue.size() - 1) * 4;
+    strLengthCount += (int)(eventQueue.size() - 1) * 4;
     /*
     BuildVoid(0, 7, 121, 11);
     moveCursor(61 - strLengthCount / 2 - (eventQueue.size() - 1) * 2, 9);
@@ -332,6 +333,17 @@ void UI::PrintWorldMap() {
         if (WorldMap::VisibleOnMap(R->GetPosition())) {
             int x = R->GetPosition().first - pos.first + 7;
             int y = R->GetPosition().second - pos.second + 5;
+            for (int ii = 0; ii < 3; ii++) {
+                moveCursor(2 + x * 8, 6 + y * 4 + ii);
+                std::cout << "      ";
+            }
+        }
+    }
+    std::cout << BG_BRIGHT_YELLOW;
+    for (auto S : WorldMap::stores) {
+        if (WorldMap::VisibleOnMap(S->GetPosition())) {
+            int x = S->GetPosition().first - pos.first + 7;
+            int y = S->GetPosition().second - pos.second + 5;
             for (int ii = 0; ii < 3; ii++) {
                 moveCursor(2 + x * 8, 6 + y * 4 + ii);
                 std::cout << "      ";
