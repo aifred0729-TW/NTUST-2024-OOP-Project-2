@@ -42,9 +42,7 @@ public:
     // Initialize Game
     void Initialize();
 
-    bool checkIsOnShop();
-    bool checkIsOnEnemy();
-
+    void runRoleTurn(Role* RoleRef, long long turn);
 
 public:
     // Game Main Process

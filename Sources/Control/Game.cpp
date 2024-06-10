@@ -61,8 +61,6 @@ void Game::Initialize() {
 void Game::MainProcess(void) {
     using namespace std;
 
-    long long turn = 0;
-
     Initialize();
     cout << "done" << endl;
     UI::checkConsoleSize(50, 180);
@@ -71,18 +69,28 @@ void Game::MainProcess(void) {
     system("Pause");
     system("CLS");
 
-    vector<Role> executionRoles;
-    bool keyState[KeyBoard::INVALID];
-
-
+    long long turn = 0;
 
     while (true) {
         turn++;
-        // Move Stage
+        for (unsigned int i = 0; i < roles.size(); i++) {
+            runRoleTurn(roles[i], turn);
+        }
+    }
+
+    return;
+}
+
+void Game::runRoleTurn(Role* RoleRef, long long turn) {
+    using namespace std;
+
+    bool keyState[KeyBoard::INVALID];
+
+    for (unsigned int i = /*RoleXXX->GetmaxActivePoint*/; i > 0; i--) {
+        
 
         KeyBoard::keyUpdate(keyState);
-        if (keyState[KeyBoard::EP]) {
-        }
+        if (keyState[KeyBoard::EP]) return;
         else if (keyState[KeyBoard::EI]) {
             // backpack process
             ;
@@ -102,14 +110,5 @@ void Game::MainProcess(void) {
         // if checkIsOnEnemy
         // enterCombat
     }
-
     return;
-}
-
-bool Game::checkIsOnShop() {
-    using namespace std;
-
-    // if 
-
-    return 0;
 }
