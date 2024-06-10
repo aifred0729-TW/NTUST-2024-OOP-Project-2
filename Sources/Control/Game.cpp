@@ -25,9 +25,9 @@ void Game::Initialize() {
 	SkillTable::Initialize();
 	EquipmentTable::Initialize();
 	ItemTable::Initialize();
-	Role price("price");
-	Role soap("soap");
-	Role yuri("yuri");
+	Role Kazusa("杏山千紗");
+	Role Shiorko("砂狼白子");
+	Role Hoshino("小鳥游星野");
 
 	Enemy fat_tonya("胖子 - Tonya");
 	Enemy troll_tonya("巨魔 - Tonya");
