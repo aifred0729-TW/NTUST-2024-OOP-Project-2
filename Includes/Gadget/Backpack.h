@@ -16,6 +16,7 @@ public:
 
     void addItem(Item* item);
     void useItem(const std::string& name, Role& entity);
+    std::vector<Item*> getItems();
 };
 
 #endif

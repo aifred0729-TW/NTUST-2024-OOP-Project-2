@@ -16,6 +16,7 @@ Entity::Entity() {
     equipForce("BareAccessory");
     status = 0;
     eventID = 0;
+    mode = ROLE;
 }
 
 Entity::Entity(std::string name) : Entity() {
@@ -144,6 +145,10 @@ void Entity::SetEventID(const uint8_t eventID) {
     this->eventID = eventID;
 }
 
+void Entity::SetMode(const uint8_t mode) {
+    this->mode = mode;
+}
+
 std::string Entity::GetName(void) {
     return name;
 }
@@ -170,4 +175,8 @@ uint8_t   Entity::GetStatus(void) {
 
 uint8_t   Entity::GetEventID(void) {
     return eventID;
+}
+
+uint8_t   Entity::GetMode(void) {
+    return mode;
 }

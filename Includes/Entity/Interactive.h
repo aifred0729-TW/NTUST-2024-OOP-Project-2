@@ -15,7 +15,6 @@
 class Interactive {
 private:
     Role *role;
-
 public:
     void SetRole(Role*);
     Role* GetRole(void);

@@ -18,7 +18,7 @@ private:
     uint8_t movementPoint;
     uint32_t step;
     std::pair<uint32_t, uint32_t> position;
-
+    uint16_t money;
 public:
     static Backpack backpack;
     Role();  // Default constructor
@@ -27,10 +27,12 @@ public:
     void SetMovementPoint(const uint8_t);
     void SetStep(const uint32_t);
     void SetPosition(const std::pair<uint32_t, uint32_t>&);
+    void SetMoney(const uint16_t);
     
     uint8_t GetMovementPoint() const;
     uint32_t GetStep() const;
     std::pair<uint32_t, uint32_t> GetPosition() const;
+    uint16_t GetMoney() const;
 
 public:
     void addItemToBackpack(const std::string& name);

@@ -5,13 +5,17 @@
 Backpack Role::backpack;
 
 Role::Role()
-    : movementPoint(0), step(0), position({0, 0}) {}
+    : movementPoint(0), step(0), position({ 0, 0 }), money(800) {
+    mode = ROLE;
+}
 
 Role::Role(std::string name) {
     SetName(name);
     SetMovementPoint(0);
     SetStep(0);
     SetPosition({ 0, 0 });
+    SetMode(ROLE);
+    SetMoney(800);
 }
 
 void Role::equip(const std::string& name) {
@@ -73,6 +77,10 @@ void Role::SetPosition(const std::pair<uint32_t, uint32_t>& position) {
     this->position = position;
 }
 
+void Role::SetMoney(const uint16_t money) {
+    this->money = money;
+}
+
 uint8_t Role::GetMovementPoint(void) const {
     return movementPoint;
 }
@@ -83,4 +91,8 @@ uint32_t Role::GetStep(void) const {
 
 std::pair<uint32_t, uint32_t> Role::GetPosition(void) const {
     return position;
+}
+
+uint16_t Role::GetMoney(void) const {
+    return money;
 }

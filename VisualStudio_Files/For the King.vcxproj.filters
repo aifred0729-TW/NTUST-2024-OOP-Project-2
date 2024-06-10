@@ -93,9 +93,6 @@
     <ClCompile Include="..\Sources\Entity\Store.cpp">
       <Filter>Sources\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Gadget\Item.cpp">
-      <Filter>Sources\Gadget</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Gadget\Dice.cpp">
       <Filter>Sources\Gadget</Filter>
     </ClCompile>
@@ -134,6 +131,15 @@
     </ClCompile>
     <ClCompile Include="..\Sources\Display\KeyBoard.cpp">
       <Filter>Sources\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\Backpack.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\ItemCommandSet.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Gadget\ItemTable.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +229,18 @@
     </ClInclude>
     <ClInclude Include="..\Includes\Gadget\SkillCommandSet.h">
       <Filter>Includes\Gadget\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\Backpack.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\ItemCommand.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\ItemCommandSet.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Gadget\ItemTable.h">
+      <Filter>Includes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

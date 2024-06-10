@@ -23,6 +23,7 @@ protected:
 	Dice               dice;            // Dice
 	uint8_t            status;          // Role Status
 	uint8_t            eventID;         // Current Event
+	uint8_t            mode;           // Mode, Role = 0, Enemy = 1
 
 public:
 	Entity();
@@ -35,6 +36,7 @@ public:
 	void SetDice(const Dice&);
 	void SetStatus(const uint8_t);
 	void SetEventID(const uint8_t);
+	void SetMode(const uint8_t);
 
 	std::string         GetName(void);
 	Attribute&          GetAttribute(void);
@@ -43,7 +45,7 @@ public:
 	Dice&               GetDice(void);
 	uint8_t             GetStatus(void);
 	uint8_t             GetEventID(void);
-
+	uint8_t             GetMode(void);
 	Attribute           GetTotalAttribute(void);
 	Skill               GetTotalSkill(void);
 
