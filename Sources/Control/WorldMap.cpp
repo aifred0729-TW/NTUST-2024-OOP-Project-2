@@ -95,27 +95,33 @@ void WorldMap::SetMap(int row, int col, int element) {
 }
 
 void WorldMap::SetFog(int row, int col) {
+
     using namespace std;
-    const int fogWidth = 5;
-    int topLimit = row - (fogWidth);
-    int downLimit = row + (fogWidth);
-    int leftLimit = col - (fogWidth);
-    int rightLimit = col + (fogWidth);
-    for (int i = topLimit; i < row; i++) {
-        if (i < 0 || i >= HEIGHT) continue;
-        for (int j = col - (i - topLimit); j < col + (i - topLimit) - 1; j++) {
-            if (j < 0 || j >= WIDTH) continue;
-            fog[i][j] = (fog[i][j]) ? false : true;
-        }
-    }
-    for (int i = row; i < downLimit; i++) {
-        if (i < 0 || i >= HEIGHT) continue;
-        for (int j = col - (downLimit - i); j < col + (downLimit - i) - 1; j++) {
-            if (j < 0 || j >= WIDTH) continue;
-            fog[i][j] = (fog[i][j]) ? false : true;
-        }
-    }
-    return;
+
+	const int fogWidth = 10;
+
+	int topLimit = row - (fogWidth / 2);
+	int downLimit = row + (fogWidth / 2);
+	int leftLimit = col - (fogWidth / 2);
+	int rightLimit = col + (fogWidth / 2);
+
+	for (int i = topLimit; i < row; i++) {
+		if (i < 0 || i >= 50) continue;
+		for (int j = col - (i - topLimit); j < col + (i - topLimit)-1; j++) {
+			if (j < 0 || j >= 140) continue;
+			fog[i][j] = (fog[i][j]) ? false : true;
+		}
+	}
+
+	for (int i = row; i < downLimit; i++) {
+		if (i < 0 || i >= 50) continue;
+		for (int j = col - (downLimit - i); j < col + (downLimit - i)-1; j++) {
+			if (j < 0 || j >= 140) continue;
+			fog[i][j] = (fog[i][j]) ? false : true;
+		}
+	}
+
+	return;
 }
 
 bool WorldMap::posValid(std::pair<int, int> pos) {
@@ -191,3 +197,8 @@ Rect WorldMap::GetRect() {
    // 4 = Water  (Not Allow to Pass)
    // 5 = Shop   (Allow to Pass) (修改至可互動物件)
    // 6 = Enemy  (Allow to Pass) (修改至可互動物件)
+
+int WorldMap::manhattanDistance(std::pair<int, int> player, std::pair<int, int> enemy) {
+	return std::abs((player.first - enemy.first) + (player.second, enemy.second));
+}
+

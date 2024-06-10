@@ -22,6 +22,7 @@ public:
 
     void SetPosition(const std::pair<uint32_t, uint32_t>&);
     std::pair<uint32_t, uint32_t> GetPosition(void);
+
 };
 
 #endif

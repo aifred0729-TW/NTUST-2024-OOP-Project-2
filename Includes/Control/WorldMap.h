@@ -75,7 +75,8 @@ namespace WorldMap {
     Rect GetRect(std::pair<int, int > pos);
     Rect GetRect();
 
-    // ...
+    int manhattanDistance(std::pair<int, int> player, std::pair<int, int> enemy);
+
 };
 
 #endif

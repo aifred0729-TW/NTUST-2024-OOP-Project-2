@@ -25,6 +25,7 @@ private:
     uint8_t            eventID;         // Current Event
     bool               faction;         // 0:ROLE 1:ENEMY
 
+
 public:
     Entity();
     Entity(std::string name);
@@ -62,6 +63,7 @@ public:
     void takeDamage(int16_t damage, char attackType);
     // 直接受到的治療數值
     void heal(int16_t heal);
+
 };
 
 #endif

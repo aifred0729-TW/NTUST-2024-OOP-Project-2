@@ -14,8 +14,10 @@
 
 class Store : public Interactive {
 public:
+    Store() {};
+public:
     // Buy Item from Shop
-    void BuyItem(Role*);
+    void SellItemTo(Role*);
 };
 
 #endif

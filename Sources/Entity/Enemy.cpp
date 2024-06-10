@@ -1,5 +1,6 @@
 ﻿#include "../../Includes/Entity/Enemy.h"
 
+
 Enemy::Enemy() : Entity(), Interactive() {}
 Enemy::Enemy(std::string name) : Interactive() {
     SetName(name);
@@ -15,3 +16,4 @@ void Enemy::SetPosition(const std::pair<uint32_t, uint32_t>& position) {
 std::pair<uint32_t, uint32_t> Enemy::GetPosition(void) {
     return position;
 }
+

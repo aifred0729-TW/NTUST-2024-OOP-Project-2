@@ -73,11 +73,19 @@ void Attribute::SetMaxFocus(const int16_t maxFocus) {
 }
 
 void Attribute::SetHP(const int16_t HP) {
-	this->HP = HP;
+	if (HP > this->maxHP) {
+		this->HP = this->maxHP;
+	} else {
+		this->HP = HP;
+	}
 }
 
 void Attribute::SetFocus(const int16_t focus) {
-	this->focus = focus;
+	if (focus > this->maxFocus) {
+		this->focus = this->maxFocus;
+	} else {
+		this->focus = focus;
+	}
 }
 
 void Attribute::SetSPD(const int16_t SPD) {

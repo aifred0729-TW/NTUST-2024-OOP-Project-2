@@ -33,13 +33,15 @@
     <ClCompile Include="..\Sources\Entity\Interactive.cpp" />
     <ClCompile Include="..\Sources\Entity\Role.cpp" />
     <ClCompile Include="..\Sources\Entity\Store.cpp" />
+    <ClCompile Include="..\Sources\Gadget\Backpack.cpp" />
     <ClCompile Include="..\Sources\Gadget\EquipmentBase.cpp" />
     <ClCompile Include="..\Sources\Gadget\Attribute.cpp" />
+    <ClCompile Include="..\Sources\Gadget\ItemCommandSet.cpp" />
+    <ClCompile Include="..\Sources\Gadget\ItemTable.cpp" />
     <ClCompile Include="..\Sources\Gadget\SkillBase.cpp" />
     <ClCompile Include="..\Sources\Gadget\Dice.cpp" />
     <ClCompile Include="..\Sources\Gadget\Equipment.cpp" />
     <ClCompile Include="..\Sources\Gadget\EquipmentTable.cpp" />
-    <ClCompile Include="..\Sources\Gadget\Item.cpp" />
     <ClCompile Include="..\Sources\Gadget\Skill.cpp" />
     <ClCompile Include="..\Sources\Gadget\SkillCommandSet.cpp" />
     <ClCompile Include="..\Sources\Gadget\SkillTable.cpp" />
@@ -62,8 +64,12 @@
     <ClInclude Include="..\Includes\Entity\Interactive.h" />
     <ClInclude Include="..\Includes\Entity\Role.h" />
     <ClInclude Include="..\Includes\Entity\Store.h" />
+    <ClInclude Include="..\Includes\Gadget\Backpack.h" />
     <ClInclude Include="..\Includes\Gadget\EquipmentBase.h" />
     <ClInclude Include="..\Includes\Gadget\Attribute.h" />
+    <ClInclude Include="..\Includes\Gadget\ItemCommand.h" />
+    <ClInclude Include="..\Includes\Gadget\ItemCommandSet.h" />
+    <ClInclude Include="..\Includes\Gadget\ItemTable.h" />
     <ClInclude Include="..\Includes\Gadget\SkillBase.h" />
     <ClInclude Include="..\Includes\Gadget\Dice.h" />
     <ClInclude Include="..\Includes\Gadget\Equipment.h" />
@@ -91,26 +97,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
