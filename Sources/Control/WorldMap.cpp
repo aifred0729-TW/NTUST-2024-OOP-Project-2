@@ -214,6 +214,12 @@ Rect WorldMap::GetRect(std::pair<int, int > pos) {
     else {
         output.moveable = false;
     }
+    if (output.enemys.empty() && output.roles.empty() && output.stores.empty() && output.tents.empty()) {
+        output.Interact = false;
+    }
+    else {
+        output.Interact = true;
+    }
     return output;
 }
 

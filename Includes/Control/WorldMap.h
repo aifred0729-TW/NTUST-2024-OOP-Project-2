@@ -27,6 +27,7 @@ struct Rect {
     std::vector<Store*> stores; // 地塊上的商店
     std::vector<Tent*> tents;
     bool moveable;
+    bool Interact;
 };
 
 namespace WorldMap {
