@@ -203,6 +203,8 @@ void UI::printPriority(std::vector<Action*> eventQueue) {
             (std::string)DARK + (std::string)RED : (std::string)BOLD + (std::string)RED;
         std::string roleColor = (eventQueue[i]->GetObj()->GetStatus() & DEAD) ?
             (std::string)DARK + (std::string)CYAN : (std::string)BOLD + (std::string)CYAN;
+        roleColor = (eventQueue[i]->GetObj()->GetStatus() & RETREAT) ?
+            (std::string)DARK + (std::string)WHITE : roleColor;
         std::string color = (eventQueue[i]->GetEntityID() < 3) ? enemyColor : roleColor;
         outputStr += color;
         outputStr += eventQueue[i]->GetObj()->GetName() + RESET;
@@ -225,6 +227,8 @@ void UI::printPriority(std::vector<Action*> eventQueue) {
             (std::string)DARK + (std::string)RED : (std::string)BOLD + (std::string)RED;
         std::string roleColor = (oldEventQueue[0]->GetObj()->GetStatus() & DEAD) ?
             (std::string)DARK + (std::string)CYAN : (std::string)BOLD + (std::string)CYAN;
+        roleColor = (oldEventQueue[0]->GetObj()->GetStatus() & RETREAT) ?
+            (std::string)DARK + (std::string)WHITE : roleColor;
         std::string color = (oldEventQueue[0]->GetEntityID() < 3) ? enemyColor : roleColor;
         oldOutputStr += (std::string)RESET + " <- " + color + oldEventQueue[0]->GetObj()->GetName();
         for (int i = 0; i < oldEventQueue[0]->GetObj()->GetName().length() + 4; i++) {

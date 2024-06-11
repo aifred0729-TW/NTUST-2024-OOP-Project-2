@@ -163,7 +163,7 @@ void Game::MainProcess(void) {
                 // 結束遊戲
                 break;
             }
-            if (roles.size() - 1  < i) {
+            if (roles.size() - 1 < i) {
                 break;
             }
             OnePlayerMovePhase(roles[i]);
@@ -173,7 +173,6 @@ void Game::MainProcess(void) {
             break;
         }
     }
-
     return;
 }
 
@@ -215,6 +214,13 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             WorldMap::SetTents(tents);
             UI::PrintWorldMap();
             // backpack process
+        }
+        else if (keyState[KeyBoard::EQ]) {
+            UI::BuildFrame(121, 0, 179, 28);
+            std::vector<std::string> roleNames;
+            for (auto R : roles) {
+                roleNames.push_back(R->GetName());//////////////////////////////////////////////////////////////////
+            }
         }
         else if (keyState[KeyBoard::EDU] || keyState[KeyBoard::EDL] || keyState[KeyBoard::EDR] || keyState[KeyBoard::EDD]) {
             // - Roll Dice
