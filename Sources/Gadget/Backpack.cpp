@@ -8,9 +8,6 @@ void Backpack::addItem(Item* item) {
             if (existingItem->getName() == item->getName() && existingItem->isStackable()) {
                 StackableItem* stackableItem = dynamic_cast<StackableItem*>(existingItem);
                 stackableItem->addQuantity(1);
-                if (stackableItem->getQuantity() == 0) {
-                    stackableItem->addQuantity(1);
-                }
                 return;
             }
         }
@@ -26,9 +23,11 @@ void Backpack::useItem(const std::string& itemName, Role& role) {
                 StackableItem* stackableItem = dynamic_cast<StackableItem*>(*it);
                 stackableItem->removeQuantity(1);
                 if (stackableItem->getQuantity() == 0) {
+                    stackableItem->setQuantity(1);
                     items.erase(it);
                 }
-            } else {
+            }
+            else {
                 role.equip((*it)->getName());
                 items.erase(it);
             }

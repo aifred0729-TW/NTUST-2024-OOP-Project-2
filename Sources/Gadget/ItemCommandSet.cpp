@@ -44,5 +44,7 @@ void TentCommand::use(Role& role) {
     else {
         UI::logEvent(role.GetName() + " 帳篷，放置！");
         Game::createTent(&role);
+        return;
     }
+
 }
