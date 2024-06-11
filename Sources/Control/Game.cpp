@@ -85,9 +85,9 @@ void Game::Initialize() {
     prof_H.equipForce("Hammer");
     enemys = { &prof_D ,&prof_P ,&prof_H ,&prof_Ding , &prof_S };
 
-    static Tent tent("他媽的帳篷", 1, 7, 10);
-    static Tent tent2("他媽的帳篷2", 7, 1, 2);
-    tents = { &tent , &tent2 };
+    // static Tent tent("他媽的帳篷", 1, 7, 10);
+    // static Tent tent2("他媽的帳篷2", 7, 1, 2);
+    // tents = { &tent , &tent2 };
 
     static Store store1("TR-509 處刑場", 5, 5);
     stores = { &store1 };
@@ -155,6 +155,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
     while (1) {
         UI::stackHeight = 0;
         bool moved = false;
+        bool checkOut = false;
         std::pair<int, int> undo = { 0,0 };
         KeyBoard::keyUpdate(keyState);
         std::pair<int, int> Rpos = { currentActRole->GetPosition().first ,currentActRole->GetPosition().second };
@@ -167,6 +168,9 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             break;
         }
         else if (keyState[KeyBoard::EI]) {
+            Game::createTent(currentActRole);
+            WorldMap::SetTents(tents);
+            UI::PrintWorldMap();
             // backpack process
         }
         else if (keyState[KeyBoard::EDU] || keyState[KeyBoard::EDL] || keyState[KeyBoard::EDR] || keyState[KeyBoard::EDD]) {
@@ -212,8 +216,9 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             WorldMap::movePos(1, 0);
         }
         else if (keyState[KeyBoard::ESPACE] || keyState[KeyBoard::EENTER]) {
-            Game::createTent(currentActRole);
-            UI::PrintWorldMap();
+            Rpos = { currentActRole->GetPosition().first ,currentActRole->GetPosition().second };
+            WorldMap::setPos(Rpos);
+            checkOut = true;
         }
         else if (keyState[KeyBoard::EESC]) {
         }
@@ -228,7 +233,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             UI::displayString("MovementPoint: " + UI::FocusDisplayer(movementPoint, maxMovementPoint), 70, 4);
         }
         // 踩上可互動物件
-        if (moved && WorldMap::GetRect().Interact) {
+        if ((moved && WorldMap::GetRect().Interact) || checkOut) {
             // 跑到敵人頭上了
             if (!WorldMap::GetRect().enemys.empty()) {
                 // 打架
@@ -273,8 +278,16 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                     Field F(battleR, battleE);
                     F.StartBattle();
                     UI::stackHeight = 0;
+                    for (int i = 0; i < roles.size(); i++) {
+                        if (roles[i]->GetStatus() & DEAD) {
+                            roles.erase(roles.begin() + i);
+                            WorldMap::SetRoles(roles);
+                            i--;
+                        }
+                    }
                     UI::PreWorldMap(roles);
                     UI::mapPhase();
+                    break;
                 }
                 else {
                     currentActRole->movePos(undo);
@@ -369,7 +382,6 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             UI::DisplayTent(121, 0, WorldMap::GetRect().tents);
         }
 
-
         if (!WorldMap::GetRect().enemys.empty() || !WorldMap::GetRect().roles.empty()) {}
         else {
             if (WorldMap::VisibleOnMap(currentActRole->GetPosition())) {
@@ -419,5 +431,5 @@ int Game::GenerateMovementPoint(Role* currentActRole) {
 void Game::createTent(Role* role) {
     std::string name = (role->GetName() + " 的帳篷");
     Tent* tentToPush = new Tent(name, role->GetPosition());
-    // tents.push_back(tentToPush);
+    tents.push_back(tentToPush);
 }

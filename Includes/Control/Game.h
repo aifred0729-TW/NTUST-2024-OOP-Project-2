@@ -23,7 +23,6 @@ private:
     std::vector<Role*> roles;
     std::vector<Enemy*> enemys;
     std::vector<Tent*> tents;
-    std::vector<Tent> tentStack;
     std::vector<Store*> stores;
 
     int Move(void);

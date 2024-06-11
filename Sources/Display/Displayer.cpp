@@ -327,7 +327,6 @@ void Displayer::displayPlayerInfo(int x, int y, Enemy* enemy) {
 
 void Displayer::displayPlayerInfo(int x, int y, std::vector<Entity*> entitys) {
     using namespace std;
-
     for (int i = 0; i < entitys.size(); i++) {
         Attribute att = entitys[i]->GetTotalAttribute();
         BuildVoid(x, y + 4 * i, x + 58, y + 6 + stackHeight);

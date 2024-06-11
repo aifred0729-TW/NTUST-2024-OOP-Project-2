@@ -299,6 +299,9 @@ void UI::PreWorldMap(std::vector<Role*> roles) {
     for (int i = 0; i < roles.size(); i++) {
         displayPlayerInfo(121, 28 + i * 7, roles[i]);
     }
+    for (int i = roles.size(); i < 3; i++) {
+        BuildVoid(121, 28 + i * 7, 179, 35 + i * 7);
+    }
 
     PrintWorldMap();
 }
@@ -347,7 +350,7 @@ void UI::PrintWorldMap() {
     }
     std::cout << BG_BRIGHT_CYAN;
     for (auto R : WorldMap::roles) {
-        if (WorldMap::VisibleOnMap(R->GetPosition())) {
+        if (WorldMap::VisibleOnMap(R->GetPosition()) && !(R->GetStatus() & DEAD)) { // 死了就從地圖上消失
             int x = R->GetPosition().first - pos.first + 7;
             int y = R->GetPosition().second - pos.second + 5;
             for (int ii = 0; ii < 3; ii++) {
