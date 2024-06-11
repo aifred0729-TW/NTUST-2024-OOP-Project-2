@@ -189,6 +189,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
     bool keyState[KeyBoard::INVALID];
     static bool distanceDisplayWork = 0;
 
+    UI::displayString("Money :        " + std::to_string(Role::GetMoney()), 70, 3);
     UI::displayString("MovementPoint: " + UI::FocusDisplayer(movementPoint, maxMovementPoint), 70, 4);
 
     std::cout << BG_WHITE;
@@ -279,6 +280,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
         if (moved) {
             // 移動判定
             movementPoint--;
+            UI::displayString("Money :        " + std::to_string(Role::GetMoney()), 70, 3);
             UI::displayString("MovementPoint: " + UI::FocusDisplayer(movementPoint, maxMovementPoint), 70, 4);
         }
         // 踩上可互動物件

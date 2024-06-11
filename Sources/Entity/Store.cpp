@@ -86,6 +86,7 @@ int Store::OpenShop() {
     for (const auto& pair : itemList.itemMap) {
         for (int i = 0; i < ITEM_TABLE.size(); ++i) {
             if (pair.first == ITEM_TABLE[i]) {
+                UI::displayString("Money :        " + std::to_string(Role::GetMoney()), 70, 3);
                 ITEM_TABLE[i].resize(44, ' ');
                 ITEM_TABLE[i] += "$ ";
                 oss << std::setw(3) << std::setfill(' ') << pair.second->getPrice();

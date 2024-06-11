@@ -23,6 +23,7 @@ void Chest::GiveTreasureTo(Role* role) {
             money = role->GetMoney();
             treasure = (rand() % 500) + 1;
             role->SetMoney(money + treasure);
+            UI::displayString("Money :        " + std::to_string(Role::GetMoney()), 70, 3);
             UI::logEvent("獲得金錢 $ " + std::to_string(treasure) + "！現有 & " + std::to_string(role->GetMoney()));
             return;
         }
