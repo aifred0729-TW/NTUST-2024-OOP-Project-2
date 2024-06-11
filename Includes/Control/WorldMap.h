@@ -85,6 +85,7 @@ namespace WorldMap {
     void renderColor();
     bool VisibleOnMap(std::pair<int, int > pos);
     Rect GetRect(std::pair<int, int > pos);
+    Rect GetRect(Role*);
     Rect GetRect();
 
     int manhattanDistance(std::pair<int, int> player, std::pair<int, int> enemy);

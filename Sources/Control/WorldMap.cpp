@@ -227,6 +227,10 @@ Rect WorldMap::GetRect() {
     return GetRect(WorldMap::pos);
 }
 
+Rect WorldMap::GetRect(Role* role) {
+    return GetRect(role->GetPosition());
+}
+
 // Map Structure
    // 0 = Player (不他不該出現在這裡)
    // 1 = Ground (Allow to Pass)

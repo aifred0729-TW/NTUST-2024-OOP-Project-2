@@ -23,6 +23,7 @@ std::vector<Enemy*> EnemysVector;
 std::vector<Role*> RolesVector;
 std::vector<std::string> battleLog = {};
 std::vector<std::string> mapLog = {};
+// 1 battle 2 map
 int UI::phase = 0;
 
 void UI::checkConsoleSize(int requiredRows, int requiredCols) {
