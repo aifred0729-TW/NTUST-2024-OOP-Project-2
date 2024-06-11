@@ -114,9 +114,8 @@ void SpeedUpActiveCommand::execute(Entity& caster, std::vector<Entity*> targets,
 
     if (casterDice.GetMovementPoint() == 2) {
         UI::logEvent(caster.GetName() + " 的 Speed Up 成功！");
-        UI::logEvent("給予 " + targets[0]->GetName() + " 1 回合的 SpeedUp Buff。");
         // 給予SpeedUp Buff一回合
-        targets[0]->addBuff("SpeedUp", 2);
+        targets[0]->addBuff("SpeedUp", 1);
     } else {
         UI::logEvent(caster.GetName() + " 的 Speed Up 失敗！");
     }
