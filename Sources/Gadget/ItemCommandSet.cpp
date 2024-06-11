@@ -6,6 +6,9 @@
 #include "UI.h"
 #include "WorldMap.h"
 #include "Game.h"
+#include "Backpack.h"
+#include "Item.h"
+#include "ItemTable.h"
 
 void GodsbeardCommand::use(Role& role) {
     UI::logDivider("使用道具");
@@ -46,5 +49,5 @@ void TentCommand::use(Role& role) {
         Game::createTent(&role);
         return;
     }
-
+    Role::backpack.addItem(ItemTable::getItem("Tent"));
 }
