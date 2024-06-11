@@ -21,6 +21,7 @@ public:
 
     std::string GetName(void) const;
     std::pair<uint32_t, uint32_t> GetPosition(void) const;
+    int GetDuration() { return duration; }
 
     void SetTent(Role*);
     void Recover(Role*);

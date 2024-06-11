@@ -533,9 +533,9 @@ int Displayer::DisplayStore(int x, int y, std::vector<Store*> stores) {
 
     for (int i = 0; i < stores.size(); i++) {
         std::string name = stores[i]->GetName();
-        BuildVoid(x, y + 4 * i, x + 58, y + 6 + stackHeight);
+        BuildVoid(x, y + stackHeight, x + 58, y + 6 + stackHeight);
         moveCursor(x + 3, y + 2 + stackHeight);
-        cout << "Store: ";
+        cout << "Store: " << name;
         stackHeight += 2;
     }
     return 0;
@@ -546,10 +546,12 @@ int Displayer::DisplayTent(int x, int y, std::vector<Tent*> tents) {
 
     for (int i = 0; i < tents.size(); i++) {
         std::string name = tents[i]->GetName();
-        BuildVoid(x, y + 4 * i, x + 58, y + 6 + stackHeight);
+        BuildVoid(x, y + stackHeight, x + 58, y + 6 + stackHeight);
         moveCursor(x + 3, y + 2 + stackHeight);
-        cout << "tent: ";
-        stackHeight += 2;
+        cout << "Tent: " << name;
+        moveCursor(x + 3, y + 3 + stackHeight);
+        cout << "Duration: " << tents[i]->GetDuration();
+        stackHeight += 3;
     }
     return 0;
 }

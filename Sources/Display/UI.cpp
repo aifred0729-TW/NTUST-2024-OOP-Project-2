@@ -367,7 +367,8 @@ void UI::PrintWorldMap() {
             }
         }
     }
-    std::cout << BG_BRIGHT_MAGENTA;
+    std::cout << BG_YELLOW;
+    // std::cout << BG_BRIGHT_MAGENTA;
     for (auto T : WorldMap::tents) {
         if (WorldMap::VisibleOnMap(T->GetPosition())) {
             int x = T->GetPosition().first - pos.first + 7;
