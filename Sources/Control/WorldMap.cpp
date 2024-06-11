@@ -15,6 +15,7 @@
 #include <Role.h>
 #include <Entity.h>
 #include <Store.h>
+#include "Tent.h"
 
 int WorldMap::HEIGHT = 50;
 int WorldMap::WIDTH = 140;
@@ -26,6 +27,7 @@ std::vector<std::vector<std::string>>  WorldMap::renderMap; // 每個單元為�
 std::vector<Enemy*> WorldMap::enemys;
 std::vector<Role*> WorldMap::roles;
 std::vector<Store*> WorldMap::stores;
+std::vector<Tent*> WorldMap::tents;
 
 const std::vector<std::string> colorBoard = { BG_BRIGHT_BLACK, BG_WHITE, BG_BRIGHT_BLACK, BG_GREEN, BG_BRIGHT_BLUE, BG_BRIGHT_RED ,BG_BRIGHT_RED };
 
@@ -92,17 +94,10 @@ std::pair<int, int> WorldMap::getPos() { return pos; }
 int WorldMap::getHeight() { return HEIGHT; }
 int WorldMap::getWidth() { return WIDTH; }
 
-void WorldMap::SetEnemys(std::vector<Enemy*> enemys) {
-    WorldMap::enemys = enemys;
-}
-
-void WorldMap::SetRoles(std::vector<Role*> roles) {
-    WorldMap::roles = roles;
-}
-
-void WorldMap::SetStores(std::vector<Store*> stores) {
-    WorldMap::stores = stores;
-}
+void WorldMap::SetEnemys(std::vector<Enemy*> enemys) { WorldMap::enemys = enemys; }
+void WorldMap::SetRoles(std::vector<Role*> roles) { WorldMap::roles = roles; }
+void WorldMap::SetTents(std::vector<Tent*> tents) { WorldMap::tents = tents; }
+void WorldMap::SetStores(std::vector<Store*> stores) { WorldMap::stores = stores; }
 
 void WorldMap::SetMap(int row, int col, int element) {
     map[row][col] = element;
@@ -206,6 +201,11 @@ Rect WorldMap::GetRect(std::pair<int, int > pos) {
     for (Store* S : WorldMap::stores) {
         if (S->GetPosition().first == pos.first && S->GetPosition().second == pos.second) {
             output.stores.push_back(S);
+        }
+    }
+    for (Tent* T : WorldMap::tents) {
+        if (T->GetPosition().first == pos.first && T->GetPosition().second == pos.second) {
+            output.tents.push_back(T);
         }
     }
     if (output.terrain == 1) {

@@ -5,11 +5,19 @@
 Tent::Tent(std::string name, std::pair<uint32_t, uint32_t> position) {
     this->name = name;
     this->position = position;
+    this->duration = 3;
 }
 
 Tent::Tent(std::string name, uint32_t x, uint32_t y) {
     this->name = name;
     this->position = { x,y };
+    this->duration = 3;
+}
+
+Tent::Tent(std::string name, uint32_t x, uint32_t y , int duration) {
+    this->name = name;
+    this->position = { x,y };
+    this->duration = duration;
 }
 
 std::pair<uint32_t, uint32_t> Tent::GetPosition(void) const {
@@ -40,3 +48,11 @@ void Tent::Recover(Role* player) {
     attribute.SetFocus(focus);
     player->SetAttribute(attribute);
 }
+
+bool Tent::timePass() {
+    this->duration -= 1;
+    if (duration <= 0) {
+        return 1;
+    }
+    return 0;
+};

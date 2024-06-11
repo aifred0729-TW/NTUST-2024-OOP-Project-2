@@ -20,6 +20,7 @@ class Store;
 class Entity;
 class Interactive;
 class Action;
+class Tent;
 
 namespace UI {
     using namespace Displayer;
@@ -66,7 +67,6 @@ namespace UI {
     int Display(Field*);
 
     // Display Shops
-    int Display(Store*);
 
     // Display Interactive Objects
     int Display(Interactive*);

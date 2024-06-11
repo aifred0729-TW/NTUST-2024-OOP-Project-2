@@ -19,6 +19,8 @@ private:
 private:
     std::vector<Role*> roles;
     std::vector<Enemy*> enemys;
+    std::vector<Tent*> tents;
+    std::vector<Store*> stores;
 
     int Move(void);
     int GetKeyboard(void);

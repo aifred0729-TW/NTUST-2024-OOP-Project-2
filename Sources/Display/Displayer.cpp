@@ -8,6 +8,10 @@
 #include "Color.h"
 #include "SkillBase.h"
 #include "UI.h"
+#include "Store.h"
+#include "Tent.h"
+
+int Displayer::stackHeight;
 
 //移動光標
 void Displayer::moveCursor(int x, int y) {
@@ -323,10 +327,11 @@ void Displayer::displayPlayerInfo(int x, int y, Enemy* enemy) {
 
 void Displayer::displayPlayerInfo(int x, int y, std::vector<Entity*> entitys) {
     using namespace std;
+
     for (int i = 0; i < entitys.size(); i++) {
         Attribute att = entitys[i]->GetTotalAttribute();
-        BuildVoid(x, y + 4 * i, x + 58, y + 6 + 4 * i);
-        moveCursor(x + 3, y + 2 + 4 * i);
+        BuildVoid(x, y + 4 * i, x + 58, y + 6 + stackHeight);
+        moveCursor(x + 3, y + 2 + stackHeight);
         if (entitys[i]->GetFaction() == false) {
             cout << "Player: ";
         }
@@ -334,16 +339,17 @@ void Displayer::displayPlayerInfo(int x, int y, std::vector<Entity*> entitys) {
             cout << "Enemy: ";
         }
         cout << entitys[i]->GetName();
-        moveCursor(x + 3, y + 3 + 4 * i);
+        moveCursor(x + 3, y + 3 + stackHeight);
         cout << "HP:  " << att.GetHP() << " / " << att.GetMaxHP() << " ";
         cout << HpDisplayer(att.GetHP(), att.GetMaxHP());
-        moveCursor(x + 3, y + 4 + 4 * i);
+        moveCursor(x + 3, y + 4 + stackHeight);
         cout << "PA: " << setw(2) << setfill('0') << att.GetPA();
         cout << "   PD: " << setw(2) << setfill('0') << att.GetPD();
         cout << "   MA: " << setw(2) << setfill('0') << att.GetMA();
         cout << "   MD: " << setw(2) << setfill('0') << att.GetMD();
         cout << "   SPD: " << setw(2) << setfill('0') << att.GetSPD();
         cout << "   ACC: " << setw(2) << setfill('0') << att.GetACC();
+        stackHeight += 4;
     }
 }
 
@@ -520,4 +526,30 @@ void Displayer::displayMapGrid() {
         }
     }
     std::cout << RESET;
+}
+
+int Displayer::DisplayStore(int x, int y, std::vector<Store*> stores) {
+    using namespace std;
+
+    for (int i = 0; i < stores.size(); i++) {
+        std::string name = stores[i]->GetName();
+        BuildVoid(x, y + 4 * i, x + 58, y + 6 + stackHeight);
+        moveCursor(x + 3, y + 2 + stackHeight);
+        cout << "Store: ";
+        stackHeight += 2;
+    }
+    return 0;
+}
+
+int Displayer::DisplayTent(int x, int y, std::vector<Tent*> tents) {
+    using namespace std;
+
+    for (int i = 0; i < tents.size(); i++) {
+        std::string name = tents[i]->GetName();
+        BuildVoid(x, y + 4 * i, x + 58, y + 6 + stackHeight);
+        moveCursor(x + 3, y + 2 + stackHeight);
+        cout << "tent: ";
+        stackHeight += 2;
+    }
+    return 0;
 }

@@ -14,12 +14,17 @@ class Enemy;
 class Role;
 class Entity;
 class Active;
+class Store;
+class Tent;
 
 namespace Displayer {
 
     /// =========================================
     /// 以下是顯示輔助工具
     /// =========================================
+
+
+    extern int stackHeight;
 
     void moveCursor(int, int);
 
@@ -66,6 +71,10 @@ namespace Displayer {
     std::pair<std::string, int> makeChoice(std::vector<Active>, int, int);
     void printOnMap(int, int, std::string);
     void displayMapGrid();
+
+
+    int DisplayStore(int x, int y, std::vector<Store*> stores);
+    int DisplayTent(int x, int y, std::vector<Tent*> tents);
 };
 
 #endif

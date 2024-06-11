@@ -76,6 +76,10 @@ void Game::Initialize() {
     static Enemy prof_S("項天瑞", 3, 5);
     enemys = { &prof_D ,&prof_P ,&prof_H ,&prof_Ding , &prof_S };
 
+    static Tent tent("他媽的帳篷", 1, 7, 10);
+    tents = { &tent };
+
+    WorldMap::SetTents(tents);
     WorldMap::SetRoles(roles);
     WorldMap::SetEnemys(enemys);
 
@@ -128,6 +132,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
     UI::displayMapGrid();
 
     while (1) {
+        UI::stackHeight = 0;
         bool moved = false;
         KeyBoard::keyUpdate(keyState);
         std::pair<int, int> Rpos = { currentActRole->GetPosition().first ,currentActRole->GetPosition().second };
@@ -189,6 +194,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
         UI::PrintWorldMap();
 
         if (moved) {
+            // 移動判定
             movementPoint--;
             UI::displayString("MovementPoint: " + UI::FocusDisplayer(movementPoint, maxMovementPoint), 70, 4);
         }
@@ -219,8 +225,36 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             UI::mapPhase();
         }
         if (moved) {
-            Chest chest;
-            chest.GiveTreasureTo(currentActRole);
+            // 隨機事件判定
+            if (rand() % 100 < 15) {
+                Chest chest;
+                chest.GiveTreasureTo(currentActRole);
+            }
+        }
+        // 跑到帳篷上了
+        if (moved && !WorldMap::GetRect().tents.empty()) {
+
+            std::vector<Enemy* > battleE;
+            std::vector<Role* > battleR;
+
+            for (auto E : enemys) {
+                int distance = WorldMap::manhattanDistance(currentActRole->GetPosition(), E->GetPosition());
+                if (distance <= 3 && battleE.size() < 3) {
+                    battleE.push_back(E);
+                }
+            }
+            for (auto R : roles) {
+                int distance = WorldMap::manhattanDistance(currentActRole->GetPosition(), R->GetPosition());
+                if (distance <= 3 && !(R->GetStatus() & DEAD)) {
+                    battleR.push_back(R);
+                }
+            }
+            UI::battlePhase();
+            Field F(battleR, battleE);
+            F.StartBattle();
+            UI::PreWorldMap(roles);
+
+            UI::mapPhase();
         }
 
         // 行動後顯示階段
@@ -230,14 +264,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             distanceDisplayWork = 0;
         }
 
-        if (!WorldMap::GetRect().stores.empty()) {
-            UI::BuildFrame(121, 0, 179, 28);
-
-            std::vector<Store*> storesToDisplay;
-            //WorldMap::GetRect().stores[0]->SellItemTo();
-        }
-        else if (!WorldMap::GetRect().enemys.empty() || !WorldMap::GetRect().roles.empty()) {
-
+        if (!WorldMap::GetRect().enemys.empty() || !WorldMap::GetRect().roles.empty()) {
             // 右側欄位顯示實體
             UI::BuildFrame(121, 0, 179, 28);
 
@@ -270,6 +297,19 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             }
             UI::displayPlayerInfo(121, 0, entitysToDisplay);
         }
+        if (!WorldMap::GetRect().stores.empty()) {
+            //UI::BuildFrame(121, 0, 179, 28);
+            UI::DisplayStore(121, 0, WorldMap::GetRect().stores);
+            //WorldMap::GetRect().stores[0]->SellItemTo();
+        }
+        if (!WorldMap::GetRect().tents.empty()) {
+            //UI::BuildFrame(121, 0, 179, 28);
+            UI::DisplayTent(121, 0, WorldMap::GetRect().tents);
+            //WorldMap::GetRect().stores[0]->SellItemTo();
+        }
+
+
+        if (!WorldMap::GetRect().enemys.empty() || !WorldMap::GetRect().roles.empty()) {}
         else {
             if (WorldMap::VisibleOnMap(currentActRole->GetPosition())) {
                 distanceDisplayWork = 1;

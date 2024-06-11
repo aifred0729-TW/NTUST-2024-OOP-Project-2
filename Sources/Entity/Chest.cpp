@@ -10,7 +10,6 @@
 
 void Chest::GiveTreasureTo(Role* role) {
     UI::logEvent("");
-    std::cout << BOLD << RED;
     UI::logDivider("隨機事件");
     UI::logEvent(role->GetName() +" 發現了一個寶箱！");
     std::vector<std::string> ITEM_TABLE = { "Godsbeard", "GoldenRoot", "TeleportScroll", "Tent" };

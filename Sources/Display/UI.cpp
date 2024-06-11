@@ -13,6 +13,7 @@
 #include "Color.h"
 #include "WorldMap.h"
 #include "Store.h"
+#include "Tent.h"
 
 // Public
 
@@ -260,10 +261,6 @@ int UI::Display(Field*) {
     return 0;
 }
 
-int UI::Display(Store*) {
-    return 0;
-}
-
 int UI::Display(Interactive*) {
     return 0;
 }
@@ -364,6 +361,17 @@ void UI::PrintWorldMap() {
         if (WorldMap::VisibleOnMap(S->GetPosition())) {
             int x = S->GetPosition().first - pos.first + 7;
             int y = S->GetPosition().second - pos.second + 5;
+            for (int ii = 0; ii < 3; ii++) {
+                moveCursor(2 + x * 8, 6 + y * 4 + ii);
+                std::cout << "      ";
+            }
+        }
+    }
+    std::cout << BG_BRIGHT_MAGENTA;
+    for (auto T : WorldMap::tents) {
+        if (WorldMap::VisibleOnMap(T->GetPosition())) {
+            int x = T->GetPosition().first - pos.first + 7;
+            int y = T->GetPosition().second - pos.second + 5;
             for (int ii = 0; ii < 3; ii++) {
                 moveCursor(2 + x * 8, 6 + y * 4 + ii);
                 std::cout << "      ";
