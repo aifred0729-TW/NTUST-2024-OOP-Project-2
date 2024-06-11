@@ -234,6 +234,9 @@ void Displayer::displayDiceMove(std::vector<int> diceLog) {
         else if (diceLog[i] == 1) {
             std::cout << YELLOW;
         }
+        else if (diceLog[i] == 2) {
+            std::cout << BOLD << RED;
+        }
         displayFile("Dice04.txt", x1, y);
         x1 += 12;
         Sleep(200);

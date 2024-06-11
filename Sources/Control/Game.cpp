@@ -90,7 +90,7 @@ void Game::Initialize() {
     uint16_t price;
     ItemCommand* command;
     */
-    
+
     roles = { &Kazusa ,&Shiroko ,&Hoshino };
 
     // static Role* KazusaRef = &Kazusa;
@@ -114,7 +114,7 @@ void Game::Initialize() {
     prof_D.equipForce("Hammer");
     prof_P.equipForce("Hammer");
     prof_H.equipForce("Hammer");
-    
+
     enemys = { &prof_D ,&prof_P ,&prof_H ,&prof_Ding , &prof_S };
 
     // static Tent tent("他媽的帳篷", 1, 7, 10);
@@ -189,7 +189,8 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
     bool keyState[KeyBoard::INVALID];
     static bool distanceDisplayWork = 0;
 
-    UI::displayString("Money :        " + std::to_string(Role::GetMoney()), 70, 3);
+    UI::displayString("Money :        " + std::to_string(Role::GetMoney()) + "    ", 70, 3);
+    UI::displayString("                                    ", 70, 4);
     UI::displayString("MovementPoint: " + UI::FocusDisplayer(movementPoint, maxMovementPoint), 70, 4);
 
     std::cout << BG_WHITE;
@@ -220,7 +221,16 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             UI::BuildFrame(121, 0, 179, 28);
             std::vector<std::string> roleNames;
             for (auto R : roles) {
-                roleNames.push_back(R->GetName());//////////////////////////////////////////////////////////////////
+                roleNames.push_back(R->GetName());
+            }
+            int displayIndex = UI::makeChoice(roleNames, 126, 2);
+            if (displayIndex == -1) {
+                UI::BuildFrame(121, 0, 179, 28);
+                continue;
+            }
+            else {
+                displayEquipment(roles[displayIndex]);
+                continue;
             }
         }
         else if (keyState[KeyBoard::EDU] || keyState[KeyBoard::EDL] || keyState[KeyBoard::EDR] || keyState[KeyBoard::EDD]) {
@@ -280,7 +290,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
         if (moved) {
             // 移動判定
             movementPoint--;
-            UI::displayString("Money :        " + std::to_string(Role::GetMoney()), 70, 3);
+            UI::displayString("Money :        " + std::to_string(Role::GetMoney()) + "    ", 70, 3);
             UI::displayString("MovementPoint: " + UI::FocusDisplayer(movementPoint, maxMovementPoint), 70, 4);
         }
         // 踩上可互動物件
@@ -483,4 +493,70 @@ void Game::createTent(Role* role) {
     std::string name = (role->GetName() + " 的帳篷");
     Tent* tentToPush = new Tent(name, role->GetPosition());
     tents.push_back(tentToPush);
+}
+
+void Game::displayEquipment(Role* role) {
+    using namespace std;
+    int i = 0;
+    UI::BuildFrame(121, 0, 179, 28);
+    UI::moveCursor(124, 2 + i);
+    cout << YELLOW << UI::horizontalLine(role->GetName(), 53, '-') << RESET;
+    std::string EquipmentType[3] = { "Weapon:    " , "Armor:     " , "Accessory: " };
+    UI::moveCursor(124, 4 + i);
+    cout << EquipmentType[0] << role->GetEquipment().GetWeapon().GetName() << RESET;
+
+    for (int j = 0; j < role->GetEquipment().GetWeapon().GetSkill().GetActive().size(); j++) {
+        UI::moveCursor(124, 5 + i);
+        cout << "Active:    " << role->GetEquipment().GetWeapon().GetSkill().GetActive()[j].GetName();
+        i++;
+    }
+    for (int j = 0; j < role->GetEquipment().GetWeapon().GetSkill().GetActive().size(); j++) {
+        UI::moveCursor(124, 5 + i);
+        cout << "Passive:   " << role->GetEquipment().GetWeapon().GetSkill().GetPassive()[j].GetName();
+        i++;
+    }
+    UI::moveCursor(124, 5 + i);
+    displayAttribute(role->GetEquipment().GetWeapon().GetAttribute());
+    i += 3;
+    UI::moveCursor(124, 4 + i);
+    cout << EquipmentType[1] << role->GetEquipment().GetArmor().GetName() << RESET;
+
+    for (int j = 0; j < role->GetEquipment().GetArmor().GetSkill().GetActive().size(); j++) {
+        UI::moveCursor(124, 5 + i);
+        cout << "Active:    " << role->GetEquipment().GetArmor().GetSkill().GetActive()[j].GetName();
+        i++;
+    }
+    for (int j = 0; j < role->GetEquipment().GetArmor().GetSkill().GetActive().size(); j++) {
+        UI::moveCursor(124, 5 + i);
+        cout << "Passive:   " << role->GetEquipment().GetArmor().GetSkill().GetPassive()[j].GetName();
+        i++;
+    }
+    UI::moveCursor(124, 5 + i);
+    displayAttribute(role->GetEquipment().GetArmor().GetAttribute());
+    i += 3;
+
+    UI::moveCursor(124, 4 + i);
+    cout << EquipmentType[2] << role->GetEquipment().GetAccessory().GetName() << RESET;
+    for (int j = 0; j < role->GetEquipment().GetAccessory().GetSkill().GetActive().size(); j++) {
+        UI::moveCursor(124, 5 + i);
+        cout << "Active:    " << role->GetEquipment().GetAccessory().GetSkill().GetActive()[j].GetName();
+        i++;
+    }
+    for (int j = 0; j < role->GetEquipment().GetAccessory().GetSkill().GetActive().size(); j++) {
+        UI::moveCursor(124, 5 + i);
+        cout << "Passive:   " << role->GetEquipment().GetAccessory().GetSkill().GetPassive()[j].GetName();
+        i++;
+    }
+    UI::moveCursor(124, 5 + i);
+    displayAttribute(role->GetEquipment().GetAccessory().GetAttribute());
+}
+
+void Game::displayAttribute(Attribute att) {
+    using namespace std;
+    cout << "PA: " << ((att.GetPA() == 0) ? DARK : GREEN) << setw(2) << setfill('0') << att.GetPA() << RESET;
+    cout << "   PD: " << ((att.GetPD() == 0) ? DARK : GREEN) << setw(2) << setfill('0') << att.GetPD() << RESET;
+    cout << "   MA: " << ((att.GetMA() == 0) ? DARK : GREEN) << setw(2) << setfill('0') << att.GetMA() << RESET;
+    cout << "   MD: " << ((att.GetMD() == 0) ? DARK : GREEN) << setw(2) << setfill('0') << att.GetMD() << RESET;
+    cout << "   SPD: " << ((att.GetSPD() == 0) ? DARK : GREEN) << setw(2) << setfill('0') << att.GetSPD() << RESET;
+    cout << "   ACC: " << ((att.GetACC() == 0) ? DARK : GREEN) << setw(2) << setfill('0') << att.GetACC() << RESET;
 }

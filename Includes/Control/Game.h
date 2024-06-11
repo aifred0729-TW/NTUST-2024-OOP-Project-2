@@ -49,6 +49,9 @@ public:
     static int GenerateMovementPoint(Role* currentActRole);
 
     void createTent(Role*);
+    void displayEquipment(Role* role);
+    void displayAttribute(Attribute att);
+
 };
 
 #endif
