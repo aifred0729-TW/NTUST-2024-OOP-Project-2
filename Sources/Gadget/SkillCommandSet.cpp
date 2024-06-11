@@ -10,6 +10,7 @@ void AttackActiveCommand::execute(Entity& caster, std::vector<Entity*> targets, 
     auto cta = caster.GetTotalAttribute();
     int16_t damage = casterWeapon.GetAttackType() == 'P' ? static_cast<int16_t>(cta.GetPA()) : static_cast<int16_t>(cta.GetMA());
     UI::logEvent(caster.GetName() + " 的 Attack 理想攻擊力為 " + std::to_string(damage));
+    targets[0]->SetlastDamage(damage);
 
     auto& casterDice = caster.GetDice();
     casterDice.resize(casterWeapon.GetDiceAmount());
@@ -55,6 +56,7 @@ void ProvokeActiveCommand::execute(Entity& caster, std::vector<Entity*> targets,
     UI::logEvent(caster.GetName() + " 的 Provoke 成功機率為 " + std::to_string((unsigned)successRate) + "%");
     casterDice.RollDice();
     casterDice.displayResult();
+    targets[0]->SetlastDamage(0);
 
     if (casterDice.GetMovementPoint() == 1) {
         UI::logEvent("挑釁成功，現在 " + targets[0]->GetName() + " 很躁。");
@@ -132,6 +134,9 @@ void HammerSplashPassiveCommand::execute(Entity& caster, std::vector<Entity*> ta
     UI::logEvent(caster.GetName() + " 的被動 HammerSplash 被觸發！");
     targets[0]->addBuff("Dizziness", 1);
     for (int i = 1; i < targets.size(); i++) {
+        if (targets[i]->GetStatus() & RETREAT || targets[i]->GetStatus() & DEAD)
+            continue;
+
         targets[i]->takeDamage(targets[0]->GetlastDamage() * 0.5, 'P');
 	}
 }

@@ -106,7 +106,9 @@ void Field::DecreaseEntityBuff(void) {
 
 void Field::RestoreEvent(void) {
     for (auto& it : eventQueue) {
+        it->GetObj()->SetStatus(it->GetObj()->GetStatus() & ~(POISONED | BLEED | DIZZINESS | ANGRY | RETREAT));
         it->GetObj()->clearBuff();
+        it->GetObj()->clearTick();
     }
 }
 
@@ -183,10 +185,6 @@ TARGET:
     if (focusUse == -1) {
         UI::logEvent("[已取消目標選擇]");
         goto TARGET;
-    }
-
-    if (currEvent->GetObj()->findAvailablePassive("Run")) {
-        currEvent->GetObj()->usePassive("Run", { currEvent->GetObj() });
     }
 
     if (focusUse != 0) {

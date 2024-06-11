@@ -82,6 +82,7 @@ public:
     // 顯示玩家資訊
     void displayTotalSkill(void);
     void clearBuff(void);
+    void clearTick(void);
     // 直接受到的治療數值
     void heal(int16_t heal);
 };

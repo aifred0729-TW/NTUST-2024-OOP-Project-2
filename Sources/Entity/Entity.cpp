@@ -44,7 +44,9 @@ void Entity::usePassive(std::string skillName, std::vector<Entity*> target) {
         if (passive.GetName() == skillName) {
             passive.SetTick(passive.GetCoolDown());
             passive.apply(*this, target);
-            UI::renewPlayerInfo();
+            if (skillName != "Run")
+                UI::renewPlayerInfo();
+            
             return;
         }
     }
@@ -102,7 +104,6 @@ void Entity::takeDamage(int16_t damage, char attackType) {
         damage = static_cast<int16_t>(damage * 0.9);
     }
 
-    lastDamage = damage;
     int16_t damageTaken = totalAttribute.GetHP() - damage;
     totalAttribute.SetHP(damageTaken > 0 ? damageTaken : 0);
     attribute.SetHP(totalAttribute.GetHP());
@@ -119,7 +120,7 @@ void Entity::takeTrueDamage(int16_t damage) {
     int16_t damageTaken = totalAttribute.GetHP() - damage;
     totalAttribute.SetHP(damageTaken > 0 ? damageTaken : 0);
     attribute.SetHP(totalAttribute.GetHP());
-
+    
     UI::logEvent(name + " 受到了 " + std::to_string(damage) + " 點真實傷害！當前HP為 " + std::to_string(totalAttribute.GetHP()) + " !");
     if (totalAttribute.GetHP() == 0) {
         UI::logEvent(name + " 被幹死了！喔不！！");
@@ -242,4 +243,14 @@ void Entity::displayTotalSkill() {
 
 void Entity::clearBuff() {
     totalSkill.SetBuff(std::vector<Buff>());
+}
+
+void Entity::clearTick(void) {
+    for (auto& active : totalSkill.GetActive()) {
+        active.SetTick(0);
+    }
+
+    for (auto& passive : totalSkill.GetPassive()) {
+        passive.SetTick(0);
+    }
 }
