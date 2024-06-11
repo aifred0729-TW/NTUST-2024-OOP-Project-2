@@ -26,7 +26,7 @@ public:
 
     // Buy Item from Shop
     void SellItemTo(Role*);
-
+    void SellItemTo();
 };
 
 #endif

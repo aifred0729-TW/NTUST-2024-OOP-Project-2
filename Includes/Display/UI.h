@@ -23,6 +23,8 @@ class Action;
 
 namespace UI {
     using namespace Displayer;
+
+    extern int phase;
     //std::stack<std::vector<std::vector<char>>> prevPicture;
     //WorldMap* worldMapPoac;
     //Field* fieldPointer;
@@ -82,6 +84,9 @@ namespace UI {
     void PrintWorldMap();
 
     void distanceDisplay(int , int , int);
+
+    void battlePhase();
+    void mapPhase();
     // ...
 };
 

@@ -187,6 +187,11 @@ bool WorldMap::VisibleOnMap(std::pair<int, int > pos) {
 
 Rect WorldMap::GetRect(std::pair<int, int > pos) {
     Rect output;
+    if (pos.first < 0 || pos.first >= WIDTH || pos.second < 0 || pos.second >= HEIGHT) {
+        output.terrain = 0;
+        output.moveable = false;
+        return output;
+    }
     output.terrain = getMap()[pos.second][pos.first];
     for (Enemy* E : WorldMap::enemys) {
         if (E->GetPosition().first == pos.first && E->GetPosition().second == pos.second) {
@@ -202,6 +207,12 @@ Rect WorldMap::GetRect(std::pair<int, int > pos) {
         if (S->GetPosition().first == pos.first && S->GetPosition().second == pos.second) {
             output.stores.push_back(S);
         }
+    }
+    if (output.terrain == 1) {
+        output.moveable = true;
+    }
+    else {
+        output.moveable = false;
     }
     return output;
 }
@@ -220,6 +231,9 @@ Rect WorldMap::GetRect() {
    // 6 = Enemy  (Allow to Pass) (修改至可互動物件)
 
 int WorldMap::manhattanDistance(std::pair<int, int> player, std::pair<int, int> enemy) {
-    return std::abs((player.first - enemy.first) + (player.second, enemy.second));
+    return std::abs(player.first - enemy.first) + std::abs(player.second - enemy.second);
 }
 
+int WorldMap::manhattanDistance(std::pair<uint32_t, uint32_t> player, std::pair<uint32_t, uint32_t> enemy) {
+    return std::abs((int)player.first - (int)enemy.first) + std::abs((int)player.second - (int)enemy.second);
+}

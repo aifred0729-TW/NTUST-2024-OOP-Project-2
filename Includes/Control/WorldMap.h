@@ -24,6 +24,7 @@ struct Rect {
     std::vector<Enemy*> enemys; // 地塊上的敵人
     std::vector<Role*> roles; // 地塊上的角色
     std::vector<Store*> stores; // 地塊上的商店
+    bool moveable;
 };
 
 namespace WorldMap {
@@ -82,6 +83,7 @@ namespace WorldMap {
     Rect GetRect();
 
     int manhattanDistance(std::pair<int, int> player, std::pair<int, int> enemy);
+    int manhattanDistance(std::pair<uint32_t, uint32_t> player, std::pair<uint32_t, uint32_t> enemy);
 
 };
 

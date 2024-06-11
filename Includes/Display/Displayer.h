@@ -49,6 +49,7 @@ namespace Displayer {
     /// =========================================
 
     void displayDice(std::vector<int> diceLog);
+    void displayDiceMove(std::vector<int> diceLog);
     void displayDice(int count, int focus);
     void displayPlayerInfo(int x, int y);
     void displayPlayerInfo(int x, int y, Role*);

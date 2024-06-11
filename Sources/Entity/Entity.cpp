@@ -39,6 +39,31 @@ void Entity::useActive(std::string skillName, std::vector<Entity*> target) {
     }
 }
 
+void Entity::takeDamage(int16_t damage, char attackType) {
+    int16_t armor = attackType == 'P' ? GetTotalAttribute().GetPD() : GetTotalAttribute().GetMD();
+    double absorption = armor / (double)(armor + 50);
+    damage = static_cast<int16_t>((double)damage * (1 - absorption));
+    int16_t damageTaken = GetTotalAttribute().GetHP() - damage;
+    attribute.SetHP(damageTaken > 0 ? damageTaken : 0);
+
+    std::string outputStr;
+    std::stringstream outputSs;
+    UI::logEvent(name + " 防禦後受到了 " + std::to_string(damage) + " 點傷害！，當前HP為 " + std::to_string(attribute.GetHP()) + " !");
+    //UI::logEvent(std::to_string(GetTotalAttribute().GetHP()) + "/" + std::to_string(GetTotalAttribute().GetMaxHP()));
+    if (attribute.GetHP() == 0) {
+        UI::logEvent(name + " is dead! 喔不!!");
+        status |= DEAD;
+    }
+}
+
+void Entity::heal(int16_t heal) {
+    int16_t healTaken = GetTotalAttribute().GetHP() + heal;
+    attribute.SetHP(healTaken < GetTotalAttribute().GetMaxHP() ? healTaken : GetTotalAttribute().GetMaxHP());
+    std::string outputStr;
+    std::stringstream outputSs;
+    outputSs << name << " 受到了 " << heal << " 點治療！，當前HP為 " << attribute.GetHP() << " !" << std::endl;
+    std::getline(outputSs, outputStr);
+    UI::logEvent(outputStr);
 void Entity::usePassive(std::string skillName, std::vector<Entity*> target) {
     for (auto& passive : totalSkill.GetPassive()) {
         if (passive.GetName() == skillName) {
@@ -213,6 +238,10 @@ void Entity::unEquipForce(std::string equipmentName) {
     renewPlayer();
 }
 
-bool Entity::isInRange(std::vector<Entity*>) {
-    return 0;
+uint8_t   Entity::GetEventID(void) {
+    return eventID;
+}
+
+bool  Entity::GetFaction(void) {
+    return faction;
 }

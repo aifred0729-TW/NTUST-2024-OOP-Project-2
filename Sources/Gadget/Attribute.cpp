@@ -23,7 +23,7 @@ void Attribute::randomAttribute(void) {
 
 	// Random Attribute
 	std::uniform_int_distribution<> hpDis(30, 44);
-	std::uniform_int_distribution<> spdDis(30, 54);
+	std::uniform_int_distribution<> spdDis(70, 85);
 	std::uniform_int_distribution<> accDis(40, 59);
 	std::uniform_int_distribution<> attackDis(5, 15);
 	std::uniform_int_distribution<> defenseDis(0, 20);

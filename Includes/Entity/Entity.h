@@ -60,6 +60,8 @@ public:
 	void                renewPlayer(void);
 	void                decreaseTick(void);
 
+    bool                GetFaction(void);
+
 public:
 	// Find the Enemy in Range
 	bool isInRange(std::vector<Entity*>);

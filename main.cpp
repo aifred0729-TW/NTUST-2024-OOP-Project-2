@@ -11,6 +11,8 @@
 #include <string>
 
 int main() {
+    Game G;
+    G.MainProcess();
 	SkillTable::Initialize();
 	EquipmentTable::Initialize();
 	ItemTable::Initialize();

@@ -65,6 +65,34 @@ void Dice::RollDice(void) {
     this->focusCount = 0;
 }
 
+void Dice::RollDiceMove(void) {
+    // Random Engine
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, 99);
+    this->movementPoint = 0;
+
+    // Roll Dice
+    this->result.resize(this->amount, false);
+    this->diceLog.resize(this->amount, 0);
+    this->rateAddition.resize(this->amount, 0);
+    this->successRate.resize(this->amount, 0);
+
+    for (int i = 0; i < this->amount; i++) {
+        this->result[i] = (dis(gen) < this->successRate[i] + this->rateAddition[i]) || (i < focusCount);
+        this->diceLog[i] = (int)result[i];
+        this->diceLog[i] += (int)(i < focusCount);//因為使用專注點一定會有1 接著再加1就有2了 省事
+        if (this->result[i]) {
+            this->movementPoint++;
+        }
+    }
+
+    UI::displayDiceMove(diceLog);
+
+    // Reset FocusCount and RateAddition
+    this->focusCount = 0;
+}
+
 void Dice::resize(uint8_t amount) {
     this->amount = amount;
     this->result.resize(amount, false);

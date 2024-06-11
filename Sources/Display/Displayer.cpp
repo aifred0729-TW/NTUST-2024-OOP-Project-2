@@ -7,6 +7,7 @@
 #include <KeyBoard.h>
 #include "Color.h"
 #include "SkillBase.h"
+#include "UI.h"
 
 //移動光標
 void Displayer::moveCursor(int x, int y) {
@@ -171,7 +172,7 @@ std::string Displayer::DiceDisplayer(std::vector<int> diceLog) {
 
 void Displayer::displayDice(std::vector<int> diceLog) {
     int count = diceLog.size();
-    int x = 61 - 6 * count;
+    int x = 62 - 6 * count;
     int x1 = x;
     int y = 36;
     //std::cout << BOLD << YELLOW;
@@ -201,8 +202,52 @@ void Displayer::displayDice(std::vector<int> diceLog) {
     }
 }
 
+void Displayer::displayDiceMove(std::vector<int> diceLog) {
+    int count = diceLog.size();
+    int x = 62 - 6 * count;
+    int x1 = x;
+    int y = 11;
+    //std::cout << BOLD << YELLOW;
+    if (count == 10) {
+        BuildFrame(0, 10, 121, 17);
+    }
+    else {
+        BuildFrame(65 + 6 * count, 10, 55 - 6 * count, 17);
+    }
+    //BuildFrame(86 - 10 * count, 6, 93 + 10 * count, 13);
+
+    for (int i = 0; i < count; i++) {
+        std::cout << BOLD << BLACK;
+        displayFile("Dice03.txt", x1, y);
+        x1 += 12;
+    }
+    x1 = x;
+    Sleep(500);
+    for (int i = 0; i < count; i++) {
+        if (diceLog[i] == 0) {
+            std::cout << DARK << WHITE;
+        }
+        else if (diceLog[i] == 1) {
+            std::cout << YELLOW;
+        }
+        displayFile("Dice04.txt", x1, y);
+        x1 += 12;
+        Sleep(200);
+    }
+    if (count == 10) {
+        moveCursor(1, 10);
+        std::cout << " ";
+        moveCursor(1, 17);
+        std::cout << " ";
+        moveCursor(120, 10);
+        std::cout << " ";
+        moveCursor(120, 17);
+        std::cout << " ";
+    }
+}
+
 void Displayer::displayDice(int count, int focus) {
-    int x = 61 - 6 * count;
+    int x = 62 - 6 * count;
     int x1 = x;
     int y = 36;
     BuildVoid(0, 42, 121, 35);
@@ -280,14 +325,19 @@ void Displayer::displayPlayerInfo(int x, int y, std::vector<Entity*> entitys) {
     using namespace std;
     for (int i = 0; i < entitys.size(); i++) {
         Attribute att = entitys[i]->GetTotalAttribute();
-        BuildVoid(x, y, x + 58, y + 6 + 6*i);
-        moveCursor(x + 3, y + 2 + 6 * i);
-        cout << "Player: ";
+        BuildVoid(x, y + 4 * i, x + 58, y + 6 + 4 * i);
+        moveCursor(x + 3, y + 2 + 4 * i);
+        if (entitys[i]->GetFaction() == false) {
+            cout << "Player: ";
+        }
+        else {
+            cout << "Enemy: ";
+        }
         cout << entitys[i]->GetName();
-        moveCursor(x + 3, y + 3 + 6 * i);
+        moveCursor(x + 3, y + 3 + 4 * i);
         cout << "HP:  " << att.GetHP() << " / " << att.GetMaxHP() << " ";
         cout << HpDisplayer(att.GetHP(), att.GetMaxHP());
-        moveCursor(x + 3, y + 4 + 6 * i);
+        moveCursor(x + 3, y + 4 + 4 * i);
         cout << "PA: " << setw(2) << setfill('0') << att.GetPA();
         cout << "   PD: " << setw(2) << setfill('0') << att.GetPD();
         cout << "   MA: " << setw(2) << setfill('0') << att.GetMA();
