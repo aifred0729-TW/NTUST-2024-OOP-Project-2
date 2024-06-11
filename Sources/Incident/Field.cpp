@@ -106,7 +106,9 @@ void Field::DecreaseEntityBuff(void) {
 
 void Field::RestoreEvent(void) {
     for (auto& it : eventQueue) {
+        it->GetObj()->SetStatus(it->GetObj()->GetStatus() & ~(POISONED | BLEED | DIZZINESS | ANGRY | RETREAT));
         it->GetObj()->clearBuff();
+        it->GetObj()->clearTick();
     }
 }
 

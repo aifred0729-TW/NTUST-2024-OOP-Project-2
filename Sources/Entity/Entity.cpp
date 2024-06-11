@@ -44,7 +44,9 @@ void Entity::usePassive(std::string skillName, std::vector<Entity*> target) {
         if (passive.GetName() == skillName) {
             passive.SetTick(passive.GetCoolDown());
             passive.apply(*this, target);
-            UI::renewPlayerInfo();
+            if (skillName != "Run")
+                UI::renewPlayerInfo();
+            
             return;
         }
     }
@@ -241,4 +243,14 @@ void Entity::displayTotalSkill() {
 
 void Entity::clearBuff() {
     totalSkill.SetBuff(std::vector<Buff>());
+}
+
+void Entity::clearTick(void) {
+    for (auto& active : totalSkill.GetActive()) {
+        active.SetTick(0);
+    }
+
+    for (auto& passive : totalSkill.GetPassive()) {
+        passive.SetTick(0);
+    }
 }

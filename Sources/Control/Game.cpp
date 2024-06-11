@@ -481,6 +481,7 @@ int Game::GenerateMovementPoint(Role* currentActRole) {
     int succesRate = SPD > 90 ? 90 : SPD;
     std::vector<uint8_t> RateVec(MaxmovementPoint, succesRate);
     dice.SetSuccessRate(RateVec);
+    
     if (currentActRole->findAvailablePassive("Run")) {
         currentActRole->usePassive("Run", { currentActRole });
     }
