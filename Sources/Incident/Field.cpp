@@ -185,10 +185,6 @@ TARGET:
         goto TARGET;
     }
 
-    if (currEvent->GetObj()->findAvailablePassive("Run")) {
-        currEvent->GetObj()->usePassive("Run", { currEvent->GetObj() });
-    }
-
     if (focusUse != 0) {
         UI::logEvent("使用 " + std::to_string(focusUse) + " 專注點數");
         currEvent->GetObj()->GetTotalAttribute().SetFocus(focus - focusUse);

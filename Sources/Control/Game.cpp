@@ -58,14 +58,20 @@ void Game::Initialize() {
     Kazusa.GetAttribute().SetMaxFocus(20);
     Kazusa.GetAttribute().SetFocus(20);
     Kazusa.equipForce("Hammer");
+    Kazusa.equipForce("Shoes");
+    Kazusa.equipForce("PlateArmor");
     static Role Shiroko("砂狼白子", 3, 1);
     Shiroko.GetAttribute().SetMaxFocus(20);
     Shiroko.GetAttribute().SetFocus(20);
     Shiroko.equipForce("Hammer");
+    Shiroko.equipForce("Shoes");
+    Shiroko.equipForce("PlateArmor");
     static Role Hoshino("小鳥游星野", 5, 1);
     Hoshino.GetAttribute().SetMaxFocus(20);
     Hoshino.GetAttribute().SetFocus(20);
     Hoshino.equipForce("Hammer");
+    Hoshino.equipForce("Shoes");
+    Hoshino.equipForce("PlateArmor");
 
     /*
     std::vector<Item*> items = Role::backpack.getItems();
@@ -470,11 +476,14 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
 int Game::GenerateMovementPoint(Role* currentActRole) {
     int SPD = currentActRole->GetTotalAttribute().GetSPD();
     int MaxmovementPoint = SPD / 10;
-    Dice dice;
+    Dice& dice = currentActRole->GetDice();
     dice.SetAmount(MaxmovementPoint);
     int succesRate = SPD > 90 ? 90 : SPD;
     std::vector<uint8_t> RateVec(MaxmovementPoint, succesRate);
     dice.SetSuccessRate(RateVec);
+    if (currentActRole->findAvailablePassive("Run")) {
+        currentActRole->usePassive("Run", { currentActRole });
+    }
     dice.RollDiceMove();
     return dice.GetMovementPoint();
 }
