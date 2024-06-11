@@ -213,8 +213,10 @@ void Field::EnemyMainPhase(Action* currEvent) {
     UI::PlayerFrame(currEvent->GetEntityID());
 
     auto skills = currEvent->GetObj()->GetTotalSkill().GetActive();
-    int skillNumber;
-    while ((skillNumber = rand() % skills.size()) == 1);
+    int skillNumber; 
+    while (
+        (skillNumber = rand() % skills.size()) == 1 
+        || skills[skillNumber].GetTick() != 0);
 
     auto skillToUse = skills[skillNumber];
     auto target = RandomTarget(currEvent, skillToUse.GetTargetType());
