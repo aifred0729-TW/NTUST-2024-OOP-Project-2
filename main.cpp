@@ -7,6 +7,7 @@
 #include <KeyBoard.h>
 #include <Color.h>
 #include <Backpack.h>
+#include "Game.h"
 
 #include <string>
 

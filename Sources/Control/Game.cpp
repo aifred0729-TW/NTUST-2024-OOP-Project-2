@@ -9,6 +9,8 @@
 #include "Dice.h"
 #include "Color.h"
 #include "Field.h"
+#include "EquipmentTable.h"
+#include "ItemTable.h"
 
 // Private
 
@@ -82,6 +84,7 @@ void Game::Initialize() {
 
 void Game::MainProcess(void) {
     using namespace std;
+    int turn = 1;
 
     Initialize();
     // cout << "done" << endl;
@@ -119,6 +122,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
     UI::displayMapGrid();
 
     while (1) {
+        bool moved = false;
         KeyBoard::keyUpdate(keyState);
         if (keyState[KeyBoard::EP]) {
             currentActRole->heal(movementPoint);
@@ -150,11 +154,11 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                 }
                 if (moveable == 0) {
                     Rpos = { currentActRole->GetPosition().first ,currentActRole->GetPosition().second };
+                    WorldMap::pos = Rpos;
                     movementPoint--;
                 }
                 // 跑到敵人頭上了
                 if (moveable == 0 && !WorldMap::GetRect().enemys.empty()) {
-
                     // 打架
 
                     std::vector<Enemy* > battleE;
@@ -297,12 +301,4 @@ int Game::GenerateMovementPoint(Role* currentActRole) {
     dice.SetSuccessRate(RateVec);
     dice.RollDiceMove();
     return dice.GetMovementPoint();
-}
-
-bool Game::checkIsOnShop() {
-    using namespace std;
-
-    // if 
-
-    return 0;
 }
