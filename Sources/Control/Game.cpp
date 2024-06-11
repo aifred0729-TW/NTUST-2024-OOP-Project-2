@@ -520,7 +520,7 @@ void Game::displayEquipment(Role* role) {
         cout << "Active:    " << role->GetEquipment().GetWeapon().GetSkill().GetActive()[j].GetName();
         i++;
     }
-    for (int j = 0; j < role->GetEquipment().GetWeapon().GetSkill().GetActive().size(); j++) {
+    for (int j = 0; j < role->GetEquipment().GetWeapon().GetSkill().GetPassive().size(); j++) {
         UI::moveCursor(124, 5 + i);
         cout << "Passive:   " << role->GetEquipment().GetWeapon().GetSkill().GetPassive()[j].GetName();
         i++;
@@ -536,7 +536,7 @@ void Game::displayEquipment(Role* role) {
         cout << "Active:    " << role->GetEquipment().GetArmor().GetSkill().GetActive()[j].GetName();
         i++;
     }
-    for (int j = 0; j < role->GetEquipment().GetArmor().GetSkill().GetActive().size(); j++) {
+    for (int j = 0; j < role->GetEquipment().GetArmor().GetSkill().GetPassive().size(); j++) {
         UI::moveCursor(124, 5 + i);
         cout << "Passive:   " << role->GetEquipment().GetArmor().GetSkill().GetPassive()[j].GetName();
         i++;
@@ -552,7 +552,7 @@ void Game::displayEquipment(Role* role) {
         cout << "Active:    " << role->GetEquipment().GetAccessory().GetSkill().GetActive()[j].GetName();
         i++;
     }
-    for (int j = 0; j < role->GetEquipment().GetAccessory().GetSkill().GetActive().size(); j++) {
+    for (int j = 0; j < role->GetEquipment().GetAccessory().GetSkill().GetPassive().size(); j++) {
         UI::moveCursor(124, 5 + i);
         cout << "Passive:   " << role->GetEquipment().GetAccessory().GetSkill().GetPassive()[j].GetName();
         i++;
