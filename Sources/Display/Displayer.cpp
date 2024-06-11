@@ -421,9 +421,9 @@ void Displayer::displayPlayerStatusEffect() {
     }
 }
 
-void Displayer::displayChoice(std::vector< std::string> choices, int select, int x, int y) {
-    for (int i = 0; i < choices.size(); i++) {
-        if (i == select) {
+void Displayer::displayChoice(std::vector< std::string> choices, int select, int x, int y, int max_rows, int locate) {
+    for (int i = 0; i < choices.size() && i < max_rows; i++) {
+        if (i + locate == select) {
             std::cout << YELLOW;
             moveCursor(x - 3, y + i);
             std::cout << "->";
@@ -432,24 +432,32 @@ void Displayer::displayChoice(std::vector< std::string> choices, int select, int
             moveCursor(x - 3, y + i);
             std::cout << "  ";
         }
-        displayString(choices[i], x, y + i);
+        int j = i + locate;
+        displayString(choices[j], x, y + i);
     }
 }
 
-int Displayer::makeChoice(std::vector<std::string> choices, int x, int y) {
+int Displayer::makeChoice(std::vector<std::string> choices, int x, int y, int max_rows) {
+    int locate = 0;
     bool keyState[KeyBoard::INVALID];
     int select = 0;
     while (1) {
-        displayChoice(choices, select, x, y);
+        displayChoice(choices, select, x, y, max_rows, locate);
         KeyBoard::keyUpdate(keyState);
         if (keyState[KeyBoard::EW]) {
             if (select > 0) {
                 select--;
+                if (select - locate < 0) {
+                    locate--;
+                }
             }
         }
         else if (keyState[KeyBoard::ES]) {
             if (select < choices.size() - 1) {
                 select++;
+                if (select - locate >= max_rows) {
+                    locate++;
+                }
             }
         }
         else if (keyState[KeyBoard::EESC]) {
@@ -460,6 +468,10 @@ int Displayer::makeChoice(std::vector<std::string> choices, int x, int y) {
         }
     }
     return -1;
+}
+
+int Displayer::makeChoice(std::vector<std::string> choices, int x, int y) {
+    return makeChoice(choices, x, y, 20);
 }
 
 //for Active

@@ -41,7 +41,7 @@ namespace Displayer {
 
     void displayString(int, int, const std::string);
 
-    void displayChoice(std::vector<std::string>, int, int, int);
+    void displayChoice(std::vector<std::string>, int, int, int, int max_rows , int locate);
 
     std::string horizontalLine(const std::string, int, const char);
 
@@ -67,6 +67,8 @@ namespace Displayer {
     void displayPlayerBackpack();
     void displayPlayerStatusEffect();
     int makeChoice(std::vector<std::string>, int, int);
+    int makeChoice(std::vector<std::string> choices, int x, int y, int max_rows);
+
     void displayChoice(std::vector<Active>, int, int, int);
     std::pair<std::string, int> makeChoice(std::vector<Active>, int, int);
     void printOnMap(int, int, std::string);
