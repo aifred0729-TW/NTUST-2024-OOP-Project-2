@@ -51,7 +51,7 @@ public:
 	uint8_t             GetEventID(void) { return eventID; }
 	int16_t             GetlastDamage(void) { return lastDamage; }
 
-	Attribute&          GetTotalAttribute(void) { return totalAttribute; }
+	Attribute&          GetTotalAttribute(void);
 	Skill&              GetTotalSkill(void) { return totalSkill; }
 
 	void                renewPlayer(void);
@@ -63,13 +63,18 @@ public:
 	// 直接強制用set套上裝備，沒有在跟你把裝備拿下來的
 	void equipForce(std::string equipmentName);
 	void unEquipForce(std::string equipmentName);
-	// 主動技能實做
+	// Skill 實做
 	void useActive(std::string skillName, std::vector<Entity*> targets);
 	void usePassive(std::string skillName, std::vector<Entity*> targets);
-	void useBuff(std::string skillName, std::vector<Entity*> targets);
+	void useBuff(std::string skillName);
 	void addBuff(std::string skillName, uint8_t round);
+	void removeBuff(std::string skillName);
+	bool findAvailablePassive(std::string skillName);
+	bool findAvailableBuff(std::string skillName);
+
 	// 計算經過一切計算後受到的傷害(直接傳原始傷害進來就好)
 	void takeDamage(int16_t damage, char attackType);
+	void takeTrueDamage(int16_t damage);
 	// 直接受到的治療數值
 	void heal(int16_t heal);
 };

@@ -5,7 +5,7 @@
 Dice::Dice() {
     this->focusCount = 0;
     this->movementPoint = 0;
-    this->amount = 0;
+    this->amount = 1;
     this->result.resize(this->amount, false);
     this->successRate.resize(this->amount, 0);
     this->rateAddition.resize(this->amount, 0);

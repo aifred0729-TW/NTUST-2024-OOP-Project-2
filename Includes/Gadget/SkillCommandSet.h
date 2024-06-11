@@ -58,4 +58,34 @@ public:
 	void execute(Entity& caster, std::vector<Entity*> target) override;
 };
 
+class AngryBuffCommand : public SkillCommand {
+public:
+	void execute(Entity& caster) override;
+};
+
+class DizzinessBuffCommand : public SkillCommand {
+public:
+	void execute(Entity& caster) override;
+};
+
+class PoisonedBuffCommand : public SkillCommand {
+public:
+	void execute(Entity& caster) override;
+};
+
+class SpeedUpBuffCommand : public SkillCommand {
+public:
+	void execute(Entity& caster) override;
+};
+
+class AngryBuffDeConstructCommand : public SkillCommand {
+public:
+	void execute(Entity& caster) override;
+};
+
+class SpeedUpBuffDeConstructCommand : public SkillCommand {
+public:
+	void execute(Entity& caster) override;
+};
+
 #endif

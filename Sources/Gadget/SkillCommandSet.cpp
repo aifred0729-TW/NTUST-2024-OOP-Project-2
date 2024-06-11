@@ -115,6 +115,7 @@ void SpeedUpActiveCommand::execute(Entity& caster, std::vector<Entity*> targets,
         UI::logEvent("給予 " + targets[0]->GetName() + " 1 回合的 SpeedUp Buff。");
         // 給予SpeedUp Buff一回合
         targets[0]->addBuff("SpeedUp", 1);
+        targets[0]->useBuff("SpeedUp");
     } else {
         UI::logEvent(caster.GetName() + " 的 Speed Up 失敗！");
     }
@@ -143,4 +144,35 @@ void DestroyPassiveCommand::execute(Entity& caster, std::vector<Entity*> targets
 void FortifyPassiveCommand::execute(Entity& caster, std::vector<Entity*> targets) {
 	// Fortify 不應該在這裡被觸發，而是要在Entity::takeDamage()裡面被觸發
     UI::logEvent(caster.GetName() + " 的被動 Fortify 被觸發！所受傷害自動 * 0.9");
+}
+
+void AngryBuffCommand::execute(Entity& caster) {
+	UI::logEvent(caster.GetName() + " 很氣，氣到骰子都骰不好了@@");
+    caster.GetDice().SetRateAddition(std::vector<double>(caster.GetDice().GetAmount(), -30));
+}
+
+void DizzinessBuffCommand::execute(Entity& caster) {
+	UI::logEvent(caster.GetName() + " 被 Dizziness 了");
+}
+
+void PoisonedBuffCommand::execute(Entity& caster) {
+	UI::logEvent(caster.GetName() + " 因為 Poisoned 所以受到了持續傷害");
+    int16_t damage = static_cast<int16_t>(caster.GetTotalAttribute().GetHP() * 0.1);
+    damage = damage == 0 ? 1 : damage;
+    caster.takeTrueDamage(damage);
+}
+
+void SpeedUpBuffCommand::execute(Entity& caster) {
+    UI::logEvent(caster.GetName() + " 的速度提升了 50% !");
+    caster.GetTotalAttribute().SetSPD(caster.GetTotalAttribute().GetSPD() * 1.5);
+}
+
+void SpeedUpBuffDeConstructCommand::execute(Entity& caster) {
+	UI::logEvent(caster.GetName() + " 的 SpeedUp 沒了。");
+	caster.GetTotalAttribute().SetSPD(caster.GetTotalAttribute().GetSPD() / 1.5);
+}
+
+void AngryBuffDeConstructCommand::execute(Entity& caster) {
+	UI::logEvent(caster.GetName() + " 不 Angry 了，體悟心靈祥和。");
+	caster.GetDice().SetRateAddition(std::vector<double>(caster.GetDice().GetAmount(), 0));
 }

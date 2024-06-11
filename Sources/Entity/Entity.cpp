@@ -49,10 +49,10 @@ void Entity::usePassive(std::string skillName, std::vector<Entity*> target) {
 	}
 }
 
-void Entity::useBuff(std::string skillName, std::vector<Entity*> target) {
+void Entity::useBuff(std::string skillName) {
     for (auto& buff : totalSkill.GetBuff()) {
         if (buff.GetName() == skillName) {
-            buff.apply(*this, target);
+            buff.apply(*this);
             UI::renewPlayerInfo();
             return;
         }
@@ -71,9 +71,21 @@ void Entity::addBuff(std::string skillName, uint8_t round) {
         buff.SetTick(round);
         totalSkill.pushBuff(buff);
         UI::logEvent(name + " 身上新增了將持續 " + std::to_string(buff.GetTick()) + " 回合的 " + skillName + "。");
+        useBuff(skillName);
     } else {
         totalSkill.GetBuff()[index].addTick(round);
         UI::logEvent(name + " 的 " + skillName + " 延長至 " + std::to_string(totalSkill.GetBuff()[index].GetTick()) + " 回合。");
+    }
+}
+
+void Entity::removeBuff(std::string skillName) {
+    for (int i = 0; i < totalSkill.GetBuff().size(); i++) {
+        if (totalSkill.GetBuff()[i].GetName() == skillName) {
+            totalSkill.GetBuff()[i].unApply(*this);
+            totalSkill.GetBuff().erase(totalSkill.GetBuff().begin() + i);
+            UI::logEvent(name + " 的 " + skillName + " 被移除了。");
+            return;
+        }
     }
 }
 
@@ -82,11 +94,9 @@ void Entity::takeDamage(int16_t damage, char attackType) {
     double absorption = armor / (double)(armor + 50);
     damage = static_cast<int16_t>((double)damage * (1 - absorption));
 
-    for (auto& passive : totalSkill.GetPassive()) {
-        if (passive.GetName() == "Fortify" && passive.GetTick() == 0 && damage != 0) {
-            usePassive("Fortify", { &(*this) });
-            damage = static_cast<int16_t>(damage * 0.9);
-        }
+    if (findAvailablePassive("Fortify") && damage != 0) {
+        usePassive("Fortify", { &(*this) });
+        damage = static_cast<int16_t>(damage * 0.9);
     }
 
     lastDamage = damage;
@@ -97,7 +107,20 @@ void Entity::takeDamage(int16_t damage, char attackType) {
     UI::logEvent(name + " 防禦後受到了 " + std::to_string(damage) + " 點傷害！，當前HP為 " + std::to_string(totalAttribute.GetHP()) + " !");
     UI::logEvent(std::to_string(totalAttribute.GetHP()) + "/" + std::to_string(totalAttribute.GetMaxHP()));
     if (totalAttribute.GetHP() == 0) {
-        UI::logEvent( name + " is dead! 喔不!!" );
+        UI::logEvent( name + " 被幹死了！喔不！！" );
+        status |= DEAD;
+    }
+}
+
+void Entity::takeTrueDamage(int16_t damage) {
+    int16_t damageTaken = totalAttribute.GetHP() - damage;
+    totalAttribute.SetHP(damageTaken > 0 ? damageTaken : 0);
+    attribute = totalAttribute;
+
+    UI::logEvent(name + " 受到了 " + std::to_string(damage) + " 點真實傷害！，當前HP為 " + std::to_string(totalAttribute.GetHP()) + " !");
+    UI::logEvent(std::to_string(totalAttribute.GetHP()) + "/" + std::to_string(totalAttribute.GetMaxHP()));
+    if (totalAttribute.GetHP() == 0) {
+        UI::logEvent(name + " 被幹死了！喔不！！");
         status |= DEAD;
     }
 }
@@ -147,6 +170,28 @@ void Entity::decreaseTick(void) {
             i--;
         }
 	}
+}
+
+bool Entity::findAvailablePassive(std::string skillName) {
+	for (auto& passive : totalSkill.GetPassive()) {
+		if (passive.GetName() == skillName && passive.GetTick() == 0) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Entity::findAvailableBuff(std::string skillName) {
+	for (auto& buff : totalSkill.GetBuff()) {
+		if (buff.GetName() == skillName && buff.GetTick() != 0) {
+			return true;
+		}
+	}
+	return false;
+}
+
+Attribute& Entity::GetTotalAttribute(void) {
+    return totalAttribute;
 }
 
 void Entity::equipForce(std::string equipmentName) {

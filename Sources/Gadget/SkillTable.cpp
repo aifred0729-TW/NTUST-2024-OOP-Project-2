@@ -29,8 +29,8 @@ void SkillTable::PassiveTableInitialize() {
 }
 
 void SkillTable::BuffTableInitialize() {
-	buffMap["Angry"] = Buff("Angry", nullptr, 0);
-	buffMap["Dizziness"] = Buff("Dizziness", nullptr, 0);
-	buffMap["Poisoned"] = Buff("Poisoned", nullptr, 0);
-	buffMap["SpeedUp"] = Buff("SpeedUp", nullptr, 0);
+	buffMap["Angry"] = Buff("Angry", new AngryBuffCommand(), new AngryBuffDeConstructCommand(), 0);
+	buffMap["Dizziness"] = Buff("Dizziness", new DizzinessBuffCommand(), nullptr, 0);
+	buffMap["Poisoned"] = Buff("Poisoned", new PoisonedBuffCommand(), nullptr, 0);
+	buffMap["SpeedUp"] = Buff("SpeedUp", new SpeedUpBuffCommand(), new SpeedUpBuffDeConstructCommand(), 0);
 }

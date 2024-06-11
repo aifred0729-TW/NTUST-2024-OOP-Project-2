@@ -35,13 +35,20 @@ public:
     }
 
 public:
+    virtual void apply(Entity& caster) {};
     virtual void apply(Entity& caster, std::vector<Entity*> targets) {};
 };
 
 class Buff : public SkillBase {
+private:
+    SkillCommand* deStructCommand;
+
 public:
     Buff();
-    Buff(std::string name, SkillCommand* command, uint8_t targetType);
+    Buff(std::string name, SkillCommand* command, SkillCommand* destructCommand, uint8_t targetType);
+    
+    void apply(Entity& caster) override;
+    void unApply(Entity& caster);
 };
 
 class Passive : public SkillBase {

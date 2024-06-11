@@ -9,8 +9,24 @@ SkillBase::SkillBase(std::string name, SkillCommand* command, uint8_t targetType
     : name(name), tick(0), command(command), targetType(targetType) {}
 
 Buff::Buff() {}
-Buff::Buff(std::string name, SkillCommand* command, uint8_t targetType)
-    : SkillBase(name, command, targetType) {}
+Buff::Buff(std::string name, SkillCommand* command, SkillCommand* deStructCommand, uint8_t targetType)
+    : SkillBase(name, command, targetType), deStructCommand(deStructCommand) {}
+
+void Buff::apply(Entity& caster) {
+	if (command) {
+		command->execute(caster);
+	} else {
+		std::cerr << "No command assigned to this skill!" << std::endl;
+	}
+}
+
+void Buff::unApply(Entity& caster) {
+	if (deStructCommand) {
+		deStructCommand->execute(caster);
+	} else {
+		std::cerr << "No deStructCommand assigned to this skill!" << std::endl;
+	}
+}
 
 Passive::Passive() : coolDown(0) {}
 Passive::Passive(std::string name, uint8_t coolDown, SkillCommand* command, uint8_t targetType)
