@@ -15,10 +15,10 @@ void SkillTable::Initialize() {
 void SkillTable::ActiveTableInitialize() {
     activeMap["Attack"] = Active("Attack", 0, 1, new AttackActiveCommand(), 1);
     activeMap["Flee"] = Active("Flee", 0, 1, new FleeActiveCommand(), 0);
-    activeMap["Provoke"] = Active("Provoke", 2, 1, new ProvokeActiveCommand(), 1);
-    activeMap["ShockBlast"] = Active("ShockBlast", 1, 3, new ShockBlastActiveCommand(), 2);
-    activeMap["Heal"] = Active("Heal", 1, 2, new HealActiveCommand(), 3);
-    activeMap["SpeedUp"] = Active("SpeedUp", 3, 2, new SpeedUpActiveCommand(), 3);
+    activeMap["Provoke"] = Active("Provoke", 3, 1, new ProvokeActiveCommand(), 1);
+    activeMap["ShockBlast"] = Active("ShockBlast", 2, 3, new ShockBlastActiveCommand(), 2);
+    activeMap["Heal"] = Active("Heal", 2, 2, new HealActiveCommand(), 3);
+    activeMap["SpeedUp"] = Active("SpeedUp", 4, 2, new SpeedUpActiveCommand(), 3);
 }
 
 void SkillTable::PassiveTableInitialize() {

@@ -13,23 +13,32 @@ void Field::StartBattle(void) {
     while (1) {
         currEvent = RefreshEvent();
         
-        uint8_t currStatus = currEvent->GetObj()->GetStatus();
-        if (currStatus & DEAD) {
-            continue;
-        }
-        if (currStatus & RETREAT) {
-            continue;
-        }
-
         if (currEvent->GetObj()->findAvailableBuff("Poisoned")) {
             currEvent->GetObj()->useBuff("Poisoned");
         }
-
+        
         if (currEvent->GetObj()->findAvailableBuff("Dizziness")) {
             currEvent->GetObj()->useBuff("Dizziness");
             DecreaseEntityBuff();
             continue;
         }
+        
+        uint8_t currStatus = currEvent->GetObj()->GetStatus();
+        if (currStatus & DEAD) {
+            try {
+                ExitPhase();
+            } catch (const exception& e) {
+                UI::displayString(e.what(), 6, 13);
+                RestoreEvent();
+                return;
+            }
+            continue;
+        }
+        
+        if (currStatus & RETREAT) {
+            continue;
+        }
+
 
         DecreaseEntityBuff();
         MainPhase(currEvent);
@@ -37,8 +46,7 @@ void Field::StartBattle(void) {
 
         try {
             ExitPhase();
-        }
-        catch (const exception& e) {
+        } catch (const exception& e) {
             UI::displayString(e.what(), 6, 13);
             RestoreEvent();
             return;
@@ -148,6 +156,10 @@ CHOICE:
     auto skills = currEvent->GetObj()->GetTotalSkill().GetActive();
     auto skillToUse = UI::makeChoice(skills, 6, 13);
     UI::logDivider(currEvent->GetObj()->GetName(), skillToUse.first);
+    if (currEvent->GetObj()->GetTotalSkill().GetActive()[skillToUse.second].GetTick() != 0) {
+        UI::logEvent("技能冷卻中，剩餘 " + std::to_string(currEvent->GetObj()->GetTotalSkill().GetActive()[skillToUse.second].GetTick()) + " 回合。");
+        goto CHOICE;
+    }
 
     int diceAmount = skillToUse.first == "Attack" ?
         currEvent->GetObj()->GetEquipment().GetWeapon().GetDiceAmount() : skills[skillToUse.second].GetDiceAmount();

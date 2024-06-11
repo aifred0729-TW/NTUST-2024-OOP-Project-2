@@ -15,16 +15,12 @@ Buff::Buff(std::string name, SkillCommand* command, SkillCommand* deStructComman
 void Buff::apply(Entity& caster) {
 	if (command) {
 		command->execute(caster);
-	} else {
-		std::cerr << "No command assigned to this skill!" << std::endl;
 	}
 }
 
 void Buff::unApply(Entity& caster) {
 	if (deStructCommand) {
 		deStructCommand->execute(caster);
-	} else {
-		std::cerr << "No deStructCommand assigned to this skill!" << std::endl;
 	}
 }
 
@@ -35,8 +31,6 @@ Passive::Passive(std::string name, uint8_t coolDown, SkillCommand* command, uint
 void Passive::apply(Entity& caster, std::vector<Entity*> targets) {
 	if (command) {
 		command->execute(caster, targets);
-	} else {
-		std::cerr << "No command assigned to this skill!" << std::endl;
 	}
 }
 
@@ -47,7 +41,5 @@ Active::Active(std::string name, uint8_t coolDown, uint8_t diceAmount, SkillComm
 void Active::apply(Entity& caster, std::vector<Entity*> targets) {
 	if (command) {
 		command->execute(caster, targets, coolDown, tick, diceAmount);
-	} else {
-		std::cerr << "No command assigned to this skill!" << std::endl;
 	}
 }
