@@ -106,8 +106,9 @@ void Game::MainProcess(void) {
 
 int Game::OnePlayerMovePhase(Role* currentActRole) {
     // Move Stage
-    //投骰子
-    int movementPoint = GenerateMovementPoint(currentActRole);
+    // 投骰子
+    int maxMovementPoint = GenerateMovementPoint(currentActRole);
+    int movementPoint = maxMovementPoint;
     std::cout << BG_WHITE;
     UI::displayMapGrid();
     UI::PrintWorldMap();
@@ -151,37 +152,40 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                     Rpos = { currentActRole->GetPosition().first ,currentActRole->GetPosition().second };
                     movementPoint--;
                 }
+                // 跑到敵人頭上了
+                if (moveable == 0 && !WorldMap::GetRect().enemys.empty()) {
+
+                    // 打架
+
+                    std::vector<Enemy* > battleE;
+                    std::vector<Role* > battleR;
+
+                    for (auto E : enemys) {
+                        int distance = WorldMap::manhattanDistance(currentActRole->GetPosition(), E->GetPosition());
+                        if (distance <= 3 && battleE.size() < 3) {
+                            battleE.push_back(E);
+                        }
+                    }
+                    for (auto R : roles) {
+                        int distance = WorldMap::manhattanDistance(currentActRole->GetPosition(), R->GetPosition());
+                        if (distance <= 3 && !(R->GetStatus() & DEAD)) {
+                            battleR.push_back(R);
+                        }
+                    }
+                    UI::battlePhase();
+                    Field F(battleR, battleE);
+                    F.StartBattle();
+                    UI::PreWorldMap(roles);
+
+                    UI::mapPhase();
+                }
+
             }
             else if (movementPoint <= 0) {
                 continue;
             }
             WorldMap::setPos(Rpos);
-            if (!WorldMap::GetRect().enemys.empty()) {
 
-                // 打架
-
-                std::vector<Enemy* > battleE;
-                std::vector<Role* > battleR;
-
-                for (auto E : enemys) {
-                    int distance = WorldMap::manhattanDistance(currentActRole->GetPosition(), E->GetPosition());
-                    if (distance <= 3 && battleE.size() < 3) {
-                        battleE.push_back(E);
-                    }
-                }
-                for (auto R : roles) {
-                    int distance = WorldMap::manhattanDistance(currentActRole->GetPosition(), R->GetPosition());
-                    if (distance <= 3 && !(R->GetStatus() & DEAD)) {
-                        battleR.push_back(R);
-                    }
-                }
-                UI::battlePhase();
-                Field F(battleR, battleE);
-                F.StartBattle();
-                UI::PreWorldMap(roles);
-
-                UI::mapPhase();
-            }
         }
         else if (keyState[KeyBoard::EW]) {
             WorldMap::movePos(0, -1);
@@ -260,6 +264,10 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             }
             std::cout << BG_BRIGHT_CYAN;
             UI::distanceDisplay(0, 0, 0);
+        }
+
+        for (int i = 0; i < roles.size(); i++) {
+            UI::displayPlayerInfo(121, 28 + i * 7, roles[i]);
         }
         UI::moveCursor(0, 0);
         //UI::renewPlayerInfo();
