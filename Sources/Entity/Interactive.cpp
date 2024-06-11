@@ -1,4 +1,5 @@
-﻿#include "../../Includes/Entity/Interactive.h"
+﻿#include <Interactive.h>
+#include <Role.h>
 
 // Public
 

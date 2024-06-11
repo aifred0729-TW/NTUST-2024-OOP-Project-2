@@ -10,7 +10,7 @@
 #include <vector>
 #include <windows.h>
 
-//class WorldMap;
+class WorldMap;
 class Role;
 class Enemy;
 

@@ -1,10 +1,16 @@
-﻿#include "../../Includes/Control/WorldMap.h"
-#include "ConstData.h"
-#include <Color.h>
-#include <UI.h>
-#include <Enemy.h>
-#include <Role.h>
-#include <Store.h>
+﻿#include <WorldMap.h>
+#include <ConstData.h>
+
+#include <cstdint>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <stack>
+#include <string>
+#include <vector>
+#include <windows.h>
+#include <fstream>
+#include <sstream>
 
 int WorldMap::HEIGHT = 50;
 int WorldMap::WIDTH = 140;

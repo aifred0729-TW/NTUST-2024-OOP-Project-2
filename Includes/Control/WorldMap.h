@@ -12,6 +12,8 @@
 #include <fstream>
 #include <sstream>
 
+#include <ConstData.h>
+
 class Role;
 class Enemy;
 class Entity;

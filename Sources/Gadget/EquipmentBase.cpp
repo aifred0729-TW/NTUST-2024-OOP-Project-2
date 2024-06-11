@@ -1,4 +1,6 @@
 ﻿#include <EquipmentBase.h>
+#include <Attribute.h>
+#include <Skill.h>
 
 // Default constructor
 EquipmentBase::EquipmentBase() {}
@@ -29,7 +31,7 @@ Attribute EquipmentBase::GetAttribute() const {
 	return attribute;
 }
 
-Skill EquipmentBase::GetSkill() const {
+Skill& EquipmentBase::GetSkill() {
 	return skill;
 }
 

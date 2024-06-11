@@ -3,7 +3,8 @@
 
 #include <map>
 #include <string>
-#include "Item.h"
+
+class Item;
 
 class ItemTable {
 private:

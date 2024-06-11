@@ -10,7 +10,7 @@
 #include <vector>
 #include <windows.h>
 
-#include <Role.h>
+class Role;
 
 class Interactive {
 private:

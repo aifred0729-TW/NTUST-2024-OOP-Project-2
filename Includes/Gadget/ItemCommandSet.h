@@ -1,7 +1,7 @@
 ﻿#ifndef ITEMCOMMANDSET_H
 #define ITEMCOMMANDSET_H
 
-#include "ItemCommand.h"
+#include <ItemCommand.h>
 
 class GodsbeardCommand : public ItemCommand {
 public:

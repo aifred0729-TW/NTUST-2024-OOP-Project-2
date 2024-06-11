@@ -9,8 +9,8 @@
 #include <string>
 #include <vector>
 #include <windows.h>
-#include "Displayer.h"
-#include <Attribute.h>
+
+#include <Displayer.h>
 
 class Dice;
 class Role;

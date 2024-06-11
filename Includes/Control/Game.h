@@ -10,14 +10,8 @@
 #include <vector>
 #include <windows.h>
 
-#include <WorldMap.h>
-#include <Role.h>
-#include <Enemy.h>
-#include <UI.h>
-#include <Process.h>
-#include <SkillTable.h>
-#include <Equipment.h>
-#include <ItemTable.h>
+class Role;
+class WorldMap;
 
 class Game {
 private:

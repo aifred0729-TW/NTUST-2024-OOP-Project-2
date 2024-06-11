@@ -1,4 +1,6 @@
-﻿#include "../../Includes/Control/Game.h"
+﻿#include <WorldMap.h>
+#include <Role.h>
+#include <Game.h>
 
 #include <WorldMap.h>
 #include <Role.h>

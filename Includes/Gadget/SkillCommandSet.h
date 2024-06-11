@@ -4,38 +4,88 @@
 #include <vector>
 #include <iostream>
 
-#include "../../Includes/Gadget/SkillTable.h"
-#include "SkillCommand.h"
-#include "Entity.h"
+#include <SkillCommand.h>
 
-class AttackCommand : public SkillCommand {
+class Entity;
+
+class AttackActiveCommand : public SkillCommand {
 public:
     void execute(Entity& caster, std::vector<Entity*> target, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) override;
 };
 
-class FleeCommand : public SkillCommand {
+class FleeActiveCommand : public SkillCommand {
 public:
 	void execute(Entity& caster, std::vector<Entity*> target, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) override;
 };
 
-class ProvokeCommand : public SkillCommand {
+class ProvokeActiveCommand : public SkillCommand {
 public:
 	void execute(Entity& caster, std::vector<Entity*> target, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) override;
 };
 
-class ShockBlastCommand : public SkillCommand {
+class ShockBlastActiveCommand : public SkillCommand {
 public:
 	void execute(Entity& caster, std::vector<Entity*> target, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) override;
 };
 
-class HealCommand : public SkillCommand {
+class HealActiveCommand : public SkillCommand {
 public:
 	void execute(Entity& caster, std::vector<Entity*> target, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) override;
 };
 
-class SpeedUpCommand : public SkillCommand {
+class SpeedUpActiveCommand : public SkillCommand {
 public:
 	void execute(Entity& caster, std::vector<Entity*> target, uint8_t coolDown, uint8_t tick, uint8_t diceAmount) override;
+};
+
+class RunPassiveCommand : public SkillCommand {
+public:
+	void execute(Entity& caster, std::vector<Entity*> target) override;
+};
+
+class HammerSplashPassiveCommand : public SkillCommand {
+public:
+	void execute(Entity& caster, std::vector<Entity*> target) override;
+};
+
+class DestroyPassiveCommand : public SkillCommand {
+public:
+	void execute(Entity& caster, std::vector<Entity*> target) override;
+};
+
+class FortifyPassiveCommand : public SkillCommand {
+public:
+	void execute(Entity& caster, std::vector<Entity*> target) override;
+};
+
+class AngryBuffCommand : public SkillCommand {
+public:
+	void execute(Entity& caster) override;
+};
+
+class DizzinessBuffCommand : public SkillCommand {
+public:
+	void execute(Entity& caster) override;
+};
+
+class PoisonedBuffCommand : public SkillCommand {
+public:
+	void execute(Entity& caster) override;
+};
+
+class SpeedUpBuffCommand : public SkillCommand {
+public:
+	void execute(Entity& caster) override;
+};
+
+class AngryBuffDeConstructCommand : public SkillCommand {
+public:
+	void execute(Entity& caster) override;
+};
+
+class SpeedUpBuffDeConstructCommand : public SkillCommand {
+public:
+	void execute(Entity& caster) override;
 };
 
 #endif

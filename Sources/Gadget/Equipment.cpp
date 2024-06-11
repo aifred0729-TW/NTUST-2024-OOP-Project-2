@@ -5,6 +5,8 @@
 #include <Equipment.h>
 #include <EquipmentBase.h>
 #include <EquipmentTable.h>
+#include <Attribute.h>
+#include <Skill.h>
 
 Equipment::Equipment() {
 	armor = Armor();
@@ -20,7 +22,7 @@ Attribute Equipment::GetTotalAttribute() const {
 	return attribute;
 }
 
-Skill Equipment::GetTotalSkills() const {
+Skill& Equipment::GetTotalSkills() {
 	Skill skill;
 	skill += weapon.GetSkill();
 	skill += armor.GetSkill();

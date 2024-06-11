@@ -1,10 +1,7 @@
-﻿#include "../../Includes/Entity/Entity.h"
-
-#include "Attribute.h"
-#include "Skill.h"
-#include "Equipment.h"
-#include "EquipmentTable.h"
-#include "SkillTable.h"
+﻿#include <Entity.h>
+#include <Attribute.h>
+#include <Skill.h>
+#include <Dice.h>
 
 // Public
 Entity::Entity() {
@@ -23,6 +20,8 @@ Entity::Entity() {
     equipForce("BareAccessory");
     status = 0;
     eventID = 0;
+    lastDamage = 0;
+    renewPlayer();
 }
 
 Entity::Entity(std::string name) : Entity() {
@@ -30,15 +29,14 @@ Entity::Entity(std::string name) : Entity() {
 }
 
 void Entity::useActive(std::string skillName, std::vector<Entity*> target) {
-    Skill combinedSkill = GetTotalSkill();
-    for (auto active : combinedSkill.GetActive()) {
+    for (auto& active : totalSkill.GetActive()) {
         if (active.GetName() == skillName) {
+            active.SetTick(active.GetCoolDown());
             active.apply(*this, target);
             UI::renewPlayerInfo();
             return;
         }
     }
-    std::cerr << "Skill " << skillName << " not found in active skills!" << std::endl;
 }
 
 void Entity::takeDamage(int16_t damage, char attackType) {
@@ -53,7 +51,7 @@ void Entity::takeDamage(int16_t damage, char attackType) {
     UI::logEvent(name + " 防禦後受到了 " + std::to_string(damage) + " 點傷害！，當前HP為 " + std::to_string(attribute.GetHP()) + " !");
     UI::logEvent(std::to_string(GetTotalAttribute().GetHP()) + "/" + std::to_string(GetTotalAttribute().GetMaxHP()));
     if (attribute.GetHP() == 0) {
-        UI::logEvent(name + " is dead! 喔不!!");
+        UI::logEvent( name + " is dead! 喔不!!" );
         status |= DEAD;
     }
 }
@@ -68,115 +66,170 @@ void Entity::heal(int16_t heal) {
     UI::logEvent(outputStr);
 }
 
-void Entity::equipForce(std::string equipmentName) {
-    if (EquipmentTable::weaponMap.find(equipmentName) != EquipmentTable::weaponMap.end()) {
-        this->equipment.SetWeapon(EquipmentTable::weaponMap[equipmentName]);
-        return;
+void Entity::useBuff(std::string skillName) {
+    for (auto& buff : totalSkill.GetBuff()) {
+        if (buff.GetName() == skillName) {
+            buff.apply(*this);
+            UI::renewPlayerInfo();
+            return;
+        }
     }
-    else if (EquipmentTable::armorMap.find(equipmentName) != EquipmentTable::armorMap.end()) {
-        this->equipment.SetArmor(EquipmentTable::armorMap[equipmentName]);
-        return;
-    }
-    else if (EquipmentTable::accessoryMap.find(equipmentName) != EquipmentTable::accessoryMap.end()) {
-        this->equipment.SetAccessory(EquipmentTable::accessoryMap[equipmentName]);
-        return;
-    }
-    else {
-        std::cerr << "Equipment " << equipmentName << " not found!" << std::endl;
-    }
-    UI::renewPlayerInfo();
-}
+}   
 
-void Entity::unEquipForce(std::string equipmentName) {
-    if (this->GetEquipment().GetArmor().GetName() == equipmentName) {
-        this->equipment.SetArmor(EquipmentTable::armorMap.find("BareBody")->second);
-        return;
+void Entity::addBuff(std::string skillName, uint8_t round) {
+    int index = 0;
+    for (index = 0; index < totalSkill.GetBuff().size(); index++) {
+        if (totalSkill.GetBuff()[index].GetName() == skillName)
+            break;
     }
-    else if (this->GetEquipment().GetWeapon().GetName() == equipmentName) {
-        this->equipment.SetWeapon(EquipmentTable::weaponMap.find("BareHand")->second);
-        return;
-    }
-    else if (this->GetEquipment().GetAccessory().GetName() == equipmentName) {
-        this->equipment.SetAccessory(EquipmentTable::accessoryMap.find("BareAccessory")->second);
-        return;
-    }
-    else {
-        std::cerr << "Equipment " << equipmentName << " not found!" << std::endl;
+
+    if (index == totalSkill.GetBuff().size()) {
+        Buff buff = SkillTable::buffMap.find(skillName)->second;
+        buff.SetTick(round);
+        totalSkill.pushBuff(buff);
+        UI::logEvent(name + " 身上新增了將持續 " + std::to_string(buff.GetTick()) + " 回合的 " + skillName + "。");
+        useBuff(skillName);
+    } else {
+        totalSkill.GetBuff()[index].addTick(round);
+        UI::logEvent(name + " 的 " + skillName + " 延長至 " + std::to_string(totalSkill.GetBuff()[index].GetTick()) + " 回合。");
     }
 }
 
-Attribute Entity::GetTotalAttribute(void) {
-    Attribute totalAttribute;
-    totalAttribute += this->attribute;
-    totalAttribute += equipment.GetTotalAttribute();
-    return totalAttribute;
+void Entity::removeBuff(std::string skillName) {
+    for (int i = 0; i < totalSkill.GetBuff().size(); i++) {
+        if (totalSkill.GetBuff()[i].GetName() == skillName) {
+            totalSkill.GetBuff()[i].unApply(*this);
+            totalSkill.GetBuff().erase(totalSkill.GetBuff().begin() + i);
+            UI::logEvent(name + " 的 " + skillName + " 被移除了。");
+            return;
+        }
+    }
 }
 
-Skill Entity::GetTotalSkill(void) {
-    Skill fuck;
-    fuck += this->skill;
-    fuck += equipment.GetTotalSkills();
-    return fuck;
+void Entity::takeDamage(int16_t damage, char attackType) {
+    int16_t armor = attackType == 'P' ? totalAttribute.GetPD() : totalAttribute.GetMD();
+    double absorption = armor / (double)(armor + 50);
+    damage = static_cast<int16_t>((double)damage * (1 - absorption));
+
+    if (findAvailablePassive("Fortify") && damage != 0) {
+        usePassive("Fortify", { &(*this) });
+        damage = static_cast<int16_t>(damage * 0.9);
+    }
+
+    lastDamage = damage;
+    int16_t damageTaken = totalAttribute.GetHP() - damage;
+    totalAttribute.SetHP(damageTaken > 0 ? damageTaken : 0);
+    attribute = totalAttribute;
+
+    UI::logEvent(name + " 防禦後受到了 " + std::to_string(damage) + " 點傷害！，當前HP為 " + std::to_string(totalAttribute.GetHP()) + " !");
+    //UI::logEvent(std::to_string(totalAttribute.GetHP()) + "/" + std::to_string(totalAttribute.GetMaxHP()));
+    if (totalAttribute.GetHP() == 0) {
+        UI::logEvent( name + " 被幹死了！喔不！！" );
+        status |= DEAD;
+    }
 }
 
-bool Entity::isInRange(std::vector<Entity*>) {
-    return 0;
+void Entity::takeTrueDamage(int16_t damage) {
+    int16_t damageTaken = totalAttribute.GetHP() - damage;
+    totalAttribute.SetHP(damageTaken > 0 ? damageTaken : 0);
+    attribute = totalAttribute;
+
+    UI::logEvent(name + " 受到了 " + std::to_string(damage) + " 點真實傷害！，當前HP為 " + std::to_string(totalAttribute.GetHP()) + " !");
+    //UI::logEvent(std::to_string(totalAttribute.GetHP()) + "/" + std::to_string(totalAttribute.GetMaxHP()));
+    if (totalAttribute.GetHP() == 0) {
+        UI::logEvent(name + " 被幹死了！喔不！！");
+        status |= DEAD;
+    }
 }
 
-void Entity::SetName(const std::string& name) {
-    this->name = name;
+void Entity::heal(int16_t heal) {
+    int16_t healTaken = totalAttribute.GetHP() + heal;
+    totalAttribute.SetHP(healTaken < totalAttribute.GetMaxHP() ? healTaken : totalAttribute.GetMaxHP());
+    attribute = totalAttribute;
+
+    std::string outputStr;
+    std::stringstream outputSs;
+    outputSs << name << " 受到了 " << heal << " 點治療！，當前HP為 " << totalAttribute.GetHP() << " !" << std::endl;
+    std::getline(outputSs, outputStr);
+    UI::logEvent(outputStr);
 }
 
-void Entity::SetAttribute(const Attribute& attribute) {
-    this->attribute = attribute;
+void Entity::renewPlayer(void) {
+    totalAttribute = attribute;
+    totalAttribute += equipment.GetArmor().GetAttribute();
+    totalAttribute += equipment.GetWeapon().GetAttribute();
+    totalAttribute += equipment.GetAccessory().GetAttribute();
+
+    totalSkill = skill;
+    totalSkill += equipment.GetArmor().GetSkill();
+    totalSkill += equipment.GetWeapon().GetSkill();
+    totalSkill += equipment.GetAccessory().GetSkill();
 }
 
-void Entity::SetSkill(const Skill& skill) {
-    this->skill = skill;
+void Entity::decreaseTick(void) {
+    for (auto& active : totalSkill.GetActive()) {
+		if (active.GetTick() > 0) {
+			active.SetTick(active.GetTick() - 1);
+		}
+	}
+
+    for (auto& passive : totalSkill.GetPassive()) {
+        if (passive.GetTick() > 0) {
+            passive.SetTick(passive.GetTick() - 1);
+        }
+    }
+    
+    for (int i = 0 ; i < totalSkill.GetBuff().size(); i++) {
+		if (totalSkill.GetBuff()[i].GetTick() > 1) {
+			totalSkill.GetBuff()[i].SetTick(totalSkill.GetBuff()[i].GetTick() - 1);
+        } else if (totalSkill.GetBuff()[i].GetTick() == 1) {
+            removeBuff(totalSkill.GetBuff()[i].GetName());
+            i--;
+        }
+	}
 }
 
-void Entity::SetEquipment(const Equipment& equipment) {
-    this->equipment = equipment;
-}
-
-void Entity::SetDice(const Dice& dice) {
-    this->dice = dice;
-}
-
-void Entity::SetStatus(const uint8_t status) {
-    this->status = status;
+bool Entity::findAvailablePassive(std::string skillName) {
+	for (auto& passive : totalSkill.GetPassive()) {
+		if (passive.GetName() == skillName && passive.GetTick() == 0) {
+			return true;
+		}
+	}
+	return false;
 }
 
 void Entity::SetEventID(const uint8_t eventID) {
     this->eventID = eventID;
 }
 
-void Entity::SetFaction(const bool faction) {
-    this->faction = faction;
-}
-
 std::string Entity::GetName(void) {
     return name;
 }
 
-Attribute& Entity::GetAttribute(void) {
-    return attribute;
+Attribute& Entity::GetTotalAttribute(void) {
+    return totalAttribute;
 }
 
-Skill& Entity::GetSkill(void) {
-    return skill;
+void Entity::equipForce(std::string equipmentName) {
+    if (EquipmentTable::weaponMap.find(equipmentName) != EquipmentTable::weaponMap.end()) {
+        this->equipment.SetWeapon(EquipmentTable::weaponMap[equipmentName]);
+    } else if (EquipmentTable::armorMap.find(equipmentName) != EquipmentTable::armorMap.end()) {
+        this->equipment.SetArmor(EquipmentTable::armorMap[equipmentName]);
+    } else if (EquipmentTable::accessoryMap.find(equipmentName) != EquipmentTable::accessoryMap.end()) {
+        this->equipment.SetAccessory(EquipmentTable::accessoryMap[equipmentName]);
+    }
+    renewPlayer();
 }
 
-Dice& Entity::GetDice(void) {
-    return dice;
-}
-
-Equipment Entity::GetEquipment(void) {
-    return equipment;
-}
-
-uint8_t   Entity::GetStatus(void) {
-    return status;
+void Entity::unEquipForce(std::string equipmentName) {
+    if (this->GetEquipment().GetArmor().GetName() == equipmentName) {
+        this->equipment.SetArmor(EquipmentTable::armorMap.find("BareBody")->second);
+    } else if (this->GetEquipment().GetWeapon().GetName() == equipmentName) {
+        this->equipment.SetWeapon(EquipmentTable::weaponMap.find("BareHand")->second);
+    } else if (this->GetEquipment().GetAccessory().GetName() == equipmentName) {
+        this->equipment.SetAccessory(EquipmentTable::accessoryMap.find("BareAccessory")->second);
+    }
+    renewPlayer();
 }
 
 uint8_t   Entity::GetEventID(void) {

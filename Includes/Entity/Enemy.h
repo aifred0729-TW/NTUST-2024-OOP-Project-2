@@ -11,8 +11,8 @@
 #include <windows.h>
 
 #include <Interactive.h>
+#include <Entity.h>
 
-#include "Entity.h"
 
 class Enemy : public Entity, public Interactive {
 private:

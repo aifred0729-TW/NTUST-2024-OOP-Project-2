@@ -1,15 +1,8 @@
 ﻿#include <Field.h>
 #include <UI.h>
-#include <Keyboard.h>
-#include <color.h>
-
-#include <ConstData.h>
-#include <Enemy.h>
-#include <Role.h>
-#include <Dice.h>
-#include <Entity.h>
-#include <Skill.h>
-#include <Equipment.h>
+#include <Attribute.h>
+#include <KeyBoard.h>
+#include <Color.h>
 // Public
 
 void Field::StartBattle(void) {
@@ -19,28 +12,41 @@ void Field::StartBattle(void) {
 
     while (1) {
         currEvent = RefreshEvent();
-
-        uint8_t currStatus = currEvent->GetObj()->GetStatus();
-        if (currStatus & DEAD) {
+        
+        if (currEvent->GetObj()->findAvailableBuff("Poisoned")) {
+            currEvent->GetObj()->useBuff("Poisoned");
+        }
+        
+        if (currEvent->GetObj()->findAvailableBuff("Dizziness")) {
+            currEvent->GetObj()->useBuff("Dizziness");
+            DecreaseEntityBuff();
             continue;
         }
+        
+        uint8_t currStatus = currEvent->GetObj()->GetStatus();
+        if (currStatus & DEAD) {
+            try {
+                ExitPhase();
+            } catch (const exception& e) {
+                UI::displayString(e.what(), 6, 13);
+                RestoreEvent();
+                return;
+            }
+            continue;
+        }
+        
         if (currStatus & RETREAT) {
             continue;
         }
 
-        StatusCount* currentCount = currEvent->GetCount();
-        if (currentCount->dizziness) {
-            currentCount->dizziness--;
-            continue;
-        }
 
+        DecreaseEntityBuff();
         MainPhase(currEvent);
         RemoveDeadEntity();
 
         try {
             ExitPhase();
-        }
-        catch (const exception& e) {
+        } catch (const exception& e) {
             UI::displayString(e.what(), 6, 13);
             RestoreEvent();
             return;
@@ -56,23 +62,23 @@ Action* Field::RefreshEvent(void) {
     };
     auto cmpSPD = [](Action* x, Action* y) {
         return
-            x->GetObj()->GetAttribute().GetSPD() >
-            y->GetObj()->GetAttribute().GetSPD();
+            x->GetObj()->GetTotalAttribute().GetSPD() >
+            y->GetObj()->GetTotalAttribute().GetSPD();
     };
     auto cmpAttack = [](Action* x, Action* y) {
         return
-            x->GetObj()->GetAttribute().GetPA() + x->GetObj()->GetAttribute().GetMA() >
-            y->GetObj()->GetAttribute().GetPA() + y->GetObj()->GetAttribute().GetMA();
+            x->GetObj()->GetTotalAttribute().GetPA() + x->GetObj()->GetTotalAttribute().GetMA() >
+            y->GetObj()->GetTotalAttribute().GetPA() + y->GetObj()->GetTotalAttribute().GetMA();
     };
     auto cmpDefend = [](Action* x, Action* y) {
         return
-            x->GetObj()->GetAttribute().GetPD() + x->GetObj()->GetAttribute().GetMD() >
-            y->GetObj()->GetAttribute().GetPD() + y->GetObj()->GetAttribute().GetMD();
+            x->GetObj()->GetTotalAttribute().GetPD() + x->GetObj()->GetTotalAttribute().GetMD() >
+            y->GetObj()->GetTotalAttribute().GetPD() + y->GetObj()->GetTotalAttribute().GetMD();
     };
     auto cmpMaxHP = [](Action* x, Action* y) {
         return
-            x->GetObj()->GetAttribute().GetMaxHP() >
-            y->GetObj()->GetAttribute().GetMaxHP();
+            x->GetObj()->GetTotalAttribute().GetMaxHP() >
+            y->GetObj()->GetTotalAttribute().GetMaxHP();
     };
 
     stable_sort(eventQueue.begin(), eventQueue.end(), cmpMaxHP);
@@ -83,9 +89,13 @@ Action* Field::RefreshEvent(void) {
 
     // update for the next refresh sort
     eventQueue[0]->SetTurn(eventQueue[0]->GetTurn() + 1);
-    eventQueue[0]->SetPriority(double(eventQueue[0]->GetTurn() + 1) / eventQueue[0]->GetObj()->GetAttribute().GetSPD() * 100);
+    eventQueue[0]->SetPriority(double(eventQueue[0]->GetTurn() + 1) / eventQueue[0]->GetObj()->GetTotalAttribute().GetSPD() * 100);
     UI::printPriority(eventQueue);
     return eventQueue[0];
+}
+
+void Field::DecreaseEntityBuff(void) {
+    currEvent->GetObj()->decreaseTick();
 }
 
 void Field::RestoreEvent(void) {
@@ -146,10 +156,14 @@ CHOICE:
     auto skills = currEvent->GetObj()->GetTotalSkill().GetActive();
     auto skillToUse = UI::makeChoice(skills, 6, 13);
     UI::logDivider(currEvent->GetObj()->GetName(), skillToUse.first);
+    if (currEvent->GetObj()->GetTotalSkill().GetActive()[skillToUse.second].GetTick() != 0) {
+        UI::logEvent("技能冷卻中，剩餘 " + std::to_string(currEvent->GetObj()->GetTotalSkill().GetActive()[skillToUse.second].GetTick()) + " 回合。");
+        goto CHOICE;
+    }
 
     int diceAmount = skillToUse.first == "Attack" ?
         currEvent->GetObj()->GetEquipment().GetWeapon().GetDiceAmount() : skills[skillToUse.second].GetDiceAmount();
-    int focus = currEvent->GetObj()->GetAttribute().GetFocus();
+    int focus = currEvent->GetObj()->GetTotalAttribute().GetFocus();
 
     UI::displayDice(diceAmount, 0);
 
@@ -167,12 +181,24 @@ TARGET:
         goto TARGET;
     }
 
+    if (currEvent->GetObj()->findAvailablePassive("Run")) {
+        currEvent->GetObj()->usePassive("Run", { currEvent->GetObj() });
+    }
+
     if (focusUse != 0) {
         UI::logEvent("使用 " + std::to_string(focusUse) + " 專注點數");
-        currEvent->GetObj()->GetAttribute().SetFocus(focus - focusUse);
+        currEvent->GetObj()->GetTotalAttribute().SetFocus(focus - focusUse);
         currEvent->GetObj()->GetDice().SetFocusCount(focusUse);
     }
     currEvent->GetObj()->useActive(skillToUse.first, target);
+
+    Dice &ObjDice = currEvent->GetObj()->GetDice();
+    if (skills[skillToUse.second].GetTargetType() && 
+        ObjDice.GetMovementPoint() == ObjDice.GetAmount() &&
+        currEvent->GetObj()->findAvailablePassive("HammerSplash")) {
+        currEvent->GetObj()->usePassive("HammerSplash", target);
+    }
+
     UI::logEvent("");
 }
 
@@ -191,6 +217,14 @@ void Field::EnemyMainPhase(Action* currEvent) {
     auto target = RandomTarget(currEvent, skillToUse.GetTargetType());
     UI::logDivider(currEvent->GetObj()->GetName(), skillToUse.GetName());
     currEvent->GetObj()->useActive(skillToUse.GetName(), target);
+
+    Dice& ObjDice = currEvent->GetObj()->GetDice();
+    if (skillToUse.GetTargetType() &&
+        ObjDice.GetMovementPoint() == ObjDice.GetAmount() &&
+        currEvent->GetObj()->findAvailablePassive("HammerSplash")) {
+        currEvent->GetObj()->usePassive("HammerSplash", target);
+    }
+
     UI::logEvent("");
 }
 
