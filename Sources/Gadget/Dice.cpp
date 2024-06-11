@@ -105,6 +105,7 @@ void Dice::displayResult(void) {
     std::string outputStr;
     std::stringstream outputSs;
     UI::logEvent("擲骰結果: " + std::to_string((unsigned)movementPoint) + " / " + std::to_string((unsigned)amount) + " " + UI::FocusDisplayer((unsigned)movementPoint, (unsigned)amount));
+    UI::logEvent("");
 }
 
 void Dice::setMovementPoint(const uint8_t movementPoint) {

@@ -16,11 +16,13 @@ void Field::StartBattle(void) {
     while (1) {
         currEvent = RefreshEvent();
         
+        // 輸出該人資訊
         if (currEvent->GetObj()->findAvailableBuff("Poisoned")) {
             currEvent->GetObj()->useBuff("Poisoned");
         }
         
         if (currEvent->GetObj()->findAvailableBuff("Dizziness")) {
+            UI::logDivider(currEvent->GetObj()->GetName() + " 回合跳過");
             currEvent->GetObj()->useBuff("Dizziness");
             DecreaseEntityBuff();
             continue;
@@ -44,6 +46,7 @@ void Field::StartBattle(void) {
 
 
         DecreaseEntityBuff();
+        currEvent->GetObj()->displayTotalSkill();
         MainPhase(currEvent);
         RemoveDeadEntity();
 
@@ -103,7 +106,7 @@ void Field::DecreaseEntityBuff(void) {
 
 void Field::RestoreEvent(void) {
     for (auto& it : eventQueue) {
-        it->GetObj()->SetStatus(it->GetObj()->GetStatus() & ~(POISONED | BLEED | DIZZINESS | ANGRY | RETREAT));
+        it->GetObj()->clearBuff();
     }
 }
 
@@ -132,8 +135,7 @@ void Field::RemoveDeadEntity(void) {
     for (auto it = roles.begin(); it != roles.end();) {
         if ((*it)->GetStatus() & DEAD || (*it)->GetStatus() & RETREAT) {
             it = roles.erase(it);
-        }
-        else {
+        } else {
             ++it;
         }
     }
@@ -141,8 +143,7 @@ void Field::RemoveDeadEntity(void) {
     for (auto it = enemys.begin(); it != enemys.end();) {
         if ((*it)->GetStatus() & DEAD || (*it)->GetStatus() & RETREAT) {
             it = enemys.erase(it);
-        }
-        else {
+        } else {
             ++it;
         }
     }
@@ -199,7 +200,12 @@ TARGET:
     if (skills[skillToUse.second].GetTargetType() && 
         ObjDice.GetMovementPoint() == ObjDice.GetAmount() &&
         currEvent->GetObj()->findAvailablePassive("HammerSplash")) {
-        currEvent->GetObj()->usePassive("HammerSplash", target);
+        std::vector<Entity*> enemysToEntity;
+        for (Enemy* E : enemys) {
+            enemysToEntity.push_back(E);
+        }
+        currEvent->GetObj()->usePassive("HammerSplash", enemysToEntity);
+        enemys[0]->SetlastDamage(0);
     }
 
     UI::logEvent("");

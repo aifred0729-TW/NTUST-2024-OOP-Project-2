@@ -21,7 +21,7 @@ int main() {
 
 	UI::checkConsoleSize(50, 180);
 	UI::ShowMenu();
-
+	
 	system("Pause");
 	system("CLS");
 
