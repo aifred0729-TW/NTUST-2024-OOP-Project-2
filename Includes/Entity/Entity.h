@@ -47,6 +47,7 @@ public:
     uint8_t             GetEventID(void);
     Attribute           GetTotalAttribute(void);
     Skill               GetTotalSkill(void);
+    bool                GetFaction(void);
 
 public:
     // Find the Enemy in Range

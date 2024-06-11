@@ -327,7 +327,12 @@ void Displayer::displayPlayerInfo(int x, int y, std::vector<Entity*> entitys) {
         Attribute att = entitys[i]->GetTotalAttribute();
         BuildVoid(x, y + 4 * i, x + 58, y + 6 + 4 * i);
         moveCursor(x + 3, y + 2 + 4 * i);
-        cout << "Player: ";
+        if (entitys[i]->GetFaction() == false) {
+            cout << "Player: ";
+        }
+        else {
+            cout << "Enemy: ";
+        }
         cout << entitys[i]->GetName();
         moveCursor(x + 3, y + 3 + 4 * i);
         cout << "HP:  " << att.GetHP() << " / " << att.GetMaxHP() << " ";

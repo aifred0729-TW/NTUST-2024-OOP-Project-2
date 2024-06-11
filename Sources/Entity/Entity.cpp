@@ -182,3 +182,7 @@ uint8_t   Entity::GetStatus(void) {
 uint8_t   Entity::GetEventID(void) {
     return eventID;
 }
+
+bool  Entity::GetFaction(void) {
+    return faction;
+}
