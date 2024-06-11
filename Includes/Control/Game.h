@@ -23,6 +23,7 @@ private:
     std::vector<Role*> roles;
     std::vector<Enemy*> enemys;
     std::vector<Tent*> tents;
+    std::vector<Tent> tentStack;
     std::vector<Store*> stores;
 
     int Move(void);
@@ -42,10 +43,13 @@ public:
 
 
 public:
+    
     // Game Main Process
     void MainProcess(void);
     int OnePlayerMovePhase(Role* currentActRole);
     static int GenerateMovementPoint(Role* currentActRole);
+
+    void createTent(Role*);
 };
 
 #endif

@@ -212,6 +212,8 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             WorldMap::movePos(1, 0);
         }
         else if (keyState[KeyBoard::ESPACE] || keyState[KeyBoard::EENTER]) {
+            Game::createTent(currentActRole);
+            UI::PrintWorldMap();
         }
         else if (keyState[KeyBoard::EESC]) {
         }
@@ -304,10 +306,10 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                 if (result == 0) {
                     UI::BuildFrame(121, 0, 179, 28);
                     while (1) {
-                       int quitShop = WorldMap::GetRect().stores[0]->OpenShop();
-                       if (quitShop == -1) {
-                           break;
-                       }
+                        int quitShop = WorldMap::GetRect().stores[0]->OpenShop();
+                        if (quitShop == -1) {
+                            break;
+                        }
                     }
                 }
             }
@@ -412,4 +414,10 @@ int Game::GenerateMovementPoint(Role* currentActRole) {
     dice.SetSuccessRate(RateVec);
     dice.RollDiceMove();
     return dice.GetMovementPoint();
+}
+
+void Game::createTent(Role* role) {
+    std::string name = (role->GetName() + " 的帳篷");
+    Tent* tentToPush = new Tent(name, role->GetPosition());
+    // tents.push_back(tentToPush);
 }

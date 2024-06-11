@@ -28,10 +28,6 @@ std::string Tent::GetName(void) const {
     return name;
 }
 
-void Tent::SetTent(Role* player) {
-    position = player->GetPosition();
-}
-
 void Tent::Recover(Role* player) {
     Attribute attribute;
     int16_t HP, maxHP, focus, maxFocus;
