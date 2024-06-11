@@ -14,6 +14,7 @@
 #include "WorldMap.h"
 #include "Store.h"
 #include "Tent.h"
+#include "Chest.h"
 
 // Public
 
@@ -381,6 +382,17 @@ void UI::PrintWorldMap() {
         if (WorldMap::VisibleOnMap(T->GetPosition())) {
             int x = T->GetPosition().first - pos.first + 7;
             int y = T->GetPosition().second - pos.second + 5;
+            for (int ii = 0; ii < 3; ii++) {
+                moveCursor(2 + x * 8, 6 + y * 4 + ii);
+                std::cout << "      ";
+            }
+        }
+    }
+    std::cout << BG_BRIGHT_MAGENTA;
+    for (auto C : WorldMap::chests) {
+        if (WorldMap::VisibleOnMap(C->GetPosition())) {
+            int x = C->GetPosition().first - pos.first + 7;
+            int y = C->GetPosition().second - pos.second + 5;
             for (int ii = 0; ii < 3; ii++) {
                 moveCursor(2 + x * 8, 6 + y * 4 + ii);
                 std::cout << "      ";

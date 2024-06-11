@@ -16,10 +16,19 @@ class Role;
 
 class Chest : public Interactive {
 
+private:
+    std::pair<uint32_t, uint32_t> position;
 public:
-    Chest() {};
+    Chest() {
+        position = { -69, -69 };
+    };
+    Chest(int x, int y) {
+        position = { x,y };
+    };
+public:
+    void SetPosition(const std::pair<uint32_t, uint32_t>&);
+    std::pair<uint32_t, uint32_t> GetPosition() const;
 
-public:
     // Give Item or Money to Role
     void GiveTreasureTo(Role*);
 };

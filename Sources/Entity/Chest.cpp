@@ -11,7 +11,11 @@
 void Chest::GiveTreasureTo(Role* role) {
     UI::logEvent("");
     UI::logDivider("隨機事件");
-    UI::logEvent(role->GetName() +" 發現了一個寶箱！");
+    std::vector<std::string> randStr1 = { "一個寶箱","老舊的寶箱","神秘的骨灰罈","死亡的冒險者","乾枯的水井","陰暗角落的麻布袋","黃金寶箱" };
+    UI::logEvent(role->GetName() + " 發現了" + randStr1[rand() % randStr1.size()]);
+    std::vector<std::string> randStr2 = { "經過一番搜索"
+        ,"什麼事都沒有發生，被路過的戴文凱施捨一些東西","坐在附近發呆，總之就是...","感到非常興奮","感到自己被幸運之神眷顧","仔細觀察隻遭" };
+    UI::logEvent(randStr2[rand() % randStr2.size()]);
     std::vector<std::string> ITEM_TABLE = { "Godsbeard", "GoldenRoot", "TeleportScroll", "Tent" };
     using namespace Displayer;
     ItemTable itemList;
@@ -33,4 +37,12 @@ void Chest::GiveTreasureTo(Role* role) {
             return;
         }
     }
+}
+
+void Chest::SetPosition(const std::pair<uint32_t, uint32_t>& position) {
+    this->position = position;
+}
+
+std::pair<uint32_t, uint32_t> Chest::GetPosition(void) const {
+    return position;
 }

@@ -77,6 +77,7 @@ namespace Displayer {
 
     int DisplayStore(int x, int y, std::vector<Store*> stores);
     int DisplayTent(int x, int y, std::vector<Tent*> tents);
+    int DisplayChest(int x, int y);
 };
 
 #endif

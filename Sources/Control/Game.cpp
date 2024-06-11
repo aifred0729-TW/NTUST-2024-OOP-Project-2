@@ -22,6 +22,7 @@ std::vector<Role*> Game::roles;
 std::vector<Enemy*> Game::enemys;
 std::vector<Tent*> Game::tents;
 std::vector<Store*> Game::stores;
+std::vector<Chest*> Game::chests;
 
 int Game::Move(void) {
     return 0;
@@ -120,10 +121,14 @@ void Game::Initialize() {
     static Store store1("TR-509 處刑場", 5, 5);
     stores = { &store1 };
 
+    static Chest chest1(7, 1);
+    chests = { &chest1 };
+
     WorldMap::SetTents(tents);
     WorldMap::SetRoles(roles);
     WorldMap::SetEnemys(enemys);
     WorldMap::SetStores(stores);
+    WorldMap::SetChests(chests);
 
     WorldMap::loadMap("W-1.txt");
 
@@ -173,6 +178,14 @@ void Game::MainProcess(void) {
 }
 
 int Game::OnePlayerMovePhase(Role* currentActRole) {
+    
+    int chestX = currentActRole->GetPosition().first - 5 + rand() % 10;
+    int chestY = currentActRole->GetPosition().second - 5 + rand() % 10;
+    if (!WorldMap::GetRect({ chestX, chestY }).Interact && WorldMap::GetRect({ chestX, chestY }).moveable) {
+        createChest(chestX, chestY);
+    }
+    
+    
     UI::logEvent("");
     UI::logDivider(currentActRole->GetName(), "的回合");
     // Move Stage
@@ -371,7 +384,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                 int result = UI::makeChoice(choices, 70, 1);
                 UI::BuildVoid(65, 0, 110, 3);
                 if (result == 0) {
-                    tents[0]->Recover(currentActRole);
+                    WorldMap::GetRect().tents[0]->Recover(currentActRole);
                     movementPoint = 0;
                     UI::logEvent("");
                     UI::logDivider("回合結算");
@@ -391,6 +404,21 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                         if (quitShop == -1) {
                             break;
                         }
+                    }
+                }
+            }
+            if (!WorldMap::GetRect().chests.empty()) {
+                std::vector<std::string> choices = { "隨機事件" , "取消" };
+                int result = UI::makeChoice(choices, 70, 1);
+                UI::BuildVoid(65, 0, 110, 3);
+                if (result == 0) {
+                    WorldMap::GetRect().chests[0]->GiveTreasureTo(currentActRole);
+                }
+                for (int j = 0; j < chests.size(); j++) {
+                    if (chests[j] == WorldMap::GetRect().chests[0]) {
+                        chests.erase(chests.begin() + j);
+                        WorldMap::SetChests(chests);
+                        j--;
                     }
                 }
             }
@@ -449,6 +477,9 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
         if (!WorldMap::GetRect().tents.empty()) {
             UI::DisplayTent(121, 0, WorldMap::GetRect().tents);
         }
+        if (!WorldMap::GetRect().chests.empty()) {
+            UI::DisplayChest(121, 0);
+        }
 
         if (!WorldMap::GetRect().enemys.empty() || !WorldMap::GetRect().roles.empty()) {}
         else {
@@ -497,6 +528,13 @@ void Game::createTent(Role* role) {
     Tent* tentToPush = new Tent(name, role->GetPosition());
     tents.push_back(tentToPush);
     WorldMap::SetTents(tents);
+    UI::PrintWorldMap();
+}
+
+void Game::createChest(int x, int y) {
+    Chest* chestToPush = new Chest(x, y);
+    chests.push_back(chestToPush);
+    WorldMap::SetChests(chests);
     UI::PrintWorldMap();
 }
 

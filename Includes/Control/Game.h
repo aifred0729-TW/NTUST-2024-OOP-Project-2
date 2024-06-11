@@ -14,6 +14,7 @@ class Role;
 class Store;
 class Tent;
 class Enemy;
+class Chest;
 class Attribute;
 
 class Game {
@@ -25,6 +26,7 @@ private:
     static std::vector<Enemy*> enemys;
     static std::vector<Tent*> tents;
     static std::vector<Store*> stores;
+    static std::vector<Chest*> chests;
 
     int Move(void);
     int GetKeyboard(void);
@@ -50,6 +52,7 @@ public:
     static int GenerateMovementPoint(Role* currentActRole);
 
     static void createTent(Role*);
+    static void createChest(int x , int y);
     void displayEquipment(Role* role);
     void displayAttribute(Attribute att);
     void choiceItem(Role* role);

@@ -16,6 +16,7 @@
 #include <Entity.h>
 #include <Store.h>
 #include "Tent.h"
+#include "Chest.h"
 
 int WorldMap::HEIGHT = 50;
 int WorldMap::WIDTH = 140;
@@ -28,6 +29,7 @@ std::vector<Enemy*> WorldMap::enemys;
 std::vector<Role*> WorldMap::roles;
 std::vector<Store*> WorldMap::stores;
 std::vector<Tent*> WorldMap::tents;
+std::vector<Chest*> WorldMap::chests;
 
 const std::vector<std::string> colorBoard = { BG_BRIGHT_BLACK, BG_WHITE, BG_BRIGHT_BLACK, BG_GREEN, BG_BRIGHT_BLUE, BG_BRIGHT_RED ,BG_BRIGHT_RED };
 
@@ -98,6 +100,7 @@ void WorldMap::SetEnemys(std::vector<Enemy*> enemys) { WorldMap::enemys = enemys
 void WorldMap::SetRoles(std::vector<Role*> roles) { WorldMap::roles = roles; }
 void WorldMap::SetTents(std::vector<Tent*> tents) { WorldMap::tents = tents; }
 void WorldMap::SetStores(std::vector<Store*> stores) { WorldMap::stores = stores; }
+void WorldMap::SetChests(std::vector<Chest*> chests) { WorldMap::chests = chests; }
 
 void WorldMap::SetMap(int row, int col, int element) {
     map[row][col] = element;
@@ -208,13 +211,18 @@ Rect WorldMap::GetRect(std::pair<int, int > pos) {
             output.tents.push_back(T);
         }
     }
+    for (Chest* C : WorldMap::chests) {
+        if (C->GetPosition().first == pos.first && C->GetPosition().second == pos.second) {
+            output.chests.push_back(C);
+        }
+    }
     if (output.terrain == 1) {
         output.moveable = true;
     }
     else {
         output.moveable = false;
     }
-    if (output.enemys.empty() && output.roles.empty() && output.stores.empty() && output.tents.empty()) {
+    if (output.enemys.empty() && output.roles.empty() && output.stores.empty() && output.tents.empty() && output.chests.empty()) {
         output.Interact = false;
     }
     else {

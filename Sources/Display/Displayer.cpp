@@ -569,3 +569,14 @@ int Displayer::DisplayTent(int x, int y, std::vector<Tent*> tents) {
     }
     return 0;
 }
+
+
+int Displayer::DisplayChest(int x, int y) {
+    using namespace std;
+    BuildVoid(x, y + stackHeight, x + 58, y + 6 + stackHeight);
+    moveCursor(x + 3, y + 2 + stackHeight);
+    cout << "隨機事件: ???" ;
+    stackHeight += 2;
+
+    return 0;
+}

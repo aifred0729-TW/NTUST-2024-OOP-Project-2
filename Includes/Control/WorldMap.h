@@ -19,6 +19,7 @@ class Enemy;
 class Entity;
 class Store;
 class Tent;
+class Chest;
 
 struct Rect {
     int terrain; // 地形
@@ -26,8 +27,10 @@ struct Rect {
     std::vector<Role*> roles; // 地塊上的角色
     std::vector<Store*> stores; // 地塊上的商店
     std::vector<Tent*> tents;
+    std::vector<Chest*> chests;
     bool moveable;
     bool Interact;
+
 };
 
 namespace WorldMap {
@@ -52,6 +55,7 @@ namespace WorldMap {
     extern std::vector<Role*> roles;
     extern std::vector<Store*> stores;
     extern std::vector<Tent*> tents;
+    extern std::vector<Chest*> chests;
 
     // 地圖目前對準的地塊
     // 只能使用一次
@@ -72,6 +76,7 @@ namespace WorldMap {
     void SetRoles(std::vector<Role*> roles);
     void SetTents(std::vector<Tent*> tents);
     void SetStores(std::vector<Store*> stores);
+    void SetChests(std::vector<Chest*> chests);
 
     void SetMap(int, int, int);
 
