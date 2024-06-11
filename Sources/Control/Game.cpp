@@ -55,11 +55,42 @@ void Game::Initialize() {
     ItemTable::Initialize();
 
     static Role Kazusa("杏山千紗", 1, 1);
+    Kazusa.GetAttribute().SetMaxFocus(20);
+    Kazusa.GetAttribute().SetFocus(20);
     Kazusa.equipForce("Hammer");
     static Role Shiroko("砂狼白子", 3, 1);
+    Shiroko.GetAttribute().SetMaxFocus(20);
+    Shiroko.GetAttribute().SetFocus(20);
     Shiroko.equipForce("Hammer");
     static Role Hoshino("小鳥游星野", 5, 1);
+    Hoshino.GetAttribute().SetMaxFocus(20);
+    Hoshino.GetAttribute().SetFocus(20);
     Hoshino.equipForce("Hammer");
+
+    /*
+    std::vector<Item*> items = Role::backpack.getItems();
+
+    for (const auto& item : items) {
+        item->getName();
+        if (item->isStackable()) {
+            StackableItem* stackableItem = dynamic_cast<StackableItem*>(item);
+            if (stackableItem) {
+                std::cout << "Quantity: " << stackableItem->getQuantity() << std::endl;
+            }
+        } else {
+            std::cout << "Quantity: 1\n";
+        }
+    }
+    */
+
+    // Role::backpack.useItem("物品名稱", 使用者); // 這邊 Parameter 可以再加更多東西
+
+    /*
+    std::string name;
+    uint16_t price;
+    ItemCommand* command;
+    */
+    
     roles = { &Kazusa ,&Shiroko ,&Hoshino };
 
     // static Role* KazusaRef = &Kazusa;
@@ -83,6 +114,7 @@ void Game::Initialize() {
     prof_D.equipForce("Hammer");
     prof_P.equipForce("Hammer");
     prof_H.equipForce("Hammer");
+    
     enemys = { &prof_D ,&prof_P ,&prof_H ,&prof_Ding , &prof_S };
 
     // static Tent tent("他媽的帳篷", 1, 7, 10);

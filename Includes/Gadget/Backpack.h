@@ -13,7 +13,6 @@ private:
 
 public:
     Backpack() : items(std::vector<Item*>(0)) {}
-
     void addItem(Item* item);
     void useItem(const std::string& name, Role& entity);
     std::vector<Item*> getItems();

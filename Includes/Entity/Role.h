@@ -26,9 +26,9 @@ public:
     Role(std::string name);  // Constructor with name (Role Name
     Role(std::string name, int x, int y);
 
-    void SetMovementPoint(const uint8_t);
-    void SetStep(const uint32_t);
-    void SetPosition(const std::pair<uint32_t, uint32_t>&);
+    void        SetMovementPoint(const uint8_t);
+    void        SetStep(const uint32_t);
+    void        SetPosition(const std::pair<uint32_t, uint32_t>&);
     static void SetMoney(const uint16_t);
 
     bool movePos(int x, int y);

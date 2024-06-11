@@ -73,11 +73,11 @@ void Entity::addBuff(std::string skillName, uint8_t round) {
         totalSkill.pushBuff(buff);
         UI::logEvent(name + " 身上新增了將持續 " + std::to_string(buff.GetTick()) + " 回合的 " + skillName + "。");
         useBuff(skillName);
+    } else {
+        totalSkill.GetBuff()[index].SetTick(round);
+        UI::logEvent(name + " 的 " + skillName + " 重製為 " + std::to_string(totalSkill.GetBuff()[index].GetTick()) + " 回合。");
     }
-    else {
-        totalSkill.GetBuff()[index].addTick(round);
-        UI::logEvent(name + " 的 " + skillName + " 延長至 " + std::to_string(totalSkill.GetBuff()[index].GetTick()) + " 回合。");
-    }
+    UI::logEvent("");
 }
 
 void Entity::removeBuff(std::string skillName) {
@@ -86,6 +86,7 @@ void Entity::removeBuff(std::string skillName) {
             totalSkill.GetBuff()[i].unApply(*this);
             totalSkill.GetBuff().erase(totalSkill.GetBuff().begin() + i);
             UI::logEvent(name + " 的 " + skillName + " 被移除了。");
+            UI::logEvent("");
             return;
         }
     }
@@ -104,12 +105,12 @@ void Entity::takeDamage(int16_t damage, char attackType) {
     lastDamage = damage;
     int16_t damageTaken = totalAttribute.GetHP() - damage;
     totalAttribute.SetHP(damageTaken > 0 ? damageTaken : 0);
-    attribute = totalAttribute;
+    attribute.SetHP(totalAttribute.GetHP());
 
     UI::logEvent(name + " 防禦後受到了 " + std::to_string(damage) + " 點傷害！當前HP為 " + std::to_string(totalAttribute.GetHP()) + " !");
-    //UI::logEvent(std::to_string(totalAttribute.GetHP()) + "/" + std::to_string(totalAttribute.GetMaxHP()));
     if (totalAttribute.GetHP() == 0) {
         UI::logEvent(name + " 被幹死了！喔不！！");
+        UI::logEvent("");
         status |= DEAD;
     }
 }
@@ -117,12 +118,12 @@ void Entity::takeDamage(int16_t damage, char attackType) {
 void Entity::takeTrueDamage(int16_t damage) {
     int16_t damageTaken = totalAttribute.GetHP() - damage;
     totalAttribute.SetHP(damageTaken > 0 ? damageTaken : 0);
-    attribute = totalAttribute;
+    attribute.SetHP(totalAttribute.GetHP());
 
     UI::logEvent(name + " 受到了 " + std::to_string(damage) + " 點真實傷害！當前HP為 " + std::to_string(totalAttribute.GetHP()) + " !");
-    //UI::logEvent(std::to_string(totalAttribute.GetHP()) + "/" + std::to_string(totalAttribute.GetMaxHP()));
     if (totalAttribute.GetHP() == 0) {
         UI::logEvent(name + " 被幹死了！喔不！！");
+        UI::logEvent("");
         status |= DEAD;
     }
 }
@@ -130,13 +131,14 @@ void Entity::takeTrueDamage(int16_t damage) {
 void Entity::heal(int16_t heal) {
     int16_t healTaken = totalAttribute.GetHP() + heal;
     totalAttribute.SetHP(healTaken < totalAttribute.GetMaxHP() ? healTaken : totalAttribute.GetMaxHP());
-    attribute = totalAttribute;
+    attribute.SetHP(totalAttribute.GetHP());
 
     std::string outputStr;
     std::stringstream outputSs;
     outputSs << name << " 受到了 " << heal << " 點治療！當前HP為 " << totalAttribute.GetHP() << " !" << std::endl;
     std::getline(outputSs, outputStr);
     UI::logEvent(outputStr);
+    UI::logEvent("");
 }
 
 void Entity::renewPlayer(void) {
@@ -167,8 +169,8 @@ void Entity::decreaseTick(void) {
     for (int i = 0; i < totalSkill.GetBuff().size(); i++) {
         if (totalSkill.GetBuff()[i].GetTick() > 1) {
             totalSkill.GetBuff()[i].SetTick(totalSkill.GetBuff()[i].GetTick() - 1);
-        }
-        else if (totalSkill.GetBuff()[i].GetTick() == 1) {
+        } else if (totalSkill.GetBuff()[i].GetTick() == 1) {
+            UI::logDivider(name + " 狀態更新");
             removeBuff(totalSkill.GetBuff()[i].GetName());
             i--;
         }
@@ -196,11 +198,9 @@ bool Entity::findAvailableBuff(std::string skillName) {
 void Entity::equipForce(std::string equipmentName) {
     if (EquipmentTable::weaponMap.find(equipmentName) != EquipmentTable::weaponMap.end()) {
         this->equipment.SetWeapon(EquipmentTable::weaponMap[equipmentName]);
-    }
-    else if (EquipmentTable::armorMap.find(equipmentName) != EquipmentTable::armorMap.end()) {
+    } else if (EquipmentTable::armorMap.find(equipmentName) != EquipmentTable::armorMap.end()) {
         this->equipment.SetArmor(EquipmentTable::armorMap[equipmentName]);
-    }
-    else if (EquipmentTable::accessoryMap.find(equipmentName) != EquipmentTable::accessoryMap.end()) {
+    } else if (EquipmentTable::accessoryMap.find(equipmentName) != EquipmentTable::accessoryMap.end()) {
         this->equipment.SetAccessory(EquipmentTable::accessoryMap[equipmentName]);
     }
     renewPlayer();
@@ -209,12 +209,37 @@ void Entity::equipForce(std::string equipmentName) {
 void Entity::unEquipForce(std::string equipmentName) {
     if (this->GetEquipment().GetArmor().GetName() == equipmentName) {
         this->equipment.SetArmor(EquipmentTable::armorMap.find("BareBody")->second);
-    }
-    else if (this->GetEquipment().GetWeapon().GetName() == equipmentName) {
+    } else if (this->GetEquipment().GetWeapon().GetName() == equipmentName) {
         this->equipment.SetWeapon(EquipmentTable::weaponMap.find("BareHand")->second);
-    }
-    else if (this->GetEquipment().GetAccessory().GetName() == equipmentName) {
+    } else if (this->GetEquipment().GetAccessory().GetName() == equipmentName) {
         this->equipment.SetAccessory(EquipmentTable::accessoryMap.find("BareAccessory")->second);
     }
     renewPlayer();
+}
+
+void Entity::displayTotalSkill() {
+    UI::logDivider(name + " 技能顯示");
+    UI::logEvent("主動技能: ");
+    for (auto& active : totalSkill.GetActive()) {
+        if (active.GetTick() == 0)
+			UI::logEvent("\t" + active.GetName() + " 可以使用");
+		else
+            UI::logEvent("\t" + active.GetName() + " 還剩 " + std::to_string(active.GetTick()) + " 回合冷卻");
+    }
+    UI::logEvent("被動技能: ");
+    for (auto& passive : totalSkill.GetPassive()) {
+        if (passive.GetTick() == 0)
+            UI::logEvent("\t" + passive.GetName() + " 蓄勢待發");
+        else
+		    UI::logEvent("\t" + passive.GetName() + " 還剩 " + std::to_string(passive.GetTick()) + " 回合冷卻");
+	}
+    UI::logEvent("各種 Buff: ");
+    for (auto& buff : totalSkill.GetBuff()) {
+		UI::logEvent("\t" + buff.GetName() + " 持續時間 " + std::to_string(buff.GetTick()) + " 回合");
+	}
+    UI::logEvent("");
+}
+
+void Entity::clearBuff() {
+    totalSkill.SetBuff(std::vector<Buff>());
 }

@@ -60,7 +60,7 @@ void ProvokeActiveCommand::execute(Entity& caster, std::vector<Entity*> targets,
         UI::logEvent("挑釁成功，現在 " + targets[0]->GetName() + " 很躁。");
         targets[0]->addBuff("Angry", 3);
     } else {
-        UI::logEvent("挑釁失敗，" + targets[0]->GetName() + " 只把" + caster.GetName() + " 當小丑。");
+        UI::logEvent("挑釁失敗，" + targets[0]->GetName() + " 只把 " + caster.GetName() + " 當小丑。");
     }
 }
 
@@ -132,7 +132,7 @@ void HammerSplashPassiveCommand::execute(Entity& caster, std::vector<Entity*> ta
     UI::logEvent(caster.GetName() + " 的被動 HammerSplash 被觸發！");
     targets[0]->addBuff("Dizziness", 1);
     for (int i = 1; i < targets.size(); i++) {
-        targets[i]->takeDamage(targets[0]->GetlastDamage(), 'P');
+        targets[i]->takeDamage(targets[0]->GetlastDamage() * 0.5, 'P');
 	}
 }
 

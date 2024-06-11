@@ -46,17 +46,17 @@ public:
     void SetFaction(const bool faction) { this->faction = faction; }
 
     std::string         GetName(void) { return name; }
-    Attribute& GetAttribute(void) { return attribute; }
-    Skill& GetSkill(void) { return skill; }
+    Attribute&          GetAttribute(void) { return attribute; }
+    Skill&              GetSkill(void) { return skill; }
     Equipment           GetEquipment(void) { return equipment; }
-    Dice& GetDice(void) { return dice; }
+    Dice&               GetDice(void) { return dice; }
     uint8_t             GetStatus(void) { return status; }
     uint8_t             GetEventID(void) { return eventID; }
     int16_t             GetlastDamage(void) { return lastDamage; }
     bool                GetFaction(void) { return faction; }
 
-    Attribute& GetTotalAttribute(void) { return totalAttribute; }
-    Skill& GetTotalSkill(void) { return totalSkill; }
+    Attribute&          GetTotalAttribute(void) { return totalAttribute; }
+    Skill&              GetTotalSkill(void) { return totalSkill; }
 
     void                renewPlayer(void);
     void                decreaseTick(void);
@@ -79,6 +79,9 @@ public:
     // 計算經過一切計算後受到的傷害(直接傳原始傷害進來就好)
     void takeDamage(int16_t damage, char attackType);
     void takeTrueDamage(int16_t damage);
+    // 顯示玩家資訊
+    void displayTotalSkill(void);
+    void clearBuff(void);
     // 直接受到的治療數值
     void heal(int16_t heal);
 };
