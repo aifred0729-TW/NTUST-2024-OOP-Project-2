@@ -175,6 +175,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
     // 投骰子
     int maxMovementPoint = GenerateMovementPoint(currentActRole);
     int movementPoint = maxMovementPoint;
+    WorldMap::setPos(currentActRole->GetPosition());
     std::cout << BG_WHITE;
     UI::displayMapGrid();
     UI::PrintWorldMap();
@@ -338,6 +339,13 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                         if (roles[i]->GetStatus() & DEAD) {
                             roles.erase(roles.begin() + i);
                             WorldMap::SetRoles(roles);
+                            i--;
+                        }
+                    }
+                    for (int i = 0; i < enemys.size(); i++) {
+                        if (enemys[i]->GetStatus() & DEAD) {
+                            enemys.erase(enemys.begin() + i);
+                            WorldMap::SetEnemys(enemys);
                             i--;
                         }
                     }
@@ -580,4 +588,8 @@ void Game::choiceItem(Role* role) {
         choices.push_back(itemStr);
     }
     int choiceIndex = UI::makeChoice(choices, 126, 2, 20);
+    if (choiceIndex == -1) {
+        return;
+    }
+    Role::backpack.useItem(items[choiceIndex]->getName(), *role);
 }
