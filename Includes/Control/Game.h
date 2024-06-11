@@ -14,6 +14,7 @@ class Role;
 class Store;
 class Tent;
 class Enemy;
+class Attribute;
 
 class Game {
 private:
@@ -42,7 +43,7 @@ public:
 
 
 public:
-    
+
     // Game Main Process
     void MainProcess(void);
     int OnePlayerMovePhase(Role* currentActRole);
@@ -51,6 +52,7 @@ public:
     void createTent(Role*);
     void displayEquipment(Role* role);
     void displayAttribute(Attribute att);
+    void choiceItem(Role* role);
 
 };
 

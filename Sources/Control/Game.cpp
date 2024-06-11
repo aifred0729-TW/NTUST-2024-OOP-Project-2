@@ -14,6 +14,8 @@
 #include "Tent.h"
 #include "Chest.h"
 #include "Store.h"
+#include "Backpack.h"
+#include "Item.h"
 
 // Private
 
@@ -72,22 +74,6 @@ void Game::Initialize() {
     Hoshino.equipForce("Hammer");
     Hoshino.equipForce("Shoes");
     Hoshino.equipForce("PlateArmor");
-
-    /*
-    std::vector<Item*> items = Role::backpack.getItems();
-
-    for (const auto& item : items) {
-        item->getName();
-        if (item->isStackable()) {
-            StackableItem* stackableItem = dynamic_cast<StackableItem*>(item);
-            if (stackableItem) {
-                std::cout << "Quantity: " << stackableItem->getQuantity() << std::endl;
-            }
-        } else {
-            std::cout << "Quantity: 1\n";
-        }
-    }
-    */
 
     // Role::backpack.useItem("物品名稱", 使用者); // 這邊 Parameter 可以再加更多東西
 
@@ -218,9 +204,12 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             break;
         }
         else if (keyState[KeyBoard::EI]) {
+            choiceItem(currentActRole);
+            /*
             Game::createTent(currentActRole);
             WorldMap::SetTents(tents);
             UI::PrintWorldMap();
+            */
             // backpack process
         }
         else if (keyState[KeyBoard::EQ]) {
@@ -396,7 +385,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
         }
         if (moved) {
             // 隨機事件判定
-            if (rand() % 100 < 15) {
+            if (rand() % 100 < 100) {
                 Chest chest;
                 chest.GiveTreasureTo(currentActRole);
             }
@@ -491,7 +480,7 @@ int Game::GenerateMovementPoint(Role* currentActRole) {
     int succesRate = SPD > 90 ? 90 : SPD;
     std::vector<uint8_t> RateVec(MaxmovementPoint, succesRate);
     dice.SetSuccessRate(RateVec);
-    
+
     if (currentActRole->findAvailablePassive("Run")) {
         currentActRole->usePassive("Run", { currentActRole });
     }
@@ -569,4 +558,26 @@ void Game::displayAttribute(Attribute att) {
     cout << "   MD: " << ((att.GetMD() == 0) ? DARK : GREEN) << setw(2) << setfill('0') << att.GetMD() << RESET;
     cout << "   SPD: " << ((att.GetSPD() == 0) ? DARK : GREEN) << setw(2) << setfill('0') << att.GetSPD() << RESET;
     cout << "   ACC: " << ((att.GetACC() == 0) ? DARK : GREEN) << setw(2) << setfill('0') << att.GetACC() << RESET;
+}
+
+void Game::choiceItem(Role* role) {
+    UI::BuildFrame(121, 0, 179, 28);
+    using namespace std;
+    std::vector<Item*> items = Role::backpack.getItems();
+    std::vector<std::string> choices;
+    for (const auto& item : items) {
+        std::string itemStr = item->getName();
+        if (item->isStackable()) {
+            itemStr.resize(44, ' ');
+            StackableItem* stackableItem = dynamic_cast<StackableItem*>(item);
+            if (stackableItem) {
+                itemStr += " : " + std::to_string(stackableItem->getQuantity());
+            }
+        }
+        else {
+            itemStr += " : *";
+        }
+        choices.push_back(itemStr);
+    }
+    int choiceIndex = UI::makeChoice(choices, 126, 2, 20);
 }
