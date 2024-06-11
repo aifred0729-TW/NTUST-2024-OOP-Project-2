@@ -10,8 +10,7 @@
 #include <vector>
 #include <windows.h>
 
-#include <Entity.h>
-
+class Entity;
 class Event {
 private:
     // ...

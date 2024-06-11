@@ -1,11 +1,12 @@
 ﻿#include <WorldMap.h>
 #include <Role.h>
 #include <Game.h>
-
+#include <Enemy.h>
 #include <WorldMap.h>
 #include <Role.h>
 #include <KeyBoard.h>
 #include <EquipmentTable.h>
+#include <ItemTable.h>
 
 // Private
 
@@ -84,33 +85,5 @@ void Game::MainProcess(void) {
 }
 
 void Game::runRoleTurn(Role* RoleRef, long long turn) {
-    using namespace std;
-
-    bool keyState[KeyBoard::INVALID];
-
-    for (unsigned int i = /*RoleXXX->GetmaxActivePoint*/; i > 0; i--) {
-        
-
-        KeyBoard::keyUpdate(keyState);
-        if (keyState[KeyBoard::EP]) return;
-        else if (keyState[KeyBoard::EI]) {
-            // backpack process
-            ;
-        }
-        else if (keyState[KeyBoard::EDU] || keyState[KeyBoard::EDL] || keyState[KeyBoard::EDR] || keyState[KeyBoard::EDD]) {
-            // - Roll Dice
-            // Display Please Roll Dice (UI)
-            // displayRollDice();
-            // ditect entity is interactiveable
-
-            ;
-        }
-        // check is on interactiveable object
-        // if checkIsOnShop
-        // enterShop
-
-        // if checkIsOnEnemy
-        // enterCombat
-    }
     return;
 }

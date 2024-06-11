@@ -3,6 +3,9 @@
 #include <Attribute.h>
 #include <KeyBoard.h>
 #include <Color.h>
+#include <Entity.h>
+#include <Enemy.h>
+#include <Role.h>
 // Public
 
 void Field::StartBattle(void) {

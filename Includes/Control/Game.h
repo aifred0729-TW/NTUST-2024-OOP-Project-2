@@ -11,7 +11,6 @@
 #include <windows.h>
 
 class Role;
-class WorldMap;
 
 class Game {
 private:

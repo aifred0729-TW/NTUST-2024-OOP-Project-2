@@ -1,4 +1,5 @@
-﻿#include "../../Includes/Incident/Event.h"
+﻿#include <Event.h>
+#include <Entity.h>
 
 // Public
 

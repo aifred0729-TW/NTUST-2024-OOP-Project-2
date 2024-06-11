@@ -7,9 +7,9 @@
 #include <unordered_set>
 #include <algorithm>
 
-#include "Equipment.h"
-#include "EquipmentTable.h"
-#include "SkillTable.h"
+#include <Equipment.h>
+#include <EquipmentTable.h>
+#include <SkillTable.h>
 #include <Dice.h>
 
 class Attribute;
@@ -43,7 +43,7 @@ public:
 	void SetStatus(const uint8_t status) { this->status = status; }
 	void SetEventID(const uint8_t eventID) { this->eventID = eventID; }
 	void SetlastDamage(const int16_t lastDamage) { this->lastDamage = lastDamage; }
-	void SetFaction(const bool faction);
+	void SetFaction(const bool faction) { this->faction = faction; }
 
 	std::string         GetName(void) { return name; }
 	Attribute&          GetAttribute(void) { return attribute; }
@@ -54,7 +54,7 @@ public:
 	uint8_t             GetEventID(void) { return eventID; }
 	int16_t             GetlastDamage(void) { return lastDamage; }
 
-	Attribute&          GetTotalAttribute(void);
+	Attribute&          GetTotalAttribute(void) { return totalAttribute; }
 	Skill&              GetTotalSkill(void) { return totalSkill; }
 
 	void                renewPlayer(void);
@@ -74,7 +74,6 @@ public:
 	void removeBuff(std::string skillName);
 	bool findAvailablePassive(std::string skillName);
 	bool findAvailableBuff(std::string skillName);
-
 	// 計算經過一切計算後受到的傷害(直接傳原始傷害進來就好)
 	void takeDamage(int16_t damage, char attackType);
 	void takeTrueDamage(int16_t damage);

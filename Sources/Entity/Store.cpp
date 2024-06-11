@@ -2,6 +2,8 @@
 #include "ItemTable.h"
 #include "Displayer.h"
 #include "Backpack.h"
+#include "Role.h"
+#include <Item.h>
 
 // Public
 Store::Store(std::string name, std::pair<int, int> position) {

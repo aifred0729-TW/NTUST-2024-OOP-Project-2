@@ -2,6 +2,7 @@
 #include "ItemTable.h"
 #include "Displayer.h"
 #include "Backpack.h"
+#include <Role.h>
 // Public
 
 void Chest::GiveTreasureTo(Role* player) {

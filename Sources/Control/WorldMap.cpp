@@ -1,6 +1,6 @@
 ﻿#include <WorldMap.h>
 #include <ConstData.h>
-
+#include <Color.h>
 #include <cstdint>
 #include <fstream>
 #include <iostream>
@@ -11,6 +11,10 @@
 #include <windows.h>
 #include <fstream>
 #include <sstream>
+#include <Enemy.h>
+#include <Role.h>
+#include <Entity.h>
+#include <Store.h>
 
 int WorldMap::HEIGHT = 50;
 int WorldMap::WIDTH = 140;
