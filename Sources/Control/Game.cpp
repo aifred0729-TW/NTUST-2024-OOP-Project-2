@@ -54,8 +54,11 @@ void Game::Initialize() {
     ItemTable::Initialize();
 
     static Role Kazusa("杏山千紗", 1, 1);
+    Kazusa.equipForce("Hammer");
     static Role Shiroko("砂狼白子", 3, 1);
+    Shiroko.equipForce("Hammer");
     static Role Hoshino("小鳥游星野", 5, 1);
+    Hoshino.equipForce("Hammer");
     roles = { &Kazusa ,&Shiroko ,&Hoshino };
 
     // static Role* KazusaRef = &Kazusa;
@@ -69,11 +72,16 @@ void Game::Initialize() {
     // static Enemy fat_tonya("胖子 - Tonya", 1, 3);
     // static Enemy troll_tonya("巨魔 - Tonya", 3, 3);
     // static Enemy boomer_tonya("胖子炸彈 - Tonya", 5, 3);
-    static Enemy prof_D("戴文凱", 1, 3);
-    static Enemy prof_P("鮑興國", 3, 3);
+    static Enemy prof_D("戴文凱", 100, 100);
+    static Enemy prof_P("鮑興國", 100, 100);
     static Enemy prof_H("花凱龍", 5, 3);
     static Enemy prof_Ding("頂天端", 1, 5);
     static Enemy prof_S("項天瑞", 3, 5);
+    prof_Ding.equipForce("Hammer");
+    prof_S.equipForce("Hammer");
+    prof_D.equipForce("Hammer");
+    prof_P.equipForce("Hammer");
+    prof_H.equipForce("Hammer");
     enemys = { &prof_D ,&prof_P ,&prof_H ,&prof_Ding , &prof_S };
 
     WorldMap::SetRoles(roles);
