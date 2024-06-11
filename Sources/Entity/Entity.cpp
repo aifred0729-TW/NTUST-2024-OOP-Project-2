@@ -105,7 +105,7 @@ void Entity::takeDamage(int16_t damage, char attackType) {
     lastDamage = damage;
     int16_t damageTaken = totalAttribute.GetHP() - damage;
     totalAttribute.SetHP(damageTaken > 0 ? damageTaken : 0);
-    attribute = totalAttribute;
+    attribute.SetHP(totalAttribute.GetHP());
 
     UI::logEvent(name + " 防禦後受到了 " + std::to_string(damage) + " 點傷害！當前HP為 " + std::to_string(totalAttribute.GetHP()) + " !");
     if (totalAttribute.GetHP() == 0) {
@@ -118,7 +118,7 @@ void Entity::takeDamage(int16_t damage, char attackType) {
 void Entity::takeTrueDamage(int16_t damage) {
     int16_t damageTaken = totalAttribute.GetHP() - damage;
     totalAttribute.SetHP(damageTaken > 0 ? damageTaken : 0);
-    attribute = totalAttribute;
+    attribute.SetHP(totalAttribute.GetHP());
 
     UI::logEvent(name + " 受到了 " + std::to_string(damage) + " 點真實傷害！當前HP為 " + std::to_string(totalAttribute.GetHP()) + " !");
     if (totalAttribute.GetHP() == 0) {
@@ -131,7 +131,7 @@ void Entity::takeTrueDamage(int16_t damage) {
 void Entity::heal(int16_t heal) {
     int16_t healTaken = totalAttribute.GetHP() + heal;
     totalAttribute.SetHP(healTaken < totalAttribute.GetMaxHP() ? healTaken : totalAttribute.GetMaxHP());
-    attribute = totalAttribute;
+    attribute.SetHP(totalAttribute.GetHP());
 
     std::string outputStr;
     std::stringstream outputSs;
@@ -198,11 +198,9 @@ bool Entity::findAvailableBuff(std::string skillName) {
 void Entity::equipForce(std::string equipmentName) {
     if (EquipmentTable::weaponMap.find(equipmentName) != EquipmentTable::weaponMap.end()) {
         this->equipment.SetWeapon(EquipmentTable::weaponMap[equipmentName]);
-    }
-    else if (EquipmentTable::armorMap.find(equipmentName) != EquipmentTable::armorMap.end()) {
+    } else if (EquipmentTable::armorMap.find(equipmentName) != EquipmentTable::armorMap.end()) {
         this->equipment.SetArmor(EquipmentTable::armorMap[equipmentName]);
-    }
-    else if (EquipmentTable::accessoryMap.find(equipmentName) != EquipmentTable::accessoryMap.end()) {
+    } else if (EquipmentTable::accessoryMap.find(equipmentName) != EquipmentTable::accessoryMap.end()) {
         this->equipment.SetAccessory(EquipmentTable::accessoryMap[equipmentName]);
     }
     renewPlayer();
@@ -211,11 +209,9 @@ void Entity::equipForce(std::string equipmentName) {
 void Entity::unEquipForce(std::string equipmentName) {
     if (this->GetEquipment().GetArmor().GetName() == equipmentName) {
         this->equipment.SetArmor(EquipmentTable::armorMap.find("BareBody")->second);
-    }
-    else if (this->GetEquipment().GetWeapon().GetName() == equipmentName) {
+    } else if (this->GetEquipment().GetWeapon().GetName() == equipmentName) {
         this->equipment.SetWeapon(EquipmentTable::weaponMap.find("BareHand")->second);
-    }
-    else if (this->GetEquipment().GetAccessory().GetName() == equipmentName) {
+    } else if (this->GetEquipment().GetAccessory().GetName() == equipmentName) {
         this->equipment.SetAccessory(EquipmentTable::accessoryMap.find("BareAccessory")->second);
     }
     renewPlayer();
