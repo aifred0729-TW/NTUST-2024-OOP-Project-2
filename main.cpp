@@ -36,10 +36,11 @@ int main() {
 	profPao.addItemToBackpack("WoodenShield");
 	profPao.addItemToBackpack("PlateArmor");
 	profPao.addItemToBackpack("HolyGrail");
+	profPao.addItemToBackpack("Shoes");
 	// 從包包裡使用物品 
 	hero.backpack.useItem("MagicWand", hero);
 	// 從包包裡使用物品(第二種實作方法
-	profPao.GetAttribute().SetPA(10);
+	profPao.GetAttribute().SetPA(1);
 	profPao.GetAttribute().SetMaxFocus(20);
 	profPao.GetAttribute().SetFocus(20);
 	hero.GetAttribute().SetACC(90);
@@ -51,18 +52,25 @@ int main() {
 	// profPao.useItemFromBackpack("WoodenSword");
 	profPao.useItemFromBackpack("Hammer");
 	profPao.useItemFromBackpack("PlateArmor");
+	profPao.useItemFromBackpack("Shoes");
 	myWife.equipForce("RitualSword");
 
 	//system("Pause");
-
+	profPao.GetAttribute().SetPA(1);
+	profPao.equipForce("RitualSword");
+	porfDai.GetAttribute().SetPA(1);
+	porfDai.equipForce("MagicWand");
+	dragon.GetAttribute().SetPA(1);
+	dragon.equipForce("MagicWand");
+	tonya.GetAttribute().SetPA(1);
+	tonya.equipForce("RitualSword");
 
 	//Process::HandlePreBattle({ &dragon , &porfDai  , &tonya }, { &hero ,&profPao  , &myWife });
 
-	//UI::PreBattle({ &dragon , &porfDai  , &tonya }, { &hero ,&profPao  , &myWife });
+	//UI::PreBattle({ &dragon , &porfDai  , &tonya }, { &hero, &profPao, &myWife });
 	UI::moveCursor(2, 9);
 
-    // Field battle({ &hero ,&profPao , &myWife }, {  &porfDai  , &tonya  ,&dragon });
-    Field battle({ &profPao }, { &tonya });
+    Field battle({ &hero, &profPao, &myWife }, { &dragon ,&porfDai, &tonya });
     battle.StartBattle();
 
 	/*

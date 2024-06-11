@@ -60,6 +60,7 @@ private:
 	std::vector<Entity*> RandomTarget(Action*, int);
 	int ChooseFocus(int, int);
 
+	void DecreaseEntityBuff(void);
 	void RemoveDeadEntity(void);
 	void PlayerMainPhase(Action*);
 	void EnemyMainPhase(Action*);

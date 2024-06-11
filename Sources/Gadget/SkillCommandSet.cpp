@@ -82,6 +82,7 @@ void ShockBlastActiveCommand::execute(Entity& caster, std::vector<Entity*> targe
     UI::logEvent(caster.GetName() + " 對全體敵人施放了 " + std::to_string(damage) + " 的" + attackType + "攻擊！");
     for (auto target : targets) {
         target->takeDamage(damage, casterWeapon.GetAttackType());
+        target->addBuff("Poisoned", 2);
     }
 }
 
@@ -115,7 +116,6 @@ void SpeedUpActiveCommand::execute(Entity& caster, std::vector<Entity*> targets,
         UI::logEvent("給予 " + targets[0]->GetName() + " 1 回合的 SpeedUp Buff。");
         // 給予SpeedUp Buff一回合
         targets[0]->addBuff("SpeedUp", 1);
-        targets[0]->useBuff("SpeedUp");
     } else {
         UI::logEvent(caster.GetName() + " 的 Speed Up 失敗！");
     }
@@ -164,7 +164,7 @@ void PoisonedBuffCommand::execute(Entity& caster) {
 
 void SpeedUpBuffCommand::execute(Entity& caster) {
     UI::logEvent(caster.GetName() + " 的速度提升了 50% !");
-    caster.GetTotalAttribute().SetSPD(caster.GetTotalAttribute().GetSPD() * 1.5);
+    caster.GetTotalAttribute().SetSPD((caster.GetTotalAttribute().GetSPD() + 0.5) * 1.5);
 }
 
 void SpeedUpBuffDeConstructCommand::execute(Entity& caster) {

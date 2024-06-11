@@ -105,7 +105,7 @@ void Entity::takeDamage(int16_t damage, char attackType) {
     attribute = totalAttribute;
 
     UI::logEvent(name + " 防禦後受到了 " + std::to_string(damage) + " 點傷害！，當前HP為 " + std::to_string(totalAttribute.GetHP()) + " !");
-    UI::logEvent(std::to_string(totalAttribute.GetHP()) + "/" + std::to_string(totalAttribute.GetMaxHP()));
+    //UI::logEvent(std::to_string(totalAttribute.GetHP()) + "/" + std::to_string(totalAttribute.GetMaxHP()));
     if (totalAttribute.GetHP() == 0) {
         UI::logEvent( name + " 被幹死了！喔不！！" );
         status |= DEAD;
@@ -118,7 +118,7 @@ void Entity::takeTrueDamage(int16_t damage) {
     attribute = totalAttribute;
 
     UI::logEvent(name + " 受到了 " + std::to_string(damage) + " 點真實傷害！，當前HP為 " + std::to_string(totalAttribute.GetHP()) + " !");
-    UI::logEvent(std::to_string(totalAttribute.GetHP()) + "/" + std::to_string(totalAttribute.GetMaxHP()));
+    //UI::logEvent(std::to_string(totalAttribute.GetHP()) + "/" + std::to_string(totalAttribute.GetMaxHP()));
     if (totalAttribute.GetHP() == 0) {
         UI::logEvent(name + " 被幹死了！喔不！！");
         status |= DEAD;
@@ -166,7 +166,7 @@ void Entity::decreaseTick(void) {
 		if (totalSkill.GetBuff()[i].GetTick() > 1) {
 			totalSkill.GetBuff()[i].SetTick(totalSkill.GetBuff()[i].GetTick() - 1);
         } else if (totalSkill.GetBuff()[i].GetTick() == 1) {
-            totalSkill.GetBuff().erase(totalSkill.GetBuff().begin() + i);
+            removeBuff(totalSkill.GetBuff()[i].GetName());
             i--;
         }
 	}

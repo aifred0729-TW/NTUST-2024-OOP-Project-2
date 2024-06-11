@@ -12,7 +12,7 @@ void Field::StartBattle(void) {
 
     while (1) {
         currEvent = RefreshEvent();
-
+        
         uint8_t currStatus = currEvent->GetObj()->GetStatus();
         if (currStatus & DEAD) {
             continue;
@@ -21,12 +21,17 @@ void Field::StartBattle(void) {
             continue;
         }
 
-        StatusCount* currentCount = currEvent->GetCount();
-        if (currentCount->dizziness) {
-            currentCount->dizziness--;
+        if (currEvent->GetObj()->findAvailableBuff("Poisoned")) {
+            currEvent->GetObj()->useBuff("Poisoned");
+        }
+
+        if (currEvent->GetObj()->findAvailableBuff("Dizziness")) {
+            currEvent->GetObj()->useBuff("Dizziness");
+            DecreaseEntityBuff();
             continue;
         }
 
+        DecreaseEntityBuff();
         MainPhase(currEvent);
         RemoveDeadEntity();
 
@@ -79,6 +84,10 @@ Action* Field::RefreshEvent(void) {
     eventQueue[0]->SetPriority(double(eventQueue[0]->GetTurn() + 1) / eventQueue[0]->GetObj()->GetTotalAttribute().GetSPD() * 100);
     UI::printPriority(eventQueue);
     return eventQueue[0];
+}
+
+void Field::DecreaseEntityBuff(void) {
+    currEvent->GetObj()->decreaseTick();
 }
 
 void Field::RestoreEvent(void) {
@@ -160,12 +169,24 @@ TARGET:
         goto TARGET;
     }
 
+    if (currEvent->GetObj()->findAvailablePassive("Run")) {
+        currEvent->GetObj()->usePassive("Run", { currEvent->GetObj() });
+    }
+
     if (focusUse != 0) {
         UI::logEvent("使用 " + std::to_string(focusUse) + " 專注點數");
         currEvent->GetObj()->GetTotalAttribute().SetFocus(focus - focusUse);
         currEvent->GetObj()->GetDice().SetFocusCount(focusUse);
     }
     currEvent->GetObj()->useActive(skillToUse.first, target);
+
+    Dice &ObjDice = currEvent->GetObj()->GetDice();
+    if (skills[skillToUse.second].GetTargetType() && 
+        ObjDice.GetMovementPoint() == ObjDice.GetAmount() &&
+        currEvent->GetObj()->findAvailablePassive("HammerSplash")) {
+        currEvent->GetObj()->usePassive("HammerSplash", target);
+    }
+
     UI::logEvent("");
 }
 
@@ -184,6 +205,14 @@ void Field::EnemyMainPhase(Action* currEvent) {
     auto target = RandomTarget(currEvent, skillToUse.GetTargetType());
     UI::logDivider(currEvent->GetObj()->GetName(), skillToUse.GetName());
     currEvent->GetObj()->useActive(skillToUse.GetName(), target);
+
+    Dice& ObjDice = currEvent->GetObj()->GetDice();
+    if (skillToUse.GetTargetType() &&
+        ObjDice.GetMovementPoint() == ObjDice.GetAmount() &&
+        currEvent->GetObj()->findAvailablePassive("HammerSplash")) {
+        currEvent->GetObj()->usePassive("HammerSplash", target);
+    }
+
     UI::logEvent("");
 }
 
