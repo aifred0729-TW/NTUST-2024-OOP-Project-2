@@ -11,6 +11,9 @@
 #include <windows.h>
 
 class Role;
+class Store;
+class Tent;
+class Enemy;
 
 class Game {
 private:

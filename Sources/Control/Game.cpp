@@ -13,6 +13,7 @@
 #include "ItemTable.h"
 #include "Tent.h"
 #include "Chest.h"
+#include "Store.h"
 
 // Private
 
@@ -88,9 +89,13 @@ void Game::Initialize() {
     static Tent tent2("他媽的帳篷2", 7, 1, 2);
     tents = { &tent , &tent2 };
 
+    static Store store1("TR-509 處刑場", 5, 5);
+    stores = { &store1 };
+
     WorldMap::SetTents(tents);
     WorldMap::SetRoles(roles);
     WorldMap::SetEnemys(enemys);
+    WorldMap::SetStores(stores);
 
     WorldMap::loadMap("W-1.txt");
 
@@ -261,31 +266,57 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                 int result = UI::makeChoice(choices, 70, 1);
                 UI::BuildVoid(65, 0, 110, 3);
                 if (result == 0) {
+                    movementPoint = 0;
                     UI::battlePhase();
                     Field F(battleR, battleE);
                     F.StartBattle();
+                    UI::stackHeight = 0;
                     UI::PreWorldMap(roles);
                     UI::mapPhase();
                 }
                 else {
                     currentActRole->movePos(undo);
+                    UI::stackHeight = 0;
+                    UI::PrintWorldMap();
+                    UI::displayMapGrid();
                 }
+            }
 
-            }
-            if (moved) {
-                // 隨機事件判定
-                if (rand() % 100 < 15) {
-                    Chest chest;
-                    chest.GiveTreasureTo(currentActRole);
-                }
-            }
             // 跑到帳篷上了
             if (!WorldMap::GetRect().tents.empty()) {
-
+                std::vector<std::string> choices = { "休息" , "取消" };
+                int result = UI::makeChoice(choices, 70, 1);
+                UI::BuildVoid(65, 0, 110, 3);
+                if (result == 0) {
+                    tents[0]->Recover(currentActRole);
+                    movementPoint = 0;
+                    UI::logEvent("");
+                    UI::logDivider("回合結算");
+                    UI::logEvent(currentActRole->GetName() + " 在帳篷中休息一回合");
+                    break;
+                }
             }
             // 商店
             if (!WorldMap::GetRect().stores.empty()) {
-
+                std::vector<std::string> choices = { "進入商店" , "取消" };
+                int result = UI::makeChoice(choices, 70, 1);
+                UI::BuildVoid(65, 0, 110, 3);
+                if (result == 0) {
+                    UI::BuildFrame(121, 0, 179, 28);
+                    while (1) {
+                       int quitShop = WorldMap::GetRect().stores[0]->OpenShop();
+                       if (quitShop == -1) {
+                           break;
+                       }
+                    }
+                }
+            }
+        }
+        if (moved) {
+            // 隨機事件判定
+            if (rand() % 100 < 15) {
+                Chest chest;
+                chest.GiveTreasureTo(currentActRole);
             }
         }
 
@@ -330,9 +361,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             UI::displayPlayerInfo(121, 0, entitysToDisplay);
         }
         if (!WorldMap::GetRect().stores.empty()) {
-            //UI::BuildFrame(121, 0, 179, 28);
             UI::DisplayStore(121, 0, WorldMap::GetRect().stores);
-            //WorldMap::GetRect().stores[0]->SellItemTo();
         }
         if (!WorldMap::GetRect().tents.empty()) {
             UI::DisplayTent(121, 0, WorldMap::GetRect().tents);

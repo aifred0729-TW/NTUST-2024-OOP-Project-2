@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 #include <windows.h>
+#include <iomanip>
+#include <sstream>
 
 #include <Interactive.h>
 
@@ -26,7 +28,7 @@ public:
 
     // Buy Item from Shop
     void SellItemTo(Role*);
-    void SellItemTo();
+    int OpenShop();
 };
 
 #endif

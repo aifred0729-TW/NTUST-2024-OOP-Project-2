@@ -67,7 +67,17 @@ void Store::SellItemTo(Role* player) {
     }
 }
 
-void Store::SellItemTo() {
+int Store::OpenShop() {
+    std::string playerMoneyStr = "玩家持有金錢";
+    playerMoneyStr.resize(44, ' ');
+    playerMoneyStr += "$ ";
+    std::ostringstream oss;
+    oss << std::setw(3) << std::setfill(' ') << Role::GetMoney();
+    playerMoneyStr += oss.str();
+    oss.str("");
+    oss.clear();
+    UI::displayString(playerMoneyStr, 126, 26);
+
     std::vector<std::string> ITEM_TABLE = { "Godsbeard", "GoldenRoot", "TeleportScroll", "Tent", "WoodenSword", "Hammer", "GiantHammer", "MagicWand",
     "RitualSword", "WoodenShield", "PlateArmor", "LeatherArmor", "Robe", "LaurelWreath", "HolyGrail", "Shoes", "Bracelet" };
     ItemTable itemList;
@@ -76,36 +86,49 @@ void Store::SellItemTo() {
     for (const auto& pair : itemList.itemMap) {
         for (int i = 0; i < ITEM_TABLE.size(); ++i) {
             if (pair.first == ITEM_TABLE[i]) {
-                ITEM_TABLE[i].resize(45, ' ');
+                ITEM_TABLE[i].resize(44, ' ');
                 ITEM_TABLE[i] += "$ ";
-                ITEM_TABLE[i] += std::to_string(pair.second->getPrice());
+                oss << std::setw(3) << std::setfill(' ') << pair.second->getPrice();
+                ITEM_TABLE[i] += oss.str();
+                oss.str("");
+                oss.clear();
                 break;
             }
         }
     }
-    int choiceIndex = UI::makeChoice(ITEM_TABLE, 126, 2); // 要跟左呈討論makeChoice
+    int choiceIndex = UI::makeChoice(ITEM_TABLE, 126, 2);
+    if (choiceIndex == -1) {
+        return -1;
+    }
     ITEM_TABLE = { "Godsbeard", "GoldenRoot", "TeleportScroll", "Tent", "WoodenSword", "Hammer", "GiantHammer", "MagicWand",
     "RitualSword", "WoodenShield", "PlateArmor", "LeatherArmor", "Robe", "LaurelWreath", "HolyGrail", "Shoes", "Bracelet" };
     for (const auto& pair : itemList.itemMap) {
         if (pair.first == ITEM_TABLE[choiceIndex]) {
-            if (!pair.second->isStackable()) { // 由於裝備不能疊加，所以多判斷背包是否已經有裝備
+            if (!pair.second->isStackable()) {
                 std::vector<Item*> items = Role::backpack.getItems();
                 for (int i = 0; i < items.size(); ++i) {
                     if (items[i] == pair.second) {
-                        std::cout << "you have bought this equipment.\n"; // 要跟左呈討論display
-                        return;
+                        UI::logEvent("");
+                        UI::logDivider("商店系統");
+                        UI::logEvent("無法購買 已經有此裝備");
+                        return 0;
                     }
                 }
             }
             price = pair.second->getPrice();
             money = Role::GetMoney();
             if (price > money) {
-                std::cout << "you can't buy.\n"; // 要跟左呈討論display
-                return;
+                UI::logEvent("");
+                UI::logDivider("商店系統");
+                UI::logEvent("無法購買 金錢不足");
+                return 0;
             }
+            UI::logEvent("");
+            UI::logDivider("商店系統");
             Role::SetMoney(money - price);
+            UI::logEvent("已購買 " + pair.first + " 剩餘 $ " + std::to_string(Role::GetMoney()));
             Role::backpack.addItem(pair.second);
-            return;
+            return 0;
         }
     }
 }
