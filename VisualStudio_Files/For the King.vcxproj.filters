@@ -147,6 +147,9 @@
     <ClCompile Include="..\Sources\Gadget\Backpack.cpp">
       <Filter>Sources\Gadget\Item</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\Entity\Tent.cpp">
+      <Filter>Sources\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Includes\ConstData.h">
@@ -247,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="..\Includes\Gadget\Item.h">
       <Filter>Includes\Gadget\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Entity\Tent.h">
+      <Filter>Includes\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

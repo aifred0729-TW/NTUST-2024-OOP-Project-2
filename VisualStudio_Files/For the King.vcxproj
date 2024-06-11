@@ -33,6 +33,7 @@
     <ClCompile Include="..\Sources\Entity\Interactive.cpp" />
     <ClCompile Include="..\Sources\Entity\Role.cpp" />
     <ClCompile Include="..\Sources\Entity\Store.cpp" />
+    <ClCompile Include="..\Sources\Entity\Tent.cpp" />
     <ClCompile Include="..\Sources\Gadget\Backpack.cpp" />
     <ClCompile Include="..\Sources\Gadget\EquipmentBase.cpp" />
     <ClCompile Include="..\Sources\Gadget\Attribute.cpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="..\Includes\Entity\Interactive.h" />
     <ClInclude Include="..\Includes\Entity\Role.h" />
     <ClInclude Include="..\Includes\Entity\Store.h" />
+    <ClInclude Include="..\Includes\Entity\Tent.h" />
     <ClInclude Include="..\Includes\Gadget\Backpack.h" />
     <ClInclude Include="..\Includes\Gadget\EquipmentBase.h" />
     <ClInclude Include="..\Includes\Gadget\Attribute.h" />
