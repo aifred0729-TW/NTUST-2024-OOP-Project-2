@@ -127,7 +127,18 @@ void Game::MainProcess(void) {
                     j--;
                 }
             }
+            if (roles.size() == 0) {
+                // 結束遊戲
+                break;
+            }
+            if (roles.size() - 1  < i) {
+                break;
+            }
             OnePlayerMovePhase(roles[i]);
+        }
+        if (roles.size() == 0) {
+            // 結束遊戲
+            break;
         }
     }
 
