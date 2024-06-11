@@ -11,6 +11,8 @@
 #include "Field.h"
 #include "EquipmentTable.h"
 #include "ItemTable.h"
+#include "Tent.h"
+#include "Chest.h"
 
 // Private
 
@@ -108,6 +110,8 @@ void Game::MainProcess(void) {
 }
 
 int Game::OnePlayerMovePhase(Role* currentActRole) {
+    UI::logEvent("");
+    UI::logDivider(currentActRole->GetName(), "的回合");
     // Move Stage
     // 投骰子
     int maxMovementPoint = GenerateMovementPoint(currentActRole);
@@ -118,78 +122,50 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
     bool keyState[KeyBoard::INVALID];
     static bool distanceDisplayWork = 0;
 
+    UI::displayString("MovementPoint: " + UI::FocusDisplayer(movementPoint, maxMovementPoint), 70, 4);
+
     std::cout << BG_WHITE;
     UI::displayMapGrid();
 
     while (1) {
         bool moved = false;
         KeyBoard::keyUpdate(keyState);
+        std::pair<int, int> Rpos = { currentActRole->GetPosition().first ,currentActRole->GetPosition().second };
         if (keyState[KeyBoard::EP]) {
+            // 回合結算
+            UI::logEvent("");
+            UI::logDivider("回合結算");
             currentActRole->heal(movementPoint);
             break;
         }
         else if (keyState[KeyBoard::EI]) {
             // backpack process
-
         }
         else if (keyState[KeyBoard::EDU] || keyState[KeyBoard::EDL] || keyState[KeyBoard::EDR] || keyState[KeyBoard::EDD]) {
             // - Roll Dice
             // Display Please Roll Dice (UI)
             // displayRollDice();
             // ditect entity is interactiveable
-            std::pair<int, int> Rpos = { currentActRole->GetPosition().first ,currentActRole->GetPosition().second };
+
             if (Rpos == WorldMap::pos && movementPoint > 0) {
-                int moveable;
                 if (keyState[KeyBoard::EDU]) {
-                    moveable = currentActRole->movePos(0, -1);
+                    moved = currentActRole->movePos(0, -1);
                 }
                 else if (keyState[KeyBoard::EDD]) {
-                    moveable = currentActRole->movePos(0, 1);
+                    moved = currentActRole->movePos(0, 1);
                 }
                 else if (keyState[KeyBoard::EDL]) {
-                    moveable = currentActRole->movePos(-1, 0);
+                    moved = currentActRole->movePos(-1, 0);
                 }
                 else if (keyState[KeyBoard::EDR]) {
-                    moveable = currentActRole->movePos(1, 0);
+                    moved = currentActRole->movePos(1, 0);
                 }
-                if (moveable == 0) {
-                    Rpos = { currentActRole->GetPosition().first ,currentActRole->GetPosition().second };
-                    WorldMap::pos = Rpos;
-                    movementPoint--;
-                }
-                // 跑到敵人頭上了
-                if (moveable == 0 && !WorldMap::GetRect().enemys.empty()) {
-                    // 打架
-
-                    std::vector<Enemy* > battleE;
-                    std::vector<Role* > battleR;
-
-                    for (auto E : enemys) {
-                        int distance = WorldMap::manhattanDistance(currentActRole->GetPosition(), E->GetPosition());
-                        if (distance <= 3 && battleE.size() < 3) {
-                            battleE.push_back(E);
-                        }
-                    }
-                    for (auto R : roles) {
-                        int distance = WorldMap::manhattanDistance(currentActRole->GetPosition(), R->GetPosition());
-                        if (distance <= 3 && !(R->GetStatus() & DEAD)) {
-                            battleR.push_back(R);
-                        }
-                    }
-                    UI::battlePhase();
-                    Field F(battleR, battleE);
-                    F.StartBattle();
-                    UI::PreWorldMap(roles);
-
-                    UI::mapPhase();
-                }
-
             }
             else if (movementPoint <= 0) {
                 continue;
             }
+            Rpos = { currentActRole->GetPosition().first ,currentActRole->GetPosition().second };
             WorldMap::setPos(Rpos);
-
         }
         else if (keyState[KeyBoard::EW]) {
             WorldMap::movePos(0, -1);
@@ -212,6 +188,42 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
         }
         UI::PrintWorldMap();
 
+        if (moved) {
+            movementPoint--;
+            UI::displayString("MovementPoint: " + UI::FocusDisplayer(movementPoint, maxMovementPoint), 70, 4);
+        }
+        // 跑到敵人頭上了
+        if (moved && !WorldMap::GetRect().enemys.empty()) {
+            // 打架
+
+            std::vector<Enemy* > battleE;
+            std::vector<Role* > battleR;
+
+            for (auto E : enemys) {
+                int distance = WorldMap::manhattanDistance(currentActRole->GetPosition(), E->GetPosition());
+                if (distance <= 3 && battleE.size() < 3) {
+                    battleE.push_back(E);
+                }
+            }
+            for (auto R : roles) {
+                int distance = WorldMap::manhattanDistance(currentActRole->GetPosition(), R->GetPosition());
+                if (distance <= 3 && !(R->GetStatus() & DEAD)) {
+                    battleR.push_back(R);
+                }
+            }
+            UI::battlePhase();
+            Field F(battleR, battleE);
+            F.StartBattle();
+            UI::PreWorldMap(roles);
+
+            UI::mapPhase();
+        }
+        if (moved) {
+            Chest chest;
+            chest.GiveTreasureTo(currentActRole);
+        }
+
+        // 行動後顯示階段
         if (distanceDisplayWork == 1) {
             std::cout << BG_WHITE;
             UI::displayMapGrid();

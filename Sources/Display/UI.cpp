@@ -78,7 +78,7 @@ void UI::logEvent(const std::string& event) {
         }
         for (int i = mapLog.size() - 1; i >= 0; i--) {
             std::cout << BLACK;
-            BuildHollowFrame(5, 4 - i, 110, 4 - i);
+            BuildHollowFrame(5, 4 - i, 57, 4 - i);
             displayString(5, 4 - i, mapLog[mapLog.size() - i - 1]);
         }
     }

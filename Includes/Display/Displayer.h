@@ -41,7 +41,7 @@ namespace Displayer {
     std::string horizontalLine(const std::string, int, const char);
 
     std::string HpDisplayer(int, int);
-    std::string FocusDisplayer(int, int);
+    std::string FocusDisplayer(int focus, int max_focus);
     std::string DiceDisplayer(std::vector<int>);
 
     /// =========================================

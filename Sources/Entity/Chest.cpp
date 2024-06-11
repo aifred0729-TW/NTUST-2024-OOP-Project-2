@@ -2,11 +2,18 @@
 #include "ItemTable.h"
 #include "Displayer.h"
 #include "Backpack.h"
+#include <string>
 #include <Role.h>
+#include <UI.h>
+#include"Color.h"
 // Public
 
-void Chest::GiveTreasureTo(Role* player) {
-    std::vector<std::string> ITEM_TABLE = { "Godsbeard", "GoldenRoot", "TeleportScroll", "Tent"};
+void Chest::GiveTreasureTo(Role* role) {
+    UI::logEvent("");
+    std::cout << BOLD << RED;
+    UI::logDivider("隨機事件");
+    UI::logEvent(role->GetName() +" 發現了一個寶箱！");
+    std::vector<std::string> ITEM_TABLE = { "Godsbeard", "GoldenRoot", "TeleportScroll", "Tent" };
     using namespace Displayer;
     ItemTable itemList;
     uint16_t money, treasure;
@@ -14,15 +21,15 @@ void Chest::GiveTreasureTo(Role* player) {
     int choiceIndex = rand() % (ITEM_TABLE.size() + 1);
     for (const auto& pair : itemList.itemMap) {
         if (choiceIndex == ITEM_TABLE.size()) {
-            money = player->GetMoney();
+            money = role->GetMoney();
             treasure = (rand() % 500) + 1;
-            player->SetMoney(money + treasure);
-            std::cout << "you get money.\n"; // 要跟左呈討論display
+            role->SetMoney(money + treasure);
+            UI::logEvent("獲得金錢 $ " + std::to_string(treasure) + "！現有 & " + std::to_string(role->GetMoney()));
             return;
         }
         else if (pair.first == ITEM_TABLE[choiceIndex]) {
-            player->backpack.addItem(pair.second);
-            std::cout << "you get an item.\n"; // 要跟左呈討論display
+            role->backpack.addItem(pair.second);
+            UI::logEvent("獲得" + pair.first + "道具！");
             return;
         }
     }
