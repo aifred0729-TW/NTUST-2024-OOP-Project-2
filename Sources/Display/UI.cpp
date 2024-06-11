@@ -55,6 +55,7 @@ void UI::logInitialization() {
 void UI::logEvent(const std::string& event) {
     const int MAX_ROWS = 30;
     const int MAX_ROWS2 = 4;
+
     if (phase == 1) {
         battleLog.push_back(event);
         if (battleLog.size() > MAX_ROWS) {
@@ -66,6 +67,7 @@ void UI::logEvent(const std::string& event) {
             displayString(124, 41 - i, battleLog[battleLog.size() - i - 1]);
         }
     }
+
     else if (phase == 2) {
         mapLog.push_back(event);
         if (mapLog.size() > MAX_ROWS2) {
@@ -73,7 +75,7 @@ void UI::logEvent(const std::string& event) {
         }
         for (int i = mapLog.size() - 1; i >= 0; i--) {
             std::cout << BLACK;
-            BuildHollowFrame(5, 4 - i, 121, 4 - i);
+            BuildHollowFrame(5, 4 - i, 110, 4 - i);
             displayString(5, 4 - i, mapLog[mapLog.size() - i - 1]);
         }
     }

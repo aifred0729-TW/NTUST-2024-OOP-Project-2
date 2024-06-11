@@ -6,6 +6,7 @@
 #include <EquipmentTable.h>
 #include "Dice.h"
 #include "Color.h"
+#include "Field.h"
 
 // Private
 
@@ -59,13 +60,18 @@ void Game::Initialize() {
     // roles.push_back(HoshinoRef);
     sortExecutionRole();
 
-    static Enemy fat_tonya("胖子 - Tonya", 1, 3);
-    static Enemy troll_tonya("巨魔 - Tonya", 3, 3);
-    static Enemy boomer_tonya("胖子炸彈 - Tonya", 5, 3);
-    enemys = { &fat_tonya ,&troll_tonya ,&boomer_tonya };
+    // static Enemy fat_tonya("胖子 - Tonya", 1, 3);
+    // static Enemy troll_tonya("巨魔 - Tonya", 3, 3);
+    // static Enemy boomer_tonya("胖子炸彈 - Tonya", 5, 3);
+    static Enemy prof_D("戴文凱", 1, 3);
+    static Enemy prof_P("鮑興國", 3, 3);
+    static Enemy prof_H("花凱龍", 5, 3);
+    static Enemy prof_Ding("頂天端", 1, 5);
+    static Enemy prof_S("項天瑞", 3, 5);
+    enemys = { &prof_D ,&prof_P ,&prof_H ,&prof_Ding , &prof_S };
 
-    WorldMap::SetRoles({ &Kazusa ,&Shiroko ,&Hoshino });
-    WorldMap::SetEnemys({ &fat_tonya ,&troll_tonya ,&boomer_tonya });
+    WorldMap::SetRoles(roles);
+    WorldMap::SetEnemys(enemys);
 
     WorldMap::loadMap("W-1.txt");
 
@@ -150,6 +156,32 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                 continue;
             }
             WorldMap::setPos(Rpos);
+            if (!WorldMap::GetRect().enemys.empty()) {
+
+                // 打架
+
+                std::vector<Enemy* > battleE;
+                std::vector<Role* > battleR;
+
+                for (auto E : enemys) {
+                    int distance = WorldMap::manhattanDistance(currentActRole->GetPosition(), E->GetPosition());
+                    if (distance <= 3 && battleE.size() < 3) {
+                        battleE.push_back(E);
+                    }
+                }
+                for (auto R : roles) {
+                    int distance = WorldMap::manhattanDistance(currentActRole->GetPosition(), R->GetPosition());
+                    if (distance <= 3 && !(R->GetStatus() & DEAD)) {
+                        battleR.push_back(R);
+                    }
+                }
+                UI::battlePhase();
+                Field F(battleR, battleE);
+                F.StartBattle();
+                UI::PreWorldMap(roles);
+
+                UI::mapPhase();
+            }
         }
         else if (keyState[KeyBoard::EW]) {
             WorldMap::movePos(0, -1);
@@ -186,6 +218,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
         }
         else if (!WorldMap::GetRect().enemys.empty() || !WorldMap::GetRect().roles.empty()) {
 
+            // 右側欄位顯示實體
             UI::BuildFrame(121, 0, 179, 28);
 
             std::vector<Entity*> entitysToDisplay;
@@ -199,20 +232,20 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                     entitysToDisplay.push_back(E);
                 }
             }
-            else if (!WorldMap::GetRect().roles.empty()) {
+            if (!WorldMap::GetRect().roles.empty()) {
                 distanceDisplayWork = 1;
                 std::cout << BG_WHITE;
                 UI::displayMapGrid();
                 std::cout << BG_BRIGHT_CYAN;
                 UI::distanceDisplay(0, 0, 3);
                 for (auto R : WorldMap::GetRect().roles) {
+                    entitysToDisplay.push_back(R);
                     if (R == currentActRole) {
                         std::cout << BG_BRIGHT_YELLOW;
                         int x = currentActRole->GetPosition().first - WorldMap::getPos().first;
                         int y = currentActRole->GetPosition().second - WorldMap::getPos().second;
                         UI::distanceDisplay(x, y, movementPoint);
                     }
-                    entitysToDisplay.push_back(R);
                 }
             }
             UI::displayPlayerInfo(121, 0, entitysToDisplay);

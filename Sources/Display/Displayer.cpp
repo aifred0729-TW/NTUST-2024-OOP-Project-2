@@ -325,14 +325,14 @@ void Displayer::displayPlayerInfo(int x, int y, std::vector<Entity*> entitys) {
     using namespace std;
     for (int i = 0; i < entitys.size(); i++) {
         Attribute att = entitys[i]->GetTotalAttribute();
-        BuildVoid(x, y, x + 58, y + 6 + 6 * i);
-        moveCursor(x + 3, y + 2 + 6 * i);
+        BuildVoid(x, y + 4 * i, x + 58, y + 6 + 4 * i);
+        moveCursor(x + 3, y + 2 + 4 * i);
         cout << "Player: ";
         cout << entitys[i]->GetName();
-        moveCursor(x + 3, y + 3 + 6 * i);
+        moveCursor(x + 3, y + 3 + 4 * i);
         cout << "HP:  " << att.GetHP() << " / " << att.GetMaxHP() << " ";
         cout << HpDisplayer(att.GetHP(), att.GetMaxHP());
-        moveCursor(x + 3, y + 4 + 6 * i);
+        moveCursor(x + 3, y + 4 + 4 * i);
         cout << "PA: " << setw(2) << setfill('0') << att.GetPA();
         cout << "   PD: " << setw(2) << setfill('0') << att.GetPD();
         cout << "   MA: " << setw(2) << setfill('0') << att.GetMA();

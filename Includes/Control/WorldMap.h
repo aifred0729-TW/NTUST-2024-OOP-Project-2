@@ -81,6 +81,7 @@ namespace WorldMap {
     Rect GetRect();
 
     int manhattanDistance(std::pair<int, int> player, std::pair<int, int> enemy);
+    int manhattanDistance(std::pair<uint32_t, uint32_t> player, std::pair<uint32_t, uint32_t> enemy);
 
 };
 
