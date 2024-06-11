@@ -570,6 +570,11 @@ void Game::choiceItem(Role* role) {
     UI::BuildFrame(121, 0, 179, 28);
     using namespace std;
     std::vector<Item*> items = Role::backpack.getItems();
+    if (items.empty()) {
+        UI::displayString("[背包空空如也...] ", 126, 2);
+        system("Pause");
+        return;
+    }
     std::vector<std::string> choices;
     for (const auto& item : items) {
         std::string itemStr = item->getName();
