@@ -18,6 +18,10 @@
 #include "Item.h"
 
 // Private
+std::vector<Role*> Game::roles;
+std::vector<Enemy*> Game::enemys;
+std::vector<Tent*> Game::tents;
+std::vector<Store*> Game::stores;
 
 int Game::Move(void) {
     return 0;
@@ -463,14 +467,6 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             UI::displayPlayerInfo(121, 28 + i * 7, roles[i]);
         }
         UI::moveCursor(0, 0);
-        //UI::renewPlayerInfo();
-        // check is on interactiveable object
-        // if checkIsOnShop
-        // enterShop
-
-        // if checkIsOnEnemy
-        // enterCombat
-
         if (movementPoint <= 0) {
             // 按P跳過回合 不會自動跳
             // break;
@@ -500,6 +496,8 @@ void Game::createTent(Role* role) {
     std::string name = (role->GetName() + " 的帳篷");
     Tent* tentToPush = new Tent(name, role->GetPosition());
     tents.push_back(tentToPush);
+    WorldMap::SetTents(tents);
+    UI::PrintWorldMap();
 }
 
 void Game::displayEquipment(Role* role) {

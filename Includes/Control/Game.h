@@ -21,10 +21,10 @@ private:
     std::vector<Role*> movePriority; // Priority of Character Movement
 
 private:
-    std::vector<Role*> roles;
-    std::vector<Enemy*> enemys;
-    std::vector<Tent*> tents;
-    std::vector<Store*> stores;
+    static std::vector<Role*> roles;
+    static std::vector<Enemy*> enemys;
+    static std::vector<Tent*> tents;
+    static std::vector<Store*> stores;
 
     int Move(void);
     int GetKeyboard(void);
@@ -49,7 +49,7 @@ public:
     int OnePlayerMovePhase(Role* currentActRole);
     static int GenerateMovementPoint(Role* currentActRole);
 
-    void createTent(Role*);
+    static void createTent(Role*);
     void displayEquipment(Role* role);
     void displayAttribute(Attribute att);
     void choiceItem(Role* role);

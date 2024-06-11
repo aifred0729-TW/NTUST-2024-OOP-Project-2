@@ -5,6 +5,7 @@
 #include "Role.h"
 #include "UI.h"
 #include "WorldMap.h"
+#include "Game.h"
 
 void GodsbeardCommand::use(Role& role) {
     UI::logDivider("使用道具");
@@ -23,5 +24,25 @@ void TeleportScrollCommand::use(Role& role) {
 }
 
 void TentCommand::use(Role& role) {
-        // UI::logEvent("帳篷，放置！");
+    UI::logDivider("使用道具");
+    Rect R = WorldMap::GetRect(&role);
+    if (UI::phase == 1) {
+        UI::logEvent("[失敗 無法在戰鬥中紮營]");
+    }
+    else if (!R.enemys.empty()) {
+        UI::logEvent("[失敗 無法在敵人頭上紮營]");
+    }
+    else if (!R.stores.empty()) {
+        UI::logEvent("[失敗 無法在商店屋頂上紮營]");
+    }
+    else if (!R.tents.empty()) {
+        UI::logEvent("[失敗 無法在帳篷上紮營]");
+    }
+    else if (!R.moveable) {
+        UI::logEvent("[失敗 不對你他媽怎麼走到那裡的]");
+    }
+    else {
+        UI::logEvent(role.GetName() + " 帳篷，放置！");
+        Game::createTent(&role);
+    }
 }
