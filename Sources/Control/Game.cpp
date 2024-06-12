@@ -146,9 +146,10 @@ void Game::MainProcess(void) {
 
     system("Pause");
     system("CLS");
-
-    UI::displayFile("porf.txt", 0, 0);
-    system("pause");
+    for (int i = 0; i < 56; i++) {
+        UI::displayFile("porf.txt", i, 0);
+        Sleep(10);
+    }
 
     for (auto R : roles) {
         WorldMap::SetFog(R->GetPosition().second, R->GetPosition().first);
@@ -182,7 +183,10 @@ void Game::MainProcess(void) {
         }
     }
     // 結束遊戲
-    UI::displayFile("porf", 20, 0);
+    for (int i = 0; i < 56; i++) {
+        UI::displayFile("porf.txt", i, 0);
+        Sleep(10);
+    }
     return;
 }
 
