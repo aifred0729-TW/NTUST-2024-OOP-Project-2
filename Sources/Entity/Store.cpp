@@ -105,17 +105,6 @@ int Store::OpenShop() {
     "RitualSword", "WoodenShield", "PlateArmor", "LeatherArmor", "Robe", "LaurelWreath", "HolyGrail", "Shoes", "Bracelet" };
     for (const auto& pair : itemList.itemMap) {
         if (pair.first == ITEM_TABLE[choiceIndex]) {
-            if (!pair.second->isStackable()) {
-                std::vector<Item*> items = Role::backpack.getItems();
-                for (int i = 0; i < items.size(); ++i) {
-                    if (items[i] == pair.second) {
-                        UI::logEvent("");
-                        UI::logDivider("商店系統");
-                        UI::logEvent("無法購買 已經有此裝備");
-                        return 0;
-                    }
-                }
-            }
             price = pair.second->getPrice();
             money = Role::GetMoney();
             if (price > money) {
