@@ -51,6 +51,7 @@ namespace WorldMap {
     extern std::vector<std::vector<int>>  map; // Map Storge
     extern std::vector<std::vector<bool>> fog; // War Fog (Make some lamp?)
     bool getFog(int useless);
+    void RemoveFog();
     extern std::vector<std::vector<std::string>> renderMap; // 每個單元為可輸出色塊
     extern std::vector<Enemy*> enemys;
     extern std::vector<Role*> roles;

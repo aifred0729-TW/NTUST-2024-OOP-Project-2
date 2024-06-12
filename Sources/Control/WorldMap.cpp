@@ -140,6 +140,16 @@ void WorldMap::SetFog(int row, int col) {
     return;
 }
 
+void WorldMap::RemoveFog() {
+    using namespace std;
+    for (int i = 0; i < HEIGHT; i++) {
+        for (int j = 0; j < WIDTH; j++) {
+            fog[i][j] = false;
+        }
+    }
+    return;
+}
+
 bool WorldMap::posValid(std::pair<int, int> pos) {
     return !(pos.first < 0 || pos.first >= WIDTH || pos.second < 0 || pos.second >= HEIGHT);
 }

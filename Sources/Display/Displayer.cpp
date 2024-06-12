@@ -335,10 +335,10 @@ void Displayer::displayPlayerInfo(int x, int y, std::vector<Entity*> entitys) {
         BuildVoid(x, y + 4 * i, x + 58, y + 6 + stackHeight);
         moveCursor(x + 3, y + 2 + stackHeight);
         if (entitys[i]->GetFaction() == false) {
-            cout << "Player: ";
+            cout << BOLD << CYAN << "Player: " << RESET;;
         }
         else {
-            cout << "Enemy: ";
+            cout << BOLD << RED << "Enemy: " << RESET;
         }
         cout << entitys[i]->GetName();
         moveCursor(x + 3, y + 3 + stackHeight);

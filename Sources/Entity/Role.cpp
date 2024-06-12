@@ -11,7 +11,7 @@
 #include "WorldMap.h"
 
 Backpack Role::backpack;
-uint16_t Role::money = 0;
+uint16_t Role::money = 600;
 
 Role::Role()
     : movementPoint(0), step(0), position({ 0, 0 }) {

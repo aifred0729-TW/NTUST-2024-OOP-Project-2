@@ -146,6 +146,11 @@ void Game::MainProcess(void) {
 
     system("Pause");
     system("CLS");
+    for (int i = 0; i < 56; i++) {
+        UI::displayFile("porf.txt", i, 0);
+        Sleep(10);
+    }
+
     for (auto R : roles) {
         WorldMap::SetFog(R->GetPosition().second, R->GetPosition().first);
     }
@@ -176,6 +181,11 @@ void Game::MainProcess(void) {
             // 結束遊戲
             break;
         }
+    }
+    // 結束遊戲
+    for (int i = 0; i < 56; i++) {
+        UI::displayFile("porf.txt", i, 0);
+        Sleep(10);
     }
     return;
 }
@@ -294,10 +304,12 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
         }
         else if (keyState[KeyBoard::ESPACE] || keyState[KeyBoard::EENTER]) {
             Rpos = { currentActRole->GetPosition().first ,currentActRole->GetPosition().second };
+            distanceDisplayWork = 1;
             WorldMap::setPos(Rpos);
             checkOut = true;
         }
         else if (keyState[KeyBoard::EESC]) {
+            WorldMap::RemoveFog();
         }
         else {
             continue;
@@ -370,6 +382,17 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                             i--;
                         }
                     }
+                    if (enemys.size() == 0) {
+                        //戰鬥勝利
+                    }
+                    else if (roles.size() == 0) {
+                        //被幹死了
+                        return 0;
+                    }
+                    else {
+                        //烙幹了
+                        currentActRole->movePos(undo);
+                    }
                     UI::PreWorldMap(roles);
                     UI::mapPhase();
                     break;
@@ -425,7 +448,6 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                         j--;
                     }
                 }
-                UI::PrintWorldMap();
             }
         }
         if (moved) {
