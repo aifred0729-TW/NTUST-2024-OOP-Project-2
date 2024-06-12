@@ -9,6 +9,8 @@
 #include "Backpack.h"
 #include "Item.h"
 #include "ItemTable.h"
+#include "KeyBoard.h"
+#include "Color.h"
 
 void GodsbeardCommand::use(Role& role) {
     UI::logDivider("使用道具");
@@ -23,7 +25,35 @@ void GoldenRootCommand::use(Role& role) {
 }
 
 void TeleportScrollCommand::use(Role& role) {
-    // UI::logEvent("瞬間移動！！啊哈");
+    UI::logEvent("不可名狀的聲音似乎正在告訴你選擇一個座標....");
+    UI::logEvent(role.GetName() + " : 座標這個單字是什麼意思...?");
+
+    bool keyState[KeyBoard::INVALID];
+
+    std::cout << BG_WHITE;
+    UI::displayMapGrid();
+
+    while (true) {
+
+        std::cout << BG_MAGENTA;
+        UI::distanceDisplay(0, 0, 0);
+
+        KeyBoard::keyUpdate(keyState);
+
+        if (keyState[KeyBoard::EW]) WorldMap::movePos(0, -1);
+        else if (keyState[KeyBoard::EA]) WorldMap::movePos(-1, 0);
+        else if (keyState[KeyBoard::ES]) WorldMap::movePos(0, 1);
+        else if (keyState[KeyBoard::ED]) WorldMap::movePos(1, 0);
+        else if (keyState[KeyBoard::ESPACE]) {
+            role.GetPosition();
+            role.movePos(WorldMap::getPos());
+            UI::PrintWorldMap();
+            UI::logEvent("瞬間移動！！啊哈");
+            return;
+        }
+
+        UI::PrintWorldMap();
+    }
 }
 
 void TentCommand::use(Role& role) {
