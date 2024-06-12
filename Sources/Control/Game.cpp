@@ -146,6 +146,9 @@ void Game::MainProcess(void) {
 
     system("Pause");
     system("CLS");
+    for (auto R : roles) {
+        WorldMap::SetFog(R->GetPosition().second, R->GetPosition().first);
+    }
     UI::mapPhase();
     UI::PreWorldMap(roles);
     // vector<Role*> executionRoles;
@@ -178,14 +181,14 @@ void Game::MainProcess(void) {
 }
 
 int Game::OnePlayerMovePhase(Role* currentActRole) {
-    
+
     int chestX = currentActRole->GetPosition().first - 5 + rand() % 10;
     int chestY = currentActRole->GetPosition().second - 5 + rand() % 10;
     if (!WorldMap::GetRect({ chestX, chestY }).Interact && WorldMap::GetRect({ chestX, chestY }).moveable) {
         createChest(chestX, chestY);
     }
-    
-    
+
+
     UI::logEvent("");
     UI::logDivider(currentActRole->GetName(), "的回合");
     // Move Stage
@@ -269,6 +272,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                     moved = currentActRole->movePos(1, 0);
                     undo = { -1, 0 };
                 }
+                WorldMap::SetFog(currentActRole->GetPosition().second, currentActRole->GetPosition().first);
             }
             else if (movementPoint <= 0) {
                 continue;
@@ -421,6 +425,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                         j--;
                     }
                 }
+                UI::PrintWorldMap();
             }
         }
         if (moved) {
@@ -437,13 +442,15 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             UI::displayMapGrid();
             distanceDisplayWork = 0;
         }
-
+        if (WorldMap::getFog(1)) {
+            UI::BuildFrame(121, 0, 179, 28);
+        }
         if (!WorldMap::GetRect().enemys.empty() || !WorldMap::GetRect().roles.empty()) {
             // 右側欄位顯示實體
             UI::BuildFrame(121, 0, 179, 28);
 
             std::vector<Entity*> entitysToDisplay;
-            if (!WorldMap::GetRect().enemys.empty()) {
+            if (!WorldMap::GetRect().enemys.empty() && !WorldMap::getFog(1)) {
                 distanceDisplayWork = 1;
                 std::cout << BG_WHITE;
                 UI::displayMapGrid();
@@ -471,17 +478,17 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
             }
             UI::displayPlayerInfo(121, 0, entitysToDisplay);
         }
-        if (!WorldMap::GetRect().stores.empty()) {
+        if (!WorldMap::GetRect().stores.empty() && !WorldMap::getFog(1)) {
             UI::DisplayStore(121, 0, WorldMap::GetRect().stores);
         }
-        if (!WorldMap::GetRect().tents.empty()) {
+        if (!WorldMap::GetRect().tents.empty() && !WorldMap::getFog(1)) {
             UI::DisplayTent(121, 0, WorldMap::GetRect().tents);
         }
-        if (!WorldMap::GetRect().chests.empty()) {
+        if (!WorldMap::GetRect().chests.empty() && !WorldMap::getFog(1)) {
             UI::DisplayChest(121, 0);
         }
 
-        if (!WorldMap::GetRect().enemys.empty() || !WorldMap::GetRect().roles.empty()) {}
+        if ((!WorldMap::GetRect().enemys.empty() || !WorldMap::GetRect().roles.empty()) && !WorldMap::getFog(1)) {}
         else {
             if (WorldMap::VisibleOnMap(currentActRole->GetPosition())) {
                 distanceDisplayWork = 1;

@@ -52,11 +52,13 @@ void TeleportScrollCommand::use(Role& role) {
             if (!WorldMap::GetRect(telepos).tents.empty()) {}
             else if (!WorldMap::GetRect(telepos).roles.empty()) {}
             else if (!WorldMap::GetRect(telepos).moveable || WorldMap::GetRect(telepos).Interact) {
-                UI::logEvent("無法撕裂通往此座標的維度，古老的魔法卷軸破碎了....");
+                UI::logEvent("無法撕裂通往此座標的維度，古老的魔法卷軸黯淡了光芒....");
+                Role::backpack.addItem(ItemTable::getItem("TeleportScroll"));
                 return;
             }
 
             role.SetPosition(telepos);
+            WorldMap::SetFog(role.GetPosition().second, role.GetPosition().first);
             UI::PrintWorldMap();
             UI::logEvent("神秘的力量撕裂了維度將" + role.GetName() + "移動到了新的位置...");
             return;

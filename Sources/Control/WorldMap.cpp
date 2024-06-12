@@ -31,7 +31,7 @@ std::vector<Store*> WorldMap::stores;
 std::vector<Tent*> WorldMap::tents;
 std::vector<Chest*> WorldMap::chests;
 
-const std::vector<std::string> colorBoard = { BG_BRIGHT_BLACK, BG_WHITE, BG_BRIGHT_BLACK, BG_GREEN, BG_BRIGHT_BLUE, BG_BRIGHT_RED ,BG_BRIGHT_RED };
+const std::vector<std::string> colorBoard = { BG_BRIGHT_BLACK, BG_WHITE, BG_BRIGHT_BLACK, BG_GREEN, BG_BRIGHT_BLUE, BG_BRIGHT_WHITE ,BG_BRIGHT_RED };
 
 void WorldMap::loadMap(std::string mapFile) {
     using namespace std;
@@ -91,6 +91,7 @@ void WorldMap::loadFog() {
 std::vector<std::vector<int>> WorldMap::getMap() { return map; }
 std::vector<std::vector<std::string>> WorldMap::getRenderMap() { return renderMap; }
 std::vector<std::vector<bool>> WorldMap::getFog() { return fog; }
+bool WorldMap::getFog(int useless) { return fog[pos.second][pos.first]; }
 std::vector<std::string> WorldMap::getColorBoard() { return colorBoard; }
 std::pair<int, int> WorldMap::getPos() { return pos; }
 int WorldMap::getHeight() { return HEIGHT; }
@@ -112,26 +113,27 @@ void WorldMap::SetFog(int row, int col) {
 
     using namespace std;
 
-    const int fogWidth = 10;
+    const int fogWidth = 5;
 
-    int topLimit = row - (fogWidth / 2);
-    int downLimit = row + (fogWidth / 2);
-    int leftLimit = col - (fogWidth / 2);
-    int rightLimit = col + (fogWidth / 2);
+    int topLimit = row - fogWidth;
+    int downLimit = row + fogWidth;
+    int leftLimit = col - fogWidth;
+    int rightLimit = col + fogWidth;
 
     for (int i = topLimit; i < row; i++) {
         if (i < 0 || i >= 50) continue;
-        for (int j = col - (i - topLimit); j < col + (i - topLimit) - 1; j++) {
+        for (int j = col - (i - topLimit) + 2; j < col + (i - topLimit) - 1; j++) {
             if (j < 0 || j >= 140) continue;
-            fog[i][j] = (fog[i][j]) ? false : true;
+            fog[i][j] = false;
+            //     = (fog[i][j]) ? false : true;
         }
     }
-
     for (int i = row; i < downLimit; i++) {
         if (i < 0 || i >= 50) continue;
-        for (int j = col - (downLimit - i); j < col + (downLimit - i) - 1; j++) {
+        for (int j = col - (downLimit - i) + 2; j < col + (downLimit - i) - 1; j++) {
             if (j < 0 || j >= 140) continue;
-            fog[i][j] = (fog[i][j]) ? false : true;
+            fog[i][j] = false;
+            //     (fog[i][j]) ? false : true;
         }
     }
 
@@ -178,6 +180,9 @@ void WorldMap::renderColor() {
 
 
 bool WorldMap::VisibleOnMap(std::pair<int, int > pos) {
+    if (getFog()[pos.second][pos.first]) {
+        return 0;
+    }
     int dx = pos.first - WorldMap::pos.first;
     int dy = pos.second - WorldMap::pos.second;
     return (!(dx < -7 || dx > 7 || dy < -5 || dy > 5));
