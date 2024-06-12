@@ -440,14 +440,17 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                 UI::BuildVoid(65, 0, 110, 3);
                 if (result == 0) {
                     WorldMap::GetRect().chests[0]->GiveTreasureTo(currentActRole);
-                }
-                for (int j = 0; j < chests.size(); j++) {
-                    if (chests[j] == WorldMap::GetRect().chests[0]) {
-                        chests.erase(chests.begin() + j);
-                        WorldMap::SetChests(chests);
-                        j--;
+                    for (auto it = chests.begin(); it != chests.end();) {
+                        if ((*it) == WorldMap::GetRect().chests[0]) {
+                            it = chests.erase(it);
+                        } else {
+                            ++it;
+                        }
                     }
+                    WorldMap::SetChests(chests);
                 }
+
+                UI::PrintWorldMap();
             }
         }
         if (moved) {
