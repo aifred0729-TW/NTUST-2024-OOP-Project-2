@@ -77,8 +77,8 @@ void Entity::addBuff(std::string skillName, uint8_t round) {
         if (skillName != "Poisoned")
             useBuff(skillName);
     } else {
-        totalSkill.GetBuff()[index].SetTick(round);
-        UI::logEvent(name + " 的 " + skillName + " 重製為 " + std::to_string(totalSkill.GetBuff()[index].GetTick()) + " 回合。");
+        totalSkill.GetBuff()[index].SetTick(round+1);
+        UI::logEvent(name + " 的 " + skillName + " 重製為 " + std::to_string(round) + " 回合。");
     }
     UI::logEvent("");
 }
