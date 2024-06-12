@@ -6,6 +6,10 @@
 #include <Entity.h>
 #include <Enemy.h>
 #include <Role.h>
+#include "Item.h"
+#include "ItemCommand.h"
+#include "ItemCommandSet.h"
+#include "Backpack.h"
 // Public
 
 void Field::StartBattle(void) {
@@ -15,31 +19,32 @@ void Field::StartBattle(void) {
 
     while (1) {
         currEvent = RefreshEvent();
-        
+
         // 輸出該人資訊
         if (currEvent->GetObj()->findAvailableBuff("Poisoned")) {
             currEvent->GetObj()->useBuff("Poisoned");
         }
-        
+
         if (currEvent->GetObj()->findAvailableBuff("Dizziness")) {
             UI::logDivider(currEvent->GetObj()->GetName() + " 回合跳過");
             currEvent->GetObj()->useBuff("Dizziness");
             DecreaseEntityBuff();
             continue;
         }
-        
+
         uint8_t currStatus = currEvent->GetObj()->GetStatus();
         if (currStatus & DEAD) {
             try {
                 ExitPhase();
-            } catch (const exception& e) {
+            }
+            catch (const exception& e) {
                 UI::displayString(e.what(), 6, 13);
                 RestoreEvent();
                 return;
             }
             continue;
         }
-        
+
         if (currStatus & RETREAT) {
             continue;
         }
@@ -52,7 +57,8 @@ void Field::StartBattle(void) {
 
         try {
             ExitPhase();
-        } catch (const exception& e) {
+        }
+        catch (const exception& e) {
             UI::displayString(e.what(), 6, 13);
             RestoreEvent();
             return;
@@ -137,7 +143,8 @@ void Field::RemoveDeadEntity(void) {
     for (auto it = roles.begin(); it != roles.end();) {
         if ((*it)->GetStatus() & DEAD || (*it)->GetStatus() & RETREAT) {
             it = roles.erase(it);
-        } else {
+        }
+        else {
             ++it;
         }
     }
@@ -145,7 +152,8 @@ void Field::RemoveDeadEntity(void) {
     for (auto it = enemys.begin(); it != enemys.end();) {
         if ((*it)->GetStatus() & DEAD || (*it)->GetStatus() & RETREAT) {
             it = enemys.erase(it);
-        } else {
+        }
+        else {
             ++it;
         }
     }
@@ -161,6 +169,38 @@ CHOICE:
 
     auto skills = currEvent->GetObj()->GetTotalSkill().GetActive();
     auto skillToUse = UI::makeChoice(skills, 6, 13);
+    if (skillToUse.second == -1) {
+        //使用item
+        UI::logDivider(currEvent->GetObj()->GetName(), "選擇道具");
+        std::vector<std::string> ItemNames;
+        std::vector<std::string> ItemNamesToChoice;
+        for (Item* I : Role::backpack.getItems()) {
+            if (I->isStackable() && I->getName() != "Tent" && I->getName() != "TeleportScroll") {
+                std::string str = I->getName();
+                str.resize(15, ' ');
+                StackableItem* stackableItem = dynamic_cast<StackableItem*>(I);
+                str += " : " + std::to_string(stackableItem->getQuantity());
+                ItemNames.push_back(I->getName());
+                ItemNamesToChoice.push_back(str);
+            }
+        }
+        UI::BuildVoid(121, 11, 0, 27);
+        if (ItemNamesToChoice.empty()) {
+            UI::logEvent("[背包內無可使用道具]");
+            UI::logEvent("");
+            goto CHOICE;
+        }
+        int itemUse = UI::makeChoice(ItemNamesToChoice, 6, 13);
+        if (itemUse == -1) {
+            UI::logEvent("[已取消道具選取]");
+            UI::logEvent("");
+            goto CHOICE;
+        }
+        UI::logEvent("");
+        Role::backpack.useItem(ItemNames[itemUse], *roles[currEvent->GetEntityID() - 3]);
+        UI::logEvent("");
+        return;
+    }
     UI::logDivider(currEvent->GetObj()->GetName(), skillToUse.first);
     if (currEvent->GetObj()->GetTotalSkill().GetActive()[skillToUse.second].GetTick() != 0) {
         UI::logEvent("技能冷卻中，剩餘 " + std::to_string(currEvent->GetObj()->GetTotalSkill().GetActive()[skillToUse.second].GetTick()) + " 回合。");
@@ -194,8 +234,8 @@ TARGET:
     }
     currEvent->GetObj()->useActive(skillToUse.first, target);
 
-    Dice &ObjDice = currEvent->GetObj()->GetDice();
-    if (skills[skillToUse.second].GetTargetType() && 
+    Dice& ObjDice = currEvent->GetObj()->GetDice();
+    if (skills[skillToUse.second].GetTargetType() &&
         ObjDice.GetMovementPoint() == ObjDice.GetAmount() &&
         currEvent->GetObj()->findAvailablePassive("HammerSplash")) {
         std::vector<Entity*> enemysToEntity;
@@ -217,9 +257,9 @@ void Field::EnemyMainPhase(Action* currEvent) {
     UI::PlayerFrame(currEvent->GetEntityID());
 
     auto skills = currEvent->GetObj()->GetTotalSkill().GetActive();
-    int skillNumber; 
+    int skillNumber;
     while (
-        (skillNumber = rand() % skills.size()) == 1 
+        (skillNumber = rand() % skills.size()) == 1
         || skills[skillNumber].GetTick() != 0);
 
     auto skillToUse = skills[skillNumber];
