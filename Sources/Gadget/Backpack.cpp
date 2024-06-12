@@ -28,8 +28,8 @@ void Backpack::useItem(const std::string& itemName, Role& role) {
                 }
             }
             else {
-                role.equip((*it)->getName());
                 items.erase(it);
+                role.equip(itemName);
             }
             return;
         }

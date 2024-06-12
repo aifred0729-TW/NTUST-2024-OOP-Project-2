@@ -62,20 +62,14 @@ void Game::Initialize() {
     ItemTable::Initialize();
 
     static Role Kazusa("杏山千紗", 1, 1);
-    Kazusa.GetAttribute().SetMaxFocus(20);
-    Kazusa.GetAttribute().SetFocus(20);
     Kazusa.equipForce("RitualSword");
     Kazusa.equipForce("Shoes");
     Kazusa.equipForce("PlateArmor");
     static Role Shiroko("砂狼白子", 3, 1);
-    Shiroko.GetAttribute().SetMaxFocus(20);
-    Shiroko.GetAttribute().SetFocus(20);
     Shiroko.equipForce("RitualSword");
     Shiroko.equipForce("Shoes");
     Shiroko.equipForce("PlateArmor");
     static Role Hoshino("小鳥游星野", 5, 1);
-    Hoshino.GetAttribute().SetMaxFocus(20);
-    Hoshino.GetAttribute().SetFocus(20);
     Hoshino.equipForce("RitualSword");
     Hoshino.equipForce("Shoes");
     Hoshino.equipForce("PlateArmor");
@@ -455,7 +449,7 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
         }
         if (moved) {
             // 隨機事件判定
-            if (rand() % 100 < 100) {
+            if (rand() % 100 < 0) {
                 Chest chest;
                 chest.GiveTreasureTo(currentActRole);
             }
