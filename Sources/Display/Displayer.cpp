@@ -511,6 +511,9 @@ std::pair<std::string, int> Displayer::makeChoice(std::vector<Active> choices, i
         else if (keyState[KeyBoard::EESC]) {
             //return "- 1";
         }
+        else if (keyState[KeyBoard::EI]) {
+            return { choices[select].GetName(), -1 };
+        }
         else if (keyState[KeyBoard::ESPACE] || keyState[KeyBoard::EENTER]) {
             return { choices[select].GetName(), select };
         }
@@ -575,7 +578,7 @@ int Displayer::DisplayChest(int x, int y) {
     using namespace std;
     BuildVoid(x, y + stackHeight, x + 58, y + 6 + stackHeight);
     moveCursor(x + 3, y + 2 + stackHeight);
-    cout << "隨機事件: ???" ;
+    cout << "隨機事件: ???";
     stackHeight += 2;
 
     return 0;

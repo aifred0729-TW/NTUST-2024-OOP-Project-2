@@ -9,7 +9,7 @@ void ItemTable::Initialize() {
 }
 
 void ItemTable::ItemTableInitialize() {
-    srand(69);
+    srand(114514);
     itemMap["Godsbeard"] = new StackableItem("Godsbeard", (rand() % 19 + 1) * 5, new GodsbeardCommand());
     itemMap["GoldenRoot"] = new StackableItem("GoldenRoot", (rand() % 19 + 1) * 5, new GoldenRootCommand());
     itemMap["TeleportScroll"] = new StackableItem("TeleportScroll", (rand() % 19 + 1) * 5, new TeleportScrollCommand());
