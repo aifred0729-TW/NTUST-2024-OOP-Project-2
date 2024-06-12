@@ -146,6 +146,10 @@ void Game::MainProcess(void) {
 
     system("Pause");
     system("CLS");
+
+    UI::displayFile("porf.txt", 0, 0);
+    system("pause");
+
     for (auto R : roles) {
         WorldMap::SetFog(R->GetPosition().second, R->GetPosition().first);
     }
@@ -177,6 +181,8 @@ void Game::MainProcess(void) {
             break;
         }
     }
+    // 結束遊戲
+    UI::displayFile("porf", 20, 0);
     return;
 }
 
@@ -371,6 +377,17 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                             WorldMap::SetEnemys(enemys);
                             i--;
                         }
+                    }
+                    if (enemys.size() == 0) {
+                        //戰鬥勝利
+                    }
+                    else if (roles.size() == 0) {
+                        //被幹死了
+                        return 0;
+                    }
+                    else {
+                        //烙幹了
+                        currentActRole->movePos(undo);
                     }
                     UI::PreWorldMap(roles);
                     UI::mapPhase();
