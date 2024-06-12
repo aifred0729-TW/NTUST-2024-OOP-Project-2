@@ -148,6 +148,8 @@ void Entity::renewPlayer(void) {
     totalAttribute += equipment.GetArmor().GetAttribute();
     totalAttribute += equipment.GetWeapon().GetAttribute();
     totalAttribute += equipment.GetAccessory().GetAttribute();
+    if (equipment.GetArmor().GetName() == "LaurelWreath")
+        totalAttribute.SetMD(totalAttribute.GetMD() * 1.1);
 
     totalSkill = skill;
     totalSkill += equipment.GetArmor().GetSkill();

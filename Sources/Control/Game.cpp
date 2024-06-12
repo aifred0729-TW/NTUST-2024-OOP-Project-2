@@ -62,17 +62,20 @@ void Game::Initialize() {
     ItemTable::Initialize();
 
     static Role Kazusa("杏山千紗", 1, 1);
-    Kazusa.equipForce("RitualSword");
-    Kazusa.equipForce("Shoes");
-    Kazusa.equipForce("PlateArmor");
+    Kazusa.equipForce("WoodenSword");
+    Kazusa.equipForce("LaurelWreath");
+    Kazusa.equipForce("Bracelet");
     static Role Shiroko("砂狼白子", 3, 1);
     Shiroko.equipForce("RitualSword");
+    Shiroko.equipForce("Robe");
     Shiroko.equipForce("Shoes");
-    Shiroko.equipForce("PlateArmor");
+    Shiroko.addItemToBackpack("HolyGrail");
+    Shiroko.addItemToBackpack("LaurelWreath");
+    Shiroko.addItemToBackpack("LeatherArmor");
     static Role Hoshino("小鳥游星野", 5, 1);
-    Hoshino.equipForce("RitualSword");
-    Hoshino.equipForce("Shoes");
+    Hoshino.equipForce("Hammer");
     Hoshino.equipForce("PlateArmor");
+    Hoshino.equipForce("HolyGrail");
 
     // Role::backpack.useItem("物品名稱", 使用者); // 這邊 Parameter 可以再加更多東西
 
