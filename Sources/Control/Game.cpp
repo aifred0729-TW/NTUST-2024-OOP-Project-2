@@ -294,10 +294,12 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
         }
         else if (keyState[KeyBoard::ESPACE] || keyState[KeyBoard::EENTER]) {
             Rpos = { currentActRole->GetPosition().first ,currentActRole->GetPosition().second };
+            distanceDisplayWork = 1;
             WorldMap::setPos(Rpos);
             checkOut = true;
         }
         else if (keyState[KeyBoard::EESC]) {
+            WorldMap::RemoveFog();
         }
         else {
             continue;
@@ -425,7 +427,6 @@ int Game::OnePlayerMovePhase(Role* currentActRole) {
                         j--;
                     }
                 }
-                UI::PrintWorldMap();
             }
         }
         if (moved) {

@@ -73,7 +73,7 @@ int Store::OpenShop() {
     playerMoneyStr += "$ ";
     std::ostringstream oss;
     oss << std::setw(3) << std::setfill(' ') << Role::GetMoney();
-    playerMoneyStr += oss.str();
+    playerMoneyStr += oss.str() + " ";
     oss.str("");
     oss.clear();
     UI::displayString(playerMoneyStr, 126, 26);
