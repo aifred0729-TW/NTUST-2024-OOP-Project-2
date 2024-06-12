@@ -25,6 +25,7 @@ void GoldenRootCommand::use(Role& role) {
 }
 
 void TeleportScrollCommand::use(Role& role) {
+    UI::logDivider("使用 TeleportScrollCommand");
     UI::logEvent("不可名狀的聲音似乎正在告訴你選擇一個座標....");
     UI::logEvent(role.GetName() + " : 座標這個單字是什麼意思...?");
 
@@ -45,10 +46,9 @@ void TeleportScrollCommand::use(Role& role) {
         else if (keyState[KeyBoard::ES]) WorldMap::movePos(0, 1);
         else if (keyState[KeyBoard::ED]) WorldMap::movePos(1, 0);
         else if (keyState[KeyBoard::ESPACE]) {
-            role.GetPosition();
-            role.movePos(WorldMap::getPos());
+            role.SetPosition(WorldMap::getPos());
             UI::PrintWorldMap();
-            UI::logEvent("瞬間移動！！啊哈");
+            UI::logEvent("神秘的力量撕裂了維度將 " + role.GetName() + " 移動到了新的位置...");
             return;
         }
 
