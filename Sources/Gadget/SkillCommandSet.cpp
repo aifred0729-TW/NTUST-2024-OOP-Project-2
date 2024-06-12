@@ -82,10 +82,15 @@ void ShockBlastActiveCommand::execute(Entity& caster, std::vector<Entity*> targe
     std::string attackType = casterWeapon.GetAttackType() == 'P' ? "物理" : "魔法";
 
     UI::logEvent(caster.GetName() + " 對全體敵人施放了 " + std::to_string(damage) + " 的" + attackType + "攻擊！");
+    
+    bool perfect = casterDice.GetAmount() == casterDice.GetMovementPoint();
+    if (perfect)
+        UI::logEvent("完美擲骰，敵人全體受到內傷");
     for (auto target : targets) {
         target->takeDamage(damage, casterWeapon.GetAttackType());
         // 中毒好怪
-        // target->addBuff("Poisoned", 2);
+        if (perfect)
+            target->addBuff("Poisoned", 2);
     }
 }
 
@@ -111,7 +116,6 @@ void SpeedUpActiveCommand::execute(Entity& caster, std::vector<Entity*> targets,
     auto& casterDice = caster.GetDice();
     casterDice.resize(diceAmount);
     casterDice.SetSuccessRate(std::vector<uint8_t>(diceAmount, cta.GetACC()));
-    UI::logEvent(caster.GetName() + " 的 Speed Up 成功機率為 " + std::to_string((unsigned)cta.GetACC()) + "%");
     casterDice.RollDice();
 
     if (casterDice.GetMovementPoint() == 2) {
@@ -174,7 +178,7 @@ void SpeedUpBuffCommand::execute(Entity& caster) {
 }
 
 void SpeedUpBuffDeConstructCommand::execute(Entity& caster) {
-	UI::logEvent(caster.GetName() + " 的 SpeedUp 沒了。");
+	// UI::logEvent(caster.GetName() + " 的 SpeedUp 沒了。");
 	caster.GetTotalAttribute().SetSPD(caster.GetTotalAttribute().GetSPD() / 1.5);
     UI::renewPlayerInfo();
 }

@@ -25,7 +25,7 @@ void SkillTable::PassiveTableInitialize() {
     passiveMap["Run"] = Passive("Run", 0, new RunPassiveCommand(), 0);
     passiveMap["HammerSplash"] = Passive("HammerSplash", 0, new HammerSplashPassiveCommand(), 2);
     passiveMap["Destroy"] = Passive("Destroy", 0, new DestroyPassiveCommand(), 1);
-    passiveMap["Fortify"] = Passive("Fortify", 5, new FortifyPassiveCommand(), 0);
+    passiveMap["Fortify"] = Passive("Fortify", 6, new FortifyPassiveCommand(), 0);
 }
 
 void SkillTable::BuffTableInitialize() {

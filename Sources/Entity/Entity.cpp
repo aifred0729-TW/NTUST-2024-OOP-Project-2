@@ -71,10 +71,11 @@ void Entity::addBuff(std::string skillName, uint8_t round) {
 
     if (index == totalSkill.GetBuff().size()) {
         Buff buff = SkillTable::buffMap.find(skillName)->second;
-        buff.SetTick(round);
+        buff.SetTick(round+1);
         totalSkill.pushBuff(buff);
-        UI::logEvent(name + " 身上新增了將持續 " + std::to_string(buff.GetTick()) + " 回合的 " + skillName + "。");
-        useBuff(skillName);
+        UI::logEvent(name + " 身上新增了將持續 " + std::to_string(round) + " 回合的 " + skillName + "。");
+        if (skillName != "Poisoned")
+            useBuff(skillName);
     } else {
         totalSkill.GetBuff()[index].SetTick(round);
         UI::logEvent(name + " 的 " + skillName + " 重製為 " + std::to_string(totalSkill.GetBuff()[index].GetTick()) + " 回合。");
